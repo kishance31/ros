@@ -1,5 +1,6 @@
 import React from 'react';
 import NavbarComponent from '../../components/navbar/navbar';
+import BasicButtonComponent from '../../components/buttons/basicbutton'
 
 const NavbarContainer = () => {
 
@@ -9,8 +10,6 @@ const NavbarContainer = () => {
         {name: "Our services", url: "#"},
         {name: "How it works", url: "#"},
         {name: "Contact us", url: "#"},
-        {name: "Sign In", url: "#"},
-        {name: "Sign up", url: "#"},
     ]
 
     return (
@@ -23,7 +22,8 @@ const NavbarContainer = () => {
             navLinks={links}
             isOpen={false}
         >
-            
+            <BasicButtonComponent>Sign In</BasicButtonComponent>
+            <BasicButtonComponent>Sign Up</BasicButtonComponent>
         </NavbarComponent>
     )
 }

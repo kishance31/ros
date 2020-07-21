@@ -3,7 +3,9 @@ import React from 'react';
 
 const BasicButtonComponent = (props) => {
     return (
-        <div></div>
+        <div className="btn">
+            {props.children}
+        </div>
     )
 }
 

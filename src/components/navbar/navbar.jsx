@@ -29,11 +29,16 @@ const NavbarComponent = (props) => {
                             <NavbarToggler onClick={toggle} />
                             <Collapse isOpen={isOpenNav} navbar>
                                 <NavbarLinksComponent navLinks={navLinks} />
+                                {props.children}
                             </Collapse>
                         </>
                         :
-                        <NavbarLinksComponent navLinks={navLinks} />
+                        <>
+                            <NavbarLinksComponent navLinks={navLinks} />
+                            {props.children}
+                        </>
                 }
+
             </Navbar>
         </div>
     );
