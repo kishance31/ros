@@ -1,42 +1,39 @@
 import React, { useState } from "react";
+import { Navbar, NavbarBrand, Collapse, NavbarToggler } from "reactstrap";
+import NavbarLinksComponent from './navbarLinks';
 
-import { Navbar, NavbarBrand, Collapse, NavbarToggler, Nav, NavItem, NavLink } from "reactstrap";
+const NavbarComponent = (props) => {
 
-const NavbarComponent = () => {
-    const [isOpen, setIsOpen] = useState(false);
+    const {
+        color,
+        dark,
+        light,
+        expand,
+        logo,
+        collapsable,
+        navLinks,
+        isOpen
+    } = props;
 
-    const toggle = () => setIsOpen(!isOpen);
+    const [isOpenNav, setIsOpen] = useState(!!isOpen);
+
+    const toggle = () => setIsOpen(!isOpenNav);
 
     return (
         <div>
-            <Navbar color="dark" dark expand="md">
-                <NavbarBrand href="/">logo</NavbarBrand>
-                <NavbarToggler onClick={toggle} />
-                <Collapse isOpen={isOpen} navbar>
-                    <Nav navbar>
-                        <NavItem>
-                            <NavLink href="#">Home</NavLink>
-                        </NavItem>
-                        <NavItem>
-                            <NavLink href="#">About us</NavLink>
-                        </NavItem>
-                        <NavItem>
-                            <NavLink href="#">Our services</NavLink>
-                        </NavItem>
-                        <NavItem>
-                            <NavLink href="#">How it works</NavLink>
-                        </NavItem>
-                        <NavItem>
-                            <NavLink href="#">Contact us</NavLink>
-                        </NavItem>
-                        <NavItem>
-                            <NavLink href="#">Sign in</NavLink>
-                        </NavItem>
-                        <NavItem>
-                            <NavLink href="#">Sign up</NavLink>
-                        </NavItem>
-                    </Nav>
-                </Collapse>
+            <Navbar color={color || "light"} dark={!!dark} light={!!light} expand={expand}>
+                <NavbarBrand href="/">{logo}</NavbarBrand>
+                {
+                    collapsable ?
+                        <>
+                            <NavbarToggler onClick={toggle} />
+                            <Collapse isOpen={isOpenNav} navbar>
+                                <NavbarLinksComponent navLinks={navLinks} />
+                            </Collapse>
+                        </>
+                        :
+                        <NavbarLinksComponent navLinks={navLinks} />
+                }
             </Navbar>
         </div>
     );
