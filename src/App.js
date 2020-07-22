@@ -1,8 +1,7 @@
 import React from 'react';
 import { Provider } from 'react-redux';
 import HeaderContainer from './containers/header/header';
-import DefaultLayoutContainer from './containers/defaultLayout/defaultLayout'
-import FooterContainer from './containers/footer/footer';
+import Homepage from './pages/Homepage/Homepage'
 
 import './App.scss';
 
@@ -16,9 +15,9 @@ function App() {
 
 			<HeaderContainer />
 
-			<DefaultLayoutContainer />
+			<Homepage />
 
-			<FooterContainer />
+			
 		</Provider>
 	);
 }
