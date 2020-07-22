@@ -1,38 +1,206 @@
-.App {
+$font_poppins: 'Poppins',
+sans-serif;
+
+a:focus,
+button:focus {
+  outline: 0;
+  box-shadow: none;
+}
+
+.container-fluid {
+  padding: 30px 30px 0 30px;
+
+  @media screen and (max-width:1079px) {
+    padding: 15px 15px 0 15px;
+  }
+}
+
+header {
+  .btn_wrap {
+    @media screen and (max-width:1079px) {
+      margin: 20px 0;
+    }
+  }
+}
+
+.navbar-dark .navbar-toggler {
+  border: none;
+}
+
+.fill_btn {
+  padding: 12px 38px;
+  background: #fff;
+  border: 1.5px solid #4d4949;
+  font-weight: 600;
+  font-size: 14px;
+  letter-spacing: 0.05em;
+  text-align: left;
+  color: #4d4949;
   text-align: center;
-}
+  font-family: $font_poppins;
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
+  &:hover {
+    background: #F95B3D;
+    color: #FFFFFF;
+  }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
+  @media screen and (max-width:1365px) {
+    padding: 10px 34px;
+  }
+
+  @media screen and (max-width:1279px) {
+    padding: 8px 24px;
+  }
+
+  @media screen and (max-width:991px) {
+    text-align: center;
+    margin: 10px auto;
+    display: table;
+    padding: 10px 34px;
+  }
+
+  @media screen and (max-width:767px) {}
+
+  &:last-child {
+    margin-right: 2.625rem !important;
+    margin-left: 24px;
+
+    @media screen and (max-width:1639px) {
+      margin-left: 16px;
+    }
+
+    @media screen and (max-width:1439px) {
+      margin-right: 1.625rem !important;
+    }
+
+    @media screen and (max-width:1365px) {
+      margin-left: 12px;
+    }
+
+    @media screen and (max-width:1279px) {
+      margin-left: 10px;
+      margin-right: 1.5rem !important;
+    }
+
+    @media screen and (max-width:1079px) {
+      margin-right: 1rem !important;
+    }
+
+    @media screen and (max-width:991px) {
+      text-align: center;
+      margin: 0 auto !important;
+      display: table;
+    }
   }
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+.navbar-brand {
+  @media screen and (max-width:1279px) {
+    margin-right: 0;
   }
-  to {
-    transform: rotate(360deg);
+
+  @media screen and (max-width:991px) {
+    img {
+      width: 150px;
+    }
+  }
+}
+
+nav.navbar.navbar-expand-sm.navbar-dark.bg-dark {
+  background-color: #292929 !important;
+  padding: 0;
+}
+
+nav.navbar {
+  padding: 0 !important;
+}
+
+ul.navbar-nav.mr-auto {
+  margin: 0 auto;
+}
+
+.navbar-dark {
+  .navbar-nav {
+    .nav-link {
+      color: #FFFFFF;
+      font-family: $font_poppins;
+      font-weight: normal;
+      font-size: 14px;
+      letter-spacing: 0.11em;
+      text-align: left;
+      color: #fff;
+      padding: 24px;
+
+      @media screen and (max-width:1439px) {
+        padding: 18px;
+      }
+
+      @media screen and (max-width:1365px) {
+        padding: 12px;
+      }
+
+      @media screen and (max-width:1365px) {
+        padding: 8px;
+      }
+
+      @media screen and (max-width:1079px) {
+        font-size: 12px;
+      }
+
+      @media screen and (max-width:991px) {
+        text-align: center;
+        margin: 0 auto;
+        font-size: 15px;
+        padding: 10px;
+      }
+
+    }
+  }
+}
+
+header.header.aos-init.aos-animate {
+  background-color: #ffffff;
+  position: fixed;
+  z-index: 99;
+  width: -webkit-fill-available;
+}
+
+footer {
+  .navbar-dark {
+    background: transparent !important;
+
+    @media screen and (max-width: 991px) {
+      justify-content: center;
+    }
+
+    .navbar-nav {
+      .nav-link {
+        color: #4D4949;
+        font-weight: 600;
+        font-size: 14px;
+        letter-spacing: 0.05em;
+
+        &:hover {
+          color: rgb(0, 0, 0);
+        }
+      }
+    }
+  }
+
+  .container-fluid {
+    max-width: 1680px;
+    margin-bottom: 15px;
+
+    @media screen and (max-width: 1919px) {
+      max-width: 1410px;
+    }
+
+    @media screen and (max-width: 1439px) {
+      max-width: 1180px;
+    }
+
+    @media screen and (max-width: 1365px) {
+      max-width: 1090px;
+    }
   }
 }

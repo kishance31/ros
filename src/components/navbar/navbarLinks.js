@@ -4,7 +4,7 @@ import {Nav, NavItem, NavLink} from 'reactstrap';
 const NavbarLinksComponent = (props) => {
     const {navLinks} = props;
     return (
-        <Nav navbar>
+        <Nav navbar className="mr-auto">
             {navLinks && navLinks.map((link, i) => (
                 <NavItem key={i}>
                     <NavLink href={link.url} >{link.name}</NavLink>
