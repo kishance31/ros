@@ -12,13 +12,14 @@ const FooterContainer = () => {
 
     return (
         <footer>
-            <NavbarComponent
-                color="light"
-                light
-                expand="md"
-                navLinks={links}
-                classNames="footer"
-            />
+            <div className="container-fluid">
+                <NavbarComponent
+                    dark
+                    expand="sm"
+                    navLinks={links}
+                    classNames="footer"
+                />
+            </div>
         </footer>
     )
 }

@@ -14,19 +14,24 @@ const HeaderContainer = () => {
 
     return (
         <header>
-            <NavbarComponent
-                color="dark"
-                dark
-                expand="md"
-                logo="logo"
-                collapsable
-                navLinks={links}
-                isOpen={false}
-                className="topNavBar"
-            >
-                <BasicButtonComponent className="fill_btn" >Sign In</BasicButtonComponent>
-                <BasicButtonComponent className="fill_btn" >Sign Up</BasicButtonComponent>
-            </NavbarComponent>   
+            <div className="container-fluid">
+                <NavbarComponent
+                    color="dark"
+                    dark
+                    expand="lg"
+                    logo="logo"
+                    collapsable
+                    navLinks={links}
+                    isOpen={false}
+                    className="topNavBar"
+                >
+
+                    <div className="btn_wrap">
+                        <BasicButtonComponent className="fill_btn" >SIGN IN</BasicButtonComponent>
+                        <BasicButtonComponent className="fill_btn" >SIGN UP</BasicButtonComponent>
+                    </div>
+                </NavbarComponent>
+            </div>
         </header>
     )
 }
