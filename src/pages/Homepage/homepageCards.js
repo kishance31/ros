@@ -14,10 +14,7 @@ const HomepageCards = () => {
                     <BasicCardComponent key={val.id} btnName={val.btnName} souc={val.souc} title={val.title} description={val.description} />
                 )
             }
-            <TextCardComponent name="Contact Us" sName="Get In Touch">
-                {
-                    ContactUsDetails.map((props, i) => <ol key={i}> {props} </ol>)
-                }
+            <TextCardComponent name="Contact Us" sName="Get In Touch" cardText={ContactUsDetails}>
                 {
                     ContactusLinks.map((props, i) => <ol key={i}> {props} </ol>)
                 }
