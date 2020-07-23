@@ -1,16 +1,20 @@
-import React from 'react';
+import React, {useState} from 'react';
 import NavbarComponent from '../../components/navbar/navbar';
-import BasicButtonComponent from '../../components/buttons/basicbutton'
+import AuthModalContainer from '../auth/authModal';
+import {HeaderButtons} from './headerButtons';
+import {headerLinks} from '../../utils/headerLinks';
+
+import logo from './../../assets/images/logo.svg';
 
 const HeaderContainer = () => {
 
-    const links = [
-        { name: "Home", url: "#" },
-        { name: "About us", url: "#" },
-        { name: "Our services", url: "#" },
-        { name: "How it works", url: "#" },
-        { name: "Contact us", url: "#" },
-    ]
+    const [isModalOpen, toggleIsModalOpen] = useState(false);
+    const [authModalTitle, setAuthModalTitle] = useState("Sign In");
+
+    const toggleModal = (title) => {
+        typeof title === "string" && setAuthModalTitle(title);
+        toggleIsModalOpen(!isModalOpen);
+    }
 
     return (
         <header>
@@ -19,17 +23,18 @@ const HeaderContainer = () => {
                     color="dark"
                     dark
                     expand="lg"
-                    logo="logo"
+                    logo={logo}
+                    alt="ROS"
                     collapsable
-                    navLinks={links}
+                    navLinks={headerLinks}
                     isOpen={false}
-                    className="topNavBar"
                 >
-
-                    <div className="btn_wrap">
-                        <BasicButtonComponent className="fill_btn" >SIGN IN</BasicButtonComponent>
-                        <BasicButtonComponent className="fill_btn" >SIGN UP</BasicButtonComponent>
-                    </div>
+                    <HeaderButtons buttonClick={toggleModal}/>
+                    <AuthModalContainer
+                        isModalOpen={isModalOpen}
+                        toggleModal={toggleModal}
+                        title={authModalTitle}
+                    />
                 </NavbarComponent>
             </div>
         </header>

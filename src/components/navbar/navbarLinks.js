@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import {Nav, NavItem, NavLink} from 'reactstrap';
 
 const NavbarLinksComponent = (props) => {
@@ -15,3 +16,10 @@ const NavbarLinksComponent = (props) => {
 }
 
 export default NavbarLinksComponent;
+
+NavbarLinksComponent.propTypes = {
+    navLinks: PropTypes.arrayOf(PropTypes.shape({
+        name: PropTypes.string.isRequired,
+        url: PropTypes.string
+    }))
+}
