@@ -26,7 +26,7 @@ const HeaderContainer = () => {
             >
                 <BasicButtonComponent className="fill_btn" >Sign In</BasicButtonComponent>
                 <BasicButtonComponent className="fill_btn" >Sign Up</BasicButtonComponent>
-            </NavbarComponent>
+            </NavbarComponent>   
         </header>
     )
 }

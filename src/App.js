@@ -1,7 +1,8 @@
 import React from 'react';
 import { Provider } from 'react-redux';
 import HeaderContainer from './containers/header/header';
-import Homepage from './pages/Homepage/Homepage'
+import Homepage from './pages/Homepage/Homepage';
+
 
 import './App.scss';
 
@@ -16,7 +17,7 @@ function App() {
 			<HeaderContainer />
 
 			<Homepage />
-
+			
 			
 		</Provider>
 	);

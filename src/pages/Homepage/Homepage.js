@@ -1,5 +1,6 @@
 import React from 'react';
 import FooterContainer from '../../containers/footer/footer';
+import ContactUs from '../../components/ContactUs/ContactUs';
 
 const Homepage = () => {
     return (
@@ -7,7 +8,9 @@ const Homepage = () => {
         <main>
 
         </main>
+        
         <FooterContainer />
+        <ContactUs />
         </>
 
     )
