@@ -10,6 +10,7 @@ const NavbarComponent = (props) => {
         light,
         expand,
         logo,
+        alt,
         collapsable,
         navLinks,
         isOpen,
@@ -22,9 +23,12 @@ const NavbarComponent = (props) => {
 
     return (
         <Navbar color={color || "light"} dark={!!dark} light={!!light} expand={expand || "md"} className={className}>
-            {logo ? <NavbarBrand href="/">
-                <img src={require(`../../images/logo.svg`)} />
-            </NavbarBrand> : null}
+            {
+                logo &&
+                <NavbarBrand href="/">
+                    <img src={logo} alt={alt} />
+                </NavbarBrand>
+            }
             {
                 collapsable ?
                     <>
