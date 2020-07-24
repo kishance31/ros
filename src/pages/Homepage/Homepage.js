@@ -1,5 +1,6 @@
 import React from 'react';
 import FooterContainer from '../../containers/footer/footer';
+import Carousel from '../../containers/Carousel/Carousel'
 
 const Homepage = () => {
     return (
@@ -7,6 +8,7 @@ const Homepage = () => {
         <main>
 
         </main>
+        <Carousel />
         <FooterContainer />
         </>
 
