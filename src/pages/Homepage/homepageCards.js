@@ -5,7 +5,6 @@ import TextCardComponent from '../../components/card/textCard'
 import { HomePageCardData, ContactUsDetails, ContactusLinks, NewsLetterDetails } from '../../utils/constants';
 
 const HomepageCards = () => {
-    console.log(NewsLetterDetails)
 
     return (
         <>
