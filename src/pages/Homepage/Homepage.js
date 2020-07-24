@@ -6,7 +6,7 @@ const Homepage = () => {
     return (
         <>
             <main>
-            <HomepageCards />
+                <HomepageCards />
             </main>
             <FooterContainer />
         </>
