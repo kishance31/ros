@@ -1,15 +1,14 @@
 import React from 'react';
 import FooterContainer from '../../containers/footer/footer';
-import Carousel from '../../containers/Carousel/Carousel'
+import HomepageCards from './homepageCards';
 
 const Homepage = () => {
     return (
         <>
-        <main>
-
-        </main>
-        <Carousel />
-        <FooterContainer />
+            <main>
+            <HomepageCards />
+            </main>
+            <FooterContainer />
         </>
 
     )
