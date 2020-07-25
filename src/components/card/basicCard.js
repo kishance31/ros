@@ -16,13 +16,15 @@ const BasicCardComponent = (props) => {
 			<Card>
 				{
 					props.souc &&
-					<CardImg
-						src={require(`./../../assets/images/${props.souc}`)}
-						alt={props.title}
-					/>
+					<div className="card_images">
+						<CardImg
+							src={require(`./../../assets/images/${props.souc}`)}
+							alt={props.title}
+						/>
+					</div>
 				}
 				<CardBody>
-					<CardTitle><h1> {props.title} </h1> </CardTitle>
+					<CardTitle><h2 className="title"> {props.title} </h2> </CardTitle>
 					<CardText>{props.description}  </CardText>
 					{props.children}
 					<BasicButtonComponent> {props.btnName} </BasicButtonComponent>

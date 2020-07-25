@@ -1,5 +1,45 @@
 $font_poppins: 'Poppins',
-sans-serif;
+'sans-serif';
+$light_blue: #D5E9ED;
+$pink: #FDEBEB;
+$light_gray: #F8F8F8;
+$gray: #292929;
+$dark: #4D4949;
+$ivory: #F9F7E8;
+
+@mixin transform($property) {
+  -webkit-transform: $property;
+  -ms-transform: $property;
+  transform: $property;
+}
+
+@mixin border-radius($property) {
+  -webkit-border-radius: $property;
+  -ms-border-radius: $property;
+  border-radius: $property;
+}
+
+@mixin box-shadow($property) {
+  -webkit-box-shadow: $property;
+  -ms-box-shadow: $property;
+  box-shadow: $property;
+}
+
+.pink {
+  color: $pink;
+}
+
+.light_blue {
+  color: $light_blue;
+}
+
+.light_gray {
+  color: $light_gray;
+}
+
+.dark {
+  color: $dark;
+}
 
 a:focus,
 button:focus {
@@ -13,6 +53,29 @@ button:focus {
   @media screen and (max-width:1079px) {
     padding: 15px 15px 0 15px;
   }
+}
+
+.body_text {
+  font-family: $font_poppins;
+  font-size: 18px;
+  color: $dark;
+}
+
+h2 {
+  &.title {
+    font-family: $font_poppins;
+    font-weight: 600;
+    font-size: 40px;
+    color: $dark;
+
+    @media screen and (max-width: 991px) {
+      font-size: 30px;
+    }
+  }
+}
+
+.mx-15 {
+  margin: 0 15px;
 }
 
 header {
@@ -38,6 +101,7 @@ header {
   color: #4d4949;
   text-align: center;
   font-family: $font_poppins;
+  @include border-radius(5px);
 
   &:hover {
     background: #F95B3D;
@@ -174,6 +238,8 @@ footer {
     }
 
     .navbar-nav {
+      margin: 0;
+
       .nav-link {
         color: #4D4949;
         font-weight: 600;
@@ -204,3 +270,280 @@ footer {
     }
   }
 }
+
+.card {
+  background: none;
+  border: none;
+
+  .card-body {
+    padding: 0;
+  }
+}
+
+/******************* HOMEPAGE START *****************/
+
+.homepage_product_card {
+  .card_wrap {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+
+    @media screen and (min-width: 991px) {
+      margin-bottom: 30px;
+      height: 600px;
+    }
+
+    .card {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+
+      @media screen and (max-width: 991px) {
+        flex-direction: column;
+      }
+
+      .card_images {
+        max-height: 500px;
+        text-align: center;
+
+        img {
+          width: unset;
+          max-width: 100%;
+          max-height: 100%;
+        }
+      }
+
+      .card-body {
+        padding: 0;
+
+        .card-text {
+          @extend .body_text;
+          font-weight: 300;
+          margin: 20px 0 50px 0;
+        }
+
+        .btn {
+          font-family: $font_poppins;
+          padding: 15px;
+          background: transparent;
+          border: 1.5px solid #4d4949;
+          font-weight: 600;
+          font-size: 15px;
+          letter-spacing: 0.05em;
+          color: #4d4949;
+          @include border-radius(0);
+
+          @media screen and (max-width: 991px) {
+            padding: 10px;
+          }
+        }
+      }
+    }
+
+    &.horizontal_content {
+      background: $light_blue;
+
+      .card_images {
+        padding: 30px;
+
+        @media screen and (min-width: 991px) {
+          width: 50%;
+        }
+      }
+
+      .card-body {
+        padding: 0 30px 30px;
+
+        @media screen and (min-width: 991px) {
+          width: 50%;
+        }
+      }
+    }
+
+    &.center_content {
+      background: $pink;
+      justify-content: center;
+
+      .card {
+        flex-direction: column;
+      }
+
+      .card-body {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 50px;
+        text-align: center;
+
+        .card-text {
+          margin: 10px 0 20px;
+        }
+      }
+    }
+
+    &.twoside_image_content {
+      background: $ivory;
+
+      .card {
+        margin: 0 100px;
+
+        .card-body {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          margin: 0 15%;
+
+          .card-text {
+            text-align: center;
+          }
+        }
+      }
+    }
+  }
+}
+
+.contactus_card,
+.newsletter_card {
+  padding: 40px;
+
+  .card-title {
+    text-transform: uppercase;
+  }
+
+  @media screen and (min-width: 991px) {
+    height: 600px;
+  }
+}
+
+.contactus_card {
+  background: $light_gray;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+
+  @media screen and (max-width: 991px) {
+    justify-content: center;
+  }
+
+  .card {
+    text-align: center;
+
+    @media screen and (min-width: 991px) {
+      width: 90%;
+      text-align: left;
+    }
+
+    .card-body {
+      margin-top: 50px;
+
+      @media screen and (max-width: 991px) {
+        margin-top: 25px;
+      }
+
+      h3 {
+        font-size: 28px;
+        font-weight: 600;
+        color: $dark;
+        font-family: $font_poppins;
+        margin-bottom: 20px;
+
+        @media screen and (max-width: 991px) {
+          font-size: 24px;
+        }
+      }
+
+      p {
+        @extend .body_text;
+        font-weight: 400;
+      }
+
+      .social_links {
+
+        ol,
+        a {
+          @extend .body_text;
+          font-weight: 500;
+          color: #bfbfbf;
+          text-align: center;
+          padding-left: 0;
+
+          &:hover {
+            color: $dark;
+          }
+        }
+
+        @media screen and (max-width: 991px) {
+          margin-top: 50px;
+        }
+      }
+    }
+  }
+}
+
+.newsletter_card {
+  background: $light_gray;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+
+  @media screen and (max-width: 991px) {
+    margin-top: 15px;
+  }
+
+  .card-body {
+    .card-title {
+      margin-bottom: 25px;
+    }
+
+    p {
+      @extend .body_text;
+      font-weight: 500;
+    }
+
+    .form-control {
+      font-size: 16px;
+      letter-spacing: 0.02em;
+      color: $dark;
+      text-align: center;
+      background-color: #f8f8f8;
+      border: none;
+      border-bottom: 2px solid #4D4949;
+      transition: none;
+      @include border-radius(0);
+      padding: 30px;
+      margin-top: 60px;
+      font-family: $font_poppins;
+
+      &:focus {
+        outline: 0;
+        box-shadow: none;
+        border-color: $dark;
+      }
+    }
+
+    .btn {
+      padding: 15px 45px;
+      background: $dark;
+      font-weight: normal;
+      font-size: 16px;
+      letter-spacing: 0.02em;
+      color: #fff;
+      @include border-radius(0);
+      margin-top: 40px;
+      text-transform: uppercase;
+      font-family: $font_poppins;
+
+      @media screen and (max-width: 991px) {
+        padding: 10px 30px;
+      }
+
+      &:hover {
+        background: #434548;
+        color: #fff;
+      }
+    }
+  }
+}
+
+/******************* HOMEPAGE END *****************/

@@ -13,14 +13,16 @@ const TextCardComponent = (props) => {
     return (
         <>
             <Card>
-                <CardBody>
-                    <CardTitle tag="h3">{name}<br></br>{sName}</CardTitle>
-                    {
-                        cardText instanceof Array ?
-                            cardText.map((txt, i) => <CardText key={i}>{txt}</CardText>) :
-                            <CardText> {cardText} </CardText>
-                    }
-
+                <CardTitle tag="h2" className="title">{name}</CardTitle>
+                <CardBody className="row p-0">
+                    <div className="col-lg-9">
+                        <CardTitle tag="h3">{sName}</CardTitle>
+                        {
+                            cardText instanceof Array ?
+                                cardText.map((txt, i) => <CardText key={i}>{txt}</CardText>) :
+                                <CardText> {cardText} </CardText>
+                        }
+                    </div>
                     {children}
                 </CardBody>
             </Card>
