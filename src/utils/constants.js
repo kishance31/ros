@@ -1,3 +1,11 @@
+export const headerLinks = [
+    { name: "Home", url: "#" },
+    { name: "About us", url: "#" },
+    { name: "Our services", url: "#" },
+    { name: "How it works", url: "#" },
+    { name: "Contact us", url: "#" },
+];
+
 export const authModalConstants = {
     SIGN_IN_TITLE: "Sign In With",
     SIGN_UP_TITLE: "Sign Up"
