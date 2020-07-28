@@ -12,13 +12,13 @@ export const HeaderButtons = props => {
     return (
         <div className="btn_wrap">
             <BasicButtonComponent 
-                className="fill_btn"
+                className="custom_btn"
                 onButtonClick={() => buttonClick(authModalConstants.SIGN_IN_TITLE)}
             >
                 SIGN IN
             </BasicButtonComponent>
             <BasicButtonComponent
-                className="fill_btn"
+                className="custom_btn"
                 onButtonClick={() => buttonClick(authModalConstants.SIGN_UP_TITLE)}
             >
                 SIGN UP

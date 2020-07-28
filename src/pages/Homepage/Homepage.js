@@ -5,7 +5,7 @@ import HomepageCards from './homepageCards';
 const Homepage = () => {
     return (
         <>
-            <main>
+            <main role="main">
                 <HomepageCards />
             </main>
             <FooterContainer />

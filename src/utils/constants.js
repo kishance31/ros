@@ -6,8 +6,8 @@ export const authModalConstants = {
 export const HomePageCardData = [
     {
         id: 1,
-        card_size: "col-lg-8",
-        cardAligin: "horizontal_content",
+        card_size: "8",
+        cardAlign: "horizontal_content",
         btnName: "VIEW PRODUCT",
         souc1: "table.png",
         title: "FORM AMCHAIR CHAIR",
@@ -16,21 +16,21 @@ export const HomePageCardData = [
     },
     {
         id: 2,
-        card_size: "col-lg-4",
-        cardAligin: "center_content",
+        card_size: "4",
+        cardAlign: "center_content",
         btnName: "VIEW PRODUCT",
-        souc1: "arm_chair.png",
+        souc1: "aram_chair.png",
         title: "KABINO SIDEBOARD W. DRAWERS WHITE",
         altTitle1: "FORM AMCHAIR CHAIR",
         description: "Duis pretium gravida enim, vel maximus ligula ferme ntum a. Sed rhoncus eget ex id.Duis pretium.",
     },
     {
         id: 3,
-        card_size: "col-lg-12",
-        cardAligin: "twoside_image_content",
+        card_size: "12",
+        cardAlign: "twoside_image_content",
         btnName: "VIEW PRODUCT",
-        souc1: "wooden_chair.jpg",
-        souc2: "wooden_chair.jpg",
+        souc1: "chair2.png",
+        souc2: "chair1.png",
         title: "WOODEN CHAIR",
         altTitle1: "FORM AMCHAIR CHAIR",
         altTitle12: "FORM AMCHAIR CHAIR",
@@ -39,17 +39,17 @@ export const HomePageCardData = [
 ];
 
 export const ContactUsDetails = [
-    'A: No 40 Baria Street 13/2 NewYork City,NY,United States',
-    'E: info.contact@gmail.com',
-    'P: (00) 123 456 789'
+    { letter: 'A', text: 'No 40 Baria Street 13/2 NewYork City,NY,United States', url: "#" },
+    { letter: 'E', text: 'info.contact@gmail.com', url: "#" },
+    { letter: 'P', text: '(00) 123 456 789', url: "#" },
 ]
 
 export const ContactusLinks = [
-    'FACEBOOK',
-    'TWITTER',
-    'PRINTEREST',
-    'GOOGLE',
-    'INSTAGRAM'
+    { name: 'FaCEBOOK', url: "#" },
+    { name: 'TWITTER', url: "#" },
+    { name: 'PRINTEREST', url: "#" },
+    { name: 'GOOGLE', url: "#" },
+    { name: 'INSTAGRAM', url: "#" },
 ]
 
 export const NewsLetterDetails = {

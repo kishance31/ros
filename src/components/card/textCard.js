@@ -1,4 +1,4 @@
-import React  from 'react';
+import React from 'react';
 
 
 const TextCardComponent = (props) => {
@@ -6,29 +6,29 @@ const TextCardComponent = (props) => {
     const {
         name,
         sName,
-        children,items
+        children, items
     } = props;
 
     return (
-        <>
-            <div className="container-fluid pt-0">
-                <div className="col-lg-8 col-sm-12">
-                <div className="row contact_us">
-                    <div className="col-8" data-aos="fade-up" >{name}<br></br>{sName}
-                    {
-                        items instanceof Array ?
-                        items.map((txt, i) => <p><a href="#" key={i}/>{txt}</p> )  :
-                            <p><a href='#'>{items}</a></p>
-                    }
-                    </div>
-                        {children}
-                </div>
-                </div>
+        <div className="row contact_us">
+            <div className="col-8" data-aos="fade-up" >
+                <h2 className="title">{name}</h2>
+                <h6>{sName}</h6>
+                {
+                        items.map((item, i) =>
+                            <p key={i}>
+                                <a href={item.url}>
+                                    <b>{item.letter}: &nbsp;</b>{item.text}
+                                </a>
+                            </p>
+                        ) 
+                }
             </div>
-        </>
+            {children}
+        </div>
     );
 }
-export default TextCardComponent; 
+export default TextCardComponent;
 
 
 
