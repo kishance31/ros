@@ -1,31 +1,44 @@
-import React from 'react';
-import { Card, CardTitle, CardText, CardBody } from 'reactstrap';
+import React  from 'react';
+
 
 const TextCardComponent = (props) => {
 
     const {
         name,
         sName,
-        cardText,
-        children
+        children,items
     } = props;
 
     return (
         <>
-            <Card>
-                <CardBody>
-                    <CardTitle tag="h3">{name}<br></br>{sName}</CardTitle>
+            <div className="container-fluid pt-0">
+                <div className="col-lg-8 col-sm-12">
+                <div className="row contact_us">
+                    <div className="col-8" data-aos="fade-up" >{name}<br></br>{sName}
                     {
-                        cardText instanceof Array ?
-                            cardText.map((txt, i) => <CardText key={i}>{txt}</CardText>) :
-                            <CardText> {cardText} </CardText>
+                        items instanceof Array ?
+                        items.map((txt, i) => <p><a href="#" key={i}/>{txt}</p> )  :
+                            <p><a href='#'>{items}</a></p>
                     }
-
-                    {children}
-                </CardBody>
-            </Card>
+                    </div>
+                        {children}
+                </div>
+                </div>
+            </div>
         </>
     );
-};
+}
+export default TextCardComponent; 
 
-export default TextCardComponent;
+
+
+
+
+
+
+
+
+
+
+
+
