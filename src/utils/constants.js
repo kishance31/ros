@@ -52,9 +52,27 @@ export const ContactusLinks = [
     { name: 'INSTAGRAM', url: "#" },
 ]
 
+
 export const NewsLetterDetails = {
     id: 1,
     btnName: "SIGN UP",
     title: "NEWS LETTER",
     description: "Sign up to receive updates from our studio promotions, and sneak peaks of upcoming products.",
 }
+
+
+export const CarouselItems = [
+    {
+      imgsrc : 'slider_one.png',
+      altText: 'slider_one'
+    },
+    {
+      imgsrc: 'slider_one.png',
+      altText: 'slider_one'
+    },
+    {
+      imgsrc: 'slider_one.png',
+      altText: 'slider_one'
+    }
+  ];
+  
