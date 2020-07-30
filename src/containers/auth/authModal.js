@@ -35,8 +35,8 @@ const AuthModalContainer = props => {
         <ModalComponent
             isOpen={isModalOpen}
             toggleModal={toggleModal}
-            title={title}
-            footer={modalFooter()}
+            // title={title}
+            // footer={modalFooter()}
             centered
         >
             {
