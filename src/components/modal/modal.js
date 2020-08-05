@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+import { Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 
 const ModalComponent = (props) => {
 
@@ -15,7 +15,7 @@ const ModalComponent = (props) => {
 
     return (
         <Modal isOpen={isOpen} toggle={toggleModal} centered={!!centered} className={className}>
-            <ModalHeader> {title} </ModalHeader>
+            {title && <ModalHeader> {title} </ModalHeader>}
             <ModalBody>
                 {props.children}
             </ModalBody>

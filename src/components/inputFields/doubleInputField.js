@@ -15,8 +15,8 @@ const DoubleInputField = (props) => {
             <div class="input-group">
                 <input placeholder={placeholder1} type={type1} id={id1} class="input_box_1 form-control" />
                 <input placeholder={placeholder2} type={type2} id={id2} class="input_box_2 form-control" />
+                {props.children}
             </div>
-            {props.children}
         </>)
 }
 
