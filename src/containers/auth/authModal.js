@@ -1,7 +1,9 @@
 import React from 'react';
 import ModalComponent from '../../components/modal/modal';
 import SignInForm from './signInForm';
+import SignUpForm from './signUpForm';
 import { authModalConstants } from '../../utils/constants';
+//import { ModalFooter } from 'reactstrap';
 
 const AuthModalContainer = props => {
 
@@ -11,7 +13,7 @@ const AuthModalContainer = props => {
         title,
     } = props;
 
-    const modalFooter = () => {
+    const ModalFooter = () => {
         if (title === authModalConstants.SIGN_IN_TITLE) {
             return (
                 <div>
@@ -22,15 +24,17 @@ const AuthModalContainer = props => {
         }
         if (title === authModalConstants.SIGN_UP_TITLE) {
             return (
-                <div>
-                    Already have an account!
-                    SIGN IN
+                <div class="modal-footer">
+                    <h5 class="footer_title"> Already have an account!</h5>
+                    <span class="navbar-text"> 
+                        <a href="#" data-dismiss="modal" data-toggle="modal" data-target="#SigninModalCenter">SIGN IN</a> 
+                    </span>
                 </div>
             )
         }
         return null;
     }
-
+  
     return (
         <ModalComponent
             isOpen={isModalOpen}
@@ -42,7 +46,13 @@ const AuthModalContainer = props => {
             {
                 title === authModalConstants.SIGN_IN_TITLE && <SignInForm />
             }
+            {
+                title === authModalConstants.SIGN_UP_TITLE && <SignUpForm />
+            }
+
         </ModalComponent>
+        
+       
     )
 }
 
