@@ -22,7 +22,7 @@ const ForgotPassword = (props) => {
                     <form className="form-horizontal">
                     <SingleInputField singleInputPlaceHolder="Email" singleInputType="email" />
                     </form>
-                    <GreenButton ButtenName="SEND" />
+                    <GreenButton buttenName="SEND" />
                 </div>
             </div>
         </div>
