@@ -5,8 +5,8 @@ import 'aos/dist/aos.css';
 import HeaderContainer from './containers/header/header';
 import Homepage from './pages/Homepage/Homepage';
 
-
 import './App.scss';
+import './styles.scss'
 
 import configureStore, { history } from './redux/store';
 

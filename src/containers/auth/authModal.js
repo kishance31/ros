@@ -17,36 +17,11 @@ const AuthModalContainer = props => {
         dispatch(AuthModelAction.toggleAuthModals(AuthMap.HIDE_ALL_AUTH_MODAL));
     }
 
-    const ModalFooter = () => {
-        if (auth.modals.showSignInModal) {
-            return (
-                <div>
-                    <FormFooter footertitle="Don't have an account yet?" footerToNavigate="SIGN UP" />
-                </div>
-            )
-        }
-        // if (auth.modals.showSignUpModal) {
-        //     return (
-        //         <div>
-        //             <FormFooter footertitle="Already have an account!" footerToNavigate="SIGN IN" />
-        //             <div class="modal-footer">
-        //                 <h5 class="footer_title"> Already have an account!</h5>
-        //                 <span class="navbar-text">
-        //                     <a href="#" data-dismiss="modal" data-toggle="modal" data-target="#SigninModalCenter">SIGN IN</a>
-        //                 </span>
-        //             </div>
-        //         </div>
-        //     )
-        // }
-        return null;
-    }
-
     return (
         <ModalComponent
             isOpen={auth.modals.openModal}
             toggleModal={toggleModal}
             title={auth.modals.title}
-            footer={ModalFooter()}
             centered
         >
             {

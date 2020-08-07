@@ -16,7 +16,7 @@ const HomepageCarousel = () => {
                         <li data-target="#myCarousel" data-slide-to="2" className=""></li>
                     </ol>
                     <div className="carousel-inner">
-                        {CarouselItems.map((val, i) => { return (<CarouselCard imgsrc={val.imgsrc} />); })}
+                        {CarouselItems.map((val, i) => { return (<CarouselCard imgsrc={val.imgsrc} active={i === 0 ? "active" : ""} />); })}
                     </div>
 
                     <a className="carousel-control-prev" href="#myCarousel" role="button" data-slide="prev">

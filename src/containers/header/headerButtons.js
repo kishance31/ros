@@ -13,7 +13,7 @@ export const HeaderButtons = props => {
         <div className="btn_wrap">
             <BasicButtonComponent 
                 className="custom_btn"
-                onButtonClick={() => buttonClick(AuthMap.TOGGLE_SIGN_IN_MODAL, "Sign In")}
+                onButtonClick={() => buttonClick(AuthMap.TOGGLE_SIGN_IN_MODAL, "Sign In With")}
             >
                 SIGN IN
             </BasicButtonComponent>

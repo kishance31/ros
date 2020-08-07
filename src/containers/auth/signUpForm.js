@@ -13,7 +13,7 @@ import UploadDoc from './uploadDoc';
 const SignUpForm = () => {
 
     const [cName, setcName] = useState({
-        com_name: "", fName: "", lName: "", position: "", department: "", office_no: "", personal_emai: "",
+        com_name: "", firstName: "", lastName: "", position: "", department: "", office_no: "", personal_emai: "",
         corporate_email: "", mobile_no: "", employee_id: "", username: "", password: "", re_password: ""
     });
 
@@ -31,52 +31,71 @@ const SignUpForm = () => {
     return (
 
         <>
-            {/* <div className="modal fade" id="SignupModalCenter" tabindex="-1" role="dialog" aria-labelledby="SignupModalCenter" aria-hidden="true"> */}
-            <div className="modal-dialog" role="document">
-                <div className="modal-content">
-                    <div className="modal-header">
-                        <h5 className="modal-title" id="SignupModalCenterTitle">Sign Up</h5>
-                    </div>
-                    <div className="modal-body">
 
-                        <form className="form-horizontal" onSubmit={onSubmits}>
 
-                            <SingleInputField singleInputPlaceHolder="COMPANY NAME" singleInputType="text" id="com_name" onChange={inputEvent} value={cName.com_name} />
+            <form className="form-horizontal" onSubmit={onSubmits}>
 
-                            <DoubleInputField placeholder1="FIRST NAME" placeholder2="LAST NAME" type1="text" type2="text" id1="fName" id2="lName" onChange={inputEvent} value={cName.fName} value={cName.lName} />
+                <SingleInputField singleInputPlaceHolder="COMPANY NAME" singleInputType="text" id="com_name" onChange={inputEvent} value={cName.com_name} />
 
-                            <DoubleInputField placeholder1="POSITION" placeholder2="DEPARTMENT" type1="text" type2="text" id1="position" id2="department" onChange={inputEvent} value={cName.position} value={cName.department} />
+                <DoubleInputField>
+                    <input placeholder="FIRST NAME" type="text"
+                        name="firstName" class="input_box_1 form-control"
+                        onChange={inputEvent} value={cName.fName}
+                    />
+                    <input placeholder="LAST NAME" type="text"
+                        name="lastName" class="input_box_2 form-control"
+                        onChange={inputEvent} value={cName.lName}
+                    />
+                </DoubleInputField>
 
-                            <DoubleInputField placeholder1="OFFICE CONTACT NO" placeholder2="PERSONAL EMAIL ID" type1="tel" type2="email" id1="office_no" id2="personal_emai" onChange={inputEvent} value={cName.office_no} value={cName.personal_emai} />
+                <DoubleInputField>
+                    <input placeholder="POSITION" type="text" id="" class="input_box_1 form-control"
+                        name="position"
+                        onChange={inputEvent}
+                        value={cName.position}
+                    />
+                    <input placeholder="DEPARTMENT" type="text" id="" class="input_box_2 form-control"
+                        name="department"
+                        onChange={inputEvent}
+                        value={cName.department}
+                    />
+                </DoubleInputField>
 
-                            <DoubleInputField placeholder1="CORPORATE EMAIL ID" placeholder2="MOBILE NO" type1="email" type2="tel" id1="corporate_email" id2="mobile_no" onChange={inputEvent} value={cName.corporate_email} value={cName.mobile_no} />
+                <DoubleInputField>
+                    <input placeholder="CORPORATE EMAIL ID" type="email" 
+                        name="corporate_email" class="input_box_1 form-control" 
+                        onChange={inputEvent}
+                        value={cName.corporate_email}
+                    />
+                    <input placeholder="PERSONAL EMAIL ID" type="email"
+                        name="mobile_no" class="input_box_2 form-control"
+                        onChange={inputEvent}
+                        value={cName.mobile_no}
+                    />
+                </DoubleInputField>
 
-                            <DoubleInputField placeholder1="EMPLOYEE ID" placeholder2="USERNAME" type1="text" type2="text" id1="employee_id" id2="username" onChange={inputEvent} value={cName.employee_id} value={cName.username} />
+                <DoubleInputField  placeholder1="OFFICE CONTACT NO" placeholder2="PERSONAL EMAIL ID" type1="tel" type2="email" id1="office_no" id2="personal_emai" onChange={inputEvent} value={cName.office_no} value={cName.personal_emai} />
 
-                            <DoubleInputField placeholder1="PASSWORD" placeholder2="RE ENTER PASSWORD" type1="password" type2="password" id1="password" id2="re_password" onChange={inputEvent} value={cName.password} value={cName.re_password} />
+                <DoubleInputField placeholder1="EMPLOYEE ID" placeholder2="USERNAME" type1="text" type2="text" id1="employee_id" id2="username" onChange={inputEvent} value={cName.employee_id} value={cName.username} />
 
-                            <UploadDoc />
+                <DoubleInputField placeholder1="PASSWORD" placeholder2="RE ENTER PASSWORD" type1="password" type2="password" id1="password" id2="re_password" onChange={inputEvent} value={cName.password} value={cName.re_password} />
 
-                        </form>
+                <UploadDoc />
 
-                        <GreenButton buttonName="Submit" data-toggle="modal" data-target="#" data-dismiss="modal"
-                            onClick={onSubmits} />
+            </form>
 
-                        <span className="navbar-text"><a href="#" data-toggle="modal" data-target="#ForgotPassword" data-dismiss="modal">FORGOT PASSWORD</a></span>
+            <GreenButton buttonName="Submit" data-toggle="modal" data-target="#" data-dismiss="modal"
+                onClick={onSubmits} />
 
-                        <div className="modal-footer">
+            <span className="navbar-text"><a href="#" data-toggle="modal" data-target="#ForgotPassword" data-dismiss="modal">FORGOT PASSWORD</a></span>
 
-                            <h5 className="footer_title"> Already have an account!</h5>
+            <div className="modal-footer">
 
-                            <span className="navbar-text"> <a href="#" data-dismiss="modal" data-toggle="modal" data-target="#SigninModalCenter">SIGN IN</a> </span>
+                <h5 className="footer_title"> Already have an account!</h5>
 
-                        </div>
+                <span className="navbar-text"> <a href="#" data-dismiss="modal" data-toggle="modal" data-target="#SigninModalCenter">SIGN IN</a> </span>
 
-                    </div>
-                </div>
             </div>
-            {/* </div> */}
-
         </>
     )
 }

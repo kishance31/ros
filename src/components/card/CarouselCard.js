@@ -2,11 +2,11 @@ import React from 'react';
 
 const CarouselCard = (props) => {
 
-    const{imgsrc,alt}=props;
+    const{imgsrc,alt, active}=props;
 
     return (
 
-        <div className="carousel-item active">
+        <div className={`carousel-item ${active}`}>
             <div className="container">
                 <div className="row">
                     <div className="col-lg-6 col-md-12 d-flex align-items-center" data-aos="fade-right">

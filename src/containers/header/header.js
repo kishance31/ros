@@ -12,8 +12,6 @@ const HeaderContainer = () => {
 
     const dispatch = useDispatch();
 
-
-
     const toggleModal = (type, title) => {
         dispatch(AuthModelAction.toggleAuthModals(type, title));
     }
