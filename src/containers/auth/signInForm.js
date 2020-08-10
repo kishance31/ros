@@ -1,43 +1,70 @@
-import React, { useState } from 'react';
-import {useHistory} from 'react-router-dom';
-import {useDispatch} from 'react-redux';
-import AuthModelAction, {AuthMap} from '../../actions/auth.action';
-import DoubleInputField from '../../components/inputFields/doubleInputField';
-import GreenButton from '../../components/buttons/greenButton';
 
+import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import AuthModelAction, { AuthMap } from '../../actions/auth.action';
+import DoubleInputField from '../../components/inputFields/doubleInputField';
+import AuthModalAction from '../../actions/auth.action';
 
 const SignInForm = (props) => {
 
+    const [user, setUser] = useState({
+        email: "",
+        password: ""
+    });
     const [tabName, setTabName] = useState('corporate');
+
     const dispatch = useDispatch();
+    
     const history = useHistory();
 
-    const onButtonClick = (path) => {
+    const handleInput = (event) => {
+        const { name, value } = event.target;
+        setUser({
+            ...user,
+            [name]: value
+        });
+    }
+
+    const handleSubmit = (e, path) => {
+        e.preventDefault();
         dispatch(AuthModelAction.toggleAuthModals(AuthMap.HIDE_ALL_AUTH_MODAL));
         history.push(`/${path}`);
+    };
+
+    const redirectToForgotPassword = () => {
+        dispatch(AuthModalAction.toggleAuthModals(AuthMap.TOGGLE_FORGOT_PASSWORD_MODAL, "Forgot Password"));
+    }
+
+    const navigateToSignUp = () => {
+        dispatch(AuthModalAction.toggleAuthModals(AuthMap.TOGGLE_SIGN_UP_MODAL, "Sign Up"))
     }
 
     const Corporate = () => {
         return (
             <div className={`tab-pane fade show ${tabName === "corporate" ? "active" : ""}`} id="nav-home" role="tabpanel" aria-labelledby="tab1">
+
                 <DoubleInputField>
-                    <input placeholder="EMAIL" type="email" id="email" className="input_box_1 form-control" required />
-                    <input placeholder="PASSWORD" type="password" id="pwd" className="input_box_2 form-control" />
+
+                    <input type="email" onChange={handleInput} placeholder="EMAIL" name="email" value={user.email} className="input_box_1 form-control" />
+                    <input type="password" onChange={handleInput} placeholder="PASSWORD" name="password" value={user.password} className="input_box_2 form-control" required />
+
                 </DoubleInputField>
-                <GreenButton buttonName="SIGN IN" onButtonClick={() => onButtonClick('corporate')} />
-                <span className="navbar-text">
-                    <a>
-                        FORGOT PASSWORD
-                    </a>
-                </span>
+                <button className="modal-fill_btn btn btn-lg" onClick={(e) => handleSubmit(e, 'corporate')} ><span className="sign_in">SIGN IN</span><span className="left_arrow"><svg
+                    xmlns="http://www.w3.org/2000/svg" width="18.63" height="13.08"
+                    viewBox="0 0 18.63 13.08">
+                    <path id="Icon_awesome-arrow-right" data-name="Icon awesome-arrow-right"
+                        d="M3.916,3.523l.665-.665a.716.716,0,0,1,1.015,0l5.823,5.82a.716.716,0,0,1,0,1.015L5.6,15.517a.716.716,0,0,1-1.015,0l-.665-.665a.72.72,0,0,1,.012-1.027l3.609-3.439H-6.281A.717.717,0,0,1-7,9.667V8.708a.717.717,0,0,1,.719-.719H7.537L3.928,4.551A.714.714,0,0,1,3.916,3.523Z"
+                        transform="translate(7 -2.647)" fill="#8bc8d4"></path>
+                </svg></span></button>
+                <span class="navbar-text"> <a href="/#" onClick={redirectToForgotPassword}>FORGOT PASSWORD</a> </span>
                 <div className="modal-footer">
                     <h5 className="footer_title"> Don't have an account yet? </h5>
-                    <span className="navbar-text">SIGN UP</span>
+                    <a href="/#" onClick={navigateToSignUp}><span className="navbar-text" >SIGN UP</span></a>
                 </div>
             </div>
         )
     }
-
     const Employee = () => {
         return (
             <div className={`tab-pane fade show ${tabName === "employee" ? "active" : ""}`} id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
@@ -46,10 +73,20 @@ const SignInForm = (props) => {
                         <div className="input-group-prepend"></div><input placeholder="EMAIL" type="email" className="input_box_1 form-control" />
                         <div className="input-group-prepend"></div><input placeholder="PASSWORD" type="pwd" className="input_box_2 form-control" />
                     </DoubleInputField>
-                    <GreenButton buttonName="SIGN IN" onButtonClick={() => onButtonClick('employee')} />
-                    <span className="navbar-text">
-                        <a>FORGOT PASSWORD</a>
-                    </span>
+                    <button className="modal-fill_btn btn btn-lg" onClick={(e) => handleSubmit(e, 'corporate')}>
+                        <span className="sign_in">
+                            SIGN IN
+                        </span>
+                        <span className="left_arrow">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18.63" height="13.08" viewBox="0 0 18.63 13.08">
+                                <path id="Icon_awesome-arrow-right" data-name="Icon awesome-arrow-right"
+                                    d="M3.916,3.523l.665-.665a.716.716,0,0,1,1.015,0l5.823,5.82a.716.716,0,0,1,0,1.015L5.6,15.517a.716.716,0,0,1-1.015,0l-.665-.665a.72.72,0,0,1,.012-1.027l3.609-3.439H-6.281A.717.717,0,0,1-7,9.667V8.708a.717.717,0,0,1,.719-.719H7.537L3.928,4.551A.714.714,0,0,1,3.916,3.523Z"
+                                    transform="translate(7 -2.647)" fill="#8bc8d4">
+                                </path>
+                            </svg>
+                        </span>
+                    </button>
+                    <span className="navbar-text"> <a href="/#" onClick={redirectToForgotPassword}>FORGOT PASSWORD</a> </span>
                     <div className="modal-footer">
                     </div>
                 </div>
