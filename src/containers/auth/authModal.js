@@ -4,8 +4,6 @@ import ModalComponent from '../../components/modal/modal';
 import SignInForm from './signInForm';
 import SignUpForm from './signUpForm';
 import ForgotPassword from './forgotPassword';
-import { authModalConstants } from '../../utils/constants';
-import FormFooter from '../footer/formFooter';
 import AuthModelAction, { AuthMap } from '../../actions/auth.action';
 import SetYourPassword from './setYourPassword';
 

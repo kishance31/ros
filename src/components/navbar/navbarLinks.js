@@ -1,14 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {Nav, NavItem, NavLink} from 'reactstrap';
+import {NavLink} from 'react-router-dom';
+import {Nav, NavItem} from 'reactstrap';
 
 const NavbarLinksComponent = (props) => {
-    const {navLinks} = props;
+    const {navLinks, mrAuto} = props;
     return (
-        <Nav navbar className="mr-auto">
+        <Nav navbar className={mrAuto ? "mr-auto" : ""}>
             {navLinks && navLinks.map((link, i) => (
-                <NavItem key={i}>
-                    <NavLink href={link.url} >{link.name}</NavLink>
+                <NavItem key={i} active={link.active ? true : false}>
+                    <NavLink to={link.url} className="nav-link" >{link.name}</NavLink>
                 </NavItem>
             ))}
         </Nav>

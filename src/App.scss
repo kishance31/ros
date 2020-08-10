@@ -1703,7 +1703,7 @@ footer {
   position: relative;
   margin-bottom: 20px;
   cursor: pointer;
-  display: flex;
+  display: inline-flex;
   @media screen and (max-width: 1440px) {
     margin-bottom: 20px;
 
@@ -1733,6 +1733,7 @@ footer {
     top: 0;
     left: 0;
     bottom: 0;
+    cursor: pointer;
   }
 }
 
@@ -1932,7 +1933,8 @@ nav.tab {
 }
 
 .dashboard_nav {
-  margin: 50px 0;
+  margin: 25px 0;
+  background-color: #fff !important;
   @media screen and (max-width: 1440px) {
     margin: 25px 0;
   }
@@ -2072,6 +2074,10 @@ nav.tab {
       margin: 20px 20px 0 0;
     }
   }
+}
+
+#PaymentDetails.modal-dialog {
+  max-width: 500px;
 }
 
 #PaymentDetails {

@@ -1,9 +1,10 @@
 import React from 'react';
 import { Provider } from 'react-redux';
+import { BrowserRouter } from 'react-router-dom';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import HeaderContainer from './containers/header/header';
-import Homepage from './pages/Homepage/Homepage';
+import Routes from './pages/routes';
 
 import './App.scss';
 import './styles.scss'
@@ -18,13 +19,16 @@ function App() {
 	AOS.init();
 
 	return (
-		<Provider store={store} history={history} >
+		<Provider store={store} history={history}>
 
-			<HeaderContainer />
+			<BrowserRouter>
 
-			<Homepage />
-			
-			
+				<HeaderContainer />
+
+				<Routes />
+
+			</BrowserRouter>
+
 		</Provider>
 	);
 }

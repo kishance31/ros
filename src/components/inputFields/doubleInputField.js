@@ -2,7 +2,7 @@ import React from 'react';
 const DoubleInputField = (props) => {
     return (
         <>
-            <div class="input-group">
+            <div className="input-group">
                 {props.children}
             </div>    
         </>)

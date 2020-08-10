@@ -14,7 +14,7 @@ const FormFooter = (props) => {
         <>
             <div className="modal-footer">
                 <h5 className="footer_title"> {footertitle} </h5>
-                <span className="navbar-text"> <a href="#/" data-toggle="modal" data-target="#SignupModalCenter" data-dismiss="modal" onClick={navigateToSignup}>{footerToNavigate}</a> </span>
+                <span className="navbar-text"> <a href="#" onClick={navigateToSignup}>{footerToNavigate}</a> </span>
             </div>
         </>)
 }
