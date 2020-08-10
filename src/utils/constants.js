@@ -1,3 +1,11 @@
+export const headerLinks = [
+    { name: "Home", url: "#" },
+    { name: "About us", url: "#" },
+    { name: "Our services", url: "#" },
+    { name: "How it works", url: "#" },
+    { name: "Contact us", url: "#" },
+];
+
 export const authModalConstants = {
     SIGN_IN_TITLE: "Sign In With",
     SIGN_UP_TITLE: "Sign Up"
@@ -76,3 +84,12 @@ export const CarouselItems = [
     }
   ];
   
+  export const CorporateNavLinks = [
+      {name: "Purchase License", url: "/corporate/purchaseLicense", active: true},
+      {name: "Employee & License Management", url: "/corporate/employeeLicenseManagement", active: false},
+      {name: "Manage Allocate License", url: "/corporate/manageLicense", active: false},
+      {name: "Employee Order Details", url: "/corporate/employeeOrderDetails", active: false},
+      {name: "Invoice", url: "/corporate/invoice", active: false},
+      {name: "My Account", url: "/corporate/myAccount", active: false},
+      {name: "Product View", url: "/corporate/productView", active: false},
+  ]

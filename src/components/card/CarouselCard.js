@@ -14,7 +14,7 @@ const CarouselCard = (props) => {
                             <span>TOP TRENDING 2020</span>
                             <h1 className="title">SAVE<label>MONEY</label> LIVE BETTER</h1>
                             <p className="body_text">Duis pretium gravida enim, vel maximus ligula ferme ntum a. Sed rhoncus eget ex id.Duis pretium.</p>
-                            <p><a className="btn order_now_btn btn-lg" href="#" role="button">ORDER NOW</a>
+                            <p><a href="#"  className="btn order_now_btn btn-lg" role="button">ORDER NOW</a>
                             </p>
                         </div>
                     </div>

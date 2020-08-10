@@ -15,13 +15,13 @@ const SignUpForm = () => {
     }
 
     const navigateToForgotPass = () => {
-        dispatch(AuthModelAction.toggleAuthModals(AuthMap.TOGGLE_FORGOT_MODAL));
+        dispatch(AuthModelAction.toggleAuthModals(AuthMap.TOGGLE_FORGOT_PASSWORD_MODAL, "Forgot Password"));
     }
 
 
     const [formName, setformName] = useState({
         companyName: "", firstName: "", lastName: "", position: "", department: "", corporateEmail: "", personalEmail: "",
-        officeContactNo: "", mobileNo: "", employeeId: "", userName: "", password: "", reEnterPassword: ''
+        officeContactNo: "", mobileNo: "", employeeId: "", userName: "", password: "", reEnterPassword: ""
     });
 
     const inputEvent = (event) => {
@@ -50,7 +50,8 @@ const SignUpForm = () => {
             password: formName.password,
             reEnterPassword: formName.reEnterPassword
         }
-        console.log(user);
+        dispatch(AuthModelAction.toggleAuthModals(AuthMap.TOGGLE_SIGN_IN_MODAL));
+        //console.log(user);
     }
 
     return (
@@ -61,7 +62,7 @@ const SignUpForm = () => {
 
                 <SingleInputField singleInputPlaceHolder="COMPANY NAME" singleInputType="text" name="companyName"
                     onChange={inputEvent} value={formName.companyName} required />
-
+                
                 <DoubleInputField >
                     <input placeholder="FIRST NAME" type="text" className="input_box_2 form-control"
                         name="firstName" onChange={inputEvent} value={formName.firstName} required
@@ -119,8 +120,8 @@ const SignUpForm = () => {
 
                 <UploadDoc />
 
-                <button class="modal-fill_btn btn btn-lg" data-dismiss="modal" data-toggle="modal"
-                    data-target="#SigninModalCenter"><span class="sign_in">SUBMIT</span>
+                <button class="modal-fill_btn btn btn-lg">
+                    <span class="sign_in">SUBMIT</span>
                     <span class="left_arrow">
                         <svg
                             xmlns="http://www.w3.org/2000/svg" width="18.63" height="13.08"
@@ -135,13 +136,15 @@ const SignUpForm = () => {
 
             </form>
 
-            <span className="navbar-text"><a onClick={navigateToForgotPass} href="#" data-toggle="modal" data-target="#ForgotPassword" data-dismiss="modal">FORGOT PASSWORD</a></span>
+            <span className="navbar-text"><a onClick={navigateToForgotPass} href="#">FORGOT PASSWORD</a></span>
 
             <div className="modal-footer">
 
                 <h5 className="footer_title"> Already have an account!</h5>
 
-                <span className="navbar-text"> <a onClick={navigateToSignIn} href="#" data-dismiss="modal" data-toggle="modal" data-target="#SigninModalCenter">SIGN IN</a> </span>
+                <span className="navbar-text">
+                    <a onClick={navigateToSignIn} href="#">SIGN IN</a>
+                </span>
 
             </div>
         </>

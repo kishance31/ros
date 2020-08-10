@@ -7,9 +7,9 @@ const BasicButtonComponent = (props) => {
         onButtonClick
     } = props;
     return (
-        <div className={`btn ${className || ""}`} onClick={onButtonClick}>
+        <button className={`btn ${className || ""}`} onClick={onButtonClick}>
             {props.children}
-        </div>
+        </button>
     )
 }
 

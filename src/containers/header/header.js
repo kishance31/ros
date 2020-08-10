@@ -4,7 +4,7 @@ import AuthModelAction from '../../actions/auth.action';
 import NavbarComponent from '../../components/navbar/navbar';
 import AuthModalContainer from '../auth/authModal';
 import { HeaderButtons } from './headerButtons';
-import { headerLinks } from '../../utils/headerLinks';
+import { headerLinks } from '../../utils/constants';
 
 import logo from './../../assets/images/logo.svg';
 
@@ -28,6 +28,7 @@ const HeaderContainer = () => {
                     collapsable
                     navLinks={headerLinks}
                     isOpen={false}
+                    mrAuto
                 >
                     <HeaderButtons buttonClick={toggleModal} />
                     <AuthModalContainer />

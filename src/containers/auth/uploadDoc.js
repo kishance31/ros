@@ -7,27 +7,23 @@ class UploadDoc extends Component {
         selectedFile: null
     };
 
-    onFileChange = event => {
-
+    onFileChange = (event) => {
         this.setState({ selectedFile: event.target.files[0] });
-
     };
 
     onFileUpload = () => {
-
-        const formData = new FormData();
-
+        const formData = new FormData()
         formData.append(
             "myFile",
             this.state.selectedFile
-        );
+        )
         //axios.post("api/uploadfile", formData);
     };
 
     render() {
 
         return (
-            <div className="upload_document_file" onClick={this.onFileUpload} >
+            <div className="upload_document_file" onClick={this.onFileUpload}>
                 <svg xmlns="http://www.w3.org/2000/svg" width="81" height="56" viewBox="0 0 81 56">
                     <g id="Group_1341" data-name="Group 1341" transform="translate(-641 -735)">
                         <g id="Rectangle_20" data-name="Rectangle 20" transform="translate(641 735)" fill="#f8f8f8" stroke="#bfbfbf" stroke-width="1">
@@ -43,10 +39,8 @@ class UploadDoc extends Component {
                     id="inputGroupFile03"
                     onChange={this.onFileChange} required />
             </div>
-
         );
     }
-} 
+}
 
 export default UploadDoc;
-
