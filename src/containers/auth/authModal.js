@@ -3,9 +3,12 @@ import { useSelector, useDispatch } from 'react-redux';
 import ModalComponent from '../../components/modal/modal';
 import SignInForm from './signInForm';
 import SignUpForm from './signUpForm';
+import ForgotPassword from './forgotPassword';
 import { authModalConstants } from '../../utils/constants';
 import FormFooter from '../footer/formFooter';
 import AuthModelAction, { AuthMap } from '../../actions/auth.action';
+import SetYourPassword from './setYourPassword';
+
 
 
 const AuthModalContainer = props => {
@@ -30,6 +33,13 @@ const AuthModalContainer = props => {
             {
                 auth.modals.showSignUpModal ? <SignUpForm /> : null
             }
+            {
+                auth.modals.showForgotPasswordModal ? <ForgotPassword /> : null
+            }
+            {
+                auth.modals.showSetPasswordModal ? <SetYourPassword/> : null
+            }
+            
         </ModalComponent>
 
 

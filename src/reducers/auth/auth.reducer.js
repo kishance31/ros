@@ -51,6 +51,32 @@ const authReducer = (state = initialState, action) => {
                     openModal: false,
                 }
             }
+        case AuthMap.TOGGLE_FORGOT_PASSWORD_MODAL:
+            return {
+                ...state,
+                modals: {
+                    showSignInModal: false,
+                    showSignUpModal: false,
+                    showForgotPasswordModal: !state.modals.showForgotPasswordModal,
+                    showSetPasswordModal: false,
+                    title: action.payload.title,
+                    openModal: true,
+                }
+            }
+
+            case AuthMap.TOGGLE_SET_PASSWORD_MODAL:
+                return {
+                    ...state,
+                    modals: {
+                        showSignInModal: false,
+                        showSignUpModal: false,
+                        showForgotPasswordModal: false,
+                        showSetPasswordModal: !state.modals.showSetPasswordModal,
+                        title: action.payload.title,
+                        openModal: true,
+                    }
+                }
+
         default:
             return {
                 ...state
