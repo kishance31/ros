@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import axios from 'axios';
+//import axios from 'axios';
 
 class UploadDoc extends Component {
 
@@ -27,7 +27,7 @@ class UploadDoc extends Component {
     render() {
 
         return (
-            <div className="upload_document_file">
+            <div className="upload_document_file" onClick={this.onFileUpload} >
                 <svg xmlns="http://www.w3.org/2000/svg" width="81" height="56" viewBox="0 0 81 56">
                     <g id="Group_1341" data-name="Group 1341" transform="translate(-641 -735)">
                         <g id="Rectangle_20" data-name="Rectangle 20" transform="translate(641 735)" fill="#f8f8f8" stroke="#bfbfbf" stroke-width="1">
@@ -37,12 +37,11 @@ class UploadDoc extends Component {
                         <path id="Icon_ionic-md-add" data-name="Icon ionic-md-add" d="M29.25,19.5H19.5v9.75h-3V19.5H6.75v-3H16.5V6.75h3V16.5h9.75Z" transform="translate(699.438 744.805) rotate(90)" fill="#292929" />
                     </g>
                 </svg>
-                <label onClick={this.onFileUpload}
-                       className="upload_document" for="inputGroupFile03">UPLOAD DOCUMENT</label>
+                <label className="upload_document" for="inputGroupFile03">UPLOAD DOCUMENT</label>
                 <input type="file"
                     className="custom-file-input"
                     id="inputGroupFile03"
-                    onChange={this.onFileChange} />
+                    onChange={this.onFileChange} required />
             </div>
 
         );
@@ -50,3 +49,4 @@ class UploadDoc extends Component {
 } 
 
 export default UploadDoc;
+
