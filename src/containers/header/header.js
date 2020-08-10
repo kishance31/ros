@@ -1,19 +1,19 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import AuthModelAction from '../../actions/auth.action';
 import NavbarComponent from '../../components/navbar/navbar';
 import AuthModalContainer from '../auth/authModal';
-import {HeaderButtons} from './headerButtons';
-import {headerLinks} from '../../utils/constants';
+import { HeaderButtons } from './headerButtons';
+import { headerLinks } from '../../utils/constants';
 
 import logo from './../../assets/images/logo.svg';
 
 const HeaderContainer = () => {
 
-    const [isModalOpen, toggleIsModalOpen] = useState(false);
-    const [authModalTitle, setAuthModalTitle] = useState("Sign In");
+    const dispatch = useDispatch();
 
-    const toggleModal = (title) => {
-        typeof title === "string" && setAuthModalTitle(title);
-        toggleIsModalOpen(!isModalOpen);
+    const toggleModal = (type, title) => {
+        dispatch(AuthModelAction.toggleAuthModals(type, title));
     }
 
     return (
@@ -28,13 +28,10 @@ const HeaderContainer = () => {
                     collapsable
                     navLinks={headerLinks}
                     isOpen={false}
+                    mrAuto
                 >
-                    <HeaderButtons buttonClick={toggleModal}/>
-                    <AuthModalContainer
-                        isModalOpen={isModalOpen}
-                        toggleModal={toggleModal}
-                        title={authModalTitle}
-                    />
+                    <HeaderButtons buttonClick={toggleModal} />
+                    <AuthModalContainer />
                 </NavbarComponent>
             </div>
         </header>

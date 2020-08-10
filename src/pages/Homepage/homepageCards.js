@@ -1,32 +1,48 @@
 import React from 'react';
-import {Input} from 'reactstrap';
 import BasicCardComponent from '../../components/card/basicCard';
-import TextCardComponent from '../../components/card/textCard'
+import TextCardComponent from '../../components/card/textCard';
+import NewsLetterCard from '../../components/card/newsLetterCard';
 import { HomePageCardData, ContactUsDetails, ContactusLinks, NewsLetterDetails } from '../../utils/constants';
 
 const HomepageCards = () => {
-
     return (
         <>
-            {
-                HomePageCardData.map((val) =>
-                    <BasicCardComponent key={val.id} btnName={val.btnName} souc={val.souc} title={val.title} description={val.description} />
-                )
-            }
-            <TextCardComponent name="Contact Us" sName="Get In Touch" cardText={ContactUsDetails}>
-                {
-                    ContactusLinks.map((props, i) => <ol key={i}> {props} </ol>)
-                }
-                <BasicCardComponent
-                    btnName={NewsLetterDetails.btnName}
-                    souc={NewsLetterDetails.souc}
-                    title={NewsLetterDetails.title}
-                    description={NewsLetterDetails.description}
-                >
-                    <Input placeholder="your email address"/>
-                </BasicCardComponent>
-            </TextCardComponent>
+            <section className="section_two">
+                <div className="container-fluid">
+                    <div className="row homepage_product_card">
+                        {
+                            HomePageCardData.map((val) =>
+                                <div key={val.id} className={`col-lg-${val.card_size || 12}`}>
+                                    <div className={`card_wrap ${val.cardAlign || ""}`}>
+                                        <BasicCardComponent {...val} />
+                                    </div>
+                                </div>
+                            )
+                        }
+                    </div>
+                </div>
+            </section>
 
+            <section className="section_four">
+                <div className="container-fluid pt-0">
+                    <div className="row">
+                        <div className="col-lg-8 col-sm-12">
+                            <TextCardComponent name="Contact Us" sName="Get In Touch" items={ContactUsDetails}>
+                                <div className="col-4 d-flex justify-content-end align-items-center" data-aos="fade-up">
+                                    <ul className="list-unstyled text-small">
+                                        {
+                                            ContactusLinks.map((links, i) => <li key={i}><a href={links.url}>{links.name}</a></li>)
+                                        }
+                                    </ul>
+                                </div>
+                            </TextCardComponent>
+                        </div>
+                        <div className="col-lg-4 col-sm-12">
+                            <NewsLetterCard {...NewsLetterDetails} />
+                        </div>
+                    </div>
+                </div>
+            </section>
         </>
     )
 }

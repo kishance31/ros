@@ -1,8 +1,8 @@
 import React from  'react';
 import {Switch, Route} from 'react-router-dom';
-import Homepage from './pages/Homepage/Homepage';
-import CorporateDashboard from './pages/Corporate-Dashboard/CorporateDashboard';
-import EmployeeDashboard from './pages/Employee-Dashboard/EmployeeDashboard';
+import Homepage from './Homepage/Homepage';
+import CorporateDashboard from './Corporate-Dashboard/CorporateDashboard';
+import EmployeeDashboard from './Employee-Dashboard/EmployeeDashboard';
 
 const Routes = () => {
     return (

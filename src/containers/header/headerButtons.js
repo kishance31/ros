@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import BasicButtonComponent from '../../components/buttons/basicbutton';
-import {authModalConstants} from '../../utils/constants';
+import {AuthMap} from '../../actions/auth.action'
 
 export const HeaderButtons = props => {
 
@@ -12,14 +12,14 @@ export const HeaderButtons = props => {
     return (
         <div className="btn_wrap">
             <BasicButtonComponent 
-                className="fill_btn"
-                onButtonClick={() => buttonClick(authModalConstants.SIGN_IN_TITLE)}
+                className="custom_btn"
+                onButtonClick={() => buttonClick(AuthMap.TOGGLE_SIGN_IN_MODAL, "Sign In With")}
             >
                 SIGN IN
             </BasicButtonComponent>
             <BasicButtonComponent
-                className="fill_btn"
-                onButtonClick={() => buttonClick(authModalConstants.SIGN_UP_TITLE)}
+                className="custom_btn"
+                onButtonClick={() => buttonClick(AuthMap.TOGGLE_SIGN_UP_MODAL, "Sign Up")}
             >
                 SIGN UP
             </BasicButtonComponent>
