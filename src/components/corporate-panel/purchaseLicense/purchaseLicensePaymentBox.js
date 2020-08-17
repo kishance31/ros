@@ -4,8 +4,10 @@ import { MetroCancelIcon } from '../../icons/Icons';
 
 const PurchaseLicensePaymentBox = (props) => {
 
+    const { price, toggleModal } = props;
+
     const ModalCloseIcon = () => (
-        <button type="button" className="close close_icon ml-auto" aria-label="Close" onClick={props.toggleModal}>
+        <button type="button" className="close close_icon ml-auto" aria-label="Close" onClick={toggleModal}>
             <span aria-hidden="true">
                 <MetroCancelIcon />
             </span>
@@ -21,15 +23,19 @@ const PurchaseLicensePaymentBox = (props) => {
             id="PaymentDetails"
         >
             <div className="table-responsive-sm">
-                <table className="table">
+                <table className="table"  >
                     <tbody>
                         <tr>
                             <th scope="row">Total Licence</th>
-                            <td>20</td>
+                            <td>
+                               10
+                            </td>
                         </tr>
                         <tr>
                             <th scope="row">Total Amount</th>
-                            <td>$14000</td>
+                            <td>
+                               {price}
+                            </td>
                         </tr>
                     </tbody>
                 </table>
