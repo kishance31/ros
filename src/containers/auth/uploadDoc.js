@@ -37,7 +37,7 @@ class UploadDoc extends Component {
                 <input type="file"
                     className="custom-file-input"
                     id="inputGroupFile03"
-                    onChange={this.onFileChange} />
+                    onChange={this.onFileChange} required />
             </div>
         );
     }
