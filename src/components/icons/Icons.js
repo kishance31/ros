@@ -72,3 +72,18 @@ export const MetroCancelIcon = React.memo(
         </g>
     </svg>
 )
+
+export const CartIcon = React.memo(
+    () => <svg xmlns="http://www.w3.org/2000/svg" width="31.5" height="32" viewBox="0 0 31.5 32">
+        <g id="Group_1341" data-name="Group 1341" transform="translate(-1506.5 -56)">
+            <path id="Icon_material-shopping-cart" data-name="Icon material-shopping-cart"
+                d="M9.3,23.8a2.6,2.6,0,1,0,2.6,2.6A2.6,2.6,0,0,0,9.3,23.8ZM1.5,3V5.6H4.1l4.68,9.867L7.025,18.652A2.513,2.513,0,0,0,6.7,19.9a2.608,2.608,0,0,0,2.6,2.6H24.9V19.9H9.846a.322.322,0,0,1-.325-.325l.039-.156L10.73,17.3h9.685a2.588,2.588,0,0,0,2.275-1.339l4.654-8.437A1.27,1.27,0,0,0,27.5,6.9a1.3,1.3,0,0,0-1.3-1.3H6.973L5.751,3ZM22.3,23.8a2.6,2.6,0,1,0,2.6,2.6A2.6,2.6,0,0,0,22.3,23.8Z"
+                transform="translate(1505 59)" fill="#f95b3d" />
+            <g id="Ellipse_5" data-name="Ellipse 5" transform="translate(1522 56)"
+                fill="#8bc8d4" stroke="#292929" strokeWidth="2">
+                <circle cx="8" cy="8" r="8" stroke="none" />
+                <circle cx="8" cy="8" r="7" fill="none" />
+            </g>
+        </g>
+    </svg>
+)

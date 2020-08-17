@@ -24,6 +24,7 @@ const AuthModalContainer = props => {
             toggleModal={toggleModal}
             title={auth.modals.title}
             centered
+            className="homepage"
         >
             {
                 auth.modals.showSignInModal ? <SignInForm /> : null
