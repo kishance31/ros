@@ -23,14 +23,13 @@ const PurchaseLicenseTable = (props) => {
                                 return (
                                     <tr key={index}>
                                         <td>{index + 1}</td>
-                                        <td>{item.licenseType}</td>
+                                        <td>{item.type}</td>
                                         <td>{item.quantity}</td>
                                         <td>{item.price}</td>
                                     </tr>   
                                 )
                             })
                         }
-                    
                     </tbody>
                 </table>
             </div>
