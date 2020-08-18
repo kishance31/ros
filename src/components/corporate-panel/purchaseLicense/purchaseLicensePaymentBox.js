@@ -4,7 +4,7 @@ import { MetroCancelIcon } from '../../icons/Icons';
 
 const PurchaseLicensePaymentBox = (props) => {
 
-    const { price, toggleModal } = props;
+    const { toggleModal } = props;
 
     const ModalCloseIcon = () => (
         <button type="button" className="close close_icon ml-auto" aria-label="Close" onClick={toggleModal}>
@@ -34,7 +34,7 @@ const PurchaseLicensePaymentBox = (props) => {
                         <tr>
                             <th scope="row">Total Amount</th>
                             <td>
-                               {price}
+                               1000
                             </td>
                         </tr>
                     </tbody>
