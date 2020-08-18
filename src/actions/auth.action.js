@@ -100,7 +100,7 @@ export const signOutUserAsync = (tokens) => {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': tokens
+                'tokens': tokens
             }
         });
         dispatch({
