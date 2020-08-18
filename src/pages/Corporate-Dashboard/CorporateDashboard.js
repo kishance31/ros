@@ -1,9 +1,10 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { Switch, Route, useRouteMatch, Redirect } from 'react-router-dom';
+import CorporateLinksContainer from '../../containers/corporate-panel/corporateLinks';
 import PurchaseLicense from '../../containers/corporate-panel/purchaseLicense';
 import EmployeeLicenseManagement from '../../containers/corporate-panel/employeeLicenseMangement';
-import CorporateLinksContainer from '../../containers/corporate-panel/corporateLinks';
+import MyAccount from '../../containers/corporate-panel/myAccount';
 
 
 const CorporateDashboard = () => {
@@ -23,6 +24,7 @@ const CorporateDashboard = () => {
                                 <Route exact path={`${path}`} component={PurchaseLicense} />
                                 <Route path={`${path}/purchaseLicense`} component={PurchaseLicense} />
                                 <Route path={`${path}/employeeLicenseManagement`} component={EmployeeLicenseManagement} />
+                                <Route path={`${path}/myAccount`} component={MyAccount} />
                             </Switch>
                         </div>
                     </div>

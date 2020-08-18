@@ -29,7 +29,7 @@ const BasicCardComponent = (props) => {
 				{props.children}
 				{
 					btnName &&
-					<BasicButtonComponent>
+					<BasicButtonComponent className="btn">
 						{btnName}
 					</BasicButtonComponent>
 				}

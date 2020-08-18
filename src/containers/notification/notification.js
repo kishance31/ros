@@ -25,11 +25,12 @@ const NotificationToastContainer = () => {
             }}
         >
             {
-                notificationList.map(notification =>
+                notificationList.map((notification, key) =>
                     <NotificationToast
                         title={notification.title}
                         message={notification.message}
                         duration={notification.duration}
+                        key={key}
                     />
                 )
             }
