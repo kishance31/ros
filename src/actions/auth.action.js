@@ -11,12 +11,12 @@ export const AuthMap = {
     SIGN_UP_SUCCESS: 'sign_up_success',
     SIGN_UP_ERROR: 'sign_up_error',
     SIGN_IN_SUCCESS: 'sign_in_success',
-    SIGN_IN_ERROR: 'sign_in_error' 
+    SIGN_IN_ERROR: 'sign_in_error',
+    SIGN_OUT: 'sign_out'
 }
 
 const AuthModelAction = {
-    toggleAuthModals: (type, title) => {
-        
+    toggleAuthModals: (type, title) => { 
         return {
             type,
             payload: {
@@ -81,5 +81,23 @@ export const signInUserAsync = (userBody) => {
     }
 }
 
+export const signOutUserAsync = (token) => {
+    return async (dispatch) => {
+
+        dispatch({
+            type: AuthMap.SIGN_OUT
+        });       
+    
+        const signOutUser = axios({
+            url: 'http://127.0.0.1:4000/user/logout',                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': token
+            }
+        });
+        console.log('signOutUser', signOutUser);
+    }
+}
 
 export default AuthModelAction;

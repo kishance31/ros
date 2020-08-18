@@ -33,6 +33,7 @@ const SignInForm = (props) => {
     };
 
     const redirectToForgotPassword = () => {
+        dispatch()
         dispatch(AuthModalAction.toggleAuthModals(AuthMap.TOGGLE_FORGOT_PASSWORD_MODAL, "Forgot Password"));
     }
 
@@ -43,17 +44,15 @@ const SignInForm = (props) => {
     const Corporate = () => {
         return (
             <div className={`tab-pane fade show ${tabName === "corporate" ? "active" : ""}`} id="nav-home" role="tabpanel" aria-labelledby="tab1">
-
                 <DoubleInputField>
-
-                    <input type="email" onChange={(event) => handleInput(event)} placeholder="EMAIL" name="email" value={user.email} className="input_box_1 form-control" />
+                    <input type="email" onChange={(event) => handleInput(event)} placeholder="EMAIL" name="email" value={user.email} className="input_box_1 form-control" required />
                     <input type="password" onChange={(event) => handleInput(event)} placeholder="PASSWORD" name="password" value={user.password} className="input_box_2 form-control" required />
-
                 </DoubleInputField>
-                <button className="modal-fill_btn btn btn-lg" onClick={(e) => handleSubmit(e, 'corporate')} ><span className="sign_in">SIGN IN</span>
+                <button className="modal-fill_btn btn btn-lg" onClick={(e) => handleSubmit(e, 'corporate')} >
+                <span className="sign_in">SIGN IN</span>
                 <span className="left_arrow">
                     <ArrowRightIcon />
-                    </span>
+                </span>
                 </button>
                 <span className="navbar-text"> <a href="/#" onClick={redirectToForgotPassword}>FORGOT PASSWORD</a> </span>
                 <div className="modal-footer">

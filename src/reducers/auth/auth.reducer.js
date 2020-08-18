@@ -64,7 +64,7 @@ const authReducer = (state = initialState, action) => {
                 }
             }
 
-            case AuthMap.TOGGLE_SET_PASSWORD_MODAL:
+        case AuthMap.TOGGLE_SET_PASSWORD_MODAL:
                 return {
                     ...state,
                     modals: {
@@ -76,72 +76,78 @@ const authReducer = (state = initialState, action) => {
                         openModal: true,
                     }
                 }
-                case AuthMap.SIGN_UP_START:
-                    return {
-                        ...state,
-                        user: {
-                            ...state.user,
-                            fetching: true,
-                        }
-                    }
+        case AuthMap.SIGN_UP_START:
+            return {
+                ...state,
+                user: {
+                    ...state.user,
+                    fetching: true,
+                }
+            }
 
-                case AuthMap.SIGN_UP_SUCCESS:              
-                return {
-                        ...state,
-                        user: {
-                            ...state.user,
-                            fetching: false,
-                        },
-                        modals: {
-                            showSignInModal: !state.modals.showSignInModal,
-                            showSignUpModal: false,
-                            showForgotPasswordModal: false,
-                            showSetPasswordModal: false,
-                            title: "Sign In With",
-                            openModal: true
-                        }
-                    }
+        case AuthMap.SIGN_UP_SUCCESS:              
+        return {
+                ...state,
+                user: {
+                    ...state.user,
+                    fetching: false,
+                },
+                modals: {
+                    showSignInModal: !state.modals.showSignInModal,
+                    showSignUpModal: false,
+                    showForgotPasswordModal: false,
+                    showSetPasswordModal: false,
+                    title: "Sign In With",
+                    openModal: true
+                }
+            }
+
+        case AuthMap.SIGN_UP_ERROR:
+            return {
+                ...state,
+                user: {
+                    ...state.user,
+                    fetching: false,
+                },
+            }
         
-                case AuthMap.SIGN_UP_ERROR:
-                    return {
-                        ...state,
-                        user: {
-                            ...state.user,
-                            fetching: false,
-                        },
-                    }
-                
-                case AuthMap.SIGN_IN_START:
-                    return {
-                        ...state,
-                        user: {
-                                ...state.user 
-                        }
-                    }
+        case AuthMap.SIGN_IN_START:
+            return {
+                ...state,
+                user: {
+                        ...state.user 
+                }
+            }
 
-                case AuthMap.SIGN_IN_SUCCESS:
-                    return{
-                        ...state,
-                        user: {
-                            ...state.user
-                    },
-                        modals: {
-                            showSignInModal: false,
-                            showSignUpModal: false,
-                            showForgotPasswordModal: false,
-                            showSetPasswordModal: false,
-                            title: "",
-                            openModal: false,
-                        }
-                    }
+        case AuthMap.SIGN_IN_SUCCESS:
+            return{
+                ...state,
+                user: {
+                    ...state.user
+            },
+                modals: {
+                    showSignInModal: false,
+                    showSignUpModal: false,
+                    showForgotPasswordModal: false,
+                    showSetPasswordModal: false,
+                    title: "",
+                    openModal: false,
+                }
+            }
                 
-                case AuthMap.SIGN_IN_ERROR:
-                    return {
-                        ...state,
-                        user: {
-                            ...state.user
-                        }
-                    }
+        case AuthMap.SIGN_IN_ERROR:
+            return {
+                ...state,
+                user: {
+                    ...state.user
+                }
+            }
+        case AuthMap.SIGN_OUT:
+            return{
+                ...state
+            }
+                
+                
         default:
             return {
                 ...state

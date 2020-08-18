@@ -13,11 +13,6 @@ const SignUpForm = () => {
         dispatch(AuthModelAction.toggleAuthModals(AuthMap.TOGGLE_SIGN_IN_MODAL));
     }
 
-    const navigateToForgotPass = () => {
-        dispatch(AuthModelAction.toggleAuthModals(AuthMap.TOGGLE_FORGOT_PASSWORD_MODAL, "Forgot Password"));
-    }
-
-
     const [formName, setformName] = useState({
         companyName: "", firstName: "", lastName: "", position: "", department: "", corporateEmail: "", personalEmail: "",
         officeContactNo: "", mobileNo: "", employeeId: "", userName: "", password: "", reEnterPassword: "", corpDoc: ""
@@ -147,7 +142,6 @@ const SignUpForm = () => {
                     </span>
                 </button>
             </form>
-            <span className="navbar-text"><a onClick={navigateToForgotPass} href="#">FORGOT PASSWORD</a></span>
             <div className="modal-footer">
                 <h5 className="footer_title"> Already have an account!</h5>
                 <span className="navbar-text">
