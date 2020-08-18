@@ -162,11 +162,26 @@ const authReducer = (state = initialState, action) => {
             return {
                 ...state,
                 user: {
+                    address: [],
+                    company: {
+                        branches: []
+                    },
+                    companyName: "",
+                    email: "",
+                    firstName: "",
+                    lastName: "",
+                    licenseDetails: [],
+                    mobileNo: "",
+                    officeContactNo: "",
+                    username: "",
+                    _id: "",
+                    tokens: ""
                 }
             }
         default:
             return {
-                ...state
+                ...state,
+                
             }
     }
 }

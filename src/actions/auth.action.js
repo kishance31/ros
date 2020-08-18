@@ -92,7 +92,7 @@ export const signInUserAsync = (userBody) => {
     }
 }
 
-export const signOutUserAsync = (token) => {
+export const signOutUserAsync = (tokens) => {
     
     return async (dispatch) => {
         const signOutUser = await axios({
@@ -100,7 +100,7 @@ export const signOutUserAsync = (token) => {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': token
+                'Authorization': tokens
             }
         });
         dispatch({
