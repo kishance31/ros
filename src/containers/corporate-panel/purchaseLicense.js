@@ -31,7 +31,6 @@ const PurchaseLicense = () => {
             quantity, licenseType
         } = event.target;
         const availableLicenseDetails = availableLicenseList.find(license => license.type === licenseType.value);
-        console.log(availableLicenseDetails);
         const data = {
             ...availableLicenseDetails,
             quantity: parseInt(quantity.value),

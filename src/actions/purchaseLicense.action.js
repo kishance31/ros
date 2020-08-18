@@ -31,7 +31,6 @@ export const availableLicenseAsync =() => {
                 'Content-type': 'application/json'
             }
         });
-        console.log(availableLicenseResponse);
         if (availableLicenseResponse.data.response.responseCode === 200) {
             dispatch({
                 type: PurchaseLicenseMap.AVAILABLE_LICENSE_SUCCESS,

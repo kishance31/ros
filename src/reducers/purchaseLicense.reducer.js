@@ -1,4 +1,4 @@
-import { PurchaseLicenseMap } from '../../actions/purchaseLicense.action';
+import { PurchaseLicenseMap } from '../actions/purchaseLicense.action';
 
 const initialState = {
     addedLicenseList: [],
@@ -10,7 +10,6 @@ const purchaseLicenseReducer = (state = initialState, action) => {
         case PurchaseLicenseMap.ADD_LICENSE: {
             let newLicenseList = [];
             let { payload } = action;
-            console.log(payload);
             let existLicense = state.addedLicenseList.find(license => license.type == payload.type);
             if (existLicense) {
                 newLicenseList = state.addedLicenseList.map((license) => {
@@ -26,7 +25,6 @@ const purchaseLicenseReducer = (state = initialState, action) => {
                     { ...action.payload },
                 ]
             }
-            console.log(newLicenseList);
             return {
                 ...state,
                 addedLicenseList: newLicenseList

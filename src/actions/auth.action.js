@@ -1,4 +1,5 @@
 import axios from 'axios';
+import notificationActions from './notifications.action';
 
 export const AuthMap = {
     TOGGLE_SIGN_IN_MODAL: 'toggle_sign_in_modal',
@@ -11,24 +12,29 @@ export const AuthMap = {
     SIGN_UP_SUCCESS: 'sign_up_success',
     SIGN_UP_ERROR: 'sign_up_error',
     SIGN_IN_SUCCESS: 'sign_in_success',
-    SIGN_IN_ERROR: 'sign_in_error' 
+    SIGN_IN_ERROR: 'sign_in_error'
 }
 
 const AuthModelAction = {
     toggleAuthModals: (type, title) => {
-        
         return {
             type,
             payload: {
                 title
             }
         };
+    },
+    signInUser: (payload) => {
+        return {
+            type: AuthMap.SIGN_IN_SUCCESS,
+            payload
+        }
     }
 }
 
 export const signUpUserAsync = (user) => {
     return async (dispatch) => {
-        
+
         dispatch({
             type: AuthMap.SIGN_UP_START
         });
@@ -37,7 +43,7 @@ export const signUpUserAsync = (user) => {
             method: "POST",
             data: user,
             headers: {
-                "Content-Type" : "multipart/form-data"
+                "Content-Type": "multipart/form-data"
             }
         });
         if (signuprespone.status === 200) {
@@ -46,14 +52,14 @@ export const signUpUserAsync = (user) => {
             })
         } else {
             dispatch({
-                type: AuthMap.SIGN_UP_ERROR                
+                type: AuthMap.SIGN_UP_ERROR
             })
         }
-    }    
+    }
 }
 
 export const signInUserAsync = (userBody) => {
-        
+
     return async (dispatch) => {
 
         dispatch({
@@ -68,16 +74,22 @@ export const signInUserAsync = (userBody) => {
                 'Content-Type': 'application/json'
             }
         });
-        if(signInResponce.data.response.responseCode === 200 ){
+        if (signInResponce.data.response.responseCode === 200) {
+            dispatch(AuthModelAction.signInUser({
+                ...signInResponce.data.response.userProfile.user,
+                tokens: signInResponce.data.response.userProfile.tokens
+            }))
+        } else {
             dispatch({
-                type: AuthMap.SIGN_IN_SUCCESS
-            })
-        }else{
-            dispatch({
-                type:AuthMap.SIGN_IN_ERROR
-            })
+                type: AuthMap.SIGN_IN_ERROR
+            });
+            dispatch(notificationActions.showNotification({
+                title: 'Login In',
+                message: signInResponce.data.response.responseMessage,
+                // duration: 5000,
+            }));
         }
-        
+
     }
 }
 

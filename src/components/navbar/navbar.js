@@ -27,7 +27,7 @@ const NavbarComponent = (props) => {
             {
                 logo &&
                 <NavbarBrand href="/">
-                    <img src={logo} alt={alt} />
+                    <img src={logo} alt={alt} className="logo logo img-fluid" />
                 </NavbarBrand>
             }
             {
