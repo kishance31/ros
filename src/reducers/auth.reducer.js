@@ -158,9 +158,30 @@ const authReducer = (state = initialState, action) => {
                     ...state.user
                 }
             }
+        case AuthMap.SIGN_OUT:
+            return {
+                ...state,
+                user: {
+                    address: [],
+                    company: {
+                        branches: []
+                    },
+                    companyName: "",
+                    email: "",
+                    firstName: "",
+                    lastName: "",
+                    licenseDetails: [],
+                    mobileNo: "",
+                    officeContactNo: "",
+                    username: "",
+                    _id: "",
+                    tokens: ""
+                }
+            }
         default:
             return {
-                ...state
+                ...state,
+                
             }
     }
 }

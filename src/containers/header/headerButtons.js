@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import BasicButtonComponent from '../../components/buttons/basicbutton';
-import {AuthMap} from '../../actions/auth.action'
+import {AuthMap} from '../../actions/auth.action';
+
 
 const HeaderButtons = props => {
 
