@@ -91,7 +91,6 @@ const SignInForm = (props) => {
     };
 
     const redirectToForgotPassword = () => {
-        dispatch()
         dispatch(AuthModalAction.toggleAuthModals(AuthMap.TOGGLE_FORGOT_PASSWORD_MODAL, "Forgot Password"));
     }
 
