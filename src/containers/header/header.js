@@ -7,8 +7,8 @@ import AuthModalContainer from '../auth/authModal';
 import HeaderButtons from './headerButtons';
 import HeaderUserDetails from './headerUserDetails';
 import { headerLinks } from '../../utils/constants';
-
 import logo from './../../assets/images/logo.svg';
+import {signOutUserAsync} from '../../actions/auth.action';
 
 const HeaderContainer = () => {
     const user = useSelector(state => state.auth.user);
@@ -17,7 +17,6 @@ const HeaderContainer = () => {
     const toggleModal = (type, title) => {
         dispatch(AuthModelAction.toggleAuthModals(type, title));
     }
-
     return (
         <header className="header fixed" data-aos="fade-down">
             <div className="container-fluid">
@@ -31,6 +30,7 @@ const HeaderContainer = () => {
                     navLinks={!user.tokens ? headerLinks : []}
                     isOpen={false}
                     mrAuto
+                    headerButtonVisiable
                 >
                     {
                         !user.tokens ?

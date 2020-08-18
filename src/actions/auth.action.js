@@ -1,6 +1,5 @@
 import axios from 'axios';
 import notificationActions from './notifications.action';
-
 export const AuthMap = {
     TOGGLE_SIGN_IN_MODAL: 'toggle_sign_in_modal',
     TOGGLE_SIGN_UP_MODAL: 'toggle_sign_up_modal',
@@ -12,7 +11,8 @@ export const AuthMap = {
     SIGN_UP_SUCCESS: 'sign_up_success',
     SIGN_UP_ERROR: 'sign_up_error',
     SIGN_IN_SUCCESS: 'sign_in_success',
-    SIGN_IN_ERROR: 'sign_in_error'
+    SIGN_IN_ERROR: 'sign_in_error',
+    SIGN_OUT: 'sign_out'
 }
 
 const AuthModelAction = {
@@ -89,9 +89,24 @@ export const signInUserAsync = (userBody) => {
                 // duration: 5000,
             }));
         }
-
     }
 }
 
+export const signOutUserAsync = (tokens) => {
+    
+    return async (dispatch) => {
+        const signOutUser = await axios({
+            url: 'http://127.0.0.1:4000/api/corporate-admin/logout',                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'tokens': tokens
+            }
+        });
+        dispatch({
+            type: AuthMap.SIGN_OUT
+        }); 
+    }
+}
 
 export default AuthModelAction;
