@@ -9,6 +9,7 @@ import HeaderUserDetails from './headerUserDetails';
 import { headerLinks } from '../../utils/constants';
 import logo from './../../assets/images/logo.svg';
 import {signOutUserAsync} from '../../actions/auth.action';
+
 const HeaderContainer = () => {
     const user = useSelector(state => state.auth.user);
     const dispatch = useDispatch();

@@ -158,6 +158,12 @@ const authReducer = (state = initialState, action) => {
                     ...state.user
                 }
             }
+        case AuthMap.SIGN_OUT:
+            return {
+                ...state,
+                user: {
+                }
+            }
         default:
             return {
                 ...state
