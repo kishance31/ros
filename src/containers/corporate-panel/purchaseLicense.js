@@ -4,21 +4,23 @@ import PurchaseLicenseAddBox from '../../components/corporate-panel/purchaseLice
 import PurchaseLicenseTable from '../../components/corporate-panel/purchaseLicense/purchaseLicenseTable';
 import PurchaseLicensePaymentBox from '../../components/corporate-panel/purchaseLicense/purchaseLicensePaymentBox';
 import purchaseLicenseAction from '../../actions/purchaseLicense.action';
+import { PurchaseLicenseMap,availableLicenseAsync } from '../../actions/purchaseLicense.action';
 
 const PurchaseLicense = () => {
 
     const [showPaymentModal, setShowPaymentModal] = useState(false);
 
-    const [addedLicenseList, setAddedLicenseList] = useState([]);
-
     const purchaseLicenseList = useSelector(state => state.purchaseLicense.addedLicenseList);
 
-    useEffect(() => {
-        setAddedLicenseList([
-            { licenseType: "SLIVER", price: 5000 },
-            { licenseType: "GOLD", price: 8000 },
-            { licenseType: "PLATINUM", price: 9000 }
-        ])
+    const availableLicenseList = useSelector(state => state.purchaseLicense.availableLicenseList);
+
+
+    useEffect((data) => {
+
+        if (availableLicenseList.length === 0) {
+
+            dispatch(availableLicenseAsync(data));
+        }
     }, []);
 
     const dispatch = useDispatch();
@@ -28,22 +30,21 @@ const PurchaseLicense = () => {
         const {
             quantity, licenseType
         } = event.target;
-        const addLicenseDetails = addedLicenseList.find(license => license.licenseType === licenseType.value);
-        console.log(addLicenseDetails);
+        const availableLicenseDetails = availableLicenseList.find(license => license.type === licenseType.value);
         const data = {
-            ...addLicenseDetails,
+            ...availableLicenseDetails,
             quantity: parseInt(quantity.value),
-            price: quantity.value * addLicenseDetails.price
+            price: quantity.value * availableLicenseDetails.price
         }
         dispatch(purchaseLicenseAction.addLicense(data))
     }
-    
+
     return (
         <>
             <div className="container-fluid">
                 <div className="row">
                     <div className="col-lg-6">
-                        <PurchaseLicenseAddBox addLicense={addLicense} addedLicenseList={addedLicenseList} />
+                        <PurchaseLicenseAddBox addLicense={addLicense} availableLicenseList={availableLicenseList} />
                     </div>
                     <div className="col-lg-6 mt-5 mt-lg-0">
                         <PurchaseLicenseTable purchaseLicenseList={purchaseLicenseList} showPaymentModal={() => setShowPaymentModal(!showPaymentModal)} />

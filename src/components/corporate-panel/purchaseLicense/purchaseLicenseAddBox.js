@@ -4,7 +4,7 @@ import { checkPropTypes } from 'prop-types';
 
 const PurchaseLicenseAddBox = (props) => {
 
-    const { addedLicenseList, addLicense } = props;
+    const { availableLicenseList, addLicense } = props;
 
     const currDate = new Date().toLocaleDateString();
 
@@ -44,8 +44,8 @@ const PurchaseLicenseAddBox = (props) => {
                             <label>License Type</label>
                             <select name="licenseType" title="Select" className="selectpicker form-control">
                                 {
-                                    addedLicenseList.map(item => (
-                                        <option key={item.licenseType} value={item.licenseType}>{item.licenseType}</option>
+                                    availableLicenseList.map(item => (
+                                        <option key={item.type} value={item.type}>{item.type}</option>
                                         ))
                                 }
                             </select>

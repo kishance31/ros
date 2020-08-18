@@ -1,4 +1,4 @@
-import { AuthMap } from '../../actions/auth.action';
+import { AuthMap } from '../actions/auth.action';
 
 const initialState = {
     modals: {
@@ -8,6 +8,22 @@ const initialState = {
         showSetPasswordModal: false,
         title: "",
         openModal: false,
+    },
+    user: {
+        address: [],
+        company: {
+            branches: []
+        },
+        companyName: "",
+        email: "",
+        firstName: "",
+        lastName: "",
+        licenseDetails: [],
+        mobileNo: "",
+        officeContactNo: "",
+        username: "",
+        _id: "",
+        tokens: ""
     },
 }
 
@@ -65,17 +81,17 @@ const authReducer = (state = initialState, action) => {
             }
 
         case AuthMap.TOGGLE_SET_PASSWORD_MODAL:
-                return {
-                    ...state,
-                    modals: {
-                        showSignInModal: false,
-                        showSignUpModal: false,
-                        showForgotPasswordModal: false,
-                        showSetPasswordModal: !state.modals.showSetPasswordModal,
-                        title: action.payload.title,
-                        openModal: true,
-                    }
+            return {
+                ...state,
+                modals: {
+                    showSignInModal: false,
+                    showSignUpModal: false,
+                    showForgotPasswordModal: false,
+                    showSetPasswordModal: !state.modals.showSetPasswordModal,
+                    title: action.payload.title,
+                    openModal: true,
                 }
+            }
         case AuthMap.SIGN_UP_START:
             return {
                 ...state,
@@ -85,8 +101,8 @@ const authReducer = (state = initialState, action) => {
                 }
             }
 
-        case AuthMap.SIGN_UP_SUCCESS:              
-        return {
+        case AuthMap.SIGN_UP_SUCCESS:
+            return {
                 ...state,
                 user: {
                     ...state.user,
@@ -110,21 +126,21 @@ const authReducer = (state = initialState, action) => {
                     fetching: false,
                 },
             }
-        
+
         case AuthMap.SIGN_IN_START:
             return {
                 ...state,
                 user: {
-                        ...state.user 
+                    ...state.user
                 }
             }
 
         case AuthMap.SIGN_IN_SUCCESS:
-            return{
+            return {
                 ...state,
                 user: {
-                    ...state.user
-            },
+                    ...action.payload
+                },
                 modals: {
                     showSignInModal: false,
                     showSignUpModal: false,
@@ -134,7 +150,7 @@ const authReducer = (state = initialState, action) => {
                     openModal: false,
                 }
             }
-                
+
         case AuthMap.SIGN_IN_ERROR:
             return {
                 ...state,
@@ -142,12 +158,6 @@ const authReducer = (state = initialState, action) => {
                     ...state.user
                 }
             }
-        case AuthMap.SIGN_OUT:
-            return{
-                ...state
-            }
-                
-                
         default:
             return {
                 ...state

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import BasicButtonComponent from '../../components/buttons/basicbutton';
 import {AuthMap} from '../../actions/auth.action'
 
-export const HeaderButtons = props => {
+const HeaderButtons = props => {
 
     const {
         buttonClick,
@@ -30,3 +30,5 @@ export const HeaderButtons = props => {
 HeaderButtons.propTypes = {
     buttonClick: PropTypes.func.isRequired,
 }
+
+export default HeaderButtons;
