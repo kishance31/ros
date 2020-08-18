@@ -2,37 +2,37 @@ import React from 'react';
 
 const EmployeeLicenseManagement = () => {
     return (
-        <div class="side_space">
-            <div class="page_title">Available License</div>
+        <div className="side_space">
+            <div className="page_title">Available License</div>
 
-            <div class="top_bar">
-                <div class="license_detail">
+            <div className="top_bar">
+                <div className="license_detail">
                     <ul>
-                        <li class="bg_pink">
+                        <li className="bg_pink">
                             <span>Silver</span>
                             <span>10</span>
                         </li>
-                        <li class="bg_light_blue">
+                        <li className="bg_light_blue">
                             <span>Gold</span>
                             <span>10</span>
                         </li>
-                        <li class="bg_orange">
+                        <li className="bg_orange">
                             <span>Platinum</span>
                             <span>10</span>
                         </li>
                     </ul>
                 </div>
-                <div class="btn_wrp">
-                    <button class="btn_blue">Import File</button>
-                    <button class="btn_blue" data-target="#add_employeement" data-toggle="modal">Add</button>
+                <div className="btn_wrp">
+                    <button className="btn_blue">Import File</button>
+                    <button className="btn_blue" data-target="#add_employeement" data-toggle="modal">Add</button>
                 </div>
             </div>
 
             
-            <div class="container-fluid">
-                <div class="shadow_box">
-                    <div class="general_table table-responsive">
-                        <table class="">
+            <div className="container-fluid">
+                <div className="shadow_box">
+                    <div className="general_table table-responsive">
+                        <table className="">
                             <thead>
                                 <tr>
                                     <th>Sr&nbsp;No</th>
@@ -40,7 +40,7 @@ const EmployeeLicenseManagement = () => {
                                     <th>EMAIL&nbsp;ID</th>
                                     <th>License&nbsp;TYPE</th>
                                     <th>BRANCH</th>
-                                    <th class="action_col">ACTION</th>
+                                    <th className="action_col">ACTION</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -50,12 +50,12 @@ const EmployeeLicenseManagement = () => {
                                     <td>milan@gmail.com</td>
                                     <td>Silver</td>
                                     <td>Ahmedabad</td>
-                                    <td class="action_col">
-                                        <div class="action_btn_wrap">
-                                            <button class="btn_action btn_border">Edit</button>
-                                            <button class="btn_action pink">Delete</button>
-                                            <button class="btn_action orange">Invitation Send</button>
-                                            <button class="btn_action light_blue">Resend Invitation</button>
+                                    <td className="action_col">
+                                        <div className="action_btn_wrap">
+                                            <button className="btn_action btn_border">Edit</button>
+                                            <button className="btn_action pink">Delete</button>
+                                            <button className="btn_action orange">Invitation Send</button>
+                                            <button className="btn_action light_blue">Resend Invitation</button>
                                         </div>
                                     </td>
                                 </tr>
@@ -66,11 +66,11 @@ const EmployeeLicenseManagement = () => {
                                     <td>Silver</td>
                                     <td>Ahmedabad</td>
                                     <td>
-                                        <div class="action_btn_wrap">
-                                            <button class="btn_action btn_border">Edit</button>
-                                            <button class="btn_action pink">Delete</button>
-                                            <button class="btn_action orange">Invitation Send</button>
-                                            <button class="btn_action light_blue">Resend Invitation</button>
+                                        <div className="action_btn_wrap">
+                                            <button className="btn_action btn_border">Edit</button>
+                                            <button className="btn_action pink">Delete</button>
+                                            <button className="btn_action orange">Invitation Send</button>
+                                            <button className="btn_action light_blue">Resend Invitation</button>
                                         </div>
                                     </td>
                                 </tr>
@@ -81,11 +81,11 @@ const EmployeeLicenseManagement = () => {
                                     <td>Silver</td>
                                     <td>Ahmedabad</td>
                                     <td>
-                                        <div class="action_btn_wrap">
-                                            <button class="btn_action btn_border">Edit</button>
-                                            <button class="btn_action pink">Delete</button>
-                                            <button class="btn_action orange">Invitation Send</button>
-                                            <button class="btn_action light_blue">Resend Invitation</button>
+                                        <div className="action_btn_wrap">
+                                            <button className="btn_action btn_border">Edit</button>
+                                            <button className="btn_action pink">Delete</button>
+                                            <button className="btn_action orange">Invitation Send</button>
+                                            <button className="btn_action light_blue">Resend Invitation</button>
                                         </div>
                                     </td>
                                 </tr>

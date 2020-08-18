@@ -4,7 +4,8 @@ import PurchaseLicenseAddBox from '../../components/corporate-panel/purchaseLice
 import PurchaseLicenseTable from '../../components/corporate-panel/purchaseLicense/purchaseLicenseTable';
 import PurchaseLicensePaymentBox from '../../components/corporate-panel/purchaseLicense/purchaseLicensePaymentBox';
 import purchaseLicenseAction from '../../actions/purchaseLicense.action';
-import { PurchaseLicenseMap,availableLicenseAsync } from '../../actions/purchaseLicense.action';
+import { availableLicenseAsync } from '../../actions/purchaseLicense.action';
+import notificationActions from '../../actions/notifications.action';
 
 const PurchaseLicense = () => {
 
@@ -30,6 +31,13 @@ const PurchaseLicense = () => {
         const {
             quantity, licenseType
         } = event.target;
+        if(!quantity.value) {
+            return dispatch(notificationActions.showNotification({
+                title: "Add License",
+                message: "Please enter quantity.",
+                // duration: 7000,
+            }));
+        }
         const availableLicenseDetails = availableLicenseList.find(license => license.type === licenseType.value);
         const data = {
             ...availableLicenseDetails,

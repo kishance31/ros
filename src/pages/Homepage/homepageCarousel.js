@@ -1,10 +1,18 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
 import CarouselCard from '../../components/card/CarouselCard';
+import AuthModelAction, {AuthMap} from '../../actions/auth.action'
 import { CarouselItems } from '../../utils/constants';
 import {LeftRectangleBox, NextRectangleBox} from '../../components/icons/Icons';
 
 
 const HomepageCarousel = () => {
+
+    const dispatch = useDispatch();
+
+    const showSignUpModal = () => {
+        dispatch(AuthModelAction.toggleAuthModals(AuthMap.TOGGLE_SIGN_UP_MODAL, "Sign Up"));
+    }
 
     return (
 
@@ -17,7 +25,16 @@ const HomepageCarousel = () => {
                         <li data-target="#myCarousel" data-slide-to="2" className=""></li>
                     </ol>
                     <div className="carousel-inner">
-                        {CarouselItems.map((val, i) =>  <CarouselCard key={i} imgsrc={val.imgsrc} active={i === 0 ? "active" : ""} />)}
+                        {
+                            CarouselItems.map((val, i) =>  
+                                <CarouselCard 
+                                    key={i} 
+                                    imgsrc={val.imgsrc} 
+                                    active={i === 0 ? "active" : ""}
+                                    onButtonClick={showSignUpModal}
+                                />
+                            )
+                        }
                     </div>
 
                     <a className="carousel-control-prev" href="#myCarousel" role="button" data-slide="prev">

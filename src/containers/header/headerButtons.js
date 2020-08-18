@@ -18,12 +18,6 @@ const HeaderButtons = props => {
             >
                 SIGN IN
             </BasicButtonComponent>
-            <BasicButtonComponent
-                className="custom_btn"
-                onButtonClick={() => buttonClick(AuthMap.TOGGLE_SIGN_UP_MODAL, "Sign Up")}
-            >
-                SIGN UP
-            </BasicButtonComponent>
         </div>
     )
 }

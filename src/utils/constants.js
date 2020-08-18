@@ -93,3 +93,9 @@ export const CarouselItems = [
       {name: "My Account", url: "/corporate/myAccount", active: false},
       {name: "Product View", url: "/corporate/productView", active: false},
   ]
+
+  export const CoporateMyAccountTabs = [
+      {name: "MY PROFILE", dataId: "myProfile", active: true},
+      {name: "LICENSE ORDER HISTROY", dataId: "licenseOrderHistory", active: false},
+      {name: "BRANCH MANAGEMENT", dataId: "branchManagement", active: false},
+  ]
