@@ -4,7 +4,14 @@ import { MetroCancelIcon } from '../../icons/Icons';
 
 const PurchaseLicensePaymentBox = (props) => {
 
-    const { toggleModal } = props;
+    const { toggleModal, payPurchaseLicenses,purchaseLicenseList } = props;
+
+    const {totalQuantity, totalPrice} = purchaseLicenseList.reduce((result, license) => {
+        return {
+            totalQuantity: result.totalQuantity + license.quantity,
+            totalPrice: result.totalPrice + license.price
+        }
+    }, {totalQuantity: 0, totalPrice: 0});
 
     const ModalCloseIcon = () => (
         <button type="button" className="close close_icon ml-auto" aria-label="Close" onClick={toggleModal}>
@@ -28,13 +35,13 @@ const PurchaseLicensePaymentBox = (props) => {
                         <tr>
                             <th scope="row">Total Licence</th>
                             <td>
-                               10
+                                {totalQuantity}
                             </td>
                         </tr>
                         <tr>
                             <th scope="row">Total Amount</th>
                             <td>
-                               1000
+                                {totalPrice}
                             </td>
                         </tr>
                     </tbody>
@@ -70,7 +77,7 @@ const PurchaseLicensePaymentBox = (props) => {
                 </div>
             </form>
             <div className="text-center">
-                <button className="btn_blue"><span className="">PAY</span></button>
+                <button className="btn_blue" onClick={payPurchaseLicenses} ><span>PAY</span></button>
 
             </div>
         </ModalComponent>

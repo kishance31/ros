@@ -4,8 +4,8 @@ import PurchaseLicenseAddBox from '../../components/corporate-panel/purchaseLice
 import PurchaseLicenseTable from '../../components/corporate-panel/purchaseLicense/purchaseLicenseTable';
 import PurchaseLicensePaymentBox from '../../components/corporate-panel/purchaseLicense/purchaseLicensePaymentBox';
 import purchaseLicenseAction from '../../actions/purchaseLicense.action';
-import { availableLicenseAsync } from '../../actions/purchaseLicense.action';
 import notificationActions from '../../actions/notifications.action';
+import { availableLicenseAsync, orderIdAsync, purchaseLicenseAsync } from '../../actions/purchaseLicense.action';
 
 const PurchaseLicense = () => {
 
@@ -15,23 +15,34 @@ const PurchaseLicense = () => {
 
     const availableLicenseList = useSelector(state => state.purchaseLicense.availableLicenseList);
 
+    const orderId = useSelector(state => state.purchaseLicense.orderId)
 
-    useEffect((data) => {
+    const user = useSelector(state => state.auth.user)
+
+    const dispatch = useDispatch();
+
+    useEffect(() => {
 
         if (availableLicenseList.length === 0) {
 
-            dispatch(availableLicenseAsync(data));
+            dispatch(availableLicenseAsync());
         }
     }, []);
 
-    const dispatch = useDispatch();
+    useEffect(() => {
+
+        if (orderId === '') {
+            dispatch(orderIdAsync(user._id, user.tokens));
+        }
+
+    }, [orderId]);
 
     const addLicense = (event) => {
         event.preventDefault();
         const {
             quantity, licenseType
         } = event.target;
-        if(!quantity.value) {
+        if (!quantity.value) {
             return dispatch(notificationActions.showNotification({
                 title: "Add License",
                 message: "Please enter quantity.",
@@ -47,19 +58,24 @@ const PurchaseLicense = () => {
         dispatch(purchaseLicenseAction.addLicense(data))
     }
 
+    const payPurchaseLicenses = () => {
+        dispatch(purchaseLicenseAsync(orderId, purchaseLicenseList, user.tokens));
+        setShowPaymentModal(!showPaymentModal);
+    }
+
     return (
         <>
             <div className="container-fluid">
                 <div className="row">
                     <div className="col-lg-6">
-                        <PurchaseLicenseAddBox addLicense={addLicense} availableLicenseList={availableLicenseList} />
+                        <PurchaseLicenseAddBox addLicense={addLicense} availableLicenseList={availableLicenseList} orderId={orderId} companyName={user.companyName} />
                     </div>
                     <div className="col-lg-6 mt-5 mt-lg-0">
                         <PurchaseLicenseTable purchaseLicenseList={purchaseLicenseList} showPaymentModal={() => setShowPaymentModal(!showPaymentModal)} />
                     </div>
                 </div>
             </div>
-            <PurchaseLicensePaymentBox isOpen={showPaymentModal} toggleModal={() => setShowPaymentModal(!showPaymentModal)} purchaseLicenseList={purchaseLicenseList} />
+            <PurchaseLicensePaymentBox payPurchaseLicenses={payPurchaseLicenses} isOpen={showPaymentModal} toggleModal={() => setShowPaymentModal(!showPaymentModal)} purchaseLicenseList={purchaseLicenseList} />
         </>
     )
 }
