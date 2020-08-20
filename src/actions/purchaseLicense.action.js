@@ -57,8 +57,6 @@ export const orderIdAsync = (orderId,token) => {
         dispatch({
             type: PurchaseLicenseMap.ORDER_ID_START
         });
-        console.log(orderId);
-        console.log(token);
         let orderIdResponse = await axios({
             url: `http://127.0.0.1:4000/api/corporate-admin/purchaseLicense/orderId/${orderId}`,
             method: "POST",
@@ -66,7 +64,6 @@ export const orderIdAsync = (orderId,token) => {
                 'tokens': token
             }
         });
-        console.log(orderIdResponse)
         if (orderIdResponse.data.response.responseCode === 201) {
             dispatch({
                 type: PurchaseLicenseMap.ORDER_ID_SUCCESS,
