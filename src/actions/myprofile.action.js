@@ -14,7 +14,6 @@ const myProfileAction = {
 
 export const addUserDataAsync = (userData, tokens) => {
     return async (dispatch) => {
-        alert(111111111111)
         dispatch({
             type: MyProfileMap.ADD_USER_DATA
         });
@@ -28,7 +27,7 @@ export const addUserDataAsync = (userData, tokens) => {
             }
         });
         if (userDataResponse.data.response.responseCode === 200) {
-            alert("Data inserted");
+            
         }
     }
 }
