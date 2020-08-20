@@ -5,30 +5,45 @@ import LicenseOrderHistory from './licenseOrderHistory';
 import BranchManagement from './branchManagement';
 import ModalComponent from '../../components/modal/modal'
 import { MetroCancelIcon } from '../../components/icons/Icons';
+import { useDispatch, useSelector } from 'react-redux';
+import { addUserDataAsync } from '../../actions/myprofile.action'; 
 
 const MyAccountTabs = (props) => {
+    const dispatch = useDispatch();
+    const token = useSelector(state => state.auth.user.tokens);
     const [visiableAddDataModal, setVisiableAddDataModal]=useState(false)
     const [formData, setFormData] = useState({
-        companyName: "", branchName: "", location: "", emailId: "", phoneNo : ""
+        companyName: "", branchName: "", location: "", email: "", mobile : ""
     });
+    
     const onAddData = () => {
         setVisiableAddDataModal(true)
     }
-    const CloseModal= () => {
+    const crossButton= () => {
         setVisiableAddDataModal(false)
     }
-    const onSubmit = (event) => {
-        event.preventDefault();
-
+    const inputEvent = (event) => {
         setFormData({
             ...formData,
             [event.target.name]: event.target.value
         });
     }
+    const onSubmit = (event) => {
+        event.preventDefault();
+        const userData={
+            companyName:formData.companyName,
+            branchName:formData.branchName,
+            location:formData.location,
+            emailId:formData.email,
+            phoneNo: formData.mobile
+        }
+        dispatch(addUserDataAsync(userData, token))
+        setVisiableAddDataModal(false)
+    }
 
 
     const ModalCloseIcon = () => (
-        <button type="button" className="close close_icon ml-auto" aria-label="Close" CloseModal={CloseModal} >
+        <button type="button" className="close close_icon ml-auto" aria-label="Close" onClick={crossButton}>
             <span aria-hidden="true">
                 <MetroCancelIcon />
             </span>
@@ -56,24 +71,24 @@ const MyAccountTabs = (props) => {
             }
             {
                 <ModalComponent isOpen={visiableAddDataModal} centered closeIcon={<ModalCloseIcon />} title="Add Data">
-                <form className="form-horizontal">
+                <form className="form-horizontal"  >
                         <div className="row">
                             <div className="col-lg-12">
                                 <div className="input-group">
-                                    <input placeholder="COMPANY NAME" defaultValue="" type="text" className="form-control"/>
+                                    <input placeholder="COMPANY NAME" name="companyName" onChange={inputEvent} value={formData.companyName} type="text" className="form-control"/>
                                 </div>
                                 <div className="input-group">
-                                    <input placeholder="BRANCH NAME" type="text" defaultValue="" className="input_box_1 form-control"/>
-                                    <input placeholder="LOCATION" type="text" defaultValue="" className="input_box_2 form-control"/>
+                                    <input placeholder="BRANCH NAME" name="branchName" onChange={inputEvent} value={formData.branchName} type="text" className="input_box_1 form-control"/>
+                                    <input placeholder="LOCATION" name="location" onChange={inputEvent} value={formData.location} type="text" className="input_box_2 form-control"/>
                                 </div>
                                 <div className="input-group">
-                                    <input placeholder="EMAIL ID" type="email" defaultValue="" className="input_box_1 form-control"/>
-                                    <input placeholder="MOBILE NO" type="password" defaultValue="" className="input_box_2 form-control"/>
+                                    <input placeholder="EMAIL ID" name="email" onChange={inputEvent} value={formData.email} type="email" className="input_box_1 form-control"/>
+                                    <input placeholder="MOBILE NO" name="mobile" onChange={inputEvent} value={formData.mobile} type="password" className="input_box_2 form-control"/>
                                 </div>
                             </div>
                         </div>
                         <div className="text-center mt-5 pt-lg-5">
-                            <button className="btn_blue" onSubmit={onSubmit} ><span>SAVE</span></button>
+                            <button className="btn_blue" onClick={onSubmit} ><span>SAVE</span></button>
                         </div>
                 </form>
                 </ModalComponent>
