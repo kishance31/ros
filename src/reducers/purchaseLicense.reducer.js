@@ -2,7 +2,8 @@ import { PurchaseLicenseMap } from '../actions/purchaseLicense.action';
 
 const initialState = {
     addedLicenseList: [],
-    availableLicenseList:[]
+    availableLicenseList: [],
+    orderId: "",
 }
 
 const purchaseLicenseReducer = (state = initialState, action) => {
@@ -10,7 +11,8 @@ const purchaseLicenseReducer = (state = initialState, action) => {
         case PurchaseLicenseMap.ADD_LICENSE: {
             let newLicenseList = [];
             let { payload } = action;
-            let existLicense = state.addedLicenseList.find(license => license.type == payload.type);
+            console.log(payload);
+            let existLicense = state.addedLicenseList.find(license => license.type === payload.type);
             if (existLicense) {
                 newLicenseList = state.addedLicenseList.map((license) => {
                     if (license.type === payload.type) {
@@ -30,11 +32,24 @@ const purchaseLicenseReducer = (state = initialState, action) => {
                 addedLicenseList: newLicenseList
             }
         }
-        case PurchaseLicenseMap.AVAILABLE_LICENSE_SUCCESS:{
+        case PurchaseLicenseMap.AVAILABLE_LICENSE_SUCCESS: {
             return {
                 ...state,
                 availableLicenseList: action.payload
-            }    
+            }
+        }
+        case PurchaseLicenseMap.ORDER_ID_SUCCESS: {
+            return {
+                ...state,
+                orderId: action.payload
+            }
+        }
+        case PurchaseLicenseMap.PURCHASE_LICENSE_SUCCESS: {
+            return {
+                ...state,
+                addedLicenseList: [],
+                orderId: ""
+            }
         }
         default: {
             return {
