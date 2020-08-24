@@ -6,14 +6,14 @@ import BranchManagement from './branchManagement';
 import ModalComponent from '../../components/modal/modal'
 import { MetroCancelIcon } from '../../components/icons/Icons';
 import { useDispatch, useSelector } from 'react-redux';
-import { addUserDataAsync } from '../../actions/myprofile.action'; 
+import  myProfileAction ,{addUserDataAsync, MyProfileMap } from '../../actions/myprofile.action'; 
 
 const MyAccountTabs = (props) => {
     const dispatch = useDispatch();
     const token = useSelector(state => state.auth.user.tokens);
     const [visiableAddDataModal, setVisiableAddDataModal]=useState(false)
     const [formData, setFormData] = useState({
-        companyName: "", branchName: "", location: "", email: "", mobile : ""
+        company_name: "", branch_name: "", location: "", email_id: "", mobile_no : ""
     });
     
     const onAddData = () => {
@@ -31,13 +31,14 @@ const MyAccountTabs = (props) => {
     const onSubmit = (event) => {
         event.preventDefault();
         const userData={
-            companyName:formData.companyName,
-            branchName:formData.branchName,
+            company_name:formData.company_name,
+            branch_name:formData.branch_name,
             location:formData.location,
-            emailId:formData.email,
-            phoneNo: formData.mobile
+            email_id:formData.email_id,
+            mobile_no: formData.mobile_no
         }
         dispatch(addUserDataAsync(userData, token))
+        // dispatch(myProfileAction.addData(MyProfileMap.ADD_USER_DATA(userData, token)))
         setVisiableAddDataModal(false)
     }
 
@@ -75,15 +76,15 @@ const MyAccountTabs = (props) => {
                         <div className="row">
                             <div className="col-lg-12">
                                 <div className="input-group">
-                                    <input placeholder="COMPANY NAME" name="companyName" onChange={inputEvent} value={formData.companyName} type="text" className="form-control"/>
+                                    <input placeholder="COMPANY NAME" name="company_name" onChange={inputEvent} value={formData.company_name} type="text" required className="form-control"/>
                                 </div>
                                 <div className="input-group">
-                                    <input placeholder="BRANCH NAME" name="branchName" onChange={inputEvent} value={formData.branchName} type="text" className="input_box_1 form-control"/>
-                                    <input placeholder="LOCATION" name="location" onChange={inputEvent} value={formData.location} type="text" className="input_box_2 form-control"/>
+                                    <input placeholder="BRANCH NAME" name="branch_name" onChange={inputEvent} value={formData.branch_name} type="text" required className="input_box_1 form-control"/>
+                                    <input placeholder="LOCATION" name="location" onChange={inputEvent} value={formData.location} type="text" required className="input_box_2 form-control"/>
                                 </div>
                                 <div className="input-group">
-                                    <input placeholder="EMAIL ID" name="email" onChange={inputEvent} value={formData.email} type="email" className="input_box_1 form-control"/>
-                                    <input placeholder="MOBILE NO" name="mobile" onChange={inputEvent} value={formData.mobile} type="password" className="input_box_2 form-control"/>
+                                    <input placeholder="EMAIL ID" name="email_id" onChange={inputEvent} value={formData.email_id} type="email" required className="input_box_1 form-control"/>
+                                    <input placeholder="MOBILE NO" name="mobile_no" onChange={inputEvent} value={formData.mobile_no} type="password" required className="input_box_2 form-control"/>
                                 </div>
                             </div>
                         </div>
