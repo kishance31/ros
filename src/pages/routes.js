@@ -23,20 +23,38 @@ const Routes = () => {
         >
             <Switch>
                 <Route exact path="/" component={Homepage} />
-                <Route path="/corporate" component={CorporateDashboard} />
-                <Route path="/employee" component={EmployeeDashboard} />
+                <PrivateRoute path="/corporate" component={CorporateDashboard} user={user} />
+                <PrivateRoute path="/employee" component={EmployeeDashboard} user={user} />
+                <Redirect from='/*' to="/" />
             </Switch>
             {
-                user.tokens ? 
+                user.tokens && user.role && user._id ?
                     <Redirect
                         to={
                             user.role.indexOf('CORPORATE') !== -1 ? "/corporate" :
-                            user.role.indexOf('EMPLOYEE') !== -1 ? "/employee" : "/"
-                        } 
+                                user.role.indexOf('EMPLOYEE') !== -1 ? "/employee" : "/"
+                        }
                     /> : null
             }
         </LoadingOverlay>
     )
 }
+
+const PrivateRoute = ({ component: Component, ...rest }) => (
+    <Route
+        {...rest}
+        render={props =>
+            rest.user.tokens && rest.user.role && rest.user._id ? (
+                <Component {...props} />
+            ) : (
+                    <Redirect
+                        to={{
+                            pathname: "/"
+                        }}
+                    />
+                )
+        }
+    />
+);
 
 export default Routes;

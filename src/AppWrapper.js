@@ -6,8 +6,11 @@ import NotificationToastContainer from './containers/notification/notification';
 
 const AppWrapper = () => {
     const user = useSelector(state => state.auth.user);
+    //user.tokens ? "dashboard" : "homepage"
+    const wrapperClass = !user.token && !user.role && !user._id ? "homepage" : 
+        user.role.indexOf('EMPLOYEE') !== -1 ? 'dashboard item-listing' : 'dashboard'
     return (
-        <div className={user.tokens ? "dashboard" : "homepage"}>
+        <div className={wrapperClass}>
             <NotificationToastContainer />
             <HeaderContainer />
             <Routes />

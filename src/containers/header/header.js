@@ -1,6 +1,5 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
-import { useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import AuthModelAction from '../../actions/auth.action';
 import NavbarComponent from '../../components/navbar/navbar';
 import AuthModalContainer from '../auth/authModal';
@@ -8,7 +7,6 @@ import HeaderButtons from './headerButtons';
 import HeaderUserDetails from './headerUserDetails';
 import { headerLinks } from '../../utils/constants';
 import logo from './../../assets/images/logo.svg';
-import {signOutUserAsync} from '../../actions/auth.action';
 
 const HeaderContainer = () => {
     const user = useSelector(state => state.auth.user);
@@ -26,15 +24,15 @@ const HeaderContainer = () => {
                     expand="lg"
                     logo={logo}
                     alt="ROS"
-                    collapsable={user.tokens ? false : true}
-                    navLinks={!user.tokens ? headerLinks : []}
+                    collapsable={!user.tokens && !user.role && !user._id ? true : false}
+                    navLinks={!user.tokens && !user.role && !user._id ? headerLinks : []}
                     isOpen={false}
                     mrAuto
                     headerButtonVisiable
                 >
                     {
-                        !user.tokens ?
-                            <HeaderButtons buttonClick={toggleModal} /> :
+                        !user.tokens && !user.role && !user._id ?
+                            <HeaderButtons buttonClick={toggleModal} /> : 
                             <HeaderUserDetails name={`${user.firstName} ${user.lastName}`} />
                     }
                     <AuthModalContainer />

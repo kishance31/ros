@@ -5,6 +5,7 @@ import { connectRouter } from 'connected-react-router';
 import authReducer from './auth.reducer'
 import purchaseLicenseReducer from './purchaseLicense.reducer';
 import notitficationReducer from './notifications.reducer';
+import cartReducer from './cart.reducer';
 
 const createRootReducer = (history) => {
 
@@ -19,7 +20,8 @@ const createRootReducer = (history) => {
             router: connectRouter(history),
             auth: persistReducer(authPersistConfig, authReducer),
             purchaseLicense: purchaseLicenseReducer,
-            notification: notitficationReducer
+            notification: notitficationReducer,
+            cart: cartReducer,
         }
     )
 };
