@@ -4,11 +4,12 @@ const initialState = {
     addedLicenseList: [],
     availableLicenseList: [],
     orderId: "",
+    licenseOrderHistory:[]
 }
 
 const purchaseLicenseReducer = (state = initialState, action) => {
     switch (action.type) {
-        case PurchaseLicenseMap.ADD_LICENSE: {
+        case PurchaseLicenseMap.ADD_LICENSE_ORDER: {
             let newLicenseList = [];
             let { payload } = action;
             console.log(payload);
@@ -49,6 +50,12 @@ const purchaseLicenseReducer = (state = initialState, action) => {
                 ...state,
                 addedLicenseList: [],
                 orderId: ""
+            }
+        }
+        case PurchaseLicenseMap.LICENSE_ORDER_HISTORY_SUCCESS:{
+            return {
+                ...state,
+                licenseOrderHistory:action.payload
             }
         }
         default: {
