@@ -2,7 +2,7 @@ import {MyProfileMap} from '../actions/myprofile.action';
 
 const initialState = {
     userData: {
-        "branch_name": "",
+            "branch_name": "",
             "company_name": "",
             "location": "",
             "mobile_no": "",
@@ -11,13 +11,14 @@ const initialState = {
 }
 
 const myProfileReducer = (state = initialState, action) => {
+
     switch(action.type) {
         case MyProfileMap.ADD_USER_DATA: {
             return {
                 ...state,
                 userData: {
-                    ...state.userData
-                },
+                    ...action.userData
+                }
             }
         }
         default:

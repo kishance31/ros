@@ -6,6 +6,7 @@ import authReducer from './auth.reducer'
 import purchaseLicenseReducer from './purchaseLicense.reducer';
 import notitficationReducer from './notifications.reducer';
 import myProfileReducer from './myprofile.reducer';
+import branchListReducer from './branchList.reducer';
 
 const createRootReducer = (history) => {
 
@@ -21,7 +22,9 @@ const createRootReducer = (history) => {
             auth: persistReducer(authPersistConfig, authReducer),
             purchaseLicense: purchaseLicenseReducer,
             notification: notitficationReducer,
-            myProfile: myProfileReducer
+            myProfile: myProfileReducer,
+            branchList:branchListReducer
+
         }
     )
 };

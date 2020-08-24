@@ -103,9 +103,11 @@ export const signOutUserAsync = (tokens) => {
                 'tokens': tokens
             }
         });
+        if(signOutUser.status === 200){
         dispatch({
             type: AuthMap.SIGN_OUT
-        }); 
+            });
+        }
     }
 }
 
