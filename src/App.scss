@@ -991,7 +991,7 @@ nav.tab {
     padding: 6px !important;
 }
 
-.item-listing #ShoppingBagModal .modal-dialog .modal-content .modal-body .shopping_summary_shadow_box thead .text-center {
+#ShoppingBagModal.modal-dialog .modal-content .modal-body .shopping_summary_shadow_box thead .text-center {
     padding: 32px 0 50px;
     font-size: 18px;
 }
@@ -1053,6 +1053,7 @@ nav.tab {
         background: #292929;
         box-shadow: 0 0 50px rgba(0, 0, 0, 0.32);
         padding: 7px;
+        overflow-y: auto;
         @media screen and (max-width: 1279px) {
             margin: 40px 0;
             height: auto;
@@ -1091,6 +1092,23 @@ nav.tab {
             }
         }
         li.list-group-item {
+            background: #292929;
+            padding: 0 50px;
+            font-family: "Futura Lt BT";
+            font-weight: 300;
+            font-size: 14px;
+            letter-spacing: .05em;
+            text-align: left;
+            color: #fff;
+            text-transform: uppercase;
+            padding: 14px 30px;
+            &:hover {
+                color: #f9ed92;
+                background-color: #50686D;
+                font-weight: 500;
+            }
+        }
+        a.list-group-item {
             background: #292929;
             padding: 0 50px;
             font-family: "Futura Lt BT";
@@ -1244,268 +1262,270 @@ nav.tab {
             }
         }
     }
-    #ProductDetails {
-        .modal-dialog {
-            max-width: 1640px !important;
-            @media screen and (max-width: 1919px) {
-                max-width: 90% !important;
+    
+    
+}
+
+#ShoppingBagModal.modal-dialog {
+    max-width: 1640px !important;
+    @media screen and (max-width: 1919px) {
+        max-width: 90% !important;
+    }
+    @media screen and (max-width: 1279px) {
+        max-width: 96% !important;
+    }
+    @media screen and (max-width: 991px) {
+        max-width: 90% !important;
+    }
+    @media screen and (max-width: 575px) {
+        max-width: 100% !important;
+        padding: 10px;
+        margin: 0;
+    }
+    .modal-content {
+        .modal-body {
+            .mt_40 {
+                margin-top: 40px;
             }
-            @media screen and (max-width: 1279px) {
-                max-width: 96% !important;
-            }
-            @media screen and (max-width: 991px) {
-                max-width: 90% !important;
-            }
-            @media screen and (max-width: 575px) {
-                max-width: 100% !important;
-                padding: 10px;
-                margin: 0;
-            }
-            .modal-content {
-                .modal-header {
-                    border-bottom: none;
-                    padding-top: 0;
-                    padding-bottom: 50px;
-                    .modal-title {
+            .shopping_summary_shadow_box {
+                width: 96%;
+                height: 534px;
+                border-radius: 5px;
+                background: #fff;
+                box-shadow: 0 0 50px rgba(0, 0, 0, 0.09);
+                @media screen and (max-width: 1279px) {
+                    margin-top: 80px;
+                    width: 100%;
+                }
+                @media screen and (max-width: 575px) {
+                    margin: 70px 0;
+                }
+                .shopping_summary {
+                    font-family: "Futura Md BT";
+                    font-weight: 500;
+                    font-size: 24px;
+                    letter-spacing: .05em;
+                    color: #fff;
+                    width: 100%;
+                    padding: 20px;
+                    border-radius: 5px;
+                    text-align: center;
+                    background: #292929;
+                    text-transform: uppercase;
+                    margin: 0;
+                    @media screen and (max-width: 575px) {
+                        font-size: 18px;
+                        margin-bottom: 60px;
+                    }
+                }
+                thead {
+                    .text-center {
+                        font-family: "Futura Md BT";
+                        font-weight: bold;
+                        font-size: 22px;
+                        letter-spacing: .05em;
+                        color: #f8afaf;
+                        text-transform: uppercase;
+                        padding: 42px 0 24px;
+                        @media screen and (max-width: 991px) {
+                            padding: 42px 0 70px;
+                        }
+                        @media screen and (max-width: 575px) {
+                            padding: 22px 0 40px;
+                            font-size: 16px;
+                        }
+                    }
+                }
+                tbody {
+                    .text-center {
                         font-family: "Futura Md BT";
                         font-weight: 500;
-                        font-size: 28px;
-                        color: #131313;
-                        margin: 0 auto;
-                    }
-                    @media screen and (max-width: 1365px) {
-                        padding-bottom: 20px;
+                        font-size: 22px;
+                        letter-spacing: .05em;
+                        color: #1c1c1c;
+                        text-transform: uppercase;
+                        padding: 0 0 60px;
+                        @media screen and (max-width: 991px) {
+                            padding: 0 0 40px;
+                        }
                     }
                 }
             }
-            .modal-body {
-                padding: 0 120px;
+            .remove_order {
+                font-family: "Futura Md BT";
+                font-weight: 500;
+                text-decoration: underline;
+                font-size: 18px;
+                letter-spacing: .05em;
+                text-align: left;
+                color: #8bc8d4;
+                text-transform: uppercase;
+            }
+        }
+    }
+}
+
+#ProductDetails.modal-dialog {
+    font-family: "Futura Md BT";
+    max-width: 1640px !important;
+    @media screen and (max-width: 1919px) {
+        max-width: 90% !important;
+    }
+    @media screen and (max-width: 1279px) {
+        max-width: 96% !important;
+    }
+    @media screen and (max-width: 991px) {
+        max-width: 90% !important;
+    }
+    @media screen and (max-width: 575px) {
+        max-width: 100% !important;
+        padding: 10px;
+        margin: 0;
+    }
+    .modal-content {
+        .modal-header {
+            border-bottom: none;
+            padding-top: 0;
+            padding-bottom: 50px;
+            .modal-title {
+                font-family: "Futura Md BT";
+                font-weight: 500;
+                font-size: 28px;
+                color: #131313;
+                margin: 0 auto;
+            }
+            @media screen and (max-width: 1365px) {
+                padding-bottom: 20px;
+            }
+        }
+    }
+    .modal-body {
+        padding: 0 120px;
+        @media screen and (max-width: 1919px) {
+            padding: 0 0 0 40px;
+        }
+        @media screen and (max-width: 1279px) {
+            padding: 0 20px;
+        }
+        @media screen and (max-width: 991px) {
+            padding: 0 30px;
+        }
+        @media screen and (max-width: 575px) {
+            padding: 0;
+        }
+        .product_shadow {
+            width: auto;
+            height: 445px;
+            border-radius: 2px;
+            background: #fff;
+            box-shadow: 0 0 50px rgba(0, 0, 0, 0.09);
+            text-align: center;
+            @media screen and (max-width: 1365px) {
+                align-items: center;
+                display: flex;
+                height: 325px;
+            }
+            @media screen and (max-width: 991px) {
+                height: auto;
+                align-items: center;
+                display: flex;
+                display: flex;
+                justify-content: center;
+            }
+            @media screen and (max-width:575px) {
+                padding: 20px;
+            }
+            .product_image {
+                padding: 34px;
                 @media screen and (max-width: 1919px) {
                     padding: 0 0 0 40px;
                 }
                 @media screen and (max-width: 1279px) {
-                    padding: 0 20px;
+                    padding: 14px 10px;
                 }
-                @media screen and (max-width: 991px) {
-                    padding: 0 30px;
-                }
-                @media screen and (max-width: 575px) {
-                    padding: 0;
-                }
-                .product_shadow {
-                    width: auto;
-                    height: 445px;
-                    border-radius: 2px;
-                    background: #fff;
-                    box-shadow: 0 0 50px rgba(0, 0, 0, 0.09);
-                    text-align: center;
-                    @media screen and (max-width: 1365px) {
-                        align-items: center;
-                        display: flex;
-                        height: 325px;
-                    }
-                    @media screen and (max-width: 991px) {
-                        height: auto;
-                        align-items: center;
-                        display: flex;
-                        display: flex;
-                        justify-content: center;
-                    }
-                    @media screen and (max-width:575px) {
-                        padding: 20px;
-                    }
-                    .product_image {
-                        padding: 34px;
-                        @media screen and (max-width: 1919px) {
-                            padding: 0 0 0 40px;
-                        }
-                        @media screen and (max-width: 1279px) {
-                            padding: 14px 10px;
-                        }
-                        @media screen and (max-width: 991px) {}
-                    }
-                }
-                .product_content {
-                    padding: 40px 80px 0;
-                    @media screen and (max-width: 1919px) {
-                        padding: 40px 0 0 80px;
-                    }
-                    @media screen and (max-width: 1365px) {
-                        padding: 0;
-                    }
-                    @media screen and (max-width: 991px) {
-                        padding: 60px 0 0 20px;
-                    }
-                    .product_content_title {
-                        font-weight: bold;
-                        font-size: 30px;
-                        letter-spacing: .05em;
-                        text-align: left;
-                        color: #1c1c1c;
-                        text-transform: uppercase;
-                        @media screen and (max-width: 991px) {}
-                    }
-                    .product_content_text {
-                        max-width: 669px;
-                        font-weight: 400;
-                        font-size: 18px;
-                        letter-spacing: .06em;
-                        text-align: left;
-                        color: #4d4949;
-                        margin-top: 34px;
-                        margin-bottom: 80px;
-                        @media screen and (max-width: 1365px) {
-                            margin-top: 14px;
-                            margin-bottom: 40px;
-                        }
-                        @media screen and (max-width: 991px) {}
-                        @media screen and (max-width:575px) {
-                            padding: 10px;
-                        }
-                    }
-                    .expected_date {
-                        .table {
-                            width: 60%;
-                            @media screen and (max-width: 1919px) {
-                                width: 90% !important;
-                            }
-                            @media screen and (max-width: 1365px) {
-                                width: 80% !important;
-                            }
-                            @media screen and (max-width: 575px) {
-                                width: 100% !important;
-                            }
-                        }
-                    }
-                    .modal-fill_btn_pay {
-                        display: table-caption;
-                        width: 326px;
-                        height: 56px;
-                        margin-top: 80px;
-                        margin-bottom: 40px;
-                        font-weight: bold;
-                        font-size: 14px;
-                        letter-spacing: .06em;
-                        color: #292929;
-                        border-radius: 5px;
-                        background: #d5e9ed;
-                        display: table;
-                        &:hover {
-                            background: #C6ECF3;
-                        }
-                        @media screen and (max-width: 1365px) {
-                            margin-top: 0;
-                            margin-bottom: 30px;
-                        }
-                        @media screen and (max-width: 991px) {
-                            margin-top: 60px;
-                            margin-bottom: 70px;
-                            display: table;
-                        }
-                        @media screen and (max-width: 575px) {
-                            width: 306px;
-                        }
-                    }
-                }
+                @media screen and (max-width: 991px) {}
             }
         }
-    }
-    #ShoppingBagModal {
-        .modal-dialog {
-            max-width: 1640px !important;
+        .product_content {
+            padding: 40px 80px 0;
             @media screen and (max-width: 1919px) {
-                max-width: 90% !important;
+                padding: 40px 0 0 80px;
             }
-            @media screen and (max-width: 1279px) {
-                max-width: 96% !important;
+            @media screen and (max-width: 1365px) {
+                padding: 0;
             }
             @media screen and (max-width: 991px) {
-                max-width: 90% !important;
+                padding: 60px 0 0 20px;
             }
-            @media screen and (max-width: 575px) {
-                max-width: 100% !important;
-                padding: 10px;
-                margin: 0;
+            .product_content_title {
+                font-weight: bold;
+                font-size: 30px;
+                letter-spacing: .05em;
+                text-align: left;
+                color: #1c1c1c;
+                text-transform: uppercase;
+                @media screen and (max-width: 991px) {}
             }
-            .modal-content {
-                .modal-body {
-                    .mt_40 {
-                        margin-top: 40px;
+            .product_content_text {
+                max-width: 669px;
+                font-weight: 400;
+                font-size: 18px;
+                letter-spacing: .06em;
+                text-align: left;
+                color: #4d4949;
+                margin-top: 34px;
+                margin-bottom: 80px;
+                @media screen and (max-width: 1365px) {
+                    margin-top: 14px;
+                    margin-bottom: 40px;
+                }
+                @media screen and (max-width: 991px) {}
+                @media screen and (max-width:575px) {
+                    padding: 10px;
+                }
+            }
+            .expected_date {
+                .table {
+                    width: 60%;
+                    @media screen and (max-width: 1919px) {
+                        width: 90% !important;
                     }
-                    .shopping_summary_shadow_box {
-                        width: 96%;
-                        height: 534px;
-                        border-radius: 5px;
-                        background: #fff;
-                        box-shadow: 0 0 50px rgba(0, 0, 0, 0.09);
-                        @media screen and (max-width: 1279px) {
-                            margin-top: 80px;
-                            width: 100%;
-                        }
-                        @media screen and (max-width: 575px) {
-                            margin: 70px 0;
-                        }
-                        .shopping_summary {
-                            font-family: "Futura Md BT";
-                            font-weight: 500;
-                            font-size: 24px;
-                            letter-spacing: .05em;
-                            color: #fff;
-                            width: 100%;
-                            padding: 20px;
-                            border-radius: 5px;
-                            text-align: center;
-                            background: #292929;
-                            text-transform: uppercase;
-                            margin: 0;
-                            @media screen and (max-width: 575px) {
-                                font-size: 18px;
-                                margin-bottom: 60px;
-                            }
-                        }
-                        thead {
-                            .text-center {
-                                font-family: "Futura Md BT";
-                                font-weight: bold;
-                                font-size: 22px;
-                                letter-spacing: .05em;
-                                color: #f8afaf;
-                                text-transform: uppercase;
-                                padding: 42px 0 24px;
-                                @media screen and (max-width: 991px) {
-                                    padding: 42px 0 70px;
-                                }
-                                @media screen and (max-width: 575px) {
-                                    padding: 22px 0 40px;
-                                    font-size: 16px;
-                                }
-                            }
-                        }
-                        tbody {
-                            .text-center {
-                                font-family: "Futura Md BT";
-                                font-weight: 500;
-                                font-size: 22px;
-                                letter-spacing: .05em;
-                                color: #1c1c1c;
-                                text-transform: uppercase;
-                                padding: 0 0 60px;
-                                @media screen and (max-width: 991px) {
-                                    padding: 0 0 40px;
-                                }
-                            }
-                        }
+                    @media screen and (max-width: 1365px) {
+                        width: 80% !important;
                     }
-                    .remove_order {
-                        font-family: "Futura Md BT";
-                        font-weight: 500;
-                        text-decoration: underline;
-                        font-size: 18px;
-                        letter-spacing: .05em;
-                        text-align: left;
-                        color: #8bc8d4;
-                        text-transform: uppercase;
+                    @media screen and (max-width: 575px) {
+                        width: 100% !important;
                     }
+                }
+            }
+            .modal-fill_btn_pay {
+                display: table-caption;
+                width: 326px;
+                height: 56px;
+                margin-top: 80px;
+                margin-bottom: 40px;
+                font-weight: bold;
+                font-size: 14px;
+                letter-spacing: .06em;
+                border: transparent;
+                color: #292929;
+                border-radius: 5px;
+                background: #d5e9ed;
+                display: table;
+                &:hover {
+                    background: #C6ECF3;
+                }
+                @media screen and (max-width: 1365px) {
+                    margin-top: 0;
+                    margin-bottom: 30px;
+                }
+                @media screen and (max-width: 991px) {
+                    margin-top: 60px;
+                    margin-bottom: 70px;
+                    display: table;
+                }
+                @media screen and (max-width: 575px) {
+                    width: 306px;
                 }
             }
         }
@@ -1816,7 +1836,7 @@ nav.tab {
 }
 
 @media screen and (max-width: 575px) {
-    .item-listing #ShoppingBagModal .modal-dialog .modal-content .modal-body .shopping_summary_shadow_box tbody .text-center {
+    #ShoppingBagModal.modal-dialog .modal-content .modal-body .shopping_summary_shadow_box tbody .text-center {
         padding: 0 0 40px;
         margin: 0 auto;
         padding: 0 10px 20px;

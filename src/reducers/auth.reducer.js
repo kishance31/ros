@@ -23,7 +23,8 @@ const initialState = {
         officeContactNo: "",
         username: "",
         _id: "",
-        tokens: ""
+        tokens: "",
+        role: ""
     },
 }
 
@@ -181,7 +182,6 @@ const authReducer = (state = initialState, action) => {
         default:
             return {
                 ...state,
-                
             }
     }
 }

@@ -71,31 +71,401 @@ export const NewsLetterDetails = {
 
 export const CarouselItems = [
     {
-      imgsrc : 'slider_one.png',
-      altText: 'slider_one'
+        imgsrc: 'slider_one.png',
+        altText: 'slider_one'
     },
     {
-      imgsrc: 'slider_one.png',
-      altText: 'slider_one'
+        imgsrc: 'slider_one.png',
+        altText: 'slider_one'
     },
     {
-      imgsrc: 'slider_one.png',
-      altText: 'slider_one'
+        imgsrc: 'slider_one.png',
+        altText: 'slider_one'
     }
-  ];
-  
-  export const CorporateNavLinks = [
-      {name: "Purchase License", url: "/corporate/purchaseLicense", active: true},
-      {name: "Employee & License Management", url: "/corporate/employeeLicenseManagement", active: false},
-      {name: "Manage Allocate License", url: "/corporate/manageLicense", active: false},
-      {name: "Employee Order Details", url: "/corporate/employeeOrderDetails", active: false},
-      {name: "Invoice", url: "/corporate/invoice", active: false},
-      {name: "My Account", url: "/corporate/myAccount", active: false},
-      {name: "Product View", url: "/corporate/productView", active: false},
-  ]
+];
 
-  export const CoporateMyAccountTabs = [
-      {name: "MY PROFILE", dataId: "myProfile", active: true},
-      {name: "LICENSE ORDER HISTROY", dataId: "licenseOrderHistory", active: false},
-      {name: "BRANCH MANAGEMENT", dataId: "branchManagement", active: false},
-  ]
+export const CorporateNavLinks = [
+    { name: "Purchase License", url: "/corporate/purchaseLicense", active: true },
+    { name: "Employee & License Management", url: "/corporate/employeeLicenseManagement", active: false },
+    { name: "Manage Allocate License", url: "/corporate/manageLicense", active: false },
+    { name: "Employee Order Details", url: "/corporate/employeeOrderDetails", active: false },
+    { name: "Invoice", url: "/corporate/invoice", active: false },
+    { name: "My Account", url: "/corporate/myAccount", active: false },
+    { name: "Product View", url: "/corporate/productView", active: false },
+]
+
+export const CoporateMyAccountTabs = [
+    { name: "MY PROFILE", dataId: "myProfile", active: true },
+    { name: "LICENSE ORDER HISTROY", dataId: "licenseOrderHistory", active: false },
+    { name: "BRANCH MANAGEMENT", dataId: "branchManagement", active: false },
+]
+
+export const EmployeeNavLinks = [
+    { name: "Item Listing", url: "/employee/itemListing", active: true },
+    { name: "Profile", url: "/employee/profile", active: false },
+    { name: "Order History", url: "/employee/orderHistory", active: false },
+]
+
+export const ItemCategoryLinks = [
+    {
+        cardTitle: "HOME OFFICE FURNITURE'S & ACCESSORIES",
+        cardId: "1",
+        link: "/furniture"
+    },
+    {
+        cardTitle: "HOME OFFICE ELECTRONICS",
+        cardId: "2",
+        link: "/electronics"
+    },
+    {
+        cardTitle: "HOME OFFICE COMPUTERS",
+        cardId: "3",
+        subCards: [
+            {
+                title: "Cras justo odio",
+                link: "/link9"
+            },
+            {
+                title: "Dapibus ac facilisis in",
+                link: "/link20"
+            },
+            {
+                title: "Morbi leo risus",
+                link: "/link30"
+            },
+            {
+                title: "Porta ac consectetur ac",
+                link: "/link40"
+            },
+        ]
+    },
+    {
+        cardTitle: "Other",
+        cardId: "4",
+        link: "/otherCategories"
+    }
+]
+
+export const ProductsList = {
+    furniture: [
+        [
+            {
+                image: "chair1.png",
+                title: "Chair 1",
+                buttonText: "View Product",
+                productId: "11",
+                description: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam non ex vel tellus pellentesque vestibulum. 
+                Donec neque lectus, dapibus in placerat nec. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam non
+                ex vel tellus pellentesque vestibulum. Donec neque lectus, dapibus in placerat nec.`
+            },
+            {
+                image: "chair1.png",
+                title: "Chair 2",
+                buttonText: "View Product",
+                productId: "12",
+                description: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam non ex vel tellus pellentesque vestibulum. 
+                Donec neque lectus, dapibus in placerat nec.`
+            },
+            {
+                image: "chair1.png",
+                title: "Chair 11",
+                buttonText: "View Product",
+                productId: "13",
+                description: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam non ex vel tellus pellentesque vestibulum. 
+                Donec neque lectus, dapibus in placerat nec. Lorem ipsum dolor sit amet, consectetur adipiscing elit.`
+            },
+            {
+                image: "chair1.png",
+                title: "Chair 22",
+                buttonText: "View Product",
+                productId: "14",
+                description: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam non ex vel tellus pellentesque vestibulum. 
+                Donec neque lectus, dapibus in placerat nec. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam non
+                ex vel tellus pellentesque vestibulum. Donec neque lectus, dapibus in placerat nec.`
+            }
+        ]
+    ],
+    electronics: [
+        [
+            {
+                image: "product_first.png",
+                title: "hp keyboard1",
+                buttonText: "View Product",
+                productId: "22",
+                description: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam non ex vel tellus pellentesque vestibulum. 
+                Donec neque lectus, dapibus in placerat nec. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam non
+                ex vel tellus pellentesque vestibulum. Donec neque lectus, dapibus in placerat nec.`
+            },
+            {
+                image: "product_first.png",
+                title: "hp keyboard2",
+                buttonText: "View Product",
+                productId: "23",
+                description: `Lorem ipsum dolor sit amet, Nullam non ex vel tellus pellentesque vestibulum. 
+                Donec neque lectus, dapibus in placerat nec. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam non
+                ex vel tellus pellentesque vestibulum.`
+            },
+            {
+                image: "product_first.png",
+                title: "hp keyboard3",
+                buttonText: "View Product",
+                productId: "24",
+                description: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam non ex vel tellus pellentesque vestibulum. 
+                Donec neque lectus, dapibus in placerat nec. Nullam non
+                ex vel tellus pellentesque vestibulum. Donec neque lectus, dapibus in placerat nec.`
+            },
+        ]
+    ],
+    link9: [
+        [
+            {
+                image: "product_first.png",
+                title: "hp keyboard4",
+                buttonText: "View Product",
+                productId: "1",
+                description: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam non ex vel tellus pellentesque vestibulum. 
+                Donec neque lectus, dapibus in placerat nec. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam non
+                ex vel tellus pellentesque vestibulum. Donec neque lectus, dapibus in placerat nec.`
+            },
+            {
+                image: "product_first.png",
+                title: "hp keyboard5",
+                buttonText: "View Product",
+                productId: "2",
+                description: `Lorem ipsum dolor Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam non
+                ex vel tellus pellentesque vestibulum. Donec neque lectus, dapibus in placerat nec.`
+            },
+            {
+                image: "product_first.png",
+                title: "hp keyboard6",
+                buttonText: "View Product",
+                productId: "3",
+                description: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam non
+                ex vel tellus pellentesque vestibulum. Donec neque lectus, dapibus in placerat nec.`
+            },
+            {
+                image: "product_first.png",
+                title: "hp keyboard7",
+                buttonText: "View Product",
+                productId: "4",
+                description: `Nullam non ex vel tellus pellentesque vestibulum. 
+                Donec neque lectus, dapibus in placerat nec. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam non
+                ex vel tellus pellentesque vestibulum. Donec neque lectus, dapibus in placerat nec.`
+            },
+        ],
+        [
+            {
+                image: "product_first.png",
+                title: "hp keyboard8",
+                buttonText: "View Product",
+                productId: "5",
+                description: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam non ex vel tellus pellentesque vestibulum. 
+                Donec neque lectus, dapibus in placerat nec. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam non
+                ex vel tellus pellentesque vestibulum.`
+            },
+            {
+                image: "product_first.png",
+                title: "hp keyboard9",
+                buttonText: "View Product",
+                productId: "6",
+                description: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam non ex vel tellus pellentesque vestibulum. 
+                Donec neque lectus, dapibus in placerat nec. dapibus in placerat nec.`
+            },
+            {
+                image: "product_first.png",
+                title: "hp keyboard0",
+                buttonText: "View Product",
+                productId: "7",
+                description: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam non ex vel tellus pellentesque vestibulum. 
+                Donec neque lectus, dapibus in placerat nec. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam non
+                ex vel tellus pellentesque vestibulum. Donec neque lectus, dapibus in placerat nec.`
+            },
+            {
+                image: "product_first.png",
+                title: "hp keyboard11",
+                buttonText: "View Product",
+                productId: "8",
+                description: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam non ex vel tellus pellentesque vestibulum. 
+                Donec neque lectus, Nullam non
+                ex vel tellus pellentesque vestibulum. Donec neque lectus, dapibus in placerat nec.`
+            },
+        ]
+    ],
+    link20: [
+        [
+            {
+                image: "product_first.png",
+                title: "hp keyboard12",
+                buttonText: "View Product",
+                productId: "1",
+                description: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam non ex vel tellus pellentesque vestibulum. 
+                Donec neque lectus, dapibus in placerat nec. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam non
+                ex vel tellus pellentesque vestibulum. Donec neque lectus, dapibus in placerat nec.`
+            },
+            {
+                image: "product_first.png",
+                title: "hp keyboard13",
+                buttonText: "View Product",
+                productId: "2",
+                description: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam non ex vel tellus pellentesque vestibulum. 
+                Donec neque lectus, dapibus in placerat nec. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam non
+                ex vel tellus pellentesque vestibulum. Donec neque lectus, dapibus in placerat nec.`
+            },
+            {
+                image: "product_first.png",
+                title: "hp keyboard14",
+                buttonText: "View Product",
+                productId: "3",
+                description: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam non ex vel tellus pellentesque vestibulum. 
+                Donec neque lectus, dapibus in placeraneque lectus, dapibus in placerat nec.`
+            },
+            {
+                image: "product_first.png",
+                title: "hp keyboard15",
+                buttonText: "View Product",
+                productId: "4",
+                description: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam non ex vel tellus pellentesque vestibulum. 
+                Donec neque lectus, dapibus ium dolor sit amet, consectetur adipiscing elit. Nullam non
+                ex vel tellus pellentesque vestibulum. Donec neque lectus, dapibus in placerat nec.`
+            },
+        ],
+        [
+            {
+                image: "product_first.png",
+                title: "hp keyboard16",
+                buttonText: "View Product",
+                productId: "5",
+                description: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam non ex vel tellus pellentesque vestibulum. 
+                Donec neque lectus, dulum. Donec neque lectus, dapibus in placerat nec.`
+            },
+            {
+                image: "product_first.png",
+                title: "hp keyboard17",
+                buttonText: "View Product",
+                productId: "6",
+                description: `apibus in placerat nec. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam non
+                ex vel tellus pellentesque vestibulum. Donec neque lectus, dapibus in placerat nec.`
+            },
+        ]
+    ],
+    link30: [
+        [
+            {
+                image: "product_first.png",
+                title: "hp keyboard18",
+                buttonText: "View Product",
+                productId: "41",
+                description: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam non ex vel tellus pellentesque vestibulum. 
+                Donec neque lectus, dapibus in placerat nec. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam non
+                ex vel tellus pellentesque vestibulum. Donec neque lectus, dapibus in placerat nec.`
+            },
+            {
+                image: "product_first.png",
+                title: "hp keyboard19",
+                buttonText: "View Product",
+                productId: "42",
+                description: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam non ex vel tellus pellentesque vestibulum. 
+                Donec neque lectus, dapibus in placerat nec. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam non
+                ex vel tellus pellentesque vestibulum. Donec neque lectus, dapibus in placerat nec.`
+            },
+            {
+                image: "product_first.png",
+                title: "hp keyboard20",
+                buttonText: "View Product",
+                productId: "43",
+                description: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam non ex vel tellus pellentesque vestibulum. 
+                Donec neque lectus, dapibus in placerat nec. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam non
+                ex vel tellus pellentesque vestibulum. Donec neque lectus, dapibus in placerat nec.`
+            },
+            {
+                image: "product_first.png",
+                title: "hp keyboard21",
+                buttonText: "View Product",
+                productId: "44",
+                description: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam non ex vel tellus pellentesque vestibulum. 
+                Donec neque lectus, dapibus in placerat nec. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam non
+                ex vel tellus pellentesque vestibulum. Donec neque lectus, dapibus in placerat nec.`
+            },
+        ],
+        [
+            {
+                image: "product_first.png",
+                title: "hp keyboard22",
+                buttonText: "View Product",
+                productId: "45",
+                description: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam non ex vel tellus pellentesque vestibulum. 
+                Donec neque lectus, dapibus in placerat nec. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam non
+                ex vel tellus pellentesque vestibulum. Donec neque lectus, dapibus in placerat nec.`
+            },
+            {
+                image: "product_first.png",
+                title: "hp keyboard23",
+                buttonText: "View Product",
+                productId: "46",
+                description: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam non ex vel tellus pellentesque vestibulum. 
+                Donec neque lectus, dapibus in placerat nec. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam non
+                ex vel tellus pellentesque vestibulum. Donec neque lectus, dapibus in placerat nec.`
+            },
+            {
+                image: "product_first.png",
+                title: "hp keyboard24",
+                buttonText: "View Product",
+                productId: "47",
+                description: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam non ex vel tellus pellentesque vestibulum. 
+                Donec neque lectus, dapibus in placerat nec. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam non
+                ex vel tellus pellentesque vestibulum. Donec neque lectus, dapibus in placerat nec.`
+            },
+        ]
+    ],
+    link40: [
+        [
+            {
+                image: "product_first.png",
+                title: "hp keyboard25",
+                buttonText: "View Product",
+                productId: "51",
+                description: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam non ex vel tellus pellentesque vestibulum. 
+                Donec neque lectus, dapibus in placerat nec. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam non
+                ex vel tellus pellentesque vestibulum. Donec neque lectus, dapibus in placerat nec.`
+            },
+            {
+                image: "product_first.png",
+                title: "hp keyboard26",
+                buttonText: "View Product",
+                productId: "52",
+                description: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam non ex vel tellus pellentesque vestibulum. 
+                Donec neque lectus, dapibus in placerat nec. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam non
+                ex vel tellus pellentesque vestibulum. Donec neque lectus, dapibus in placerat nec.`
+            },
+            {
+                image: "product_first.png",
+                title: "hp keyboard27",
+                buttonText: "View Product",
+                productId: "53",
+                description: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam non ex vel tellus pellentesque vestibulum. 
+                Donec neque lectus, dapibus in placerat nec. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam non
+                ex vel tellus pellentesque vestibulum. Donec neque lectus, dapibus in placerat nec.`
+            },
+            {
+                image: "product_first.png",
+                title: "hp keyboard28",
+                buttonText: "View Product",
+                productId: "54",
+                description: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam non ex vel tellus pellentesque vestibulum. 
+                Donec neque lectus, dapibus in placerat nec. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam non
+                ex vel tellus pellentesque vestibulum. Donec neque lectus, dapibus in placerat nec.`
+            },
+        ],
+        [
+            {
+                image: "product_first.png",
+                title: "hp keyboard29",
+                buttonText: "View Product",
+                productId: "55",
+                description: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam non ex vel tellus pellentesque vestibulum. 
+                Donec neque lectus, dapibus in placerat nec. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam non
+                ex vel tellus pellentesque vestibulum. Donec neque lectus, dapibus in placerat nec.`
+            },
+        ]
+    ]
+};

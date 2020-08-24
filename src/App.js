@@ -7,8 +7,8 @@ import AppWrapper from './AppWrapper';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 
-import './App.scss';
 import './Homepage.scss';
+import './App.scss';
 
 import configureStore, { history } from './redux/store';
 

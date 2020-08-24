@@ -15,7 +15,9 @@ const NavbarComponent = (props) => {
         collapsable,
         navLinks,
         isOpen,
-        className
+        className,
+        searchBar,
+        otherComponent
     } = props;
 
     const [isOpenNav, setIsOpen] = useState(!!isOpen);
@@ -45,7 +47,8 @@ const NavbarComponent = (props) => {
                         {props.children}
                     </>
             }
-
+            {searchBar || null}
+            {otherComponent || null}
         </Navbar>
     );
 };
