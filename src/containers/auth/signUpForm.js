@@ -118,6 +118,8 @@ const SignUpForm = () => {
                     />
                 </DoubleInputField>
 
+
+
                 <div className="upload_document_file">
                 <UploadPlusIcon />
                 <label className="upload_document" htmlFor="inputGroupFile03">UPLOAD DOCUMENT</label>
@@ -126,6 +128,8 @@ const SignUpForm = () => {
                     id="inputGroupFile03"
                     onChange={onFileChange} required/>
                 </div>
+
+
 
                 <button className="modal-fill_btn btn btn-lg">
                     <span className="sign_in">SUBMIT</span>
