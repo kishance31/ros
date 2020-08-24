@@ -1,7 +1,7 @@
 import { CartActionMap } from '../actions/cart.action';
 
 const initialState = {
-    user: {token: "1234", _id: "1234", role: "EMPLOYEE"},
+//     user: {token: "1234", _id: "1234", role: "EMPLOYEE"},
     shoppingCart:[],
     openCart: false,
 };
