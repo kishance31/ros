@@ -4,7 +4,9 @@ const initialState = {
     addedLicenseList: [],
     availableLicenseList: [],
     orderId: "",
-    licenseOrderHistory:[]
+    licenseOrderHistory: [],
+    licenseOrderRecords: 0,
+    refrestOrderHistory: true,
 }
 
 const purchaseLicenseReducer = (state = initialState, action) => {
@@ -12,7 +14,6 @@ const purchaseLicenseReducer = (state = initialState, action) => {
         case PurchaseLicenseMap.ADD_LICENSE_ORDER: {
             let newLicenseList = [];
             let { payload } = action;
-            console.log(payload);
             let existLicense = state.addedLicenseList.find(license => license.type === payload.type);
             if (existLicense) {
                 newLicenseList = state.addedLicenseList.map((license) => {
@@ -49,13 +50,22 @@ const purchaseLicenseReducer = (state = initialState, action) => {
             return {
                 ...state,
                 addedLicenseList: [],
-                orderId: ""
+                orderId: "",
+                refrestOrderHistory: true,
             }
         }
-        case PurchaseLicenseMap.LICENSE_ORDER_HISTORY_SUCCESS:{
+        case PurchaseLicenseMap.LICENSE_ORDER_HISTORY_SUCCESS: {
             return {
                 ...state,
-                licenseOrderHistory:action.payload
+                licenseOrderHistory: action.payload.purchaseLicenses,
+                licenseOrderRecords: action.payload.totalRecords,
+                refrestOrderHistory: false,
+            }
+        }
+        case PurchaseLicenseMap.REFRESH_ORDER_HISTORY: {
+            return {
+                ...state,
+                refrestOrderHistory: true,
             }
         }
         default: {
