@@ -4,7 +4,6 @@ import ShadowCard from '../../card/shadowCard';
 const PurchaseLicenseTable = (props) => {
 
     const { purchaseLicenseList,showPaymentModal } = props;
-
     return (
         <ShadowCard className="ml-0 ml-xl-3">
             <div className="general_table table-responsive">

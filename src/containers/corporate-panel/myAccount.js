@@ -6,7 +6,8 @@ import BranchManagement from './branchManagement';
 import ModalComponent from '../../components/modal/modal'
 import { MetroCancelIcon } from '../../components/icons/Icons';
 import { useDispatch, useSelector } from 'react-redux';
-import  myProfileAction ,{addUserDataAsync, MyProfileMap } from '../../actions/myprofile.action'; 
+import {BranchListAction, addBranchDataAsync} from '../../actions/branchList.action';
+import {BranchListMap} from '../../actions/branchList.action';
 
 const MyAccountTabs = (props) => {
     const dispatch = useDispatch();
@@ -17,6 +18,7 @@ const MyAccountTabs = (props) => {
     });
     
     const onAddData = () => {
+        dispatch(BranchListAction.AddBranch(BranchListMap.ADD_BRANCH_START))
         setVisiableAddDataModal(true)
     }
     const crossButton= () => {
@@ -37,8 +39,7 @@ const MyAccountTabs = (props) => {
             email_id:formData.email_id,
             mobile_no: formData.mobile_no
         }
-        dispatch(addUserDataAsync(userData, token))
-        // dispatch(myProfileAction.addData(MyProfileMap.ADD_USER_DATA(userData, token)))
+        dispatch(addBranchDataAsync(userData, token ))
         setVisiableAddDataModal(false)
     }
 
@@ -59,8 +60,7 @@ const MyAccountTabs = (props) => {
                             key={tab.dataId}
                             className={`nav-item nav-link${tab.active ? " active" : ""}`}
                             data-id={tab.dataId}
-                            onClick={props.onTabChange}
-                        >
+                            onClick={props.onTabChange}>
                             {tab.name}
                         </li>
                     )
@@ -84,7 +84,7 @@ const MyAccountTabs = (props) => {
                                 </div>
                                 <div className="input-group">
                                     <input placeholder="EMAIL ID" name="email_id" onChange={inputEvent} value={formData.email_id} type="email" required className="input_box_1 form-control"/>
-                                    <input placeholder="MOBILE NO" name="mobile_no" onChange={inputEvent} value={formData.mobile_no} type="password" required className="input_box_2 form-control"/>
+                                    <input placeholder="MOBILE NO" name="mobile_no" onChange={inputEvent} value={formData.mobile_no} type="text" required className="input_box_2 form-control"/>
                                 </div>
                             </div>
                         </div>
