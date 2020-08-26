@@ -469,3 +469,30 @@ export const ProductsList = {
         ]
     ]
 };
+
+export const ProductData = [
+    {
+        item_name: 'Keyboard',
+        title: 'Lorem ipsum dolor sit amet. Duis pretium gravida enim, vel maximus ligula ferme ntum a. Sed rhoncus eget ex id.Duis pretium',
+        item_code: '1234',
+        item_price: '400',
+        item_description: 'Lorem ipsum dolor sit amet',
+        imgPath: 'chair1.png'
+    },
+    {
+        item_name: 'Keyboard',
+        title: 'Lorem ipsum dolor sit amet. Duis pretium gravida enim, vel maximus ligula ferme ntum a. Sed rhoncus eget ex id.Duis pretium',
+        item_code: '1234',
+        item_price: '400',
+        item_description: 'Lorem ipsum dolor sit amet',
+        imgPath: 'chair1.png'
+    },
+    {
+        item_name: 'Keyboard',
+        title: 'Lorem ipsum dolor sit amet. Duis pretium gravida enim, vel maximus ligula ferme ntum a. Sed rhoncus eget ex id.Duis pretium',
+        item_code: '1234',
+        item_price: '400',
+        item_description: 'Lorem ipsum dolor sit amet',
+        imgPath: 'chair1.png'
+    },
+]
