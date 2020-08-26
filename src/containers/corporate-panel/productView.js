@@ -45,7 +45,7 @@ const ProductView = () => {
                             <tbody>
                                 {
                                     ProductData.map(product =>
-                                        <tr>
+                                        <tr key={product.id}>
                                             <td>{product.item_name}</td>
                                             <td>{product.item_code}</td>
                                             <td>${product.item_price}</td>
@@ -55,7 +55,7 @@ const ProductView = () => {
                                                 </div>
                                             </td>
                                             <td>
-                                                <div className="custom-tooltip" data-toggle="tooltip" data-placement="left" title='sadvcbfv dfvdfsv dfsv dfsv dfvdfvdfvdfv dfvdfvdf adfvdsfv sdfvdfsv sdfvdsfv adfvdsfv dfsvdsfv sdfvdfv'>{product.item_description}</div>
+                                                <div className="custom-tooltip" data-toggle="tooltip" data-placement="left" title={product.title}>{product.item_description}</div>
                                             </td>
                                         </tr>
                                     )}

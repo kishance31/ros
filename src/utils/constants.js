@@ -471,7 +471,8 @@ export const ProductsList = {
 };
 
 export const ProductData = [
-    {
+    {   
+        id:1,
         item_name: 'Keyboard',
         title: 'Lorem ipsum dolor sit amet. Duis pretium gravida enim, vel maximus ligula ferme ntum a. Sed rhoncus eget ex id.Duis pretium',
         item_code: '1234',
@@ -480,6 +481,7 @@ export const ProductData = [
         imgPath: 'chair1.png'
     },
     {
+        id:2,
         item_name: 'Keyboard',
         title: 'Lorem ipsum dolor sit amet. Duis pretium gravida enim, vel maximus ligula ferme ntum a. Sed rhoncus eget ex id.Duis pretium',
         item_code: '1234',
@@ -488,6 +490,7 @@ export const ProductData = [
         imgPath: 'chair1.png'
     },
     {
+        id:3,
         item_name: 'Keyboard',
         title: 'Lorem ipsum dolor sit amet. Duis pretium gravida enim, vel maximus ligula ferme ntum a. Sed rhoncus eget ex id.Duis pretium',
         item_code: '1234',
