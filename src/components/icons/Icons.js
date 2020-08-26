@@ -74,16 +74,31 @@ export const MetroCancelIcon = React.memo(
 )
 
 export const CartIcon = React.memo(
-    () => <svg xmlns="http://www.w3.org/2000/svg" width="31.5" height="32" viewBox="0 0 31.5 32">
+    (props) => <svg xmlns="http://www.w3.org/2000/svg" width="31.5" height="32" viewBox="0 0 31.5 32">
         <g id="Group_1341" data-name="Group 1341" transform="translate(-1506.5 -56)">
             <path id="Icon_material-shopping-cart" data-name="Icon material-shopping-cart"
                 d="M9.3,23.8a2.6,2.6,0,1,0,2.6,2.6A2.6,2.6,0,0,0,9.3,23.8ZM1.5,3V5.6H4.1l4.68,9.867L7.025,18.652A2.513,2.513,0,0,0,6.7,19.9a2.608,2.608,0,0,0,2.6,2.6H24.9V19.9H9.846a.322.322,0,0,1-.325-.325l.039-.156L10.73,17.3h9.685a2.588,2.588,0,0,0,2.275-1.339l4.654-8.437A1.27,1.27,0,0,0,27.5,6.9a1.3,1.3,0,0,0-1.3-1.3H6.973L5.751,3ZM22.3,23.8a2.6,2.6,0,1,0,2.6,2.6A2.6,2.6,0,0,0,22.3,23.8Z"
                 transform="translate(1505 59)" fill="#f95b3d" />
-            <g id="Ellipse_5" data-name="Ellipse 5" transform="translate(1522 56)"
-                fill="#8bc8d4" stroke="#292929" strokeWidth="2">
-                <circle cx="8" cy="8" r="8" stroke="none" />
-                <circle cx="8" cy="8" r="7" fill="none" />
-            </g>
+                {props.children}
         </g>
+    </svg>
+)
+
+export const SearchIcon = React.memo(
+    () => <svg xmlns="http://www.w3.org/2000/svg" width="22.553" height="22.553" viewBox="0 0 22.553 22.553">
+        <g id="Icon_feather-search" data-name="Icon feather-search" transform="translate(1 1)">
+            <path id="Path_2641" data-name="Path 2641" d="M22.4,13.451A8.951,8.951,0,1,1,13.451,4.5,8.951,8.951,0,0,1,22.4,13.451Z" transform="translate(-4.5 -4.5)" fill="none" stroke="#8bc8d4" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" />
+            <path id="Path_2642" data-name="Path 2642" d="M29.842,29.842l-4.867-4.867" transform="translate(-9.703 -9.703)" fill="none" stroke="#8bc8d4" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" />
+        </g>
+    </svg>
+)
+
+export const SubtractIcon = React.memo(
+    () => <svg xmlns="http://www.w3.org/2000/svg"
+        width="15.959" height="15.959" viewBox="0 0 15.959 15.959">
+        <path id="Subtraction_1" data-name="Subtraction 1"
+            d="M-5153.767-2373.072h0l-1.591-1.592,4.052-4.05-4.052-4.052,1.592-1.591,4.05,4.05,4.052-4.05,1.59,1.591-4.05,4.052,4.05,4.05-1.59,1.591-4.052-4.051-4.05,4.052Z"
+            transform="translate(5331.384 -1951.414) rotate(-45)"
+            fill="#fff" />
     </svg>
 )

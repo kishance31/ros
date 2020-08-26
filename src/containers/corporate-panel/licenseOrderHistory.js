@@ -1,77 +1,105 @@
 import React, { useEffect } from 'react';
-import { licenseOrderHistoryAsync } from "../../actions/purchaseLicense.action";
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector, useDispatch, shallowEqual } from 'react-redux';
+import purchaseLicenseAction, { licenseOrderHistoryAsync } from "../../actions/purchaseLicense.action";
+import BasicPagination from '../../components/pagination/basicPagination';
+import { usePaginationHook } from '../../hooks/paginationHook';
 
 const LicenseOrderHistory = () => {
+
+    const { batch, limit, handleBatchChange } = usePaginationHook(5, purchaseLicenseAction.refreshOrderHistory)
 
     const dispatch = useDispatch();
 
     const user = useSelector(state => state.auth.user);
 
-    const licenseOrderHistory = useSelector(state => state.purchaseLicense.licenseOrderHistory)
+    const licenseOrderHistory = useSelector(state => state.purchaseLicense.licenseOrderHistory, shallowEqual);
+    const licenseOrderRecords = useSelector(state => state.purchaseLicense.licenseOrderRecords);
+    const refrestOrderHistory = useSelector(state => state.purchaseLicense.refrestOrderHistory);
 
     useEffect(() => {
-        dispatch(licenseOrderHistoryAsync(user._id, user.tokens))
-    }, [])
+        if (refrestOrderHistory) {
+            dispatch(licenseOrderHistoryAsync(user._id, user.tokens, limit, batch));
+        }
+    }, [refrestOrderHistory]);
 
     return (
         <div>
-            <div class="tab-pane fade show" id="license_order_history" role="tabpanel" aria-labelledby="">
-                <div class="general_table table-responsive">
-                    <table class="">
-                        <thead>
-                            <tr>
-                                <th>Sr&nbsp;No</th>
-                                <th>ORDER&nbsp;NO</th>
-                                <th>ORDER&nbsp;DATE</th>
-                                <th>LICENSE&nbsp;TYPE</th>
-                                <th>NO&nbsp;OF&nbsp;LICENSE</th>
-                                <th>SUB&nbsp;TOTAL</th>
-                                <th>GRAND&nbsp;TOTAL</th>
-                                <th>DOWNLOAD&nbsp;INVOICE</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {
-                                licenseOrderHistory.map((item, index) =>
-                                    <tr>
-                                        <td>{index + 1}</td>
-                                        <td>{item.orderId}</td>
-                                        <td>{new Date(item.createdAt).toLocaleString()}</td>
-                                        <td>
+            <div className="tab-pane fade show" id="license_order_history" role="tabpanel" aria-labelledby="">
+                <div className="general_table table-responsive">
+                    {
+                        licenseOrderHistory.length === 0 ? (
+                            <div className="text-center">
+                                <span>
+                                    No License Order History
+                                </span>
+                            </div>
+                        ) : (
+                                <>
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <th>Sr&nbsp;No</th>
+                                                <th>ORDER&nbsp;NO</th>
+                                                <th>ORDER&nbsp;DATE</th>
+                                                <th>LICENSE&nbsp;TYPE</th>
+                                                <th>NO&nbsp;OF&nbsp;LICENSE</th>
+                                                <th>SUB&nbsp;TOTAL</th>
+                                                <th>GRAND&nbsp;TOTAL</th>
+                                                <th>DOWNLOAD&nbsp;INVOICE</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
                                             {
-                                                item.purchasedLicenses.map((licenseType) =>
-                                                    <div>{licenseType.type}</div>
+                                                licenseOrderHistory.map((item, index) =>
+                                                    <tr key={index}>
+                                                        <td>{(limit * (batch - 1)) + (index + 1)}</td>
+                                                        <td>{item.orderId}</td>
+                                                        <td>{new Date(item.createdAt).toLocaleString()}</td>
+                                                        <td>
+                                                            {
+                                                                item.purchasedLicenses.map((licenseType, key) =>
+                                                                    <div key={key}>{licenseType.type}</div>
+                                                                )
+                                                            }
+                                                        </td>
+                                                        <td>
+                                                            {
+                                                                item.purchasedLicenses.map((licenseType, key) =>
+                                                                    <div key={key}>{licenseType.quantity}</div>
+                                                                )
+                                                            }
+                                                        </td>
+                                                        <td>
+                                                            {
+                                                                item.purchasedLicenses.map((licenseType, key) =>
+                                                                    <div key={key}>{licenseType.totalPrice}</div>
+                                                                )
+                                                            }
+                                                        </td>
+                                                        <td>
+                                                            {
+                                                                item.purchasedLicenses.reduce((acc, licenseType) => acc + licenseType.totalPrice, 0)
+                                                            }
+                                                        </td>
+                                                        <td>
+                                                            <a href="" className="download"><img src={require(`../../assets/images/download.svg`)} alt="" />DOWNLOAD</a>
+                                                        </td>
+                                                    </tr>
                                                 )
                                             }
-                                        </td>
-                                        <td>
-                                            {
-                                                item.purchasedLicenses.map((licenseType) =>
-                                                    <div>{licenseType.quantity}</div>
-                                                )
-                                            }
-                                        </td>
-                                        <td>
-                                            {
-                                                item.purchasedLicenses.map((licenseType) =>
-                                                    <div>{licenseType.totalPrice}</div>
-                                                )
-                                            }
-                                        </td>
-                                        <td>
-                                            {
-                                                item.purchasedLicenses.reduce((acc, licenseType) => acc + licenseType.totalPrice, 0)
-                                            }
-                                        </td>
-                                        <td>
-                                            <a href="" class="download"><img src={require(`../../assets/images/download.svg`)} alt="" />DOWNLOAD</a>
-                                        </td>
-                                    </tr>
-                                )
-                            }
-                        </tbody>
-                    </table>
+                                        </tbody>
+                                    </table>
+                                    <div style={{ marginTop: 20, float: "right" }}>
+                                        <BasicPagination
+                                            totalRecords={licenseOrderRecords}
+                                            limit={limit}
+                                            batch={batch}
+                                            onBatchChange={handleBatchChange}
+                                        />
+                                    </div>
+                                </>
+                            )
+                    }
                 </div>
             </div>
         </div>

@@ -14,6 +14,7 @@ export const PurchaseLicenseMap = {
     LICENSE_ORDER_HISTORY_START: 'license_order_history_start',
     LICENSE_ORDER_HISTORY_SUCCESS: 'license_order_history_success',
     LICENSE_ORDER_HISTORY_ERROR: 'license_order_history_error',
+    REFRESH_ORDER_HISTORY: 'REFRESH_ORDER_HISTORY',
 }
 
 const purchaseLicenseAction = {
@@ -21,6 +22,11 @@ const purchaseLicenseAction = {
         return {
             type: PurchaseLicenseMap.ADD_LICENSE_ORDER,
             payload: data
+        }
+    },
+    refreshOrderHistory: () => {
+        return {
+            type: PurchaseLicenseMap.REFRESH_ORDER_HISTORY
         }
     }
 }
@@ -114,7 +120,7 @@ export const purchaseLicenseAsync = (orderId, purchaseLicenses, tokens) => {
     }
 }
 
-export const licenseOrderHistoryAsync = (corporateId, token) => {
+export const licenseOrderHistoryAsync = (corporateId, token, limit, batch) => {
 
     return async (dispatch) => {
         try {
@@ -123,15 +129,23 @@ export const licenseOrderHistoryAsync = (corporateId, token) => {
             });
             let licenseOrderHistoryResponse = await axios({
                 url: `http://127.0.0.1:4000/api/corporate-admin/purchaseLicense/purchase/${corporateId}`,
-                method: "GET",
+                data: {
+                    limit,
+                    batch: batch - 1
+                },
+                method: "POST",
                 headers: {
-                    'tokens': token
+                    'tokens': token,
+                    'Content-Type': 'application/json'
                 }
-            }); console.log(licenseOrderHistoryResponse)
+            });
             if (licenseOrderHistoryResponse.data.response.responseCode === 200) {
                 dispatch({
                     type: PurchaseLicenseMap.LICENSE_ORDER_HISTORY_SUCCESS,
-                    payload: licenseOrderHistoryResponse.data.response.purchaseLicenses
+                    payload: {
+                        purchaseLicenses: licenseOrderHistoryResponse.data.response.purchaseLicenses,
+                        totalRecords: licenseOrderHistoryResponse.data.response.totalCount,
+                    }
                 })
             }
         } catch (error) {

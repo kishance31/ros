@@ -5,6 +5,7 @@ import { connectRouter } from 'connected-react-router';
 import authReducer from './auth.reducer'
 import purchaseLicenseReducer from './purchaseLicense.reducer';
 import notitficationReducer from './notifications.reducer';
+import cartReducer from './cart.reducer';
 import myProfileReducer from './myprofile.reducer';
 import branchListReducer from './branchList.reducer';
 
@@ -22,6 +23,7 @@ const createRootReducer = (history) => {
             auth: persistReducer(authPersistConfig, authReducer),
             purchaseLicense: purchaseLicenseReducer,
             notification: notitficationReducer,
+            cart: cartReducer,
             myProfile: myProfileReducer,
             branchList:branchListReducer
 
