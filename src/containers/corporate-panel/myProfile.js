@@ -1,7 +1,7 @@
 import React ,{useState}from 'react';
 import { useSelector } from 'react-redux';
 import { UploadPlusIcon } from '../../components/icons/Icons';
-const MyProfile = (props) => {
+const MyProfile = () => {
     const User = useSelector(state => state.auth.user)
 
     const onFileChange = (event) =>{
@@ -28,11 +28,11 @@ const MyProfile = (props) => {
                                             <input placeholder="LAST NAME" type="text" onChange={setValue} value={User.lastName} className="input_box_2 form-control"/>
                                         </div>
                                         <div className="input-group two_side">
-                                            <input placeholder="POSITION" type="text" onChange={setValue} value="User Position"  className="input_box_1 form-control"/>
-                                            <input placeholder="DEPARTMENT" type="text" onChange={setValue} value="User Department"  className="input_box_2 form-control"/>
+                                            <input placeholder="POSITION" type="text" onChange={setValue} defaultValue="User Position"  className="input_box_1 form-control"/>
+                                            <input placeholder="DEPARTMENT" type="text" onChange={setValue} defaultValue="User Department"  className="input_box_2 form-control"/>
                                         </div>
                                         <div className="input-group two_side">
-                                            <input placeholder="CORPORATE EMPLOYEE ID" onChange={setValue} type="text" value="corporateEmail" className="input_box_1 form-control"/>
+                                            <input placeholder="CORPORATE EMPLOYEE ID" onChange={setValue} type="text" defaultValue="corporateEmail" className="input_box_1 form-control"/>
                                             <input placeholder="PERSONAL EMAIL ID" onChange={setValue} type="email" value={User.email} className="input_box_2 form-control"/>
                                         </div>
 
@@ -45,7 +45,7 @@ const MyProfile = (props) => {
                                 <div className="col-lg-6">
                                     <div className="mr-0 ml-xl-5">
                                         <div className="input-group two_side">
-                                            <input placeholder="TAX NO" type="text" onChange={setValue} value='taxNo' className="input_box_1 form-control"/>
+                                            <input placeholder="TAX NO" type="text" onChange={setValue} defaultValue='taxNo' className="input_box_1 form-control"/>
                                             <input placeholder="COMPANY REGISTER NO" onChange={setValue} type="text" value='companyRegisterNo' className="input_box_2 form-control"/>
                                         </div>
 
@@ -59,7 +59,7 @@ const MyProfile = (props) => {
                                         </div>
 
                                         <div className="input-group two_side">
-                                            <input placeholder="EMPLOYEE ID" type="text" value='employeeId' className="input_box_1 form-control"/>
+                                            <input placeholder="EMPLOYEE ID" type="text" defaultValue='employeeId' className="input_box_1 form-control"/>
                                             <input placeholder="USERNAME" type="text" value={User.username} className="input_box_2 form-control"/>
                                         </div>
                                     </div>
