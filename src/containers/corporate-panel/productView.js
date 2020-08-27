@@ -46,16 +46,16 @@ const ProductView = () => {
                                 {
                                     ProductData.map(product =>
                                         <tr key={product.id}>
-                                            <td>{product.item_name}</td>
-                                            <td>{product.item_code}</td>
-                                            <td>${product.item_price}</td>
+                                            <td>{product.itemName}</td>
+                                            <td>{product.itemCode}</td>
+                                            <td>${product.itemPrice}</td>
                                             <td className="text-center">
                                                 <div className="product_img">
                                                     <img src={require(`../../assets/images/${product.imgPath}`)} alt={product.alternativeName} />
                                                 </div>
                                             </td>
                                             <td>
-                                                <div className="custom-tooltip" data-toggle="tooltip" data-placement="left" title={product.title}>{product.item_description}</div>
+                                                <div className="custom-tooltip" data-toggle="tooltip" data-placement="left" title={product.title}>{product.itemDescription}</div>
                                             </td>
                                         </tr>
                                     )}

@@ -87,7 +87,7 @@ export const CarouselItems = [
 export const CorporateNavLinks = [
     { name: "Purchase License", url: "/corporate/purchaseLicense", active: true },
     { name: "Employee & License Management", url: "/corporate/employeeLicenseManagement", active: false },
-    { name: "Manage Allocate License", url: "/corporate/manageLicense", active: false },
+    { name: "Manage Allocate License", url: "/corporate/manageAllocateLicense", active: false },
     { name: "Employee Order Details", url: "/corporate/employeeOrderDetails", active: false },
     { name: "Invoice", url: "/corporate/invoice", active: false },
     { name: "My Account", url: "/corporate/myAccount", active: false },
@@ -470,32 +470,125 @@ export const ProductsList = {
     ]
 };
 
+export const AllocateLicenseList = [
+    {
+        srNo: 1,
+        employeeName: 'Alexa',
+        emailId: 'alexa@gmail.com',
+        licenseType: 'Silver',
+        licenseNo: 1232,
+        assignDate: '10/10/2020',
+        deactivationDate: '12/10/2020',
+        reason: 'your message for deactivation of account'
+    },
+    {
+        srNo: 2,
+        employeeName: 'Siri',
+        emailId: 'Siria@gmail.com',
+        licenseType: 'Gold',
+        licenseNo: 1331,
+        assignDate: '10/10/2020',
+        deactivationDate: '12/10/2020',
+        reason: 'your message for deactivation of account'
+    },
+    {
+        srNo: 3,
+        employeeName: 'Echo',
+        emailId: 'Echo@gmail.com',
+        licenseType: 'Platinum',
+        licenseNo: 1211,
+        assignDate: '14/10/2020',
+        deactivationDate: '16/10/2020',
+        reason: 'your message for deactivation of account'
+    }
+]
+
+export const EmployeeOrderDetailsList = [
+    {
+        srNo: 1,
+        itemCategory:'Hardware',
+        itemName: 'Keyboard',
+        itemCost: 30,
+        orderNo: 1232,
+        orderDate: '09/08/2020',
+        orderStatus: 'pending',
+        dispatchDate: '10/08/2020',
+        deliveryStatus: 'Not Receive'
+    },
+    {
+        srNo: 2,
+        itemCategory:'Hardware',
+        itemName: 'Mouse',
+        itemCost: 10,
+        orderNo: 1222,
+        orderDate: '09/08/2020',
+        orderStatus: 'pending',
+        dispatchDate: '10/08/2020',
+        deliveryStatus: 'Not Receive'
+    },
+    {
+        srNo: 3,
+        itemCategory:'Hardware',
+        itemName: 'SSD',
+        itemCost: 300,
+        orderNo: 1122,
+        orderDate: '09/08/2020',
+        orderStatus: 'pending',
+        dispatchDate: '10/08/2020',
+        deliveryStatus: 'Not Receive'
+    }
+]
+
+export const InvoiceList = [
+    {
+        invoiceId:1,
+        invoiceNo: 1231,
+        invoiceDate: '12/12/2020',
+        invoiceType: 'RECURRING1',
+        invoiceAmount: 2
+    },
+    {
+        invoiceId:2,
+        invoiceNo: 1312,
+        invoiceDate: '13/12/2020',
+        invoiceType: 'RECURRING2',
+        invoiceAmount: 92
+    },
+    {
+        invoiceId:3,
+        invoiceNo: 4131,
+        invoiceDate: '01/02/2020',
+        invoiceType: 'RECURRING3',
+        invoiceAmount: 48
+    }
+]
+
 export const ProductData = [
     {   
         id:1,
-        item_name: 'Keyboard',
+        itemName: 'Keyboard',
         title: 'Lorem ipsum dolor sit amet. Duis pretium gravida enim, vel maximus ligula ferme ntum a. Sed rhoncus eget ex id.Duis pretium',
-        item_code: '1234',
-        item_price: '400',
-        item_description: 'Lorem ipsum dolor sit amet',
+        itemCode: '1234',
+        itemPrice: '400',
+        itemDescription: 'Lorem ipsum dolor sit amet',
         imgPath: 'chair1.png'
     },
-    {
-        id:2,
-        item_name: 'Keyboard',
+    {   
+        id:1,
+        itemName: 'Keyboard',
         title: 'Lorem ipsum dolor sit amet. Duis pretium gravida enim, vel maximus ligula ferme ntum a. Sed rhoncus eget ex id.Duis pretium',
-        item_code: '1234',
-        item_price: '400',
-        item_description: 'Lorem ipsum dolor sit amet',
+        itemCode: '1234',
+        itemPrice: '400',
+        itemDescription: 'Lorem ipsum dolor sit amet',
         imgPath: 'chair1.png'
     },
-    {
-        id:3,
-        item_name: 'Keyboard',
+    {   
+        id:1,
+        itemName: 'Keyboard',
         title: 'Lorem ipsum dolor sit amet. Duis pretium gravida enim, vel maximus ligula ferme ntum a. Sed rhoncus eget ex id.Duis pretium',
-        item_code: '1234',
-        item_price: '400',
-        item_description: 'Lorem ipsum dolor sit amet',
+        itemCode: '1234',
+        itemPrice: '400',
+        itemDescription: 'Lorem ipsum dolor sit amet',
         imgPath: 'chair1.png'
-    },
+    }
 ]
