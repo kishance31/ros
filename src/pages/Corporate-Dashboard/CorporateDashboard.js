@@ -4,6 +4,7 @@ import CorporateLinksContainer from '../../containers/corporate-panel/corporateL
 import PurchaseLicense from '../../containers/corporate-panel/purchaseLicense';
 import EmployeeLicenseManagement from '../../containers/corporate-panel/employeeLicenseMangement';
 import MyAccount from '../../containers/corporate-panel/myAccount';
+import ProductView from '../../containers/corporate-panel/productView';
 
 
 const CorporateDashboard = () => {
@@ -18,6 +19,7 @@ const CorporateDashboard = () => {
                 <Route path={`${path}/purchaseLicense`} component={PurchaseLicense} />
                 <Route path={`${path}/employeeLicenseManagement`} component={EmployeeLicenseManagement} />
                 <Route path={`${path}/myAccount`} component={MyAccount} />
+                <Route path={`${path}/productView`} component={ProductView} />
             </Switch>
         </div>
     )
