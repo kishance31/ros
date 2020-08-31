@@ -1,5 +1,3 @@
-constant.js
-
 export const headerLinks = [
     { name: "Home", url: "#" },
     { name: "About us", url: "#" },
