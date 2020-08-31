@@ -574,7 +574,7 @@ export const ProductData = [
         imgPath: 'chair1.png'
     },
     {   
-        id:1,
+        id:2,
         itemName: 'Keyboard',
         title: 'Lorem ipsum dolor sit amet. Duis pretium gravida enim, vel maximus ligula ferme ntum a. Sed rhoncus eget ex id.Duis pretium',
         itemCode: '1234',
@@ -583,7 +583,7 @@ export const ProductData = [
         imgPath: 'chair1.png'
     },
     {   
-        id:1,
+        id:3,
         itemName: 'Keyboard',
         title: 'Lorem ipsum dolor sit amet. Duis pretium gravida enim, vel maximus ligula ferme ntum a. Sed rhoncus eget ex id.Duis pretium',
         itemCode: '1234',
