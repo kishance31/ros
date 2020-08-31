@@ -10,7 +10,7 @@ import 'aos/dist/aos.css';
 import './Homepage.scss';
 import './App.scss';
 
-import configureStore, { history } from './redux/store';
+import configureStore from './redux/store';
 
 const store = configureStore();
 const persistor = persistStore(store);
@@ -21,7 +21,7 @@ function App() {
 	AOS.init();
 
 	return (
-		<Provider store={store} history={history}>
+		<Provider store={store}>
 			<PersistGate loading={null} persistor={persistor}>
 				<BrowserRouter>
 					<AppWrapper />

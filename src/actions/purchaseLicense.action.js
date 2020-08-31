@@ -2,6 +2,7 @@ import axios from 'axios';
 
 export const PurchaseLicenseMap = {
     ADD_LICENSE_ORDER: 'ADD_LICENSE_ORDER',
+    DELETE_LICENSE_ORDER: 'DELETE_LICENSE_ORDER',
     AVAILABLE_LICENSE_START: 'available_license_start',
     AVAILABLE_LICENSE_SUCCESS: 'available_license_success',
     AVAILABLE_LICENSE_ERROR: 'available_license_error',
@@ -22,6 +23,12 @@ const purchaseLicenseAction = {
         return {
             type: PurchaseLicenseMap.ADD_LICENSE_ORDER,
             payload: data
+        }
+    },
+    deleteLicense: (data) => {
+        return {
+            type: PurchaseLicenseMap.DELETE_LICENSE_ORDER,
+            payload: data,
         }
     },
     refreshOrderHistory: () => {

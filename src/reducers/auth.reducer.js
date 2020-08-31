@@ -24,7 +24,9 @@ const initialState = {
         username: "",
         _id: "",
         tokens: "",
-        role: ""
+        role: "",
+        taxNo: "",
+        companyRegisterNo: "",
     },
 }
 
@@ -163,22 +165,17 @@ const authReducer = (state = initialState, action) => {
             return {
                 ...state,
                 user: {
-                    address: [],
-                    company: {
-                        branches: []
-                    },
-                    companyName: "",
-                    email: "",
-                    firstName: "",
-                    lastName: "",
-                    licenseDetails: [],
-                    mobileNo: "",
-                    officeContactNo: "",
-                    username: "",
-                    _id: "",
-                    tokens: ""
+                    ...initialState.user
                 }
             }
+        case AuthMap.UPDATE_CORPORATE_PROFILE_SUCCESS: {
+            return {
+                ...state,
+                user: {
+                    ...action.payload
+                }
+            }
+        }
         default:
             return {
                 ...state,

@@ -65,7 +65,11 @@ const LicenseOrderHistory = () => {
                                                         <td>
                                                             {
                                                                 item.purchasedLicenses.map((licenseType, key) =>
-                                                                    <div key={key}>{licenseType.quantity}</div>
+                                                                    <div key={key}>{
+                                                                        licenseType.quantity < 10 ? 
+                                                                            "0" + licenseType.quantity :
+                                                                            licenseType.quantity
+                                                                    }</div>
                                                                 )
                                                             }
                                                         </td>

@@ -3,7 +3,8 @@ import ShadowCard from '../../card/shadowCard';
 
 const PurchaseLicenseTable = (props) => {
 
-    const { purchaseLicenseList,showPaymentModal } = props;
+    const { purchaseLicenseList, showPaymentModal, removeAddedLicense } = props;
+
     return (
         <ShadowCard className="ml-0 ml-xl-3">
             <div className="general_table table-responsive">
@@ -14,20 +15,35 @@ const PurchaseLicenseTable = (props) => {
                             <th>License&nbsp;No</th>
                             <th>No&nbsp;of&nbsp;License</th>
                             <th>Cost</th>
+                            <th>Action</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody className="text-center">
                         {
-                            purchaseLicenseList.map((item, index) => {
-                                return (
-                                    <tr key={index}>
-                                        <td>{index + 1}</td>
-                                        <td>{item.type}</td>
-                                        <td>{item.quantity}</td>
-                                        <td>{item.price}</td>
-                                    </tr>   
+                            purchaseLicenseList.length ? (
+                                purchaseLicenseList.map((item, index) => {
+                                    return (
+                                        <tr key={index}>
+                                            <td>{index + 1}</td>
+                                            <td>{item.type}</td>
+                                            <td>{item.quantity}</td>
+                                            <td>{item.price}</td>
+                                            <td 
+                                                style={{cursor: 'pointer'}}
+                                                onClick={() => removeAddedLicense(item.type)}
+                                            >
+                                                X
+                                            </td>
+                                        </tr>
+                                    )
+                                })
+                            ) : (
+                                    <tr>
+                                        <td colSpan={5}>
+                                            No license added. Add a license
+                                    </td>
+                                    </tr>
                                 )
-                            })
                         }
                     </tbody>
                 </table>

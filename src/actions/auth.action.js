@@ -12,7 +12,10 @@ export const AuthMap = {
     SIGN_UP_ERROR: 'sign_up_error',
     SIGN_IN_SUCCESS: 'sign_in_success',
     SIGN_IN_ERROR: 'sign_in_error',
-    SIGN_OUT: 'sign_out'
+    SIGN_OUT: 'sign_out',
+    UPDATE_CORPORATE_PROFILE_START: 'UPDATE_CORPORATE_PROFILE_START',
+    UPDATE_CORPORATE_PROFILE_SUCCESS: 'UPDATE_CORPORATE_PROFILE_SUCCESS',
+    UPDATE_CORPORATE_PROFILE_ERROR: 'UPDATE_CORPORATE_PROFILE_ERROR'
 }
 
 const AuthModelAction = {
@@ -46,7 +49,7 @@ export const signUpUserAsync = (user) => {
                 "Content-Type": "multipart/form-data"
             }
         });
-        if (signuprespone.status === 200) {
+        if (signuprespone.data.response.responseCode === 201) {
             dispatch({
                 type: AuthMap.SIGN_UP_SUCCESS
             })
@@ -93,19 +96,56 @@ export const signInUserAsync = (userBody) => {
 }
 
 export const signOutUserAsync = (tokens) => {
-    
+
     return async (dispatch) => {
         const signOutUser = await axios({
-            url: 'http://127.0.0.1:4000/api/corporate-admin/logout',                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  
+            url: 'http://127.0.0.1:4000/api/corporate-admin/logout',
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
                 'tokens': tokens
             }
         });
-        if(signOutUser.status === 200){
-        dispatch({
-            type: AuthMap.SIGN_OUT
+        if (signOutUser.status === 200) {
+            dispatch({
+                type: AuthMap.SIGN_OUT
+            });
+        }
+    }
+}
+
+export const updateUserProfileAsync = (data) => {
+    return async (dispatch, getState) => {
+        const { auth } = getState();
+        try {
+            dispatch({
+                type: AuthMap.UPDATE_CORPORATE_PROFILE_START
+            });
+
+            let updateUserResponse = await axios({
+                url: `http://127.0.0.1:4000/api/corporate-admin/update`,
+                method: "POST",
+                data: data,
+                headers: {
+                    "Content-Type": "multipart/form-data",
+                    tokens: auth.user.tokens
+                }
+            });
+
+            if(updateUserResponse.data.response.responseCode === 201) {
+                return dispatch({
+                    type: AuthMap.UPDATE_CORPORATE_PROFILE_SUCCESS,
+                    payload: updateUserResponse.data.response.userProfile,
+                })
+            }
+
+            dispatch({
+                type: AuthMap.UPDATE_CORPORATE_PROFILE_ERROR,
+            })
+
+        } catch (error) {
+            dispatch({
+                type: AuthMap.UPDATE_CORPORATE_PROFILE_ERROR
             });
         }
     }

@@ -49,6 +49,13 @@ const PurchaseLicense = () => {
                 // duration: 7000,
             }));
         }
+        if  (quantity.value < 1) {
+            return dispatch(notificationActions.showNotification({
+                title: "Add License",
+                message: "Quantity must be greater than 0.",
+                // duration: 7000,
+            }));
+        }
         const availableLicenseDetails = availableLicenseList.find(license => license.type === licenseType.value);
         const data = {
             ...availableLicenseDetails,
@@ -58,9 +65,24 @@ const PurchaseLicense = () => {
         dispatch(purchaseLicenseAction.addLicense(data))
     }
 
+    const removeAddedLicense = (type) => {
+        dispatch(purchaseLicenseAction.deleteLicense(type))
+    }
+
     const payPurchaseLicenses = () => {
         dispatch(purchaseLicenseAsync(orderId, purchaseLicenseList, user.tokens));
         setShowPaymentModal(!showPaymentModal);
+    }
+
+    const openPaymentModalBox = () => {
+        if(!purchaseLicenseList.length) {
+            return dispatch(notificationActions.showNotification({
+                title: "Add License",
+                message: "No license added. Add a license to proceed.",
+                // duration: 7000,
+            }));
+        }
+        setShowPaymentModal(!showPaymentModal)
     }
 
     return (
@@ -71,7 +93,11 @@ const PurchaseLicense = () => {
                         <PurchaseLicenseAddBox addLicense={addLicense} availableLicenseList={availableLicenseList} orderId={orderId} companyName={user.companyName} />
                     </div>
                     <div className="col-lg-6 mt-5 mt-lg-0">
-                        <PurchaseLicenseTable purchaseLicenseList={purchaseLicenseList} showPaymentModal={() => setShowPaymentModal(!showPaymentModal)} />
+                        <PurchaseLicenseTable 
+                            purchaseLicenseList={purchaseLicenseList}
+                            showPaymentModal={openPaymentModalBox}
+                            removeAddedLicense={removeAddedLicense}
+                        />
                     </div>
                 </div>
             </div>

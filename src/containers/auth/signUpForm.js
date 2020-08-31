@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { Formik } from 'formik';
 import DoubleInputField from '../../components/inputFields/doubleInputField';
 import AuthModelAction from '../../actions/auth.action';
 import { AuthMap, signUpUserAsync } from '../../actions/auth.action';
 import { useDispatch } from 'react-redux';
-import {ArrowRightIcon, UploadPlusIcon} from '../../components/icons/Icons';
+import { ArrowRightIcon, UploadPlusIcon } from '../../components/icons/Icons';
+import DoubleErrorMessage from '../../components/inputFields/inputErrorMessage';
 
 const SignUpForm = () => {
 
@@ -13,131 +15,284 @@ const SignUpForm = () => {
         dispatch(AuthModelAction.toggleAuthModals(AuthMap.TOGGLE_SIGN_IN_MODAL));
     }
 
-    const [formName, setformName] = useState({
-        companyName: "", firstName: "", lastName: "", position: "", department: "", corporateEmail: "", personalEmail: "",
-        officeContactNo: "", mobileNo: "", employeeId: "", userName: "", password: "", reEnterPassword: "", corpDoc: ""
-    });
-
-    const inputEvent = (event) => {
-        
-        setformName({
-            ...formName,
-            [event.target.name]: event.target.value
-        });
-    }
-
-    const onFileChange = (event) =>{
-        
-        setformName({
-            ...formName,
-            corpDoc: event.target.files[0]
-            })
-    }
-
-    const onSubmits = (event) => {
-
-        event.preventDefault();
-        
-        const data = new FormData() 
-        data.append('file', formName.corpDoc)
-        data.set("companyName", formName.companyName)
-        data.set("firstName", formName.firstName)
-        data.set("lastName", formName.lastName)
-        data.set("position", formName.position)
-        data.set("department", formName.department)
-        data.set("corporateEmailId", formName.corporateEmail)
-        data.set("email", formName.personalEmail)
-        data.set("officeContactNo", formName.officeContactNo)
-        data.set("mobileNo", formName.mobileNo)
-        data.set("employeeId", formName.employeeId)
-        data.set("username", formName.userName)
-        data.set("password", formName.password)
+    const onSubmits = (values) => {
+        const data = new FormData()
+        data.append('file', values.corpDoc)
+        data.set("companyName", values.companyName)
+        data.set("firstName", values.firstName)
+        data.set("lastName", values.lastName)
+        data.set("position", values.position)
+        data.set("department", values.department)
+        data.set("corporateEmailId", values.corporateEmail)
+        data.set("email", values.personalEmail)
+        data.set("officeContactNo", values.officeContactNo)
+        data.set("mobileNo", values.mobileNo)
+        // data.set("employeeId", values.employeeId)
+        data.set("username", values.userName)
+        data.set("password", values.password)
 
         dispatch(signUpUserAsync(data));
     }
 
     return (
         <>
-            <form className="form-horizontal" onSubmit={onSubmits} >
-                
-                <div className="input-group">
-                    <input placeholder="COMPANY NAME" type="text" name="companyName" onChange={inputEvent} value={formName.companyName} required className="form-control" />
-                </div>
-                <DoubleInputField >
-                    <input placeholder="FIRST NAME" type="text" className="input_box_2 form-control"
-                        name="firstName" onChange={inputEvent} value={formName.firstName} required
-                    />
-                    <input placeholder="LAST NAME" type="text" className="input_box_2 form-control"
-                        name="lastName" onChange={inputEvent} value={formName.lastName} required
-                    />
-                </DoubleInputField>
+            <Formik
+                initialValues={{
+                    companyName: "",
+                    firstName: "",
+                    lastName: "",
+                    position: "",
+                    department: "",
+                    corporateEmail: "",
+                    personalEmail: "",
+                    officeContactNo: "",
+                    mobileNo: "",
+                    // employeeId: "",
+                    userName: "",
+                    password: "",
+                    reEnterPassword: "",
+                    corpDoc: "",
+                }}
+                validate={(values) => {
+                    const errors = {};
+                    for (let key in values) {
+                        if (!values[key]) {
+                            errors[key] = `${key} is required.`
+                        }
+                    }
+                    if (values.corporateEmail && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.corporateEmail)) {
+                        errors.corporateEmail = "Invalid email address";
+                    }
+                    if (values.personalEmail && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.personalEmail)) {
+                        errors.personalEmail = "Invalid email address";
+                    }
+                    if (values.officeContactNo && !/^\d{10}$/.test(values.officeContactNo)) {
+                        errors.officeContactNo = "Invalid mobile number";
+                    }
+                    if (values.mobileNo && !/^\d{10}$/.test(values.mobileNo)) {
+                        errors.mobileNo = "Invalid mobile number";
+                    }
+                    if (values.password !== values.reEnterPassword) {
+                        errors.reEnterPassword = "Password and Re Enter Password are not same."
+                    }
+                    return errors;
+                }}
+                onSubmit={(values, { setSubmitting }) => {
+                    onSubmits(values);
+                    // setSubmitting(false);
+                }}
+            >
 
-                <DoubleInputField>
-                    <input placeholder="POSITION" type="text" className="input_box_1 form-control"
-                        name="position" onChange={inputEvent} value={formName.position} required
-                    />
-                    <input placeholder="DEPARTMENT" type="text" className="input_box_2 form-control"
-                        name="department" onChange={inputEvent} value={formName.department} required
-                    />
-                </DoubleInputField>
+                {({
+                    values,
+                    errors,
+                    touched,
+                    isSubmitting,
+                    setFieldValue,
+                    handleChange,
+                    handleBlur,
+                    handleSubmit,
+                }) => (
 
-                <DoubleInputField>
-                    <input placeholder="CORPORATE EMAIL ID" type="email" className="input_box_1 form-control"
-                        name="corporateEmail" onChange={inputEvent} value={formName.corporateEmail} required
+                        <form className="form-horizontal" onSubmit={handleSubmit} >
+                            
+                            <div className="input-group">
+                                <input
+                                    placeholder="COMPANY NAME"
+                                    type="text"
+                                    name="companyName"
+                                    onChange={handleChange}
+                                    onBlur={handleBlur}
+                                    value={values.companyName}
+                                    className="form-control"
+                                />
+                            </div>
+                            <DoubleErrorMessage 
+                                leftError={errors.companyName}
+                                leftTouched={touched.companyName}
+                            />
 
-                    />
-                    <input placeholder="PERSONAL EMAIL ID" type="email" className="input_box_2 form-control"
-                        name="personalEmail" onChange={inputEvent} value={formName.personalEmail} required
-                    />
-                </DoubleInputField>
+                            <DoubleInputField >
+                                <input
+                                    placeholder="FIRST NAME"
+                                    type="text"
+                                    className="input_box_2 form-control"
+                                    name="firstName"
+                                    onChange={handleChange}
+                                    onBlur={handleBlur}
+                                    value={values.firstName}
+                                />
+                                <input
+                                    placeholder="LAST NAME"
+                                    type="text"
+                                    className="input_box_2 form-control"
+                                    name="lastName"
+                                    onChange={handleChange}
+                                    onBlur={handleBlur}
+                                    value={values.lastName}
+                                />
+                            </DoubleInputField>
+                            <DoubleErrorMessage 
+                                leftError={errors.firstName}
+                                leftTouched={touched.firstName}
+                                rightError={errors.lastName}
+                                rightTouched={touched.lastName}
+                            />
 
-                <DoubleInputField>
-                    <input placeholder="OFFICE CONTACT NO" type="tel" className="input_box_1 form-control"
-                        name="officeContactNo" onChange={inputEvent} value={formName.officeContactNo} required
-                    />
-                    <input placeholder="MOBILE NO" type="tel" className="input_box_2 form-control"
-                        name="mobileNo" onChange={inputEvent} value={formName.mobileNo} required
-                    />
-                </DoubleInputField>
+                            <DoubleInputField>
+                                <input
+                                    placeholder="POSITION"
+                                    type="text"
+                                    className="input_box_1 form-control"
+                                    name="position"
+                                    onChange={handleChange}
+                                    onBlur={handleBlur}
+                                    value={values.position}
+                                />
+                                <input
+                                    placeholder="DEPARTMENT"
+                                    type="text"
+                                    className="input_box_2 form-control"
+                                    name="department"
+                                    onChange={handleChange}
+                                    onBlur={handleBlur}
+                                    value={values.department}
+                                />
+                            </DoubleInputField>
+                            <DoubleErrorMessage 
+                                leftError={errors.position}
+                                leftTouched={touched.position}
+                                rightError={errors.department}
+                                rightTouched={touched.department}
+                            />
 
-                <DoubleInputField>
-                    <input placeholder="EMPLOYEE ID" type="text" className="input_box_1 form-control"
-                        name="employeeId" onChange={inputEvent} value={formName.employeeId} required
-                    />
-                    <input placeholder="USERNAME" type="text" className="input_box_2 form-control"
-                        name="userName" onChange={inputEvent} value={formName.userName} required
-                    />
-                </DoubleInputField>
+                            <DoubleInputField>
+                                <input
+                                    placeholder="CORPORATE EMAIL ID"
+                                    type="email"
+                                    className="input_box_1 form-control"
+                                    name="corporateEmail"
+                                    onChange={handleChange}
+                                    onBlur={handleBlur}
+                                    value={values.corporateEmail}
+                                />
+                                <input
+                                    placeholder="PERSONAL EMAIL ID"
+                                    type="email"
+                                    className="input_box_2 form-control"
+                                    name="personalEmail"
+                                    onChange={handleChange}
+                                    onBlur={handleBlur}
+                                    value={values.personalEmail}
+                                />
+                            </DoubleInputField>
+                            <DoubleErrorMessage 
+                                leftError={errors.corporateEmail}
+                                leftTouched={touched.corporateEmail}
+                                rightError={errors.personalEmail}
+                                rightTouched={touched.personalEmail}
+                            />
 
-                <DoubleInputField>
-                    <input placeholder="PASSWORD" type="password" className="input_box_1 form-control"
-                        name="password" onChange={inputEvent} value={formName.password} required
-                    />
-                    <input placeholder="RE ENTER PASSWORD" type="password" className="input_box_2 form-control"
-                        name="reEnterPassword" onChange={inputEvent} value={formName.reEnterPassword} required
-                    />
-                </DoubleInputField>
+                            <DoubleInputField>
+                                <input
+                                    placeholder="OFFICE CONTACT NO"
+                                    type="tel"
+                                    className="input_box_1 form-control"
+                                    name="officeContactNo"
+                                    onChange={handleChange}
+                                    onBlur={handleBlur}
+                                    value={values.officeContactNo}
+                                />
+                                <input
+                                    placeholder="MOBILE NO"
+                                    type="tel"
+                                    className="input_box_2 form-control"
+                                    name="mobileNo"
+                                    onChange={handleChange}
+                                    onBlur={handleBlur}
+                                    value={values.mobileNo}
+                                />
+                            </DoubleInputField>
+                            <DoubleErrorMessage 
+                                leftError={errors.officeContactNo}
+                                leftTouched={touched.officeContactNo}
+                                rightError={errors.mobileNo}
+                                rightTouched={touched.mobileNo}
+                            />
 
+                            <DoubleInputField>
 
+                                {/* <input placeholder="EMPLOYEE ID" type="text" className="input_box_1 form-control"
+                        name="employeeId" onChange={handleChange} value={values.employeeId} required
+                             /> */}
 
-                <div className="upload_document_file">
-                <UploadPlusIcon />
-                <label className="upload_document" htmlFor="inputGroupFile03">UPLOAD DOCUMENT</label>
-                <input type="file"
-                    className="custom-file-input"
-                    id="inputGroupFile03"
-                    onChange={onFileChange} required/>
-                </div>
+                                <input
+                                    placeholder="USERNAME"
+                                    type="text"
+                                    className="input_box_2 form-control"
+                                    name="userName"
+                                    onChange={handleChange}
+                                    onBlur={handleBlur}
+                                    value={values.userName}
+                                />
+                            </DoubleInputField>
+                            <DoubleErrorMessage 
+                                leftError={errors.userName}
+                                leftTouched={touched.userName}
+                            />
 
+                            <DoubleInputField>
+                                <input
+                                    placeholder="PASSWORD"
+                                    type="password"
+                                    className="input_box_1 form-control"
+                                    name="password"
+                                    onChange={handleChange}
+                                    onBlur={handleBlur}
+                                    value={values.password}
+                                />
+                                <input
+                                    placeholder="RE ENTER PASSWORD"
+                                    type="password"
+                                    className="input_box_2 form-control"
+                                    name="reEnterPassword"
+                                    onChange={handleChange}
+                                    onBlur={handleBlur}
+                                    value={values.reEnterPassword}
+                                />
+                            </DoubleInputField>
+                            <DoubleErrorMessage 
+                                leftError={errors.password}
+                                leftTouched={touched.password}
+                                rightError={errors.reEnterPassword}
+                                rightTouched={touched.reEnterPassword}
+                            />
 
+                            <div className="upload_document_file">
+                                <div htmlFor="inputGroupFile03">
+                                    <UploadPlusIcon />
+                                </div>
+                                <label className="upload_document" >UPLOAD DOCUMENT</label>
+                                {
+                                    values.corpDoc && values.corpDoc.name ?
+                                        <span className="upload_file_name">{values.corpDoc.name}</span> : null
+                                }
+                                <input type="file"
+                                    className="custom-file-input"
+                                    id="inputGroupFile03"
+                                    onChange={event => setFieldValue('corpDoc', event.target.files[0])}
+                                />
+                            </div>
 
-                <button className="modal-fill_btn btn btn-lg">
-                    <span className="sign_in">SUBMIT</span>
-                    <span className="left_arrow">
-                        <ArrowRightIcon />
-                    </span>
-                </button>
-            </form>
+                            <button type="submit" className="modal-fill_btn btn btn-lg" disabled={isSubmitting}>
+                                <span className="sign_in">SUBMIT</span>
+                                <span className="left_arrow">
+                                    <ArrowRightIcon />
+                                </span>
+                            </button>
+                        </form>
+                    )}
+            </Formik>
             <div className="modal-footer">
                 <h5 className="footer_title"> Already have an account!</h5>
                 <span className="navbar-text">

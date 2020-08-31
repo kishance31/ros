@@ -34,6 +34,12 @@ const purchaseLicenseReducer = (state = initialState, action) => {
                 addedLicenseList: newLicenseList
             }
         }
+        case PurchaseLicenseMap.DELETE_LICENSE_ORDER: {
+            return {
+                ...state,
+                addedLicenseList: state.addedLicenseList.filter(license => license.type !== action.payload)
+            }
+        }
         case PurchaseLicenseMap.AVAILABLE_LICENSE_SUCCESS: {
             return {
                 ...state,

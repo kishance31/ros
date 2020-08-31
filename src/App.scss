@@ -417,6 +417,11 @@ h3.title {
     .upload_document {
         margin-left: 30px;
     }
+    .upload_file_name {
+        position: absolute;
+        top: 25px;
+        left: 110px;
+    }
     .btn_action {
         font-size: 10px;
         padding: 0 10px;
@@ -938,7 +943,7 @@ nav.tab {
     background: #fff;
     border: 8px solid #D5E9ED;
     @include border-radius(5px);
-    display: non;
+    display: none;
     position: absolute;
     left: 210px;
     top: -30px;
@@ -1842,5 +1847,33 @@ nav.tab {
         padding: 0 10px 20px;
         font-size: 16px;
         width: 60%;
+    }
+}
+
+.error_wrap {
+    display: flex;
+    width: 100%;
+    margin-top: -20px;
+    margin-bottom: 15px;
+    .full_width {
+        .error_msg {
+            color: #f00;
+            margin-top: 5px;
+            line-height: 20px;
+        }
+    }
+    .left_side,
+    .right_side {
+        width: 50%;
+        .error_msg {
+            color: #f00;
+            margin-top: 5px;
+            line-height: 20px;
+        }
+    }       
+    .left_side {
+        .error_msg {
+            margin-right: 10px;
+        }
     }
 }
