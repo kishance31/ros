@@ -1,22 +1,25 @@
 import axios from 'axios';
 
 export const BranchListMap = {
-    ADD_BRANCH_START: 'ADD_BRANCH_START',
+    OPEN_MODAL: 'OPEN_MODAL',
+    CLOSE_MODAL: 'CLOSE_MODAL',
     BRANCH_ADDED_SUCCESSFULLY: 'BRANCH_ADDED_SUCCESSFULLY',
     ERROR_WHILE_ADDING_BRANCH: 'ERROR_WHILE_ADDING_BRANCH',
     DISPLAY_BRANCH_LIST: 'DISPLAY_BRANCH_LIST',
-    RELOAD_BRANCH_LIST: 'RELOAD_BRANCH_LIST',
-    UPDATE_BRANCH_SUCCESSFULLY: 'UPDATE_BRANCH_SUCCESSFULLY',
-    DELETED_BRANCH_SUCCESSFULLY: 'DELETED_BRANCG_SUCCESSFULLY',
-    TOGGLE_MODAL: 'TOGGLE_MODAL'
+    DELETED_BRANCH_SUCCESSFULLY: 'DELETED_BRANCG_SUCCESSFULLY'  
 }
 
 export const BranchListAction = {
-    displayAddModal: (type, payload) => {
-        return(
-            type,
-            payload
-        )
+    
+    openModal: (type) => {
+        return {
+            type: BranchListMap.OPEN_MODAL
+        }
+    },
+    closeModal: (type) => {
+        return {
+            type: BranchListMap.CLOSE_MODAL
+        }
     },
     displayBranchList: (userDataResponse) => {
         return {
@@ -32,11 +35,6 @@ export const BranchListAction = {
             payload: {
                 userData
             }
-        }
-    },
-    editBranch: (type) => {
-        return{
-            type
         }
     }
 }
@@ -54,6 +52,7 @@ export const addBranchDataAsync = (userData, tokens) => {
         });
         if(userDataResponse.status === 200){
             dispatch(BranchListAction.AddBranch(BranchListMap.BRANCH_ADDED_SUCCESSFULLY,userData))
+            dispatch(BranchListAction.closeModal(BranchListMap.CLOSE_MODAL))
         }else {
             dispatch(BranchListAction.AddBranch(BranchListMap.ERROR_WHILE_ADDING_BRANCH))
         }
@@ -62,6 +61,8 @@ export const addBranchDataAsync = (userData, tokens) => {
 
 export const displayBranchListAsync = (tokens) => {
     return async (dispatch) => {
+
+        
         let userDataResponse = await axios({
             url: `http://127.0.0.1:4000/api/branch/getBranchList`,
             method: "GET",
@@ -76,22 +77,6 @@ export const displayBranchListAsync = (tokens) => {
             payload: branchList
         })
 }}
-
-export const editBranchDetails = (tokens, b, effectId) => {
-    return async (dispatch) => {
-        let editedBranch = await axios({
-            url: `http://127.0.0.1:4000/api/branch/updateBranch/${effectId}`,
-            method: "PUT",
-            data: b,
-            headers: {
-                "Content-Type": "application/json",
-                "Authorization": tokens
-            }
-        });
-        if(editedBranch.status === 200)
-        dispatch(BranchListAction.editBranch(BranchListMap.UPDATE_BRANCH_SUCCESSFULLY))
-    }
-}
 
 export const deleteBranchAsync = (tokens,id) => {
     return async (dispatch) => {
