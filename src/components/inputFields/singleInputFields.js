@@ -10,7 +10,7 @@ const SingleInputField = (props) => {
     return (
         <>
             <div className="input-group">
-                <input placeholder={singleInputPlaceHolder} type={singleInputType} id="" className="form-control" />
+                <input placeholder={singleInputPlaceHolder} type={singleInputType} className="form-control" />
             </div>
         </>)
 }
