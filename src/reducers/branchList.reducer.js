@@ -3,8 +3,7 @@ import {BranchListMap} from '../actions/branchList.action';
 const initialState = {
     branchList: [],
     branchModals: {
-        showAddBranchModal: false,
-        showEditBranchModal: false
+        modalState: false
     },
     userData: {
         "branch_name": "",
@@ -18,12 +17,19 @@ const initialState = {
 const branchListReducer = (state = initialState, action) => {
 
     switch(action.type) {
-        case BranchListMap.ADD_BRANCH_START: {
-            return {
+        case BranchListMap.CLOSE_MODAL: {
+            return{
                 ...state,
                 branchModals: {
-                    showAddBranchModal: true,
-                    showEditBranchModal: false
+                    modalState: false
+                },
+            }
+        }
+        case BranchListMap.OPEN_MODAL: {
+            return{
+                ...state,
+                branchModals: {
+                    modalState: true
                 }
             }
         }
@@ -32,16 +38,15 @@ const branchListReducer = (state = initialState, action) => {
                 ...state,
                 userData: {
                     ...action.userData
-                },
-                branchModals: {
-                    showAddBranchModal: false
-                },
-
+                }
             }
         }
         case BranchListMap.ERROR_WHILE_ADDING_BRANCH: {
             return {
-                ...state
+                ...state,
+                branchModals: {
+                    modalState: false
+                }
             }
         }
         case BranchListMap.DISPLAY_BRANCH_LIST: {
@@ -54,26 +59,7 @@ const branchListReducer = (state = initialState, action) => {
             return{
                 ...state
             }
-        }
-        case BranchListMap.RELOAD_BRANCH_LIST: {
-            return{
-                ...state,
-            }
-        }
-        case BranchListMap.TOGGLE_MODAL: {
-            return{
-                ...state,
-                branchModals: {
-                    showAddBranchModal: false
-                },
-            }
-        }
-        case BranchListMap.UPDATE_BRANCH_SUCCESSFULLY: {
-            return{
-                ...state
-            }
-        }
-        
+        }        
         default:
             return {...state}
     }

@@ -3,54 +3,16 @@ import { CoporateMyAccountTabs } from '../../utils/constants';
 import MyProfile from './myProfile';
 import LicenseOrderHistory from './licenseOrderHistory';
 import BranchManagement from './branchManagement';
-import ModalComponent from '../../components/modal/modal'
-import { MetroCancelIcon } from '../../components/icons/Icons';
 import { useDispatch, useSelector } from 'react-redux';
-import {BranchListAction, addBranchDataAsync} from '../../actions/branchList.action';
+import {BranchListAction} from '../../actions/branchList.action';
 import {BranchListMap} from '../../actions/branchList.action';
-
+import AddModal from '../corporate-panel/addModal';
 const MyAccountTabs = (props) => {
     const dispatch = useDispatch();
-    const token = useSelector(state => state.auth.user.tokens);
-    const [visiableAddDataModal, setVisiableAddDataModal]=useState(false)
-    const [formData, setFormData] = useState({
-        company_name: "", branch_name: "", location: "", email_id: "", mobile_no : ""
-    });
-    
+    const isOpen = useSelector(state => state.branchList.branchModals.modalState);
     const onAddData = () => {
-        dispatch(BranchListAction.AddBranch(BranchListMap.ADD_BRANCH_START))
-        setVisiableAddDataModal(true)
+        dispatch(BranchListAction.openModal(BranchListMap.OPEN_MODAL))
     }
-    const crossButton= () => {
-        setVisiableAddDataModal(false)
-    }
-    const inputEvent = (event) => {
-        setFormData({
-            ...formData,
-            [event.target.name]: event.target.value
-        });
-    }
-    const onSubmit = (event) => {
-        event.preventDefault();
-        const userData={
-            company_name:formData.company_name,
-            branch_name:formData.branch_name,
-            location:formData.location,
-            email_id:formData.email_id,
-            mobile_no: formData.mobile_no
-        }
-        dispatch(addBranchDataAsync(userData, token ))
-        setVisiableAddDataModal(false)
-    }
-
-
-    const ModalCloseIcon = () => (
-        <button type="button" className="close close_icon ml-auto" aria-label="Close" onClick={crossButton}>
-            <span aria-hidden="true">
-                <MetroCancelIcon />
-            </span>
-        </button>
-    )
     return (
         <nav className="tab">
             <div className="nav nav-tabs" id="nav-tab" role="tablist">
@@ -68,31 +30,10 @@ const MyAccountTabs = (props) => {
             </div>
             {
                 props.tabs.find(tab => tab.dataId === "branchManagement").active ?
-                    <button className="btn_blue w_150" data-aos="fade" onClick={onAddData} >Add123</button> : null
+                    <button className="btn_blue w_150" data-aos="fade" onClick={onAddData} >Add</button> : null
             }
             {
-                <ModalComponent isOpen={visiableAddDataModal} centered closeIcon={<ModalCloseIcon />} title="Add Data">
-                <form className="form-horizontal"  >
-                        <div className="row">
-                            <div className="col-lg-12">
-                                <div className="input-group">
-                                    <input placeholder="COMPANY NAME" name="company_name" onChange={inputEvent} value={formData.company_name} type="text" required className="form-control"/>
-                                </div>
-                                <div className="input-group">
-                                    <input placeholder="BRANCH NAME" name="branch_name" onChange={inputEvent} value={formData.branch_name} type="text" required className="input_box_1 form-control"/>
-                                    <input placeholder="LOCATION" name="location" onChange={inputEvent} value={formData.location} type="text" required className="input_box_2 form-control"/>
-                                </div>
-                                <div className="input-group">
-                                    <input placeholder="EMAIL ID" name="email_id" onChange={inputEvent} value={formData.email_id} type="email" required className="input_box_1 form-control"/>
-                                    <input placeholder="MOBILE NO" name="mobile_no" onChange={inputEvent} value={formData.mobile_no} type="text" required className="input_box_2 form-control"/>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="text-center mt-5 pt-lg-5">
-                            <button className="btn_blue" onClick={onSubmit} ><span>SAVE</span></button>
-                        </div>
-                </form>
-                </ModalComponent>
+                <AddModal isOpen={isOpen} toggleModal={() => dispatch(BranchListAction.closeModal(BranchListMap.CLOSE_MODAL ))} />
             }
         </nav>
     )
