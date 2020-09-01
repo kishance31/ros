@@ -1,4 +1,5 @@
 import axios from 'axios';
+import {employeeAndLicenseCountAsync} from './employeeAndLicense.action';
 
 export const PurchaseLicenseMap = {
     ADD_LICENSE_ORDER: 'ADD_LICENSE_ORDER',
@@ -16,6 +17,7 @@ export const PurchaseLicenseMap = {
     LICENSE_ORDER_HISTORY_SUCCESS: 'license_order_history_success',
     LICENSE_ORDER_HISTORY_ERROR: 'license_order_history_error',
     REFRESH_ORDER_HISTORY: 'REFRESH_ORDER_HISTORY',
+    SET_LICENSE_BATCH_NUMBER: 'SET_LICENSE_BATCH_NUMBER',
 }
 
 const purchaseLicenseAction = {
@@ -35,7 +37,13 @@ const purchaseLicenseAction = {
         return {
             type: PurchaseLicenseMap.REFRESH_ORDER_HISTORY
         }
-    }
+    },
+    setBatchNumber: (num) => {
+        return {
+            type: PurchaseLicenseMap.SET_LICENSE_BATCH_NUMBER,
+            payload: num,
+        }
+    },
 }
 
 export const availableLicenseAsync = () => {
@@ -98,8 +106,9 @@ export const orderIdAsync = (orderId, token) => {
 
 export const purchaseLicenseAsync = (orderId, purchaseLicenses, tokens) => {
 
-    return async (dispatch) => {
+    return async (dispatch, getState) => {
         try {
+            const {auth: {user}} = getState();
             dispatch({
                 type: PurchaseLicenseMap.PURCHASE_LICENSE_START
             });
@@ -118,6 +127,7 @@ export const purchaseLicenseAsync = (orderId, purchaseLicenses, tokens) => {
                 dispatch({
                     type: PurchaseLicenseMap.PURCHASE_LICENSE_SUCCESS
                 })
+                dispatch(employeeAndLicenseCountAsync(user._id, tokens));
             }
         } catch (error) {
             dispatch({

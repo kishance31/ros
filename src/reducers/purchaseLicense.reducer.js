@@ -7,6 +7,7 @@ const initialState = {
     licenseOrderHistory: [],
     licenseOrderRecords: 0,
     refrestOrderHistory: true,
+    batchNumber: 1,
 }
 
 const purchaseLicenseReducer = (state = initialState, action) => {
@@ -72,6 +73,12 @@ const purchaseLicenseReducer = (state = initialState, action) => {
             return {
                 ...state,
                 refrestOrderHistory: true,
+            }
+        }
+        case PurchaseLicenseMap.SET_LICENSE_BATCH_NUMBER: {
+            return {
+                ...state,
+                batchNumber: action.payload
             }
         }
         default: {

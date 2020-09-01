@@ -5,14 +5,18 @@ import LicenseOrderHistory from './licenseOrderHistory';
 import BranchManagement from './branchManagement';
 import { useDispatch, useSelector } from 'react-redux';
 import {BranchListAction} from '../../actions/branchList.action';
-import {BranchListMap} from '../../actions/branchList.action';
 import AddModal from '../corporate-panel/addModal';
+
 const MyAccountTabs = (props) => {
+    
     const dispatch = useDispatch();
+    
     const isOpen = useSelector(state => state.branchList.branchModals.modalState);
+
     const onAddData = () => {
-        dispatch(BranchListAction.openModal(BranchListMap.OPEN_MODAL))
+        dispatch(BranchListAction.openModal())
     }
+
     return (
         <nav className="tab">
             <div className="nav nav-tabs" id="nav-tab" role="tablist">
@@ -33,7 +37,7 @@ const MyAccountTabs = (props) => {
                     <button className="btn_blue w_150" data-aos="fade" onClick={onAddData} >Add</button> : null
             }
             {
-                <AddModal isOpen={isOpen} toggleModal={() => dispatch(BranchListAction.closeModal(BranchListMap.CLOSE_MODAL ))} />
+                <AddModal isOpen={isOpen} toggleModal={() => dispatch(BranchListAction.closeModal())} />
             }
         </nav>
     )

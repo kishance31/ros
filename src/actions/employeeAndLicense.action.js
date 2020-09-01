@@ -1,7 +1,7 @@
 import axios from 'axios';
+import notificationActions from './notifications.action';
 
 export const EmployeeAndLicenseMap = {
-    ADD_USER_DATA: 'ADD_USER_DATA',
     Add_Employeement_START: 'add_employeement_start',
     Add_Employeement_SUCCESS: 'add_employeement_success',
     Add_Employeement_ERROR: 'add_employeement_error',
@@ -17,21 +17,37 @@ export const EmployeeAndLicenseMap = {
     Delete_Employees_START: 'delete_employees_start',
     Delete_Employees_SUCCESS: 'delete_employees_success',
     Delete_Employees_ERROR: 'delete_employees_error',
+    REFRESH_EMPLOYEE_LIST: 'REFRESH_EMPLOYEE_LIST',
+    GET_BRANCH_NAMES: 'GET_BRANCH_NAMES',
+    REFRESH_BRANCH_NAMES: 'REFRESH_BRANCH_NAMES',
+    SET_EMPLOYEE_BATCH_NUMBER: 'SET_EMPLOYEE_BATCH_NUMBER',
 }
 
-export const employeeAndLicenseAction = {
-    addEmployeement: (payload) => {
+const employeeAndLicenseAction = {
+    refreshEmployeeList: () => {
         return {
-            type: EmployeeAndLicenseMap.ADD_USER_DATA,
-            payload,
+            type: EmployeeAndLicenseMap.REFRESH_EMPLOYEE_LIST
         }
-    }
+    },
+    refreshBranchNames: () => {
+        return {
+            type: EmployeeAndLicenseMap.REFRESH_BRANCH_NAMES
+        }
+    },
+    setBatchNumber: (num) => {
+        return {
+            type: EmployeeAndLicenseMap.SET_EMPLOYEE_BATCH_NUMBER,
+            payload: num,
+        }
+    },
 }
+
+export default employeeAndLicenseAction;
 
 export const employeeAndLicenseAddAsync = (user) => {
 
     return async (dispatch, getState) => {
-        const state = getState()
+        const { auth } = getState()
         try {
             dispatch({
                 type: EmployeeAndLicenseMap.Add_Employeement_START
@@ -42,14 +58,20 @@ export const employeeAndLicenseAddAsync = (user) => {
                 data: user,
                 headers: {
                     "Content-Type": "application/x-www-form-urlencoded",
-                    tokens: state.auth.user.tokens
+                    tokens: auth.user.tokens
                 }
             });
             if (employeeAndLicenseResponse.data.response.responseCode === 200) {
+                dispatch(employeeAndLicenseCountAsync(auth.user._id, auth.user.tokens));
                 dispatch({
                     type: EmployeeAndLicenseMap.Add_Employeement_SUCCESS
                 })
             }
+            dispatch(notificationActions.showNotification({
+                title: "Added Employee",
+                message: employeeAndLicenseResponse.data.response.responseMessage,
+                // duration: 7000,
+            }));
         } catch (error) {
             dispatch({
                 type: EmployeeAndLicenseMap.Add_Employeement_ERROR
@@ -86,7 +108,7 @@ export const employeeAndLicenseCountAsync = (id, tokens) => {
     }
 }
 
-export const getEmployeesAsync = (tokens) => {
+export const getEmployeesAsync = (tokens, id, limit, batch) => {
 
     return async (dispatch) => {
         try {
@@ -94,15 +116,22 @@ export const getEmployeesAsync = (tokens) => {
                 type: EmployeeAndLicenseMap.Get_Employees_START
             });
             let getEmployeesResponse = await axios({
-                url: `http://127.0.0.1:4000/api/corporate-admin/employee/getEmployeeList`,
-                method: "GET",
+                url: `http://127.0.0.1:4000/api/corporate-admin/employee/getEmployeeByCorporateId/${id}`,
+                method: "POST",
+                data: {
+                    limit,
+                    batch: batch - 1
+                },
                 headers: {
                     tokens
                 }
             });
             dispatch({
                 type: EmployeeAndLicenseMap.Get_Employees_SUCCESS,
-                payload: getEmployeesResponse.data.response.data
+                payload: {
+                    employeeList: getEmployeesResponse.data.response.employeeList,
+                    totalEmployees: getEmployeesResponse.data.response.totalEmployees
+                }
             })
         } catch (error) {
             dispatch({
@@ -116,9 +145,6 @@ export const updateDataAsync = (id, tokens) => {
 
     return async (dispatch) => {
         try {
-            dispatch({
-                type: EmployeeAndLicenseMap.Update_Employees_START
-            });
             let updateEmployeesResponse = await axios({
                 url: `http://127.0.0.1:4000/api/corporate-admin/employee/updateEmployee/${id}`,
                 method: "PUT",
@@ -126,15 +152,17 @@ export const updateDataAsync = (id, tokens) => {
                     tokens
                 }
             });
-            if (updateEmployeesResponse.data.response.responseCode === 200) {
-                dispatch({
-                    type: EmployeeAndLicenseMap.Update_Employees_SUCCESS,
-                })
-            }
+            dispatch(notificationActions.showNotification({
+                title: "Update Employee",
+                message: updateEmployeesResponse.data.response.responseMessage,
+                // duration: 7000,
+            }));
         } catch (error) {
-            dispatch({
-                type: EmployeeAndLicenseMap.Update_Employees_ERROR
-            })
+            dispatch(notificationActions.showNotification({
+                title: "Update Employee",
+                message: error.message,
+                // duration: 7000,
+            }));
         }
     }
 }
@@ -153,9 +181,14 @@ export const deleteDataAsync = (id, tokens) => {
                     tokens
                 }
             });
+            if (deleteEmployeesResponse.data.response.responseCode === 200) {
+                return dispatch({
+                    type: EmployeeAndLicenseMap.Delete_Employees_SUCCESS
+                });
+            }
             dispatch({
-                type: EmployeeAndLicenseMap.Delete_Employees_SUCCESS
-            })
+                type: EmployeeAndLicenseMap.Delete_Employees_ERROR
+            });
         } catch (error) {
             dispatch({
                 type: EmployeeAndLicenseMap.Delete_Employees_ERROR
@@ -165,3 +198,24 @@ export const deleteDataAsync = (id, tokens) => {
     }
 }
 
+export const getBranchNamesAsync = (id, tokens) => {
+    return async (dispatch) => {
+        try {
+            let { data } = await axios({
+                url: `http://127.0.0.1:4000/api/branch/getCorporateBranchNames/${id}`,
+                method: "GET",
+                headers: {
+                    tokens
+                }
+            });
+            if (data.response.responseCode === 200) {
+                dispatch({
+                    type: EmployeeAndLicenseMap.GET_BRANCH_NAMES,
+                    payload: data.response.data
+                })
+            }
+        } catch (error) {
+
+        }
+    }
+}

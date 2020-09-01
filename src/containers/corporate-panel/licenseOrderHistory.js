@@ -6,19 +6,26 @@ import { usePaginationHook } from '../../hooks/paginationHook';
 
 const LicenseOrderHistory = () => {
 
-    const { batch, limit, handleBatchChange } = usePaginationHook(5, purchaseLicenseAction.refreshOrderHistory)
-
+    
     const dispatch = useDispatch();
-
+    
     const user = useSelector(state => state.auth.user);
-
+    
     const licenseOrderHistory = useSelector(state => state.purchaseLicense.licenseOrderHistory, shallowEqual);
     const licenseOrderRecords = useSelector(state => state.purchaseLicense.licenseOrderRecords);
+    const batchNumber = useSelector(state => state.purchaseLicense.batchNumber);
     const refrestOrderHistory = useSelector(state => state.purchaseLicense.refrestOrderHistory);
+
+    const onPageChange = (currentBatch) => {
+        dispatch(purchaseLicenseAction.setBatchNumber(currentBatch || batchNumber));
+        dispatch(purchaseLicenseAction.refreshOrderHistory());
+    }
+    
+    const { limit, handleBatchChange } = usePaginationHook(5, batchNumber, onPageChange)
 
     useEffect(() => {
         if (refrestOrderHistory) {
-            dispatch(licenseOrderHistoryAsync(user._id, user.tokens, limit, batch));
+            dispatch(licenseOrderHistoryAsync(user._id, user.tokens, limit, batchNumber));
         }
     }, [refrestOrderHistory]);
 
@@ -52,7 +59,7 @@ const LicenseOrderHistory = () => {
                                             {
                                                 licenseOrderHistory.map((item, index) =>
                                                     <tr key={index}>
-                                                        <td>{(limit * (batch - 1)) + (index + 1)}</td>
+                                                        <td>{(limit * (batchNumber - 1)) + (index + 1)}</td>
                                                         <td>{item.orderId}</td>
                                                         <td>{new Date(item.createdAt).toLocaleString()}</td>
                                                         <td>
@@ -97,7 +104,7 @@ const LicenseOrderHistory = () => {
                                         <BasicPagination
                                             totalRecords={licenseOrderRecords}
                                             limit={limit}
-                                            batch={batch}
+                                            batch={batchNumber}
                                             onBatchChange={handleBatchChange}
                                         />
                                     </div>
