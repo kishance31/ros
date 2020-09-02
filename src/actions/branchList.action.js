@@ -1,4 +1,6 @@
 import axios from 'axios';
+import notificationActions from './notifications.action';
+import employeeAndLicenseAction from './employeeAndLicense.action';
 
 export const BranchListMap = {
     OPEN_MODAL: 'OPEN_MODAL',
@@ -6,17 +8,20 @@ export const BranchListMap = {
     BRANCH_ADDED_SUCCESSFULLY: 'BRANCH_ADDED_SUCCESSFULLY',
     ERROR_WHILE_ADDING_BRANCH: 'ERROR_WHILE_ADDING_BRANCH',
     DISPLAY_BRANCH_LIST: 'DISPLAY_BRANCH_LIST',
-    DELETED_BRANCH_SUCCESSFULLY: 'DELETED_BRANCG_SUCCESSFULLY'  
+    DELETED_BRANCH_SUCCESSFULLY: 'DELETED_BRANCG_SUCCESSFULLY',
+    EDIT_BRANCH_MODAL: 'EDIT_BRANCH_MODAL',
+    UPDATE_BRANCH_SUCCESS: 'UPDATE_BRANCH_SUCCESS',
+    REFRESH_BRANCH_LIST: 'REFRESH_BRANCH_LIST',
+    SET_BRANCH_BATCH_NUMBER: 'SET_BRANCH_BATCH_NUMBER'
 }
 
 export const BranchListAction = {
-    
-    openModal: (type) => {
+    openModal: () => {
         return {
             type: BranchListMap.OPEN_MODAL
         }
     },
-    closeModal: (type) => {
+    closeModal: () => {
         return {
             type: BranchListMap.CLOSE_MODAL
         }
@@ -24,73 +29,129 @@ export const BranchListAction = {
     displayBranchList: (userDataResponse) => {
         return {
             type: BranchListMap.DISPLAY_BRANCH_LIST,
-            payload:{
+            payload: {
                 userDataResponse
             },
         }
     },
-    AddBranch: (type, userData) => {
-        return{
-            type,
-            payload: {
-                userData
-            }
+    editBranchModal: (branch) => {
+        return {
+            type: BranchListMap.EDIT_BRANCH_MODAL,
+            payload: branch,
         }
-    }
+    },
+    refreshBranchList: () => {
+        return {
+            type: BranchListMap.REFRESH_BRANCH_LIST
+        }
+    },
+    setBatchNumber: (num) => {
+        return {
+            type: BranchListMap.SET_BRANCH_BATCH_NUMBER,
+            payload: num,
+        }
+    },
 }
 
 export const addBranchDataAsync = (userData, tokens) => {
     return async (dispatch) => {
-        let userDataResponse = await axios({
-            url: `http://127.0.0.1:4000/api/branch/saveBranch`,
-            method: "POST",
-            data: userData,
-            headers: {
-                "Content-Type": "application/json",
-                "authorization": tokens
+        try {
+            let userDataResponse = await axios({
+                url: `http://127.0.0.1:4000/api/branch/saveBranch`,
+                method: "POST",
+                data: userData,
+                headers: {
+                    "Content-Type": "application/json",
+                    "tokens": tokens
+                }
+            });
+            if (userDataResponse.data.response.responseCode === 200) {
+                dispatch({ type: BranchListMap.BRANCH_ADDED_SUCCESSFULLY })
+                dispatch(employeeAndLicenseAction.refreshBranchNames());
+            } else {
+                dispatch({ type: BranchListMap.ERROR_WHILE_ADDING_BRANCH })
             }
-        });
-        if(userDataResponse.status === 200){
-            dispatch(BranchListAction.AddBranch(BranchListMap.BRANCH_ADDED_SUCCESSFULLY,userData))
-            dispatch(BranchListAction.closeModal(BranchListMap.CLOSE_MODAL))
-        }else {
-            dispatch(BranchListAction.AddBranch(BranchListMap.ERROR_WHILE_ADDING_BRANCH))
+            dispatch(notificationActions.showNotification({
+                title: "Add Branch",
+                message: userDataResponse.data.response.responseMessage,
+                // duration: 7000,
+            }));
+        } catch (error) {
+            dispatch({ type: BranchListMap.ERROR_WHILE_ADDING_BRANCH });
         }
     }
 }
 
-export const displayBranchListAsync = (tokens) => {
+export const updateBranchDataAsync = (userData, tokens, id) => {
     return async (dispatch) => {
-
-        
-        let userDataResponse = await axios({
-            url: `http://127.0.0.1:4000/api/branch/getBranchList`,
-            method: "GET",
-            headers: {
-                "Content-Type": "application/json",
-                "Authorization": tokens
+        try {
+            let userDataResponse = await axios({
+                url: `http://127.0.0.1:4000/api/branch/updateBranch/${id}`,
+                method: "PUT",
+                data: userData,
+                headers: {
+                    "Content-Type": "application/json",
+                    "tokens": tokens
+                }
+            });
+            if (userDataResponse.data.response.responseCode === 200) {
+                dispatch({ type: BranchListMap.UPDATE_BRANCH_SUCCESS })
+                dispatch(employeeAndLicenseAction.refreshBranchNames());
+            } else {
+                dispatch({ type: BranchListMap.CLOSE_MODAL })
             }
-        });
-        const branchList =  userDataResponse.data.response.data 
-        dispatch({
-            type: BranchListMap.DISPLAY_BRANCH_LIST,
-            payload: branchList
-        })
-}}
+            dispatch(notificationActions.showNotification({
+                title: "Update Branch",
+                message: userDataResponse.data.response.responseMessage,
+                // duration: 7000,
+            }));
+        } catch (error) {
+            dispatch({ type: BranchListMap.CLOSE_MODAL });
+        }
+    }
+}
 
-export const deleteBranchAsync = (tokens,id) => {
+export const displayBranchListAsync = (tokens, id, batch, limit) => {
     return async (dispatch) => {
-        let deletedUser =await axios({
-            url:`http://127.0.0.1:4000/api/branch/deleteBranch/${id}`,
+        try {
+            let userDataResponse = await axios({
+                url: `http://127.0.0.1:4000/api/branch/getBranchByCorporateId/${id}`,
+                method: "POST",
+                data: {
+                    limit,
+                    batch: batch - 1
+                },
+                headers: {
+                    "Content-Type": "application/json",
+                    "tokens": tokens
+                }
+            });
+            const branchList = userDataResponse.data.response.branchList;
+            const totalBranches = userDataResponse.data.response.totalBranches;
+            dispatch({
+                type: BranchListMap.DISPLAY_BRANCH_LIST,
+                payload: {branchList, totalBranches}
+            })
+        } catch (error) {
+
+        }
+    }
+}
+
+export const deleteBranchAsync = (tokens, id) => {
+    return async (dispatch) => {
+        let deletedUser = await axios({
+            url: `http://127.0.0.1:4000/api/branch/deleteBranch/${id}`,
             method: 'DELETE',
             headers: {
-                'authorization': tokens
+                'tokens': tokens
             }
         });
-        if(deletedUser.status === 200){
-        dispatch({
-            type: BranchListMap.DELETED_BRANCH_SUCCESSFULLY
-        })
+        if (deletedUser.status === 200) {
+            dispatch({
+                type: BranchListMap.DELETED_BRANCH_SUCCESSFULLY
+            })
+            dispatch(employeeAndLicenseAction.refreshBranchNames());
         }
     }
 }

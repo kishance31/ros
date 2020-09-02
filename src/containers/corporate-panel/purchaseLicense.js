@@ -22,19 +22,15 @@ const PurchaseLicense = () => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-
         if (availableLicenseList.length === 0) {
-
             dispatch(availableLicenseAsync());
         }
     }, []);
 
     useEffect(() => {
-
         if (orderId === '') {
             dispatch(orderIdAsync(user._id, user.tokens));
         }
-
     }, [orderId]);
 
     const addLicense = (event) => {

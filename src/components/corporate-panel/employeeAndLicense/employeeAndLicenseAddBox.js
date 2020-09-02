@@ -8,9 +8,7 @@ import { employeeAndLicenseAddAsync } from '../../../actions/employeeAndLicense.
 
 const EmployeeAndLicenseAddBox = (props) => {
 
-    const { employeeDetails } = props;
-
-    console.log(employeeDetails)
+    const { employeeDetails, toggleModal, availableLicenseList, corporateId, branchNames } = props;
 
     const dispatch = useDispatch();
 
@@ -18,28 +16,37 @@ const EmployeeAndLicenseAddBox = (props) => {
 
         event.preventDefault();
         const { target } = event;
-        console.log(event.target.firstName.value)
+
+        // let selectedBranch = branchNames.find(branch => branch._id === target.branchName.value);
+
         const data = new FormData();
         data.set("companyName", target.companyName.value)
         data.set("firstName", target.firstName.value)
         data.set("lastName", target.lastName.value)
-        data.set("role", target.position.value)
-        data.set("corporate_admin_id", target.employeeId.value)
+        data.set("position", target.position.value)
+        data.set("department", target.department.value)
+        data.set("licenseType", target.licenseType.value)
+        data.set("branchName", target.branchName.value)
+        data.set("mobileNo", target.mobileNo.value)
+        data.set("corporate_admin_id", corporateId)
         data.set("email", target.email.value)
         data.set("username", target.userName.value)
         data.set("password", target.password.value)
         data.set("address", new Array())
+
+        console.log(data);
         // data.set("delivery_address",addData.delivery_address)
         // data.set("city",addData.city)
         // data.set("state",addData.state)
         // data.set("country",addData.country)
 
         dispatch(employeeAndLicenseAddAsync(data));
+        toggleModal()
     }
 
     const ModalCloseIcon = () => (
         <button type="button" className="close close_icon ml-auto" data-dismiss="modal"
-            aria-label="Close" onClick={props.toggleModal} >
+            aria-label="Close" onClick={toggleModal} >
             <span aria-hidden="true"><MetroCancelIcon /></span>
         </button>
     )
@@ -51,18 +58,21 @@ const EmployeeAndLicenseAddBox = (props) => {
             closeIcon={< ModalCloseIcon />}
             centered
             id="add_employeement"
+            toggleModal={toggleModal}
         >
             <form className="form-horizontal" onSubmit={onSubmit} >
                 <div className="row">
                     <div className="col-lg-12">
                         <div className="mr-0 mr-xl-6">
 
-                            <SingleInputField singleInputPlaceHolder="COMPANY NAME" singleInputType="text"
-                                name="companyName" defaultValue={employeeDetails.companyName} />
+                            <DoubleInputField>
+                                <input placeholder="COMPANY NAME" type="text" className="input_box_1 form-control"
+                                    name="companyName" defaultValue={employeeDetails.companyName} />
+                            </DoubleInputField>
 
                             <DoubleInputField >
                                 <input placeholder="FIRST NAME" type="text" className="input_box_1 form-control"
-                                    name="firstName" />
+                                    name="firstName" defaultValue={employeeDetails.firstName}/>
                                 <input placeholder="LAST NAME" type="text" className="input_box_2 form-control"
                                     name="lastName" defaultValue={employeeDetails.lastName} />
                             </DoubleInputField>
@@ -75,15 +85,15 @@ const EmployeeAndLicenseAddBox = (props) => {
                             </DoubleInputField>
 
                             <DoubleInputField >
-                                <input placeholder="EMPLOYEE ID" type="text" className="input_box_1 form-control"
-                                    name="employeeId" defaultValue={employeeDetails.employeeId} />
+                                {/* <input placeholder="EMPLOYEE ID" type="text" className="input_box_1 form-control"
+                                    name="employeeId" defaultValue={employeeDetails.employeeId} /> */}
                                 <input placeholder="EMAIL ID" type="email" className="input_box_2 form-control"
                                     name="email" defaultValue={employeeDetails.email} />
                             </DoubleInputField>
 
                             <DoubleInputField >
                                 <input placeholder="USERNAME" type="text" className="input_box_1 form-control"
-                                    name="userName" defaultValue={employeeDetails.userName} />
+                                    name="userName" defaultValue={employeeDetails.username} />
                                 <input placeholder="MOBILE NO" type="tel" className="input_box_2 form-control"
                                     name="mobileNo" defaultValue={employeeDetails.mobileNo} />
                             </DoubleInputField>
@@ -102,17 +112,29 @@ const EmployeeAndLicenseAddBox = (props) => {
                             </DoubleInputField>
 
                             <div className="input-group">
-                                <select title="Select License Type" className="selectpicker form-control">
-                                    <option>Option 1</option>
-                                    <option>Option 2</option>
+                                <select
+                                    title="Select License Type"
+                                    name="licenseType"
+                                    className="selectpicker form-control"
+                                    defaultValue={employeeDetails.licenseType}
+                                >
+                                    {
+                                        availableLicenseList.map(license => <option key={license.type}>{license.type}</option>)
+                                    }
                                 </select>
-                                <select title="Select Branch" className="selectpicker form-control input_box_2">
-                                    <option>Option 1</option>
-                                    <option>Option 2</option>
+                                <select
+                                    title="Select Branch"
+                                    className="selectpicker form-control input_box_2"
+                                    defaultValue={employeeDetails.branchName}
+                                    name="branchName"
+                                >
+                                    {
+                                        branchNames.map(branch => <option key={branch._id} value={branch.branch_name}>{branch.branch_name}</option>)
+                                    }
                                 </select>
                             </div>
 
-                            <SingleInputField singleInputPlaceHolder="DELIVERY ADDRESS" singleInputType="text"
+                            {/* <SingleInputField singleInputPlaceHolder="DELIVERY ADDRESS" singleInputType="text"
                                 required />
 
                             <div className="input-group">
@@ -131,15 +153,15 @@ const EmployeeAndLicenseAddBox = (props) => {
                                     <option>Option 1</option>
                                     <option>Option 2</option>
                                 </select>
-                            </div>
+                            </div> */}
 
                         </div>
-                        <div className="text-center mt-4">
+                        {/* <div className="text-center mt-4">
                             <a href="" className="dark font-weight-bold">
                                 <img className="mr-3"
                                     //src={require(`../../../assets/image/logo.svg`)} 
                                     alt="" />ADD MORE</a>
-                        </div>
+                        </div> */}
                     </div>
                 </div>
                 <div className="text-center mt-5 pt-lg-5">

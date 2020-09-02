@@ -17,7 +17,7 @@ const SignUpForm = () => {
 
     const onSubmits = (values) => {
         const data = new FormData()
-        data.append('file', values.corpDoc)
+        data.append('corpDoc', values.corpDoc)
         data.set("companyName", values.companyName)
         data.set("firstName", values.firstName)
         data.set("lastName", values.lastName)

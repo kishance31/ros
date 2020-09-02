@@ -78,7 +78,9 @@ const BasicPagination = (props) => {
         if (currentIndex === startIndex && currentIndex > 1) {
             setStartIndex(startIndex - 1)
         }
-        onBatchChange(currentIndex);
+        if(currentIndex !== batch) {
+            onBatchChange(currentIndex);
+        }
     }
 
     return (

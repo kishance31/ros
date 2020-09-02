@@ -8,11 +8,15 @@ import {BranchListAction} from '../../actions/branchList.action';
 import {BranchListMap} from '../../actions/branchList.action';
 import BranchDataModal from '../corporate-panel/branchDataModal';
 const MyAccountTabs = (props) => {
+    
     const dispatch = useDispatch();
+    
     const isOpen = useSelector(state => state.branchList.branchModals.modalState);
+
     const onAddData = () => {
-        dispatch(BranchListAction.openModal(BranchListMap.OPEN_MODAL))
+        dispatch(BranchListAction.openModal())
     }
+
     return (
         <nav className="tab">
             <div className="nav nav-tabs" id="nav-tab" role="tablist">
