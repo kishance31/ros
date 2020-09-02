@@ -1,0 +1,120 @@
+import React, { useState } from 'react';
+import ModalComponent from '../../components/modal/modal';
+import { MetroCancelIcon } from '../../components/icons/Icons';
+import { useDispatch, useSelector } from 'react-redux';
+import { Formik } from 'formik';
+import { addBranchDataAsync } from '../../actions/branchList.action'
+import DoubleInputField from '../../components/inputFields/doubleInputField';
+import DoubleErrorMessage from '../../components/inputFields/inputErrorMessage';
+const BranchDataModal = (props) => {
+    const { isOpen, toggleModal } = props;
+    const dispatch = useDispatch();
+    const token = useSelector(state => state.auth.user.tokens);
+
+    const submitForm = (values) => {
+        const userData = {
+            company_name: values.company_name,
+            branch_name: values.branch_name,
+            location: values.location,
+            email_id: values.email_id,
+            mobile_no: values.mobile_no
+        }
+        dispatch(addBranchDataAsync(userData, token))
+    }
+
+    const ModalCloseIcon = () => (
+        <button type="button" className="close close_icon ml-auto" aria-label="Close" onClick={toggleModal}>
+            <span aria-hidden="true">
+                <MetroCancelIcon />
+            </span>
+        </button>
+    );
+
+    return (
+        <>
+            <Formik
+                initialValues={{
+                    company_name: '',
+                    branch_name: '',
+                    location: '',
+                    email_id: '',
+                    mobile_no: ''
+                }}
+                validate={(values) => {
+                    const errors = {};
+                    for (let key in values) {
+                        if (!values[key]) {
+                            errors[key] = `${key} is required.`
+                        }
+                    }
+                    if (values.email_id && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email_id)) {
+                        errors.email_id = "Invalid email address";
+                    }
+                    return errors;
+                }}
+                onSubmit={(values, { resetForm }) => {
+                    submitForm(values);
+                    resetForm();
+                    // setSubmitting(false);
+                }}
+            >
+                {({
+                    values,
+                    errors,
+                    touched,
+                    isSubmitting,
+                    handleChange,
+                    handleBlur,
+                    handleSubmit,
+                }) => (
+                        <ModalComponent
+                            toggleModal={toggleModal}
+                            isOpen={isOpen}
+                            centered
+                            closeIcon={<ModalCloseIcon />}
+                            title="Add Data">
+                            {
+                                <form className="form-horizontal" onSubmit={handleSubmit} >
+                                    <div className="row">
+                                        <div className="col-lg-12">
+
+                                            <div className="input-group">
+                                                <input placeholder="COMPANY NAME" name="company_name" value={values.company_name} type="text" onChange={handleChange} onBlur={handleBlur} className="form-control" />
+                                            </div>
+                                            <DoubleErrorMessage leftError={errors.company_name} leftTouched={touched.company_name} />
+
+                                            <DoubleInputField>
+                                                <input type="text" placeholder='BRANCH NAME' name="branch_name" className="input_box_1 form-control" onChange={handleChange} onBlur={handleBlur} value={values.branch_name} />
+                                                <input type="text" placeholder="LOCATION" name="location" className="input_box_2 form-control" onChange={handleChange} onBlur={handleBlur} value={values.location} />
+                                            </DoubleInputField>
+                                            <DoubleErrorMessage
+                                                leftError={errors.branch_name}
+                                                leftTouched={touched.branch_name}
+                                                rightError={errors.location}
+                                                rightTouched={touched.location}
+                                            />
+
+                                            <DoubleInputField>
+                                                <input type="text" placeholder='EMAIL ID' name="email_id" className="input_box_1 form-control" onChange={handleChange} onBlur={handleBlur} value={values.email_id} />
+                                                <input type="text" placeholder="MOBILE NUMBER" name="mobile_no" className="input_box_2 form-control" onChange={handleChange} onBlur={handleBlur} value={values.mobile_no} />
+                                            </DoubleInputField>
+                                            <DoubleErrorMessage
+                                                leftError={errors.email_id}
+                                                leftTouched={touched.email_id}
+                                                rightError={errors.mobile_no}
+                                                rightTouched={touched.mobile_no}
+                                            />
+                                        </div>
+                                    </div>
+                                    <div className="text-center mt-5 pt-lg-5">
+                                        <button className="btn_blue" type="submit" disabled={isSubmitting}><span>SAVE</span></button>
+                                    </div>
+                                </form>
+                            }
+                        </ModalComponent>)}
+            </Formik>
+        </>
+    )
+}
+
+export default BranchDataModal;

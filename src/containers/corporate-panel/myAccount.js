@@ -6,7 +6,7 @@ import BranchManagement from './branchManagement';
 import { useDispatch, useSelector } from 'react-redux';
 import {BranchListAction} from '../../actions/branchList.action';
 import {BranchListMap} from '../../actions/branchList.action';
-import AddModal from '../corporate-panel/addModal';
+import BranchDataModal from '../corporate-panel/branchDataModal';
 const MyAccountTabs = (props) => {
     const dispatch = useDispatch();
     const isOpen = useSelector(state => state.branchList.branchModals.modalState);
@@ -33,7 +33,7 @@ const MyAccountTabs = (props) => {
                     <button className="btn_blue w_150" data-aos="fade" onClick={onAddData} >Add</button> : null
             }
             {
-                <AddModal isOpen={isOpen} toggleModal={() => dispatch(BranchListAction.closeModal(BranchListMap.CLOSE_MODAL ))} />
+                <BranchDataModal isOpen={isOpen} toggleModal={() => dispatch(BranchListAction.closeModal(BranchListMap.CLOSE_MODAL ))} />
             }
         </nav>
     )
