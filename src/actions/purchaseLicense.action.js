@@ -104,7 +104,7 @@ export const orderIdAsync = (orderId, token) => {
     }
 }
 
-export const purchaseLicenseAsync = (orderId, purchaseLicenses, tokens) => {
+export const purchaseLicenseAsync = (orderId, purchaseLicenses, tokens, data) => {
 
     return async (dispatch, getState) => {
         try {
@@ -116,7 +116,8 @@ export const purchaseLicenseAsync = (orderId, purchaseLicenses, tokens) => {
                 url: `http://127.0.0.1:4000/api/corporate-admin/purchaseLicense/purchase`,
                 method: "POST",
                 data: {
-                    orderId, purchaseLicenses
+                    orderId, purchaseLicenses,
+                    paypalDetails: data,
                 },
                 headers: {
                     'Content-type': 'application/json',

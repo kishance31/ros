@@ -1,17 +1,18 @@
 import React from 'react';
+import PayPalButton from '../../paypal/paypalButton';
 import ModalComponent from '../../modal/modal';
 import { MetroCancelIcon } from '../../icons/Icons';
 
 const PurchaseLicensePaymentBox = (props) => {
 
-    const { toggleModal, payPurchaseLicenses,purchaseLicenseList } = props;
+    const { toggleModal, payPurchaseLicenses, purchaseLicenseList, toggleOverlay } = props;
 
-    const {totalQuantity, totalPrice} = purchaseLicenseList.reduce((result, license) => {
+    const { totalQuantity, totalPrice } = purchaseLicenseList.reduce((result, license) => {
         return {
             totalQuantity: result.totalQuantity + license.quantity,
             totalPrice: result.totalPrice + license.price
         }
-    }, {totalQuantity: 0, totalPrice: 0});
+    }, { totalQuantity: 0, totalPrice: 0 });
 
     const ModalCloseIcon = () => (
         <button type="button" className="close close_icon ml-auto" aria-label="Close" onClick={toggleModal}>
@@ -54,14 +55,10 @@ const PurchaseLicensePaymentBox = (props) => {
                         <label>Select payment mode</label>
                         <select title="Select" className="selectpicker form-control"
                             id="exampleFormControlSelect1">
-                            <option>CREDIT CARD</option>
-                            <option>CREDIT CARD2</option>
-                            <option>CREDIT CARD3</option>
-                            <option>CREDIT CARD4</option>
-                            <option>CREDIT CARD5</option>
+                            <option>Paypal</option>
                         </select>
                     </div>
-                    <div className="input-group">
+                    {/* <div className="input-group">
                         <label>credit card no</label>
                         <input placeholder="xxxx - xxxx - xxxx - xxxx" type="taxt"
                             className="form-control" />
@@ -73,12 +70,17 @@ const PurchaseLicensePaymentBox = (props) => {
                     <div className="input-group">
                         <label>cvv no</label>
                         <input placeholder="XXX" type="password" className="form-control" />
-                    </div>
+                    </div> */}
                 </div>
             </form>
             <div className="text-center">
-                <button className="btn_blue" onClick={payPurchaseLicenses} ><span>PAY</span></button>
-
+                {/* <button className="btn_blue"><span>PAY</span></button> */}
+                <PayPalButton
+                    payPurchaseLicenses={payPurchaseLicenses}
+                    totalPrice={totalPrice}
+                    totalQuantity={totalQuantity}
+                    toggleOverlay={toggleOverlay}
+                />
             </div>
         </ModalComponent>
     )

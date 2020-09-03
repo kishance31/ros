@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import PurchaseLicenseAddBox from '../../components/corporate-panel/purchaseLicense/purchaseLicenseAddBox';
 import PurchaseLicenseTable from '../../components/corporate-panel/purchaseLicense/purchaseLicenseTable';
@@ -6,6 +6,7 @@ import PurchaseLicensePaymentBox from '../../components/corporate-panel/purchase
 import purchaseLicenseAction from '../../actions/purchaseLicense.action';
 import notificationActions from '../../actions/notifications.action';
 import { availableLicenseAsync, orderIdAsync, purchaseLicenseAsync } from '../../actions/purchaseLicense.action';
+import { OverlayContext } from '../../context/loadingOverlay.context';
 
 const PurchaseLicense = () => {
 
@@ -20,6 +21,8 @@ const PurchaseLicense = () => {
     const user = useSelector(state => state.auth.user)
 
     const dispatch = useDispatch();
+
+    const { toggleOverlay } = useContext(OverlayContext);
 
     useEffect(() => {
         if (availableLicenseList.length === 0) {
@@ -45,7 +48,7 @@ const PurchaseLicense = () => {
                 // duration: 7000,
             }));
         }
-        if  (quantity.value < 1) {
+        if (quantity.value < 1) {
             return dispatch(notificationActions.showNotification({
                 title: "Add License",
                 message: "Quantity must be greater than 0.",
@@ -65,13 +68,19 @@ const PurchaseLicense = () => {
         dispatch(purchaseLicenseAction.deleteLicense(type))
     }
 
-    const payPurchaseLicenses = () => {
-        dispatch(purchaseLicenseAsync(orderId, purchaseLicenseList, user.tokens));
+    const payPurchaseLicenses = (data) => {
+        dispatch(purchaseLicenseAsync(orderId, purchaseLicenseList, user.tokens, data));
         setShowPaymentModal(!showPaymentModal);
+        dispatch(notificationActions.showNotification({
+            title: "License purchased successfully",
+            message: `Licenses are purchased successfully.
+                You can see the details in the license order history in My account tab.`,
+            // duration: 7000,
+        }));
     }
 
     const openPaymentModalBox = () => {
-        if(!purchaseLicenseList.length) {
+        if (!purchaseLicenseList.length) {
             return dispatch(notificationActions.showNotification({
                 title: "Add License",
                 message: "No license added. Add a license to proceed.",
@@ -79,6 +88,7 @@ const PurchaseLicense = () => {
             }));
         }
         setShowPaymentModal(!showPaymentModal)
+        toggleOverlay(true);
     }
 
     return (
@@ -89,7 +99,7 @@ const PurchaseLicense = () => {
                         <PurchaseLicenseAddBox addLicense={addLicense} availableLicenseList={availableLicenseList} orderId={orderId} companyName={user.companyName} />
                     </div>
                     <div className="col-lg-6 mt-5 mt-lg-0">
-                        <PurchaseLicenseTable 
+                        <PurchaseLicenseTable
                             purchaseLicenseList={purchaseLicenseList}
                             showPaymentModal={openPaymentModalBox}
                             removeAddedLicense={removeAddedLicense}
@@ -97,7 +107,13 @@ const PurchaseLicense = () => {
                     </div>
                 </div>
             </div>
-            <PurchaseLicensePaymentBox payPurchaseLicenses={payPurchaseLicenses} isOpen={showPaymentModal} toggleModal={() => setShowPaymentModal(!showPaymentModal)} purchaseLicenseList={purchaseLicenseList} />
+            <PurchaseLicensePaymentBox
+                payPurchaseLicenses={payPurchaseLicenses}
+                isOpen={showPaymentModal}
+                toggleModal={() => setShowPaymentModal(!showPaymentModal)}
+                purchaseLicenseList={purchaseLicenseList}
+                toggleOverlay={toggleOverlay}
+            />
         </>
     )
 }

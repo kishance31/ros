@@ -24,7 +24,7 @@ function App() {
 		<Provider store={store}>
 			<PersistGate loading={null} persistor={persistor}>
 				<BrowserRouter>
-					<AppWrapper />
+						<AppWrapper />
 				</BrowserRouter>
 			</PersistGate>
 		</Provider>

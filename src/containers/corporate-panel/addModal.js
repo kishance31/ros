@@ -24,7 +24,6 @@ const AddModal = (props) => {
             email_id: target.email_id.value,
             mobile_no: target.mobile_no.value
         }
-        console.log(branchData);
         if(modalType === "add") {
             dispatch(addBranchDataAsync(
                 { ...branchData, corporate_admin_id: user._id },
