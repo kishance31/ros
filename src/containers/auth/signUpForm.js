@@ -1,5 +1,5 @@
 import React from 'react';
-import { Formik } from 'formik';
+import { Formik, Field, } from 'formik';
 import DoubleInputField from '../../components/inputFields/doubleInputField';
 import AuthModelAction from '../../actions/auth.action';
 import { AuthMap, signUpUserAsync } from '../../actions/auth.action';
@@ -17,7 +17,7 @@ const SignUpForm = () => {
 
     const onSubmits = (values) => {
         const data = new FormData()
-        data.append('corpDoc', values.corpDoc)
+        data.append('file', values.corpDoc)
         data.set("companyName", values.companyName)
         data.set("firstName", values.firstName)
         data.set("lastName", values.lastName)
@@ -78,61 +78,35 @@ const SignUpForm = () => {
                     return errors;
                 }}
                 onSubmit={(values, { setSubmitting }) => {
+                    console.log(values);
                     onSubmits(values);
-                    // setSubmitting(false);
+                    //setSubmitting(false);
                 }}
             >
-
                 {({
                     values,
                     errors,
                     touched,
                     isSubmitting,
                     setFieldValue,
-                    handleChange,
-                    handleBlur,
                     handleSubmit,
                 }) => (
 
                         <form className="form-horizontal" onSubmit={handleSubmit} >
-                            
+
                             <div className="input-group">
-                                <input
-                                    placeholder="COMPANY NAME"
-                                    type="text"
-                                    name="companyName"
-                                    onChange={handleChange}
-                                    onBlur={handleBlur}
-                                    value={values.companyName}
-                                    className="form-control"
-                                />
+                                <Field placeholder="COMPANY NAME" type='text' name='companyName' className="form-control" />
                             </div>
-                            <DoubleErrorMessage 
+                            <DoubleErrorMessage
                                 leftError={errors.companyName}
                                 leftTouched={touched.companyName}
                             />
 
                             <DoubleInputField >
-                                <input
-                                    placeholder="FIRST NAME"
-                                    type="text"
-                                    className="input_box_2 form-control"
-                                    name="firstName"
-                                    onChange={handleChange}
-                                    onBlur={handleBlur}
-                                    value={values.firstName}
-                                />
-                                <input
-                                    placeholder="LAST NAME"
-                                    type="text"
-                                    className="input_box_2 form-control"
-                                    name="lastName"
-                                    onChange={handleChange}
-                                    onBlur={handleBlur}
-                                    value={values.lastName}
-                                />
+                                <Field placeholder="FIRST NAME" type='text' name='firstName' className="input_box_1 form-control" />
+                                <Field placeholder="LAST NAME" type='text' name='lastName' className="input_box_2 form-control" />
                             </DoubleInputField>
-                            <DoubleErrorMessage 
+                            <DoubleErrorMessage
                                 leftError={errors.firstName}
                                 leftTouched={touched.firstName}
                                 rightError={errors.lastName}
@@ -140,26 +114,10 @@ const SignUpForm = () => {
                             />
 
                             <DoubleInputField>
-                                <input
-                                    placeholder="POSITION"
-                                    type="text"
-                                    className="input_box_1 form-control"
-                                    name="position"
-                                    onChange={handleChange}
-                                    onBlur={handleBlur}
-                                    value={values.position}
-                                />
-                                <input
-                                    placeholder="DEPARTMENT"
-                                    type="text"
-                                    className="input_box_2 form-control"
-                                    name="department"
-                                    onChange={handleChange}
-                                    onBlur={handleBlur}
-                                    value={values.department}
-                                />
+                                <Field placeholder="POSITION" type='text' name='position' className="input_box_1 form-control" />
+                                <Field placeholder="DEPARTMENT" type='text' name='department' className="input_box_2 form-control" />
                             </DoubleInputField>
-                            <DoubleErrorMessage 
+                            <DoubleErrorMessage
                                 leftError={errors.position}
                                 leftTouched={touched.position}
                                 rightError={errors.department}
@@ -167,26 +125,10 @@ const SignUpForm = () => {
                             />
 
                             <DoubleInputField>
-                                <input
-                                    placeholder="CORPORATE EMAIL ID"
-                                    type="email"
-                                    className="input_box_1 form-control"
-                                    name="corporateEmail"
-                                    onChange={handleChange}
-                                    onBlur={handleBlur}
-                                    value={values.corporateEmail}
-                                />
-                                <input
-                                    placeholder="PERSONAL EMAIL ID"
-                                    type="email"
-                                    className="input_box_2 form-control"
-                                    name="personalEmail"
-                                    onChange={handleChange}
-                                    onBlur={handleBlur}
-                                    value={values.personalEmail}
-                                />
+                                <Field placeholder="CORPORATE EMAIL ID" type='email' name='corporateEmail' className="input_box_1 form-control" />
+                                <Field placeholder="PERSONAL EMAIL ID" type='email' name='personalEmail' className="input_box_2 form-control" />
                             </DoubleInputField>
-                            <DoubleErrorMessage 
+                            <DoubleErrorMessage
                                 leftError={errors.corporateEmail}
                                 leftTouched={touched.corporateEmail}
                                 rightError={errors.personalEmail}
@@ -194,26 +136,10 @@ const SignUpForm = () => {
                             />
 
                             <DoubleInputField>
-                                <input
-                                    placeholder="OFFICE CONTACT NO"
-                                    type="tel"
-                                    className="input_box_1 form-control"
-                                    name="officeContactNo"
-                                    onChange={handleChange}
-                                    onBlur={handleBlur}
-                                    value={values.officeContactNo}
-                                />
-                                <input
-                                    placeholder="MOBILE NO"
-                                    type="tel"
-                                    className="input_box_2 form-control"
-                                    name="mobileNo"
-                                    onChange={handleChange}
-                                    onBlur={handleBlur}
-                                    value={values.mobileNo}
-                                />
+                                <Field placeholder="OFFICE CONTACT NO" type='tel' name='officeContactNo' className="input_box_1 form-control" />
+                                <Field placeholder="MOBILE NO" type='tel' name='mobileNo' className="input_box_2 form-control" />
                             </DoubleInputField>
-                            <DoubleErrorMessage 
+                            <DoubleErrorMessage
                                 leftError={errors.officeContactNo}
                                 leftTouched={touched.officeContactNo}
                                 rightError={errors.mobileNo}
@@ -221,47 +147,19 @@ const SignUpForm = () => {
                             />
 
                             <DoubleInputField>
-
-                                {/* <input placeholder="EMPLOYEE ID" type="text" className="input_box_1 form-control"
-                        name="employeeId" onChange={handleChange} value={values.employeeId} required
-                             /> */}
-
-                                <input
-                                    placeholder="USERNAME"
-                                    type="text"
-                                    className="input_box_2 form-control"
-                                    name="userName"
-                                    onChange={handleChange}
-                                    onBlur={handleBlur}
-                                    value={values.userName}
-                                />
+                                <Field placeholder="EMPLOYEE ID" type='text' name='employeeId' className="input_box_1 form-control" />
+                                <Field placeholder="USERNAME" type='text' name='userName' className="input_box_2 form-control" />
                             </DoubleInputField>
-                            <DoubleErrorMessage 
+                            <DoubleErrorMessage
                                 leftError={errors.userName}
                                 leftTouched={touched.userName}
                             />
 
                             <DoubleInputField>
-                                <input
-                                    placeholder="PASSWORD"
-                                    type="password"
-                                    className="input_box_1 form-control"
-                                    name="password"
-                                    onChange={handleChange}
-                                    onBlur={handleBlur}
-                                    value={values.password}
-                                />
-                                <input
-                                    placeholder="RE ENTER PASSWORD"
-                                    type="password"
-                                    className="input_box_2 form-control"
-                                    name="reEnterPassword"
-                                    onChange={handleChange}
-                                    onBlur={handleBlur}
-                                    value={values.reEnterPassword}
-                                />
+                                <Field placeholder="PASSWORD" type='password' name='password' className="input_box_1 form-control" />
+                                <Field placeholder="RE ENTER PASSWORD" type='password' name='reEnterPassword' className="input_box_2 form-control" />
                             </DoubleInputField>
-                            <DoubleErrorMessage 
+                            <DoubleErrorMessage
                                 leftError={errors.password}
                                 leftTouched={touched.password}
                                 rightError={errors.reEnterPassword}
