@@ -28,6 +28,7 @@ const branchListReducer = (state = initialState, action) => {
                 branchModals: {
                     modalState: false
                 },
+                selectedBranch: initialState.selectedBranch,
             }
         }
         case BranchListMap.OPEN_MODAL: {

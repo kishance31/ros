@@ -17,7 +17,7 @@ const SignUpForm = () => {
 
     const onSubmits = (values) => {
         const data = new FormData()
-        data.append('file', values.corpDoc)
+        data.append('corpDoc', values.corpDoc)
         data.set("companyName", values.companyName)
         data.set("firstName", values.firstName)
         data.set("lastName", values.lastName)
@@ -77,10 +77,8 @@ const SignUpForm = () => {
                     }
                     return errors;
                 }}
-                onSubmit={(values, { setSubmitting }) => {
-                    console.log(values);
+                onSubmit={(values) => {
                     onSubmits(values);
-                    //setSubmitting(false);
                 }}
             >
                 {({
@@ -182,7 +180,7 @@ const SignUpForm = () => {
                                 />
                             </div>
 
-                            <button type="submit" className="modal-fill_btn btn btn-lg" disabled={isSubmitting}>
+                            <button type="submit" className="modal-fill_btn btn btn-lg">
                                 <span className="sign_in">SUBMIT</span>
                                 <span className="left_arrow">
                                     <ArrowRightIcon />

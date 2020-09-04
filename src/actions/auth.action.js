@@ -1,5 +1,6 @@
 import axios from 'axios';
 import notificationActions from './notifications.action';
+import getServerCore from '../utils/apiUtils';
 
 export const AuthMap = {
     TOGGLE_SIGN_IN_MODAL: 'toggle_sign_in_modal',
@@ -20,11 +21,12 @@ export const AuthMap = {
 }
 
 const AuthModelAction = {
-    toggleAuthModals: (type, title) => {
+    toggleAuthModals: (type, title, data) => {
         return {
             type,
             payload: {
-                title
+                title,
+                data
             }
         };
     },
@@ -36,6 +38,10 @@ const AuthModelAction = {
     }
 }
 
+const { serverUrls, apiCall } = getServerCore();
+const corporateUrl = serverUrls.getCorporateUrl();
+const employeeUrl = serverUrls.getEmployeeUrl();
+
 export const signUpUserAsync = (user) => {
 
     return async (dispatch) => {
@@ -43,101 +49,147 @@ export const signUpUserAsync = (user) => {
             dispatch({
                 type: AuthMap.SIGN_UP_START
             });
-            let signuprespone = await axios({
-                url: `http://127.0.0.1:4000/api/corporate-admin/register`,
-                method: "POST",
-                data: user,
-                headers: {
-                    "Content-Type": "multipart/form-data"
-                }
+
+            let signuprespone = await apiCall({
+                url: `${corporateUrl}/register`,
+                body: user,
+                headers: { "Content-Type": "multipart/form-data" },
+                method: 'POST'
             });
-            if (signuprespone.data.response.responseCode === 201) {
-                dispatch({
+
+            if (signuprespone.response.responseCode === 201) {
+                return dispatch({
                     type: AuthMap.SIGN_UP_SUCCESS
                 })
             }
-        } catch (error) {
             dispatch({
                 type: AuthMap.SIGN_UP_ERROR
             })
-        }
-    }
-}
-
-export const signInUserAsync = (userBody) => {
-
-    return async (dispatch) => {
-
-        dispatch({
-            type: AuthMap.SIGN_IN_START
-        });
-
-        let signInResponce = await axios({
-            url: `http://127.0.0.1:4000/api/corporate-admin/login`,
-            method: "POST",
-            data: userBody,
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        });
-        if (signInResponce.data.response.responseCode === 200) {
-            dispatch(AuthModelAction.signInUser({
-                ...signInResponce.data.response.userProfile.user,
-                tokens: signInResponce.data.response.userProfile.tokens
-            }))
-        } else {
-            dispatch({
-                type: AuthMap.SIGN_IN_ERROR
-            });
             dispatch(notificationActions.showNotification({
                 title: 'Login In',
-                message: signInResponce.data.response.responseMessage,
+                message: signuprespone.response.responseMessage,
+                // duration: 5000,
+            }));
+        } catch (error) {
+            dispatch({
+                type: AuthMap.SIGN_UP_ERROR
+            });
+            dispatch(notificationActions.showNotification({
+                title: 'Sign Up',
+                message: error.message,
                 // duration: 5000,
             }));
         }
     }
 }
 
-export const signOutUserAsync = (tokens) => {
+export const signInUserAsync = (userBody, type) => {
+    return async (dispatch) => {
+        try {
+            dispatch({
+                type: AuthMap.SIGN_IN_START
+            });
+
+            let signInUrl = "";
+            if (type === "corporate") {
+                signInUrl = `${corporateUrl}/login`;
+            }
+            if (type === "employee") {
+                signInUrl = `${employeeUrl}/login`;
+            }
+
+            let signInResponce = await apiCall({
+                url: signInUrl,
+                data: userBody
+            });
+
+            if (signInResponce.response.responseCode === 200) {
+                const { user, tokens } = signInResponce.response.userProfile;
+                if (user.isFirstLogin) {
+                    dispatch(AuthModelAction.toggleAuthModals(
+                        AuthMap.TOGGLE_SET_PASSWORD_MODAL,
+                        "Set Your Password",
+                        tokens
+                    ))
+                } else {
+                    dispatch(AuthModelAction.signInUser({
+                        ...signInResponce.response.userProfile.user,
+                        tokens: signInResponce.response.userProfile.tokens
+                    }))
+                }
+            } else {
+                dispatch({
+                    type: AuthMap.SIGN_IN_ERROR
+                });
+                dispatch(notificationActions.showNotification({
+                    title: 'Login In',
+                    message: signInResponce.response.responseMessage,
+                    // duration: 5000,
+                }));
+            }
+        } catch (error) {
+            dispatch({
+                type: AuthMap.SIGN_IN_ERROR
+            });
+            dispatch(notificationActions.showNotification({
+                title: 'Login In',
+                message: error.message,
+                // duration: 5000,
+            }));
+        }
+
+    }
+}
+
+export const signOutUserAsync = (tokens, role) => {
 
     return async (dispatch) => {
-        const signOutUser = await axios({
-            url: 'http://127.0.0.1:4000/api/corporate-admin/logout',
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-                'tokens': tokens
+        try {
+            console.log(role)
+            const signOutUser = await apiCall({
+                url: corporateUrl + (role.indexOf('EMPLOYEE') != -1 ? "/employee" : "") + "/logout",
+                method: 'GET',
+                headers: { tokens }
+            })
+
+            if (signOutUser.response.responseCode === 200) {
+                return dispatch({
+                    type: AuthMap.SIGN_OUT
+                });
             }
-        });
-        if (signOutUser.status === 200) {
-            dispatch({
-                type: AuthMap.SIGN_OUT
-            });
+
+            throw new Error('Error Logging Out.')
+        } catch (error) {
+            dispatch(notificationActions.showNotification({
+                title: 'Login Out',
+                message: error.message,
+                // duration: 5000,
+            }));
         }
     }
 }
 
 export const updateUserProfileAsync = (data) => {
-    
+
     return async (dispatch, getState) => {
         const { auth } = getState();
         try {
             dispatch({
                 type: AuthMap.UPDATE_CORPORATE_PROFILE_START
             });
-            let updateUserResponse = await axios({
-                url: `http://127.0.0.1:4000/api/corporate-admin/update`,
-                method: "POST",
-                data: data,
+            let updateUserResponse = await apiCall({
+                url: `${corporateUrl}/update`,
+                data,
                 headers: {
                     "Content-Type": "multipart/form-data",
                     tokens: auth.user.tokens
                 }
-            });
-            if (updateUserResponse.data.response.responseCode === 201) {
+            })
+
+            if (updateUserResponse.response.responseCode === 201) {
                 return dispatch({
                     type: AuthMap.UPDATE_CORPORATE_PROFILE_SUCCESS,
-                    payload: updateUserResponse.data.response.userProfile,
+                    payload: updateUserResponse.response.userProfile,
                 })
             }
             dispatch({
@@ -147,6 +199,31 @@ export const updateUserProfileAsync = (data) => {
             dispatch({
                 type: AuthMap.UPDATE_CORPORATE_PROFILE_ERROR
             });
+        }
+    }
+}
+
+export const setPasswordAsync = (data) => {
+    return async (dispatch, getState) => {
+        try {
+            const { auth } = getState();
+            let setPasswordResponse = await apiCall({
+                url: corporateUrl + "/employee/setPassword",
+                // + (role.indexOf('EMPLOYEE') != -1 ? "/employee" : "") + "/setPassword",
+                headers: {
+                    tokens: auth.tempToken
+                },
+                data,
+            })
+            console.log(setPasswordResponse)
+            if (setPasswordResponse.response.responseCode === 200) {
+                dispatch(AuthModelAction.signInUser({
+                    ...setPasswordResponse.response.userProfile.user,
+                    tokens: setPasswordResponse.response.userProfile.tokens
+                }))
+            }
+        } catch (error) {
+
         }
     }
 }

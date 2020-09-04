@@ -141,15 +141,17 @@ export const getEmployeesAsync = (tokens, id, limit, batch) => {
     }
 }
 
-export const updateDataAsync = (id, tokens) => {
+export const updateEmployeeAsync = (id, tokens, user) => {
 
-    return async (dispatch) => {
+    return async (dispatch, getState) => {
         try {
+            const { auth } = getState();
             let updateEmployeesResponse = await axios({
-                url: `http://127.0.0.1:4000/api/corporate-admin/employee/updateEmployee/${id}`,
+                url: `http://127.0.0.1:4000/api/corporate-admin/employee/updateEmployee/${auth.user._id}`,
                 method: "PUT",
+                data: user,
                 headers: {
-                    tokens
+                    tokens: auth.user.tokens
                 }
             });
             dispatch(notificationActions.showNotification({

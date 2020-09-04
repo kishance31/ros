@@ -37,7 +37,7 @@ const MyAccountTabs = (props) => {
                     <button className="btn_blue w_150" data-aos="fade" onClick={onAddData} >Add</button> : null
             }
             {
-                <BranchDataModal isOpen={isOpen} toggleModal={() => dispatch(BranchListAction.closeModal(BranchListMap.CLOSE_MODAL ))} />
+                <BranchDataModal isOpen={isOpen} toggleModal={() => dispatch(BranchListAction.closeModal())} />
             }
         </nav>
     )

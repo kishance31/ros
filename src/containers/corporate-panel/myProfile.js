@@ -38,7 +38,7 @@ const MyProfile = () => {
                     initialValues={{
                         companyName: user.companyName,
                         firstName: user.firstName,
-                        lastName: user.email,
+                        lastName: user.lastName,
                         position: user.position,
                         department: user.department,
                         corporateEmailId: user.corporateEmailId,

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { isEmpty } from 'lodash';
 import EmployeeAndLicenseAddBox from '../../components/corporate-panel/employeeAndLicense/employeeAndLicenseAddBox';
+import EmployeeAndLicenseTable from '../../components/corporate-panel/employeeAndLicense/employeeAndLicenseTable';
 import employeeAndLicenseAction, {
     employeeAndLicenseCountAsync,
     getEmployeesAsync,
@@ -15,15 +16,6 @@ const EmployeeLicenseManagement = () => {
 
     const dispatch = useDispatch();
 
-    const initFormState = {
-        companyName: "", firstName: "", lastName: "", position: "", department: "", employeeId: "",
-        email: "", username: "", mobileNo: "", password: "", reEnterPassword: "",
-        //delivery_address:"",city:"",state:"",country:""
-    }
-    const [employeeDetails, setEmployeeDetails] = useState(initFormState)
-
-    const [visibleAddDataModal, setVisibleAddDataModal] = useState(false);
-
     const user = useSelector(state => state.auth.user)
     const {
         availabelLicenseCount,
@@ -36,12 +28,23 @@ const EmployeeLicenseManagement = () => {
     } = useSelector(state => state.employeeAndLicense)
     const availableLicenseList = useSelector(state => state.purchaseLicense.availableLicenseList)
 
+    const initFormState = {
+        companyName: "", firstName: "", lastName: "", position: "", department: "", employeeId: "",
+        email: "", username: "", mobileNo: "", password: "", reEnterPassword: "",
+        licenseType: availableLicenseList.length ? availableLicenseList[0].type : "" ,
+        branchName: branchNames.length ? branchNames[0].branch_name : "",
+        //delivery_address:"",city:"",state:"",country:""
+    }
+    const [employeeDetails, setEmployeeDetails] = useState(initFormState)
+    const [visibleAddDataModal, setVisibleAddDataModal] = useState(false);
+    const [popupType, setPopupType] = useState('add');
+
     const onPageChange = (currentBatch) => {
         dispatch(employeeAndLicenseAction.setBatchNumber(currentBatch || batchNumber));
         dispatch(employeeAndLicenseAction.refreshEmployeeList());
     }
 
-    const { limit, handleBatchChange } = 
+    const { limit, handleBatchChange } =
         usePaginationHook(5, batchNumber, onPageChange);
 
     useEffect(() => {
@@ -65,6 +68,7 @@ const EmployeeLicenseManagement = () => {
     const onUpdate = (employee) => {
         setEmployeeDetails(employee)
         setVisibleAddDataModal(true);
+        setPopupType('edit');
     }
     const onDelete = (id) => {
         dispatch(deleteDataAsync(id, user.tokens))
@@ -90,8 +94,15 @@ const EmployeeLicenseManagement = () => {
 
                     <div className="btn_wrp">
                         <button className="btn_blue">Import File</button>
-                        <button className="btn_blue" data-target="#add_employeement" data-toggle="modal"
-                            onClick={() => { setVisibleAddDataModal(true) }} >Add</button>
+                        <button 
+                            className="btn_blue"
+                            onClick={() => { 
+                                setVisibleAddDataModal(true);
+                                setPopupType('add');
+                            }} 
+                        >
+                            Add
+                        </button>
                         <EmployeeAndLicenseAddBox
                             isOpen={visibleAddDataModal}
                             toggleModal={() => {
@@ -102,6 +113,7 @@ const EmployeeLicenseManagement = () => {
                             availableLicenseList={availableLicenseList}
                             corporateId={user._id}
                             branchNames={branchNames}
+                            popupType={popupType}
                         />
                     </div>
 
@@ -109,46 +121,11 @@ const EmployeeLicenseManagement = () => {
                 <div className="container-fluid">
                     <div className="shadow_box">
                         <div className="general_table table-responsive">
-                            <table className="text-center">
-                                <thead>
-                                    <tr>
-                                        <th>Sr&nbsp;No</th>
-                                        <th>EMPLOYEE&nbsp;NAME</th>
-                                        <th>EMAIL&nbsp;ID</th>
-                                        <th>License&nbsp;TYPE</th>
-                                        <th>BRANCH</th>
-                                        <th className="action_col">ACTION</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {
-                                        getEmployeeList.length ? (
-                                            getEmployeeList.map((item, index) =>
-                                                <tr key={index}>
-                                                    <td>{index + 1}</td>
-                                                    <td>{item.firstName}&nbsp;{item.lastName}</td>
-                                                    <td>{item.email}</td>
-                                                    <td>{item.licenseType}</td>
-                                                    <td>{item.branchName}</td>
-                                                    <td className="action_col">
-                                                        <button className="btn_action btn_border"
-                                                            onClick={() => { onUpdate(item) }}>Edit</button>
-                                                        <button className="btn_action pink" onClick={() => { onDelete(item._id) }}>Delete</button>
-                                                        <button className="btn_action orange">Invitation Send</button>
-                                                        <button className="btn_action light_blue">Resend Invitation</button>
-                                                    </td>
-                                                </tr>
-                                            )
-                                        ) : (
-                                                <tr className="text-center">
-                                                    <td colSpan={6}>
-                                                        No employee added. Add a employee
-                                                    </td>
-                                                </tr>
-                                            )
-                                    }
-                                </tbody>
-                            </table>
+                            <EmployeeAndLicenseTable
+                                getEmployeeList={getEmployeeList}
+                                onUpdate={onUpdate}
+                                onDelete={onDelete}
+                            />
                             {
                                 getEmployeeList.length ? (
                                     <div style={{ marginTop: 20, float: "right" }}>

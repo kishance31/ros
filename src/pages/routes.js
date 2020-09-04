@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useContext } from 'react';
 import { useSelector } from 'react-redux';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import LoadingOverlay from 'react-loading-overlay';
+import { OverlayContext } from '../context/loadingOverlay.context'
 import Homepage from './Homepage/Homepage';
 import CorporateDashboard from './Corporate-Dashboard/CorporateDashboard';
 import EmployeeDashboard from './Employee-Dashboard/EmployeeDashboard';
@@ -10,15 +11,16 @@ import ContactUs from '../pages/Homepage/contactUs'
 const Routes = () => {
 
     const user = useSelector(state => state.auth.user);
-    const [showOverlay, setShowOverlay] = useState(true);
+
+    const {isActive, toggleOverlay} = useContext(OverlayContext);
 
     useEffect(() => {
-        setShowOverlay(false);
+        toggleOverlay(false);
     }, [])
 
     return (
         <LoadingOverlay
-            active={showOverlay}
+            active={isActive}
             spinner
             text='Please wait . . .'
         >
