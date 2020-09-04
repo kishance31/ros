@@ -1,5 +1,6 @@
 import axios from 'axios';
 import notificationActions from './notifications.action';
+
 export const AuthMap = {
     TOGGLE_SIGN_IN_MODAL: 'toggle_sign_in_modal',
     TOGGLE_SIGN_UP_MODAL: 'toggle_sign_up_modal',
@@ -36,24 +37,26 @@ const AuthModelAction = {
 }
 
 export const signUpUserAsync = (user) => {
-    return async (dispatch) => {
 
-        dispatch({
-            type: AuthMap.SIGN_UP_START
-        });
-        let signuprespone = await axios({
-            url: `http://127.0.0.1:4000/api/corporate-admin/register`,
-            method: "POST",
-            data: user,
-            headers: {
-                "Content-Type": "multipart/form-data"
-            }
-        });
-        if (signuprespone.data.response.responseCode === 201) {
+    return async (dispatch) => {
+        try {
             dispatch({
-                type: AuthMap.SIGN_UP_SUCCESS
-            })
-        } else {
+                type: AuthMap.SIGN_UP_START
+            });
+            let signuprespone = await axios({
+                url: `http://127.0.0.1:4000/api/corporate-admin/register`,
+                method: "POST",
+                data: user,
+                headers: {
+                    "Content-Type": "multipart/form-data"
+                }
+            });
+            if (signuprespone.data.response.responseCode === 201) {
+                dispatch({
+                    type: AuthMap.SIGN_UP_SUCCESS
+                })
+            }
+        } catch (error) {
             dispatch({
                 type: AuthMap.SIGN_UP_ERROR
             })
@@ -115,13 +118,13 @@ export const signOutUserAsync = (tokens) => {
 }
 
 export const updateUserProfileAsync = (data) => {
+    
     return async (dispatch, getState) => {
         const { auth } = getState();
         try {
             dispatch({
                 type: AuthMap.UPDATE_CORPORATE_PROFILE_START
             });
-
             let updateUserResponse = await axios({
                 url: `http://127.0.0.1:4000/api/corporate-admin/update`,
                 method: "POST",
@@ -131,18 +134,15 @@ export const updateUserProfileAsync = (data) => {
                     tokens: auth.user.tokens
                 }
             });
-
-            if(updateUserResponse.data.response.responseCode === 201) {
+            if (updateUserResponse.data.response.responseCode === 201) {
                 return dispatch({
                     type: AuthMap.UPDATE_CORPORATE_PROFILE_SUCCESS,
                     payload: updateUserResponse.data.response.userProfile,
                 })
             }
-
             dispatch({
                 type: AuthMap.UPDATE_CORPORATE_PROFILE_ERROR,
             })
-
         } catch (error) {
             dispatch({
                 type: AuthMap.UPDATE_CORPORATE_PROFILE_ERROR
