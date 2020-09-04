@@ -1,9 +1,9 @@
 export const headerLinks = [
-    { name: "Home", url: "#" },
-    { name: "About us", url: "#" },
-    { name: "Our services", url: "#" },
-    { name: "How it works", url: "#" },
-    { name: "Contact us", url: "#" },
+    { name: "Home", url: "/", active: true },
+    { name: "About us", url: "/aboutUs", active: false },
+    { name: "Our services", url: "#", active: false },
+    { name: "How it works", url: "#", active: false },
+    { name: "Contact us", url: "/contactUs", active: false },
 ];
 
 export const authModalConstants = {
@@ -53,11 +53,11 @@ export const ContactUsDetails = [
 ]
 
 export const ContactusLinks = [
-    { name: 'FaCEBOOK', url: "#" },
-    { name: 'TWITTER', url: "#" },
-    { name: 'PRINTEREST', url: "#" },
-    { name: 'GOOGLE', url: "#" },
-    { name: 'INSTAGRAM', url: "#" },
+    { id: 1, name: 'FACEBOOK', url: "#" },
+    { id: 2, name: 'TWITTER', url: "#" },
+    { id: 3, name: 'PRINTEREST', url: "#" },
+    { id: 4, name: 'GOOGLE', url: "#" },
+    { id: 5, name: 'INSTAGRAM', url: "#" },
 ]
 
 
@@ -68,6 +68,12 @@ export const NewsLetterDetails = {
     description: "Sign up to receive updates from our studio promotions, and sneak peaks of upcoming products.",
 }
 
+export const AboutUsDetails = {
+    title1: "Lorem ipsum dolor sit amet",
+    title2: "consectetur adipiscing elit",
+    description: "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy.",
+    aboutUsImg: "about_img.png"
+}
 
 export const CarouselItems = [
     {
@@ -506,7 +512,7 @@ export const AllocateLicenseList = [
 export const EmployeeOrderDetailsList = [
     {
         srNo: 1,
-        itemCategory:'Hardware',
+        itemCategory: 'Hardware',
         itemName: 'Keyboard',
         itemCost: 30,
         orderNo: 1232,
@@ -517,7 +523,7 @@ export const EmployeeOrderDetailsList = [
     },
     {
         srNo: 2,
-        itemCategory:'Hardware',
+        itemCategory: 'Hardware',
         itemName: 'Mouse',
         itemCost: 10,
         orderNo: 1222,
@@ -528,7 +534,7 @@ export const EmployeeOrderDetailsList = [
     },
     {
         srNo: 3,
-        itemCategory:'Hardware',
+        itemCategory: 'Hardware',
         itemName: 'SSD',
         itemCost: 300,
         orderNo: 1122,
@@ -541,21 +547,21 @@ export const EmployeeOrderDetailsList = [
 
 export const InvoiceList = [
     {
-        invoiceId:1,
+        invoiceId: 1,
         invoiceNo: 1231,
         invoiceDate: '12/12/2020',
         invoiceType: 'RECURRING1',
         invoiceAmount: 2
     },
     {
-        invoiceId:2,
+        invoiceId: 2,
         invoiceNo: 1312,
         invoiceDate: '13/12/2020',
         invoiceType: 'RECURRING2',
         invoiceAmount: 92
     },
     {
-        invoiceId:3,
+        invoiceId: 3,
         invoiceNo: 4131,
         invoiceDate: '01/02/2020',
         invoiceType: 'RECURRING3',
@@ -564,8 +570,8 @@ export const InvoiceList = [
 ]
 
 export const ProductData = [
-    {   
-        id:1,
+    {
+        id: 1,
         itemName: 'Keyboard',
         title: 'Lorem ipsum dolor sit amet. Duis pretium gravida enim, vel maximus ligula ferme ntum a. Sed rhoncus eget ex id.Duis pretium',
         itemCode: '1234',
@@ -573,8 +579,8 @@ export const ProductData = [
         itemDescription: 'Lorem ipsum dolor sit amet',
         imgPath: 'chair1.png'
     },
-    {   
-        id:2,
+    {
+        id: 2,
         itemName: 'Keyboard',
         title: 'Lorem ipsum dolor sit amet. Duis pretium gravida enim, vel maximus ligula ferme ntum a. Sed rhoncus eget ex id.Duis pretium',
         itemCode: '1234',
@@ -582,8 +588,8 @@ export const ProductData = [
         itemDescription: 'Lorem ipsum dolor sit amet',
         imgPath: 'chair1.png'
     },
-    {   
-        id:3,
+    {
+        id: 3,
         itemName: 'Keyboard',
         title: 'Lorem ipsum dolor sit amet. Duis pretium gravida enim, vel maximus ligula ferme ntum a. Sed rhoncus eget ex id.Duis pretium',
         itemCode: '1234',
