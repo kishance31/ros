@@ -15,6 +15,7 @@ const createRootReducer = () => {
     const authPersistConfig = {
         key: 'auth',
         storage: storage,
+        blacklist: ['modals', 'tempToken']
     }
 
     return combineReducers(

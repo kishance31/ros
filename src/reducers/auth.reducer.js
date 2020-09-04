@@ -1,4 +1,5 @@
 import { AuthMap } from '../actions/auth.action';
+import { act } from 'react-dom/test-utils';
 
 const initialState = {
     modals: {
@@ -28,6 +29,7 @@ const initialState = {
         taxNo: "",
         companyRegisterNo: "",
     },
+    tempToken: '',
 }
 
 const authReducer = (state = initialState, action) => {
@@ -91,9 +93,10 @@ const authReducer = (state = initialState, action) => {
                     showSignUpModal: false,
                     showForgotPasswordModal: false,
                     showSetPasswordModal: !state.modals.showSetPasswordModal,
-                    title: action.payload.title,
+                    title: action.payload ? action.payload.title : "",
                     openModal: true,
-                }
+                },
+                tempToken: action.payload ? action.payload.data : "",
             }
         case AuthMap.SIGN_UP_START:
             return {
@@ -135,7 +138,8 @@ const authReducer = (state = initialState, action) => {
                 ...state,
                 user: {
                     ...state.user
-                }
+                },
+                tempToken: ""
             }
 
         case AuthMap.SIGN_IN_SUCCESS:

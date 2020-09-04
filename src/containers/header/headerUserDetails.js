@@ -13,7 +13,7 @@ const HeaderUserDetails = (props) => {
     const isCartEmpty = useSelector(state => state.cart.shoppingCart.length);
 
     const onClickLogout = () => {
-        dispatch(signOutUserAsync(user.tokens));
+        dispatch(signOutUserAsync(user.tokens, user.role));
     }
 
     return (

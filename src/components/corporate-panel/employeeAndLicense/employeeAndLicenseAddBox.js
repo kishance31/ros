@@ -1,46 +1,45 @@
 import React from 'react';
+import { Formik, Field } from 'formik';
 import { MetroCancelIcon } from '../../icons/Icons';
 import DoubleInputField from '../../inputFields/doubleInputField';
-import SingleInputField from '../../inputFields/singleInputFields';
 import ModalComponent from '../../modal/modal';
 import { useDispatch } from 'react-redux';
-import { employeeAndLicenseAddAsync } from '../../../actions/employeeAndLicense.action';
+import { employeeAndLicenseAddAsync, updateEmployeeAsync } from '../../../actions/employeeAndLicense.action';
+import DoubleErrorMessage from '../../inputFields/inputErrorMessage';
 
 const EmployeeAndLicenseAddBox = (props) => {
 
-    const { employeeDetails, toggleModal, availableLicenseList, corporateId, branchNames } = props;
+    const { employeeDetails, toggleModal, availableLicenseList, corporateId, branchNames, popupType } = props;
+    console.log(employeeDetails)
 
     const dispatch = useDispatch();
 
-    const onSubmit = (event) => {
-
-        event.preventDefault();
-        const { target } = event;
-
-        // let selectedBranch = branchNames.find(branch => branch._id === target.branchName.value);
-
+    const onSubmit = (values) => {
         const data = new FormData();
-        data.set("companyName", target.companyName.value)
-        data.set("firstName", target.firstName.value)
-        data.set("lastName", target.lastName.value)
-        data.set("position", target.position.value)
-        data.set("department", target.department.value)
-        data.set("licenseType", target.licenseType.value)
-        data.set("branchName", target.branchName.value)
-        data.set("mobileNo", target.mobileNo.value)
+        data.set("companyName", values.companyName)
+        data.set("firstName", values.firstName)
+        data.set("lastName", values.lastName)
+        data.set("position", values.position)
+        data.set("department", values.department)
+        data.set("licenseType", values.licenseType)
+        data.set("branchName", values.branchName)
+        data.set("mobileNo", values.mobileNo)
         data.set("corporate_admin_id", corporateId)
-        data.set("email", target.email.value)
-        data.set("username", target.userName.value)
-        data.set("password", target.password.value)
+        data.set("email", values.email)
+        data.set("username", values.username)
+        data.set("password", values.password)
+        data.set("employeeId", values.employeeId)
         data.set("address", new Array())
-
-        console.log(data);
-        // data.set("delivery_address",addData.delivery_address)
-        // data.set("city",addData.city)
-        // data.set("state",addData.state)
-        // data.set("country",addData.country)
-
-        dispatch(employeeAndLicenseAddAsync(data));
+        // data.set("delivery_address",values.delivery_address)
+        // data.set("city",values.city)
+        // data.set("state",values.state)
+        // data.set("country",values.country)
+        if (popupType == "add") {
+            dispatch(employeeAndLicenseAddAsync(data));
+        }
+        if (popupType === "edit") {
+            dispatch(updateEmployeeAsync(data));
+        }
         toggleModal()
     }
 
@@ -50,7 +49,6 @@ const EmployeeAndLicenseAddBox = (props) => {
             <span aria-hidden="true"><MetroCancelIcon /></span>
         </button>
     )
-
     return (
         <ModalComponent
             {...props}
@@ -60,116 +58,250 @@ const EmployeeAndLicenseAddBox = (props) => {
             id="add_employeement"
             toggleModal={toggleModal}
         >
-            <form className="form-horizontal" onSubmit={onSubmit} >
-                <div className="row">
-                    <div className="col-lg-12">
-                        <div className="mr-0 mr-xl-6">
+            <Formik
+                initialValues={{
+                    ...employeeDetails
+                }}
 
-                            <DoubleInputField>
-                                <input placeholder="COMPANY NAME" type="text" className="input_box_1 form-control"
-                                    name="companyName" defaultValue={employeeDetails.companyName} />
-                            </DoubleInputField>
+                validate={(values) => {
+                    const errors = {};
+                    // for (let key in values) {
+                    //     if (key !== "_id")
+                    //         if (!values[key]) {
+                    //             errors[key] = `${key} is required.`
+                    //         }
+                    // }
+                    if (values.email && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)) {
+                        errors.email = "Invalid email address";
+                    }
+                    if (values.mobileNo && !/^\d{10}$/.test(values.mobileNo)) {
+                        errors.mobileNo = "Invalid mobile number";
+                    }
+                    if (values.password !== values.reEnterPassword) {
+                        errors.reEnterPassword = "Password and Re Enter Password are not same."
+                    }
+                    return errors;
+                }}
 
-                            <DoubleInputField >
-                                <input placeholder="FIRST NAME" type="text" className="input_box_1 form-control"
-                                    name="firstName" defaultValue={employeeDetails.firstName}/>
-                                <input placeholder="LAST NAME" type="text" className="input_box_2 form-control"
-                                    name="lastName" defaultValue={employeeDetails.lastName} />
-                            </DoubleInputField>
+                onSubmit={(values, { setSubmitting }) => {
+                    onSubmit(values);
+                    //setSubmitting(false);
+                }}
+            >
+                {({ values,
+                    errors,
+                    touched,
+                    isSubmitting,
+                    handleSubmit
+                }) => (
+                        <form className="form-horizontal" onSubmit={handleSubmit} >
+                            <div className="row">
+                                <div className="col-lg-12">
+                                    <div className="mr-0 mr-xl-6">
 
-                            <DoubleInputField >
-                                <input placeholder="POSITION" type="text" className="input_box_1 form-control"
-                                    name="position" defaultValue={employeeDetails.position} />
-                                <input placeholder="DEPARTMENT" type="text" className="input_box_2 form-control"
-                                    name="department" defaultValue={employeeDetails.department} />
-                            </DoubleInputField>
+                                        <div className="mr-0 mr-xl-6">
+                                            <div className="input-group">
+                                                <Field
+                                                    placeholder="COMPANY NAME"
+                                                    type="text"
+                                                    name="companyName"
+                                                    className="form-control"
+                                                />
+                                            </div>
+                                            <DoubleErrorMessage
+                                                leftError={errors.companyName}
+                                                leftTouched={touched.companyName}
+                                            />
 
-                            <DoubleInputField >
-                                {/* <input placeholder="EMPLOYEE ID" type="text" className="input_box_1 form-control"
-                                    name="employeeId" defaultValue={employeeDetails.employeeId} /> */}
-                                <input placeholder="EMAIL ID" type="email" className="input_box_2 form-control"
-                                    name="email" defaultValue={employeeDetails.email} />
-                            </DoubleInputField>
+                                            <DoubleInputField>
+                                                <Field
+                                                    placeholder="FIRST NAME"
+                                                    type="text"
+                                                    className="input_box_1 form-control"
+                                                    name="firstName"
+                                                />
+                                                <Field
+                                                    placeholder="LAST NAME"
+                                                    type="text"
+                                                    className="input_box_2 form-control"
+                                                    name="lastName"
+                                                />
+                                            </DoubleInputField>
+                                            <DoubleErrorMessage
+                                                leftError={errors.firstName}
+                                                leftTouched={touched.firstName}
+                                                rightError={errors.lastName}
+                                                rightTouched={touched.lastName}
+                                            />
 
-                            <DoubleInputField >
-                                <input placeholder="USERNAME" type="text" className="input_box_1 form-control"
-                                    name="userName" defaultValue={employeeDetails.username} />
-                                <input placeholder="MOBILE NO" type="tel" className="input_box_2 form-control"
-                                    name="mobileNo" defaultValue={employeeDetails.mobileNo} />
-                            </DoubleInputField>
+                                            <DoubleInputField>
+                                                <Field
+                                                    placeholder="POSITION"
+                                                    type="text"
+                                                    className="input_box_1 form-control"
+                                                    name="position"
+                                                />
+                                                <Field
+                                                    placeholder="DEPARTMENT"
+                                                    type="text"
+                                                    className="input_box_2 form-control"
+                                                    name="department"
+                                                />
+                                            </DoubleInputField>
+                                            <DoubleErrorMessage
+                                                leftError={errors.position}
+                                                leftTouched={touched.position}
+                                                rightError={errors.department}
+                                                rightTouched={touched.department}
+                                            />
 
-                        </div>
-                    </div>
+                                            <DoubleInputField>
+                                                <Field
+                                                    placeholder="EMPLOYEE ID"
+                                                    type="text"
+                                                    className="input_box_1 form-control"
+                                                    name="employeeId"
+                                                />
+                                                <Field
+                                                    placeholder="EMAIL ID"
+                                                    type="email"
+                                                    className="input_box_2 form-control"
+                                                    name="email"
+                                                />
+                                            </DoubleInputField>
+                                            <DoubleErrorMessage
+                                                leftError={errors.employeeId}
+                                                leftTouched={touched.employeeId}
+                                                rightError={errors.email}
+                                                rightTouched={touched.email}
+                                            />
 
-                    <div className="col-lg-12">
-                        <div className="mr-0 ml-xl-6">
+                                            <DoubleInputField>
+                                                <Field
+                                                    placeholder="USERNAME"
+                                                    type="text"
+                                                    className="input_box_1 form-control"
+                                                    name="username"
+                                                />
+                                                <Field
+                                                    placeholder="MOBILE NO"
+                                                    type="tel"
+                                                    className="input_box_2 form-control"
+                                                    name="mobileNo"
+                                                />
+                                            </DoubleInputField>
+                                            <DoubleErrorMessage
+                                                leftError={errors.username}
+                                                leftTouched={touched.username}
+                                                rightError={errors.mobileNo}
+                                                rightTouched={touched.mobileNo}
+                                            />
+                                        </div>
 
-                            <DoubleInputField>
-                                <input placeholder="PASSWORD" type="password" className="input_box_1 form-control"
-                                    name="password" defaultValue={employeeDetails.password} />
-                                <input placeholder="RE ENTER PASSWORD" type="password" className="input_box_2 form-control"
-                                    name="reEnterPassword" defaultValue={employeeDetails.reEnterPassword} />
-                            </DoubleInputField>
+                                    </div>
+                                </div>
 
-                            <div className="input-group">
-                                <select
-                                    title="Select License Type"
-                                    name="licenseType"
-                                    className="selectpicker form-control"
-                                    defaultValue={employeeDetails.licenseType}
-                                >
-                                    {
-                                        availableLicenseList.map(license => <option key={license.type}>{license.type}</option>)
-                                    }
-                                </select>
-                                <select
-                                    title="Select Branch"
-                                    className="selectpicker form-control input_box_2"
-                                    defaultValue={employeeDetails.branchName}
-                                    name="branchName"
-                                >
-                                    {
-                                        branchNames.map(branch => <option key={branch._id} value={branch.branch_name}>{branch.branch_name}</option>)
-                                    }
-                                </select>
+                                <div className="col-lg-12">
+                                    <div className="mr-0 ml-xl-6">
+                                        {
+                                            popupType === "add" ? (
+                                                <>
+                                                    <DoubleInputField>
+                                                        <Field
+                                                            placeholder="PASSWORD"
+                                                            type="password"
+                                                            className="input_box_1 form-control"
+                                                            name="password"
+                                                        />
+                                                        <Field
+                                                            placeholder="RE ENTER PASSWORD"
+                                                            type="password"
+                                                            className="input_box_2 form-control"
+                                                            name="reEnterPassword"
+                                                        />
+                                                    </DoubleInputField>
+                                                    <DoubleErrorMessage
+                                                        leftError={errors.password}
+                                                        leftTouched={touched.password}
+                                                        rightError={errors.reEnterPassword}
+                                                        rightTouched={touched.reEnterPassword}
+                                                    />
+                                                </>
+                                            ) : null
+                                        }
+                                        <div className="input-group">
+                                            <Field
+                                                as="select"
+                                                title="Select License Type"
+                                                name="licenseType"
+                                                className="selectpicker form-control"
+                                            >
+                                                {
+                                                    availableLicenseList.map(license => <option key={license.type}>{license.type}</option>)
+                                                }
+                                            </Field>
+                                            <Field
+                                                as="select"
+                                                title="Select Branch"
+                                                className="selectpicker form-control input_box_2"
+                                                name="branchName"
+                                            >
+                                                {
+                                                    branchNames.map(branch => <option key={branch._id} value={branch.branch_name}>{branch.branch_name}</option>)
+                                                }
+                                            </Field>
+                                        </div>
+
+                                        {/* <div className="input-group">
+                                                <Field
+                                                    placeholder="DELIVERY ADDRESS"
+                                                    type="text"
+                                                    name="companyName"
+                                                    className="form-control"
+                                                />
+                                            </div>
+                                            <DoubleErrorMessage
+                                                leftError={errors.delivery_address}
+                                                leftTouched={touched.delivery_address}
+                                            />
+
+                                            <div className="input-group">
+                                                <select title="Select City" className="selectpicker form-control input_box_1">
+                                                    <option>Option 1</option>
+                                                    <option>Option 2</option>
+                                                </select>
+                                                <select title="Select State" className="selectpicker form-control input_box_2">
+                                                    <option>Option 1</option>
+                                                    <option>Option 2</option>
+                                                </select>
+                                            </div>
+
+                                            <div className="input-group">
+                                                <select title="Select Country" className="selectpicker form-control">
+                                                    <option>Option 1</option>
+                                                    <option>Option 2</option>
+                                                </select>
+                                            </div> */}
+
+                                    </div>
+
+                                    {/* <div className="text-center mt-4">
+                                                <a href="" className="dark font-weight-bold">
+                                                    <img className="mr-3"
+                                                        //src={require(`../../../assets/image/logo.svg`)} 
+                                                        alt="" />ADD MORE</a>
+                                            </div> */}
+                                </div>
                             </div>
-
-                            {/* <SingleInputField singleInputPlaceHolder="DELIVERY ADDRESS" singleInputType="text"
-                                required />
-
-                            <div className="input-group">
-                                <select title="Select City" className="selectpicker form-control input_box_1">
-                                    <option>Option 1</option>
-                                    <option>Option 2</option>
-                                </select>
-                                <select title="Select State" className="selectpicker form-control input_box_2">
-                                    <option>Option 1</option>
-                                    <option>Option 2</option>
-                                </select>
+                            <div className="text-center mt-5 pt-lg-5">
+                                <button className="btn_blue" type="submit"><span>SAVE</span></button>
                             </div>
-
-                            <div className="input-group">
-                                <select title="Select Country" className="selectpicker form-control">
-                                    <option>Option 1</option>
-                                    <option>Option 2</option>
-                                </select>
-                            </div> */}
-
-                        </div>
-                        {/* <div className="text-center mt-4">
-                            <a href="" className="dark font-weight-bold">
-                                <img className="mr-3"
-                                    //src={require(`../../../assets/image/logo.svg`)} 
-                                    alt="" />ADD MORE</a>
-                        </div> */}
-                    </div>
-                </div>
-                <div className="text-center mt-5 pt-lg-5">
-                    <button className="btn_blue"><span className="">SAVE</span></button>
-                </div>
-            </form >
-        </ModalComponent >
+                        </form >
+                    )}
+            </Formik>
+        </ModalComponent>
     )
 }
 
 export default EmployeeAndLicenseAddBox;
+
