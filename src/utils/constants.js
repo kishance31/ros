@@ -519,7 +519,18 @@ export const EmployeeOrderDetailsList = [
         orderDate: '09/08/2020',
         orderStatus: 'pending',
         dispatchDate: '10/08/2020',
-        deliveryStatus: 'Not Receive'
+        deliveryStatus: 'Not Receive',
+        tableDetails: [{
+            srNo: 1,
+            itemCode: 12345,
+            totalCost: 1000,
+            first3MonthCost: 300
+        }, {
+            srNo: 2,
+            itemCode: 12345,
+            totalCost: 1000,
+            first3MonthCost: 300
+        }]
     },
     {
         srNo: 2,
@@ -530,7 +541,18 @@ export const EmployeeOrderDetailsList = [
         orderDate: '09/08/2020',
         orderStatus: 'pending',
         dispatchDate: '10/08/2020',
-        deliveryStatus: 'Not Receive'
+        deliveryStatus: 'Not Receive',
+        tableDetails: [{
+            srNo: 1,
+            itemCode: 12345,
+            totalCost: 1000,
+            first3MonthCost: 300
+        }, {
+            srNo: 2,
+            itemCode: 12345,
+            totalCost: 1000,
+            first3MonthCost: 300
+        }]
     },
     {
         srNo: 3,
@@ -541,7 +563,35 @@ export const EmployeeOrderDetailsList = [
         orderDate: '09/08/2020',
         orderStatus: 'pending',
         dispatchDate: '10/08/2020',
-        deliveryStatus: 'Not Receive'
+        deliveryStatus: 'Not Receive',
+        tableDetails: [
+            {
+                srNo: 1,
+                itemCode: 12345,
+                totalCost: 1000,
+                first3MonthCost: 300
+            },
+            {
+                srNo: 2,
+                itemCode: 12345,
+                totalCost: 1000,
+                first3MonthCost: 300
+            }
+        ]
+    }
+]
+
+export const EmployeeOrderPaymentDetails = [
+    {
+        employeeName: 'Carol Stewart',
+        orderNo: 12345,
+        totalOrderCost: 1000,
+        itemCost: 400
+    }, {
+        employeeName: 'Carol Stewart',
+        orderNo: 12345,
+        totalOrderCost: 1000,
+        itemCost: 400
     }
 ]
 
