@@ -1,6 +1,26 @@
-import React from "react";
-import { EmployeeOrderDetailsList } from "../../utils/constants";
+import React, { useState } from 'react';
+import EmployeeOrderPaymentBox from '../../components/corporate-panel/employeeOrderDetails/employeeOrderPaymentBox';
+import EmployeeOrderTable from '../../components/corporate-panel/employeeOrderDetails/employeeOrderTable';
+import { EmployeeOrderDetailsList } from '../../utils/constants';
+
 const EmployeeOrderDetails = () => {
+
+  const [visibleConfirmModal, setVisibleConfirmModal] = useState(false);
+
+  const [visibleTable, setVisibleTable] = useState(EmployeeOrderDetailsList);
+
+  const onTable = (event) => {
+    const tableId = event.target.getAttribute('toggle-table-data')
+    setVisibleTable(
+      visibleTable.map(id => {
+        if (id.srNo == tableId) {
+          id.active = !id.active;
+        }
+        return id;
+      })
+    );
+  }
+
   return (
     <>
       <div className="top_bar mb-4 mb-lg-0">
@@ -41,16 +61,22 @@ const EmployeeOrderDetails = () => {
             </div>
           </div>
         </form>
+
         <div className="btn_wrp">
           <button className="btn_pink">Add</button>
-          <button
-            className="btn_blue"
-            data-toggle="modal"
-            data-target="#payment_details_list"
-          >
-            Confirm
-          </button>
+
+          <button className="btn_blue" data-toggle="modal" data-target="#payment_details_list"
+            onClick={() => {
+              setVisibleConfirmModal(true);
+            }}>Confirm</button>
+          <EmployeeOrderPaymentBox
+            isOpen={visibleConfirmModal}
+            toggleModal={() => {
+              setVisibleConfirmModal(!visibleConfirmModal);
+            }}
+          />
         </div>
+
       </div>
 
       <div className="container-fluid">
@@ -74,34 +100,41 @@ const EmployeeOrderDetails = () => {
                 </tr>
               </thead>
               <tbody>
-                {EmployeeOrderDetailsList.map((orderList, index) => (
-                  <tr key={orderList.srNo}>
-                    <td>
-                      <div className="custom_checkbox">
-                        <input type="checkbox" id={orderList.srNo} />
-                        <label htmlFor={orderList.srNo}></label>
-                      </div>
-                    </td>
-                    <td>
-                      <div className="toggle_icon"></div>
-                    </td>
-                    <td>{index + 1}</td>
-                    <td>{orderList.itemCategory}</td>
-                    <td>{orderList.itemName}</td>
-                    <td>${orderList.itemCost}</td>
-                    <td>{orderList.orderNo}</td>
-                    <td>{orderList.orderDate}</td>
-                    <td className="pink">{orderList.orderStatus}</td>
-                    <td>{orderList.dispatchDate}</td>
-                    <td>{orderList.deliveryStatus}</td>
-                    <td className="text-center">
-                      <div className="action_btn_wrap">
-                        <button className="btn_action btn_border">Edit</button>
-                        <button className="btn_action pink">Delete</button>
-                      </div>
-                    </td>
-                  </tr>
-                ))}
+                {
+                  EmployeeOrderDetailsList.map((orderList, index) => (
+                    <>
+                      <tr key={index}>
+                        <td>
+                          <div className="custom_checkbox">
+                            <input type="checkbox" id={orderList.srNo} />
+                            <label htmlFor={orderList.srNo}></label>
+                          </div>
+                        </td>
+                        <td>
+                          <div toggle-table-data={orderList.srNo} className="toggle_icon" onClick={onTable}></div>
+                        </td>
+                        <td>{index + 1}</td>
+                        <td>{orderList.itemCategory}</td>
+                        <td>{orderList.itemName}</td>
+                        <td>${orderList.itemCost}</td>
+                        <td>{orderList.orderNo}</td>
+                        <td>{orderList.orderDate}</td>
+                        <td className="pink">{orderList.orderStatus}</td>
+                        <td>{orderList.dispatchDate}</td>
+                        <td>{orderList.deliveryStatus}</td>
+                        <td className="text-center">
+                          <div className="action_btn_wrap">
+                            <button className="btn_action btn_border">Edit</button>
+                            <button className="btn_action pink">Delete</button>
+                          </div>
+                        </td>
+                      </tr>
+                      {
+                        orderList.active ? <EmployeeOrderTable tableDetails={orderList.tableDetails} /> : null
+                      }
+                    </>
+                  ))
+                }
               </tbody>
             </table>
           </div>
