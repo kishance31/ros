@@ -17,7 +17,10 @@ export const AuthMap = {
     SIGN_OUT: 'sign_out',
     UPDATE_CORPORATE_PROFILE_START: 'UPDATE_CORPORATE_PROFILE_START',
     UPDATE_CORPORATE_PROFILE_SUCCESS: 'UPDATE_CORPORATE_PROFILE_SUCCESS',
-    UPDATE_CORPORATE_PROFILE_ERROR: 'UPDATE_CORPORATE_PROFILE_ERROR'
+    UPDATE_CORPORATE_PROFILE_ERROR: 'UPDATE_CORPORATE_PROFILE_ERROR',
+    UPDATE_EMPLOYEE_PROFILE_START: 'UPDATE_EMPLOYEE_PROFILE_START',
+    UPDATE_EMPLOYEE_PROFILE_SUCCESS: 'UPDATE_EMPLOYEE_PROFILE_SUCCESS',
+    UPDATE_EMPLOYEE_PROFILE_ERROR: 'UPDATE_EMPLOYEE_PROFILE_ERROR'
 }
 
 const AuthModelAction = {
@@ -199,6 +202,39 @@ export const updateUserProfileAsync = (data) => {
             dispatch({
                 type: AuthMap.UPDATE_CORPORATE_PROFILE_ERROR
             });
+        }
+    }
+}
+
+export const UpdateEmployeeProfile = (data) => {
+    return async (dispatch) => {
+        try {
+
+            dispatch({
+                type: AuthMap.UPDATE_EMPLOYEE_PROFILE_START
+            })
+            let updateEmployeeResponse = await apiCall({
+                url: "",
+                headers:{
+                    tokens: ""
+                },
+                data
+            })
+
+            if (updateEmployeeResponse.response.responseCode === 201) {
+                return dispatch({
+                    type: AuthMap.UPDATE_EMPLOYEE_PROFILE_SUCCESS,
+                    payload: ""
+                })
+            }else {
+                dispatch({
+                    type: AuthMap.UPDATE_EMPLOYEE_PROFILE_ERROR
+                });
+            }
+        } catch (error) {
+            dispatch({
+                type: AuthMap.UPDATE_EMPLOYEE_PROFILE_ERROR
+            })
         }
     }
 }

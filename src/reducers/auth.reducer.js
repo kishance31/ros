@@ -180,6 +180,14 @@ const authReducer = (state = initialState, action) => {
                 }
             }
         }
+        case AuthMap.UPDATE_EMPLOYEE_PROFILE_SUCCESS: {
+            return {
+                ...state,
+                user: {
+                    ...action.payload
+                }
+            }
+        }
         default:
             return {
                 ...state,

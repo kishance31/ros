@@ -102,3 +102,10 @@ export const SubtractIcon = React.memo(
             fill="#fff" />
     </svg>
 )
+
+export const AddMoreIcon = React.memo(
+    () => <svg id="Icon_ionic-ios-add-circle-outline" data-name="Icon ionic-ios-add-circle-outline" xmlns="http://www.w3.org/2000/svg" width="20.75" height="20.75" viewBox="0 0 20.75 20.75">
+    <path id="Path_3" data-name="Path 3" d="M20.338,15.026H16.622V11.31a.8.8,0,1,0-1.6,0v3.716H11.31a.764.764,0,0,0-.8.8.773.773,0,0,0,.8.8h3.716v3.716a.773.773,0,0,0,.8.8.794.794,0,0,0,.8-.8V16.622h3.716a.8.8,0,0,0,0-1.6Z" transform="translate(-5.449 -5.449)"/>
+    <path id="Path_4" data-name="Path 4" d="M13.75,4.772A8.975,8.975,0,1,1,7.4,7.4a8.919,8.919,0,0,1,6.35-2.629m0-1.4A10.375,10.375,0,1,0,24.125,13.75,10.373,10.373,0,0,0,13.75,3.375Z" transform="translate(-3.375 -3.375)"/>
+</svg>
+)
