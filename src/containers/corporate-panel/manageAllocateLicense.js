@@ -5,7 +5,7 @@ const ManageAllocateLicense = () => {
 
     const renderPart = () => {
         return(
-            alert('aaaaaa')
+         <h1>ManageAllocateLicense</h1>   
         )
     }
 
