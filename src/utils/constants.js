@@ -648,3 +648,18 @@ export const ProductData = [
         imgPath: 'chair1.png'
     }
 ]
+
+export const DeliveryAddress = [
+    {
+        id: 1,
+        address: "ABC ROAD"
+    },
+    {
+        id: 2,
+        address: "DEF ROAD"
+    },
+    {
+        id: 3,
+        address: "HIJ ROAD"
+    }
+]

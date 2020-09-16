@@ -4,6 +4,10 @@ const initialState = {
 //     user: {token: "1234", _id: "1234", role: "EMPLOYEE"},
     shoppingCart:[],
     openCart: false,
+    modals: {
+        ShowthankYouModal:false,
+        showAdminApprovalModal: false
+    }
 };
 
 const cartReducer = (state = initialState, action) => {
@@ -26,7 +30,37 @@ const cartReducer = (state = initialState, action) => {
         case CartActionMap.TOGGLE_CART: {
             return {
                 ...state,
+                openCart: !state.openCart
+            }
+        }
+        case CartActionMap.OPEN_ADDRESS_MODAL: {
+            return {
+                ...state,
                 openCart: !state.openCart,
+                modals: {
+                    ShowthankYouModal:true,
+                    showAdminApprovalModal: false
+                }
+            }
+        }
+        case CartActionMap.CLOSE_ADDRESS_MODAL: {
+            return {
+                ...state,
+                openCart: false,
+                modals: {
+                    ShowthankYouModal:false,
+                    showAdminApprovalModal: true
+                }
+            }
+        }
+        case CartActionMap.CLOSE_ALL_MODAL: {
+            return {
+                ...state,
+                openCart: false,
+                modals: {
+                    ShowthankYouModal:false,
+                    showAdminApprovalModal: false
+                }
             }
         }
         default:
