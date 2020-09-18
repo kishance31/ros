@@ -1,4 +1,3 @@
-import axios from 'axios';
 import notificationActions from './notifications.action';
 import getServerCore from '../utils/apiUtils';
 
@@ -253,10 +252,14 @@ export const setPasswordAsync = (data) => {
             })
             console.log(setPasswordResponse)
             if (setPasswordResponse.response.responseCode === 200) {
+                if(setPasswordResponse.response.userProfile.user.isFirstLogin){
+                    dispatch(AuthModelAction.toggleAuthModals(AuthMap.TOGGLE_SIGN_IN_MODAL, "Sign In With"));
+                }else {
+                
                 dispatch(AuthModelAction.signInUser({
                     ...setPasswordResponse.response.userProfile.user,
                     tokens: setPasswordResponse.response.userProfile.tokens
-                }))
+                }))}
             }
         } catch (error) {
 
