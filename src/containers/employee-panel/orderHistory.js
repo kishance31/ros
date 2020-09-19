@@ -44,8 +44,8 @@ const OrderHistory = () => {
                   0
                 );
                 return (
-                  <>
-                    <tr key={index}>
+                  <React.Fragment key={index}>
+                    <tr>
                       <td>
                         <div className='custom_checkbox'>
                           <input type='checkbox' id={orderList.srNo} />
@@ -73,7 +73,7 @@ const OrderHistory = () => {
                         tableDetails={orderList.tableDetails}
                       />
                     ) : null}
-                  </>
+                  </React.Fragment>
                 );
               })}
             </tbody>
