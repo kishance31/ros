@@ -1,13 +1,15 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import ModalComponent from '../../components/modal/modal';
 import { MetroCancelIcon } from '../../components/icons/Icons';
-
+import cartActions, { CartActionMap } from '../../actions/cart.action';
 const CartModal = (props) => {
     const { toggleModal, isOpen } = props;
-
+    const dispatch = useDispatch();
     const shoppingCartList = useSelector(state => state.cart.shoppingCart);
-
+    const redirectToThankYou = () => (
+            dispatch(cartActions.toggleAddressModal(CartActionMap.OPEN_ADDRESS_MODAL))
+    )
     const ModalCloseIcon = () => (
         <button type="button" className="close close_icon ml-auto" aria-label="Close" onClick={toggleModal}>
             <span aria-hidden="true">
@@ -16,6 +18,7 @@ const CartModal = (props) => {
         </button>
     );
     return (
+        <>
         <ModalComponent
             isOpen={isOpen}
             toggleModal={toggleModal}
@@ -99,7 +102,7 @@ const CartModal = (props) => {
                                                     }
                                                 </tbody>
                                             </table>
-                                            <button className="btn btn-sm modal-fill_btn_confirm_order ">
+                                            <button className="btn btn-sm modal-fill_btn_confirm_order" onClick={redirectToThankYou}>
                                                 <span className="">confirm Order</span>
                                             </button>
                                         </div>
@@ -111,6 +114,7 @@ const CartModal = (props) => {
 
             </div>
         </ModalComponent>
+        </>
     )
 }
 
