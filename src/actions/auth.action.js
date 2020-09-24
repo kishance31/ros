@@ -55,7 +55,7 @@ export const signUpUserAsync = (user) => {
 
             let signuprespone = await apiCall({
                 url: `${corporateUrl}/register`,
-                body: user,
+                data: user,
                 headers: { "Content-Type": "multipart/form-data" },
                 method: 'POST'
             });
