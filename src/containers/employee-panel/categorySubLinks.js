@@ -15,14 +15,14 @@ const CategorySubLinks = (props) => {
     const [showSubLink, setShowSubLink] = useState(false);
 
     return (
-        <div className="card" data-id={items.cardId}>
+        <div className="card" data-id={items.cardId} key={items._id}>
             {
                 items.subCards ?
                     (
-                        <div className="categories-header" onClick={() => setShowSubLink(!showSubLink)}>
+                        <div key={items._id} className="categories-header" onClick={() => setShowSubLink(!showSubLink)}>
                             <h2 className="mb-0">
                                 <span className="categories_name" type="button" >
-                                    {items.cardTitle}
+                                    {items.category_name}
                                     <span className="categories_plus_icon">
                                         <SubtractIcon />
                                     </span>
@@ -31,11 +31,11 @@ const CategorySubLinks = (props) => {
                         </div>
                     ) :
                     (
-                        <div className="categories-header">
+                        <div key={items._id} className="categories-header">
                             <h2 className="mb-0">
-                                <NavLink to={`${exactPath}${items.link}`} onClick={() => props.setDefaultCategory(items.link)}>
+                                <NavLink to={`${exactPath}${items.link || "/"}`} onClick={() => props.setDefaultCategory(items.link)}>
                                     <span className="categories_name" type="button" >
-                                        {items.cardTitle}
+                                        {items.category_name}
                                     </span>
                                 </NavLink>
                             </h2>
