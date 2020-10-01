@@ -1,16 +1,16 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { CoporateMyAccountTabs } from '../../utils/constants';
 import MyProfile from './myProfile';
 import LicenseOrderHistory from './licenseOrderHistory';
 import BranchManagement from './branchManagement';
-import { useDispatch, useSelector } from 'react-redux';
-import {BranchListAction} from '../../actions/branchList.action';
-import {BranchListMap} from '../../actions/branchList.action';
+import { BranchListAction } from '../../actions/branchList.action';
+import { BranchListMap } from '../../actions/branchList.action';
 import BranchDataModal from '../corporate-panel/branchDataModal';
 const MyAccountTabs = (props) => {
-    
+
     const dispatch = useDispatch();
-    
+
     const isOpen = useSelector(state => state.branchList.branchModals.modalState);
 
     const onAddData = () => {
@@ -46,6 +46,7 @@ const MyAccountTabs = (props) => {
 const MyAccount = () => {
 
     const [tabList, setTabList] = useState(CoporateMyAccountTabs);
+    const userStatus = useSelector(state => state.auth.user.status);
 
     const onTabChange = (event) => {
         let dataId = event.target.getAttribute("data-id");
@@ -66,19 +67,51 @@ const MyAccount = () => {
     }
 
     return (
-        <div className="my_account">
+        <div className={`my_account ${userStatus !== "APPROVED" ? "onlyProfile" : ""}`}>
             <div className="container-fluid">
                 <div className="shadow_box">
-                    <MyAccountTabs tabs={tabList} onTabChange={onTabChange} />
+                    {
+                        userStatus === "APPROVED" ?
+                            < MyAccountTabs tabs={tabList} onTabChange={onTabChange} /> :
+                            (
+                                <div>
+                                    {
+                                        userStatus === "PENDING" ?
+                                            <p>
+                                                Your Account is in &nbsp; <strong>{userStatus.toUpperCase()}</strong> &nbsp; stage. <br />
+                                                Once admin approve your account you will be able to access all the features. <br />
+                                                For now you can update your profile and the submitted document.<br />
+                                            </p> : null
+                                    }
+                                    {
+                                        userStatus === "REJECTED" ?
+                                            <p>
+                                                Your Account is &nbsp; <strong>{userStatus.toUpperCase()}</strong> &nbsp; by admin. <br />
+                                                Update your profile and the submitted document.<br />
+                                                Once admin approve your account you will be able to access all the features. <br />
+                                            </p> : null
+                                    }
+                                </div>
+                            )
+                    }
                     <div className="tab-content" id="nav-tabContent" role="tabpanel" aria-labelledby="">
                         {
-                            getCurrentTab().dataId === "myProfile" ? <MyProfile /> : null
-                        }
-                        {
-                            getCurrentTab().dataId === "licenseOrderHistory" ? <LicenseOrderHistory /> : null
-                        }
-                        {
-                            getCurrentTab().dataId === "branchManagement" ? <BranchManagement /> : null
+                            userStatus === "APPROVED" ? (
+                                <>
+                                    {
+                                        getCurrentTab().dataId === "myProfile" ? <MyProfile /> : null
+                                    }
+                                    {
+                                        getCurrentTab().dataId === "licenseOrderHistory" ? <LicenseOrderHistory /> : null
+                                    }
+                                    {
+                                        getCurrentTab().dataId === "branchManagement" ? <BranchManagement /> : null
+                                    }
+                                </>
+                            ) :
+                                (
+                                    <MyProfile />
+                            )
                         }
                     </div>
                 </div>
