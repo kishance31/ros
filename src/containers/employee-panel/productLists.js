@@ -1,22 +1,21 @@
 import React from 'react';
 
-
 const ProductsListContianer = (props) => {
 
-    const {productsList, setViewProduct} = props
+    const { productList, productsList, setViewProduct } = props;
 
     return (
         <>
             {
-                productsList && productsList.map((products, index) =>
+                productsList && productsList.map((index) =>
                     <div key={index} className={`row${index > 0 ? " pt_80" : ""}`}>
                         {
-                            products.map(prod =>
-                                <div key={prod.productId} className="col-lg-3 col-md-6 col-sm-12 products ">
+                            productList.map(prod =>
+                                <div key={prod._id} className="col-lg-3 col-md-6 col-sm-12 products ">
                                     <div className="product_image">
-                                        <img src={require(`../../assets/images/${prod.image}`)} className="img-fluid" alt="product_img" />
-                                        <h6 className="product_first_title">{prod.title}</h6>
-                                        <button 
+                                        <img src={prod.product_image} className="img-fluid" alt="product_img" />
+                                        <h6 className="product_first_title">{prod.product_name}</h6>
+                                        <button
                                             className="modal-fill_btn_view_product btn btn-sm"
                                             type="button"
                                             onClick={() => setViewProduct(prod)}

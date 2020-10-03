@@ -1,29 +1,29 @@
 import { ItemListingMap } from '../actions/itemListing.action';
 
 const initialState = {
-    saveCategory: [],
     categoryList: [],
-    saveSubCategory: []
+    productList: [],
+    getProductById: [],
 }
 
 const itemListingReducer = (state = initialState, action) => {
     switch (action.type) {
-        case ItemListingMap.SAVE_CATEGORY_SUCCESS: {
-            return {
-                ...state,
-                saveCategory: action.payload
-            }
-        }
         case ItemListingMap.CATEGORY_LIST_SUCCESS: {
             return {
                 ...state,
                 categoryList: action.payload
             }
         }
-        case ItemListingMap.SAVE_SUBCATEGORY_SUCCESS: {
+        case ItemListingMap.PRODUCT_LIST_SUCCESS: {
             return {
                 ...state,
-                saveSubCategory: action.payload
+                productList: action.payload
+            }
+        }
+        case ItemListingMap.GET_PRODUCT_BYID_SUCCESS: {
+            return {
+                ...state,
+                getProductById: action.payload
             }
         }
         default:

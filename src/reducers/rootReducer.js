@@ -28,7 +28,7 @@ const createRootReducer = () => {
             myProfile: myProfileReducer,
             branchList: branchListReducer,
             employeeAndLicense: employeeAndLicenseReducer,
-            itemListing:itemListingReducer
+            itemListing:itemListingReducer,
         }
     )
 };

@@ -1,51 +1,15 @@
 import axios from 'axios';
 
 export const ItemListingMap = {
-    SAVE_CATEGORY_START: 'SAVE_CATEGORY_START',
-    SAVE_CATEGORY_SUCCESS: 'SAVE_CATEGORY_SUCCESS',
-    SAVE_CATEGORY_ERROR: 'SAVE_CATEGORY_ERROR',
     CATEGORY_LIST_START: 'CATEGORY_LIST_START',
     CATEGORY_LIST_SUCCESS: 'CATEGORY_LIST_SUCCESS',
     CATEGORY_LIST_ERROR: 'CATEGORY_LIST_ERROR',
-    SAVE_SUBCATEGORY_START: 'SAVE_SUBCATEGORY_START ',
-    SAVE_SUBCATEGORY_SUCCESS: 'SAVE_SUBCATEGORY_SUCCESS ',
-    SAVE_SUBCATEGORY_ERROR: 'SAVE_SUBCATEGORY_ERROR ',
-}
-
-export const itemListingAction = {
-
-}
-
-export const saveCategoryAsync = (tokens, category_name, status) => {
-    return async (dispatch) => {
-        try {
-            dispatch({
-                type: ItemListingMap.SAVE_CATEGORY_START
-            });
-            let saveCategoryResponse = await axios({
-                url: `http://127.0.0.1:4000/api/corporate-admin/category/saveCategory`,
-                method: 'POST',
-                headers: {
-                    tokens
-                },
-                data: {
-                    category_name, status
-                }
-            });
-            console.log("::::::::", saveCategoryResponse);
-            if (saveCategoryResponse.data.response.responseCode === 200) {
-                dispatch({
-                    type: ItemListingMap.SAVE_CATEGORY_SUCCESS,
-                    //payload: saveCategoryResponse
-                })
-            }
-        }
-        catch (error) {
-            dispatch({
-                type: ItemListingMap.SAVE_CATEGORY_ERROR
-            })
-        }
-    }
+    PRODUCT_LIST_START: 'PRODUCT_LIST_START',
+    PRODUCT_LIST_SUCCESS: 'PRODUCT_LIST_SUCCESS',
+    PRODUCT_LIST_ERROR: 'PRODUCT_LIST_ERROR',
+    GET_PRODUCT_BYID_START: 'GET_PRODUCT_BYID_START',
+    GET_PRODUCT_BYID_SUCCESS: 'GET_PRODUCT_BYID_SUCCESS',
+    GET_PRODUCT_BYID_ERROR: 'GET_PRODUCT_BYID_ERROR'
 }
 
 export const categoryListAsync = (tokens) => {
@@ -55,11 +19,11 @@ export const categoryListAsync = (tokens) => {
                 type: ItemListingMap.CATEGORY_LIST_START
             });
             let categoryListResponse = await axios({
-                url: `http://127.0.0.1:4000/api/corporate-admin/category/getCategoryList`,
+                url: `http://127.0.0.1:4000/api/corporate-admin/category/getCategoryWithSubCategory`,
                 method: 'GET',
                 headers: {
                     tokens
-                },
+                }
             });
             if (categoryListResponse.data.response.responseCode === 200) {
                 dispatch({
@@ -76,33 +40,59 @@ export const categoryListAsync = (tokens) => {
     }
 }
 
-export const saveSubCategoryAsync = (category_id, subcategory_name, tokens) => {
+export const productListAsync = (tokens, data) => {
     return async (dispatch) => {
         try {
             dispatch({
-                type: ItemListingMap.SAVE_SUBCATEGORY_START
+                type: ItemListingMap.PRODUCT_LIST_START
             });
-            let saveSubCategoryResponse = await axios({
-                url: `http://127.0.0.1:4000/api/corporate-admin/sub-category/saveSubCategory`,
+            let productListResponse = await axios({
+                url: `http://127.0.0.1:4000/api/corporate-admin/product/getProductList`,
                 method: 'POST',
                 headers: {
+                    'Content-type': 'application/json',
                     tokens
                 },
-                data: {
-                    category_id, subcategory_name
-                }
+                data: data
             });
-            console.log("::::::::", saveSubCategoryResponse);
-            if (saveSubCategoryResponse.data.response.responseCode === 200) {
+            if (productListResponse.data.response.responseCode === 200) {
                 dispatch({
-                    type: ItemListingMap.SAVE_SUBCATEGORY_SUCCESS,
-                    //payload: saveSubCategoryResponse
+                    type: ItemListingMap.PRODUCT_LIST_SUCCESS,
+                    payload: productListResponse.data.response.data
                 })
             }
         }
         catch (error) {
             dispatch({
-                type: ItemListingMap.SAVE_SUBCATEGORY_ERROR
+                type: ItemListingMap.PRODUCT_LIST_ERROR
+            })
+        }
+    }
+}
+
+export const getProductByIdAsync = (tokens, id) => {
+    return async (dispatch) => {
+        try {
+            dispatch({
+                type: ItemListingMap.PRODUCT_LIST_START
+            });
+            let getProductByIdResponse = await axios({
+                url: `http://127.0.0.1:4000/api/corporate-admin/product/getProductById/${id}`,
+                method: 'GET',
+                headers: {
+                    tokens
+                }
+            });
+            if (getProductByIdResponse.data.response.responseCode === 200) {
+                dispatch({
+                    type: ItemListingMap.PRODUCT_LIST_SUCCESS,
+                    // payload: getProductByIdResponse
+                })
+            }
+        }
+        catch (error) {
+            dispatch({
+                type: ItemListingMap.PRODUCT_LIST_ERROR
             })
         }
     }
