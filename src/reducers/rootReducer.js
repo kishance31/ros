@@ -8,6 +8,7 @@ import cartReducer from './cart.reducer';
 import myProfileReducer from './myprofile.reducer';
 import branchListReducer from './branchList.reducer';
 import employeeAndLicenseReducer from './employeeAndLicense.reducer';
+import itemListingReducer from './itemListing.reducer';
 
 const createRootReducer = () => {
 
@@ -27,6 +28,7 @@ const createRootReducer = () => {
             myProfile: myProfileReducer,
             branchList: branchListReducer,
             employeeAndLicense: employeeAndLicenseReducer,
+            itemListing:itemListingReducer,
         }
     )
 };
