@@ -5,7 +5,6 @@ import LicenseOrderHistory from './licenseOrderHistory';
 import BranchManagement from './branchManagement';
 import { useDispatch, useSelector } from 'react-redux';
 import {BranchListAction} from '../../actions/branchList.action';
-import {BranchListMap} from '../../actions/branchList.action';
 import BranchDataModal from '../corporate-panel/branchDataModal';
 const MyAccountTabs = (props) => {
     

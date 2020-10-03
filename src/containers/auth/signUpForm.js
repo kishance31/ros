@@ -192,7 +192,7 @@ const SignUpForm = () => {
             <div className="modal-footer">
                 <h5 className="footer_title"> Already have an account!</h5>
                 <span className="navbar-text">
-                    <a onClick={navigateToSignIn} href="#">SIGN IN</a>
+                    <a href onClick={navigateToSignIn}>SIGN IN</a>
                 </span>
             </div>
         </>

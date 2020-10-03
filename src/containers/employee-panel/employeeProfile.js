@@ -1,10 +1,10 @@
 import React from 'react';
-import { useSelector, useDispatch } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { Formik } from 'formik';
 import DoubleErrorMessage from '../../components/inputFields/inputErrorMessage';
 import { AddMoreIcon } from '../../components/icons/Icons';
 const EmployeeProfile = () => {
-    const dispatch = useDispatch();
+
     const user = useSelector(state => state.auth.user);
     const username = useSelector(state => state.auth.user.firstName)
     const licenceType = useSelector(state => state.auth.user.licenseType)

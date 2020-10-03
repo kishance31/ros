@@ -34,7 +34,7 @@ const EmployeeAndLicenseAddBox = (props) => {
         // data.set("city",values.city)
         // data.set("state",values.state)
         // data.set("country",values.country)
-        if (popupType == "add") {
+        if (popupType === "add") {
             dispatch(employeeAndLicenseAddAsync(data));
         }
         if (popupType === "edit") {

@@ -13,7 +13,7 @@ const EmployeeOrderDetails = () => {
     const tableId = event.target.getAttribute('toggle-table-data')
     setVisibleTable(
       visibleTable.map(id => {
-        if (id.srNo == tableId) {
+        if (id.srNo === tableId) {
           id.active = !id.active;
         }
         return id;

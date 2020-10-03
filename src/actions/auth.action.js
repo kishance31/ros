@@ -149,7 +149,7 @@ export const signOutUserAsync = (tokens, role) => {
         try {
             console.log(role)
             const signOutUser = await apiCall({
-                url: corporateUrl + (role.indexOf('EMPLOYEE') != -1 ? "/employee" : "") + "/logout",
+                url: corporateUrl + (role.indexOf('EMPLOYEE') !== -1 ? "/employee" : "") + "/logout",
                 method: 'GET',
                 headers: { tokens }
             })

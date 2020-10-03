@@ -1,6 +1,5 @@
 
 import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { AuthMap, signInUserAsync } from '../../actions/auth.action';
 import DoubleInputField from '../../components/inputFields/doubleInputField';
@@ -44,7 +43,7 @@ const Corporate = (props) => {
             <span className="navbar-text"> <a href="/#" onClick={redirectToForgotPassword}>FORGOT PASSWORD</a> </span>
             <div className="modal-footer">
                 <h5 className="footer_title"> Don't have an account yet? </h5>
-                <a onClick={navigateToSignUp}><span className="navbar-text" >SIGN UP</span></a>
+                <a href onClick={navigateToSignUp}><span className="navbar-text" >SIGN UP</span></a>
             </div>
         </div>
     )
@@ -131,7 +130,7 @@ const SignInForm = (props) => {
         <>
             <nav className="tab row">
                 <div className="nav nav-tabs" id="nav-tab" role="tablist">
-                    <a className={`nav-item nav-link ${tabName === "corporate" ? "active" : ""}`}
+                    <a href className={`nav-item nav-link ${tabName === "corporate" ? "active" : ""}`}
                         id="tab1 nav-tabs" role="tab" aria-controls="tab1" aria-selected="false"
                         onClick={() => {
                             setTabName('corporate');
@@ -140,7 +139,7 @@ const SignInForm = (props) => {
                     >
                         CORPORATE
                     </a>
-                    <a className={`nav-item nav-link ${tabName === "employee" ? "active" : ""}`} id="tab2 nav-tabs" role="tab"
+                    <a href className={`nav-item nav-link ${tabName === "employee" ? "active" : ""}`} id="tab2 nav-tabs" role="tab"
                         aria-controls="tab2" aria-selected="true"
                         onClick={() => {
                             setTabName('employee');
