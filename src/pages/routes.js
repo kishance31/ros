@@ -38,7 +38,7 @@ const Routes = () => {
                 user.tokens && user.role && user._id ?
                     <Redirect
                         to={
-                            user.role.indexOf('CORPORATE') !== -1 ? "/corporate" :
+                            user.role.indexOf('CORPORATE') !== -1 ? "/corporate/purchaseLicense" :
                                 user.role.indexOf('EMPLOYEE') !== -1 && user.setFirstProfile ? "/setProfile" : '/employee' 
                         }
                     /> : null

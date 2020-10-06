@@ -54,12 +54,12 @@ export const signUpUserAsync = (user) => {
 
             let signuprespone = await apiCall({
                 url: `${corporateUrl}/register`,
-                body: user,
+                data: user,
                 headers: { "Content-Type": "multipart/form-data" },
                 method: 'POST'
             });
 
-            if (signuprespone.response.responseCode === 201) {
+            if (signuprespone.response && signuprespone.response.responseCode === 201) {
                 return dispatch({
                     type: AuthMap.SIGN_UP_SUCCESS
                 })
@@ -67,8 +67,16 @@ export const signUpUserAsync = (user) => {
             dispatch({
                 type: AuthMap.SIGN_UP_ERROR
             })
+            if(signuprespone.error) {
+                return dispatch(notificationActions.showNotification({
+                    title: 'Sign Up',
+                    message: signuprespone.error.errors[0].message,
+                    // duration: 5000,
+                }));
+            }
+            
             dispatch(notificationActions.showNotification({
-                title: 'Login In',
+                title: 'Sign Up',
                 message: signuprespone.response.responseMessage,
                 // duration: 5000,
             }));
@@ -105,9 +113,9 @@ export const signInUserAsync = (userBody, type) => {
                 data: userBody
             });
 
-            if (signInResponce.response.responseCode === 200) {
+            if (signInResponce.response && signInResponce.response.responseCode === 200) {
                 const { user, tokens } = signInResponce.response.userProfile;
-                if (user.isFirstLogin) {
+                if (user.isFirstLogin && user.role === "EMPLOYEE") {
                     dispatch(AuthModelAction.toggleAuthModals(
                         AuthMap.TOGGLE_SET_PASSWORD_MODAL,
                         "Set Your Password",
@@ -123,6 +131,13 @@ export const signInUserAsync = (userBody, type) => {
                 dispatch({
                     type: AuthMap.SIGN_IN_ERROR
                 });
+                if(signInResponce.error) {
+                    return dispatch(notificationActions.showNotification({
+                        title: 'Login In',
+                        message: signInResponce.error.errors[0].message,
+                        // duration: 5000,
+                    }));
+                }
                 dispatch(notificationActions.showNotification({
                     title: 'Login In',
                     message: signInResponce.response.responseMessage,

@@ -1,5 +1,6 @@
 import React from 'react';
-import { Switch, Route, useRouteMatch } from 'react-router-dom';
+import { useSelector, shallowEqual } from 'react-redux';
+import { Switch, Route, useRouteMatch, Redirect } from 'react-router-dom';
 import CorporateLinksContainer from '../../containers/corporate-panel/corporateLinks';
 import PurchaseLicense from '../../containers/corporate-panel/purchaseLicense';
 import EmployeeLicenseManagement from '../../containers/corporate-panel/employeeLicenseMangement';
@@ -12,22 +13,43 @@ import ProductView from '../../containers/corporate-panel/productView';
 const CorporateDashboard = () => {
     const routeMatch = useRouteMatch();
     const { path } = routeMatch;
-    
+    const user = useSelector(state => state.auth.user, shallowEqual);
+
     return (
         <div className="side_space">
-            <CorporateLinksContainer />
+            {
+                user.status === "APPROVED" ?
+                    <CorporateLinksContainer /> : null
+            }
             <Switch>
-                <Route exact path={`${path}`} component={PurchaseLicense} />
-                <Route path={`${path}/purchaseLicense`} component={PurchaseLicense} />
-                <Route path={`${path}/employeeLicenseManagement`} component={EmployeeLicenseManagement} />
-                <Route path={`${path}/manageAllocateLicense`} component={ManageAllocateLicense} />
-                <Route path={`${path}/employeeOrderDetails`} component={EmployeeOrderDetails} />
-                <Route path={`${path}/invoice`} component={Invoice} />
-                <Route path={`${path}/myAccount`} component={MyAccount} />
-                <Route path={`${path}/productView`} component={ProductView} />
+                {/* <PrivateRoute exact path={`${path}`} component={PurchaseLicense} user={user} /> */}
+                <PrivateRoute path={`${path}/purchaseLicense`} component={PurchaseLicense} user={user} />
+                <PrivateRoute path={`${path}/employeeLicenseManagement`} component={EmployeeLicenseManagement} user={user} />
+                <PrivateRoute path={`${path}/manageAllocateLicense`} component={ManageAllocateLicense} user={user} />
+                <PrivateRoute path={`${path}/employeeOrderDetails`} component={EmployeeOrderDetails} user={user} />
+                <PrivateRoute path={`${path}/invoice`} component={Invoice} user={user} />
+                <Route path={`${path}/myAccount`} component={MyAccount} user={user} />
+                <PrivateRoute path={`${path}/productView`} component={ProductView} user={user} />
             </Switch>
         </div>
     )
 }
+
+const PrivateRoute = ({ component: Component, ...rest }) => (
+    <Route
+        {...rest}
+        render={props =>
+            rest.user.status === "APPROVED" ? (
+                <Component {...props} />
+            ) : (
+                    <Redirect
+                        to={{
+                            pathname: "/corporate/myAccount"
+                        }}
+                    />
+                )
+        }
+    />
+);
 
 export default CorporateDashboard;
