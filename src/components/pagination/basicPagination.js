@@ -34,7 +34,7 @@ const BasicPagination = (props) => {
     }, [startIndex]);
 
     const onNextClick = () => {
-        if (batch == totalPages) {
+        if (batch === totalPages) {
             return;
         }
         let nextIndex = batch + 1;

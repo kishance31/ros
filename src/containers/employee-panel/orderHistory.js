@@ -1,5 +1,4 @@
-import React, { Fragment, useState } from 'react';
-
+import React, { useState } from 'react';
 import { EmployeeOrderHistoryList } from '../../utils/constants';
 import EmployeeOrderTable from '../../components/employee-panel/employeeOrderDetails/employeeOrderTable';
 
@@ -10,7 +9,7 @@ const OrderHistory = () => {
     const tableId = event.target.getAttribute('toggle-table-data');
     setVisibleTable(
       visibleTable.map((id) => {
-        if (id.srNo == tableId) {
+        if (id.srNo === tableId) {
           id.active = !id.active;
         }
         return id;

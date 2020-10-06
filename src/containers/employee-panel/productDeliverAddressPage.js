@@ -3,14 +3,18 @@ import { useDispatch } from 'react-redux'
 import ModalComponent from '../../components/modal/modal';
 import { MetroCancelIcon } from '../../components/icons/Icons';
 import cartActions, { CartActionMap } from '../../actions/cart.action';
-import { AddMoreIcon } from '../../components/icons/Icons'
-import { DeliveryAddress } from '../../utils/constants'
+import { AddMoreIcon } from '../../components/icons/Icons';
+import { DeliveryAddress } from '../../utils/constants';
+import { updateOrderAsync } from '../../actions/itemListing.action'
 const ProductDeliverAddressPage = (props) => {
-    const { toggleModal, isOpen } = props;
+    const { toggleModal, isOpen, tokens } = props;
     const dispatch = useDispatch();
+
     const onClickPlaceOrder = () => {
+        dispatch(updateOrderAsync(tokens))
         dispatch(cartActions.toggleAddressModal(CartActionMap.CLOSE_ADDRESS_MODAL))
     }
+
     const ModalCloseIcon = () => (
         <button type="button" className="close close_icon ml-auto" aria-label="Close" onClick={toggleModal}>
             <span aria-hidden="true">
@@ -68,7 +72,8 @@ const ProductDeliverAddressPage = (props) => {
                                             <div className="addmore" type="button">
                                                 <AddMoreIcon />
                                                 <span className="pl-2">ADD MORE</span>
-                                                <button type="button" className="modal-fill_btn_confirm_order btn btn-sm" onClick={onClickPlaceOrder}>place order</button>
+                                                <button type="button" className="modal-fill_btn_confirm_order btn btn-sm"
+                                                    onClick={onClickPlaceOrder}>place order</button>
                                             </div>
                                         </div>
                                     </div>

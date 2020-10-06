@@ -5,7 +5,6 @@ import MyProfile from './myProfile';
 import LicenseOrderHistory from './licenseOrderHistory';
 import BranchManagement from './branchManagement';
 import { BranchListAction } from '../../actions/branchList.action';
-import { BranchListMap } from '../../actions/branchList.action';
 import BranchDataModal from '../corporate-panel/branchDataModal';
 const MyAccountTabs = (props) => {
 

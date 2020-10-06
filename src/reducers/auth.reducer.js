@@ -1,5 +1,4 @@
 import { AuthMap } from '../actions/auth.action';
-import { act } from 'react-dom/test-utils';
 
 const initialState = {
     modals: {
