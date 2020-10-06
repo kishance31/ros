@@ -4,6 +4,9 @@ const initialState = {
     categoryList: [],
     productList: [],
     getProductById: [],
+    getCartByEmployeeId: [],
+    placeOrder: [],
+    updateOrder: []
 }
 
 const itemListingReducer = (state = initialState, action) => {
@@ -20,10 +23,22 @@ const itemListingReducer = (state = initialState, action) => {
                 productList: action.payload
             }
         }
-        case ItemListingMap.GET_PRODUCT_BYID_SUCCESS: {
+        case ItemListingMap.GET_CARTBY_EMPLOYEE_ID_SUCCESS: {
             return {
                 ...state,
-                getProductById: action.payload
+                getCartByEmployeeId: [...action.payload]
+            }
+        }
+        case ItemListingMap.PLACE_ORDER_SUCCESS: {
+            return {
+                ...state,
+                placeOrder: action.payload
+            }
+        }
+        case ItemListingMap.UPDATE_ORDER_SUCCESS: {
+            return {
+                ...state,
+                updateOrder: action.payload
             }
         }
         default:

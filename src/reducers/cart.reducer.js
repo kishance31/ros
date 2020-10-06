@@ -1,30 +1,32 @@
 import { CartActionMap } from '../actions/cart.action';
 
 const initialState = {
-//     user: {token: "1234", _id: "1234", role: "EMPLOYEE"},
-    shoppingCart:[],
+    //     user: {token: "1234", _id: "1234", role: "EMPLOYEE"},
+    shoppingCart: [],
     openCart: false,
     modals: {
-        ShowthankYouModal:false,
+        ShowthankYouModal: false,
         showAdminApprovalModal: false
-    }
+    },
+    addToCart: [],
+    removeToCart: []
 };
 
 const cartReducer = (state = initialState, action) => {
-    switch(action.type) {
+    switch (action.type) {
         case CartActionMap.ADD_TO_CART: {
             return {
                 ...state,
                 shoppingCart: [
                     ...state.shoppingCart,
-                    {...action.payload},
+                    { ...action.payload },
                 ]
             }
         }
         case CartActionMap.REMOVE_FROM_CART: {
             return {
                 ...state,
-                shoppingCart: [...state.filter(product => product.productId !== action.payload.productId)],
+                shoppingCart: [...state.filter(product => product._id !== action.payload._id)],
             }
         }
         case CartActionMap.TOGGLE_CART: {
@@ -38,7 +40,7 @@ const cartReducer = (state = initialState, action) => {
                 ...state,
                 openCart: !state.openCart,
                 modals: {
-                    ShowthankYouModal:true,
+                    ShowthankYouModal: true,
                     showAdminApprovalModal: false
                 }
             }
@@ -48,7 +50,7 @@ const cartReducer = (state = initialState, action) => {
                 ...state,
                 openCart: false,
                 modals: {
-                    ShowthankYouModal:false,
+                    ShowthankYouModal: false,
                     showAdminApprovalModal: true
                 }
             }
@@ -58,13 +60,24 @@ const cartReducer = (state = initialState, action) => {
                 ...state,
                 openCart: false,
                 modals: {
-                    ShowthankYouModal:false,
+                    ShowthankYouModal: false,
                     showAdminApprovalModal: false
                 }
             }
+        } case CartActionMap.ADD_TO_CART_SUCCESS: {
+            return {
+                ...state,
+                addToCart: [...action.payload]
+            }
+        }
+        case CartActionMap.REMOVE_FROM_CART_BYID_SUCCESS: {
+            return {
+                ...state,
+                removeToCart: action.payload
+            }
         }
         default:
-            return {...state}
+            return { ...state }
     }
 }
 

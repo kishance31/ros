@@ -3,6 +3,7 @@ import ModalComponent from '../../components/modal/modal';
 import { MetroCancelIcon } from '../../components/icons/Icons';
 
 const ProductModal = (props) => {
+
     const { toggleModal, isOpen, productDetails, addToCart } = props;
 
     const ModalCloseIcon = () => (
@@ -28,8 +29,8 @@ const ProductModal = (props) => {
                     <div className="product_shadow">
                         <div className="product_detail_image">
                             {
-                                productDetails.image ? 
-                                <img src={require(`../../assets/images/${productDetails.image}`)} className="img-fluid" alt="product_image" /> : null
+                                productDetails.image ?
+                                    <img src={require(`../../assets/images/${productDetails.image}`)} className="img-fluid" alt="product_image" /> : null
                             }
                         </div>
                     </div>

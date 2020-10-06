@@ -8,7 +8,7 @@ import cartActions from '../../actions/cart.action';
 import CartModal from './cartModal';
 import ProductDeliverAddressPage from '../employee-panel/productDeliverAddressPage';
 import { ProductsList } from '../../utils/constants';
-import { CartActionMap } from '../../actions/cart.action';
+import { CartActionMap, addToCartAsync } from '../../actions/cart.action';
 import ProductDispatchMessagePage from '../employee-panel/productDispatchMessagePage'
 import { categoryListAsync, productListAsync } from '../../actions/itemListing.action'
 
@@ -16,9 +16,7 @@ const ItemListingContianer = (props) => {
 
     const [viewProduct, setViewProduct] = useState({ title: "", description: "", image: "" });
     const [openProductModal, setOpenProductModal] = useState(false);
-
     const { productCategory } = useParams();
-
     const tokens = useSelector(state => state.auth.user.tokens)
     const isOpenCart = useSelector(state => state.cart.openCart);
     const isOpenThankYouModal = useSelector(state => state.cart.modals.ShowthankYouModal);
@@ -31,11 +29,9 @@ const ItemListingContianer = (props) => {
         dispatch(categoryListAsync(tokens))
     }, [])
 
-
     useEffect(() => {
         dispatch(productListAsync(tokens))
     }, [])
-
 
     const viewProductDetails = (productId) => {
         setViewProduct(productId);
@@ -45,16 +41,24 @@ const ItemListingContianer = (props) => {
     const addToCart = (productDetails) => {
         dispatch(cartActions.addToCart(productDetails));
         setOpenProductModal(false);
+        dispatch(addToCartAsync(tokens));
     }
 
     return (
         <div className="container-fluid">
             <div className="row">
                 <div className="col-xl-3 col-lg-12">
-                    <CategoryLinks setDefaultCategory={props.setDefaultCategory} categoryList={categoryList} />
+                    <CategoryLinks
+                        setDefaultCategory={props.setDefaultCategory}
+                        categoryList={categoryList}
+                    />
                 </div>
                 <div className="col-xl-9 col-lg-12 mt-5 mt-lg-0">
-                    <ProductsListContianer productList={productList} setViewProduct={viewProductDetails} productsList={ProductsList[productCategory]} />
+                    <ProductsListContianer
+                        productList={productList}
+                        setViewProduct={viewProductDetails}
+                        productsList={ProductsList[productCategory]}
+                    />
                 </div>
             </div>
             <ProductModal
@@ -63,8 +67,11 @@ const ItemListingContianer = (props) => {
                 productDetails={viewProduct}
                 addToCart={addToCart}
             />
-            <CartModal isOpen={isOpenCart} toggleModal={() => dispatch(cartActions.toggleCart())} />
-            <ProductDeliverAddressPage isOpen={isOpenThankYouModal} toggleModal={() => dispatch(cartActions.toggleAddressModal(CartActionMap.CLOSE_ALL_MODAL))} />
+            <CartModal
+                isOpen={isOpenCart}
+                toggleModal={() => dispatch(cartActions.toggleCart())}
+            />
+            <ProductDeliverAddressPage tokens={tokens} isOpen={isOpenThankYouModal} toggleModal={() => dispatch(cartActions.toggleAddressModal(CartActionMap.CLOSE_ALL_MODAL))} />
             <ProductDispatchMessagePage isOpen={isOpenDispatchModal} toggleModal={() => dispatch(cartActions.toggleAddressModal(CartActionMap.CLOSE_ALL_MODAL))} />
         </div>
     )

@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { CartIcon } from '../../components/icons/Icons';
 import { signOutUserAsync } from '../../actions/auth.action';
 import cartActions from '../../actions/cart.action';
+import { getCartByEmployeeIdAsync } from '../../actions/itemListing.action';
 
 const HeaderUserDetails = (props) => {
 
@@ -15,6 +16,10 @@ const HeaderUserDetails = (props) => {
     const onClickLogout = () => {
         dispatch(signOutUserAsync(user.tokens, user.role));
     }
+    const onclickCart = () => {
+        dispatch(cartActions.toggleCart())
+        dispatch(getCartByEmployeeIdAsync(user.tokens, user._id))
+    }
 
     return (
         <div className="shopping_bag_navbar ml-md-auto">
@@ -22,18 +27,18 @@ const HeaderUserDetails = (props) => {
                 <div className="dropdown">
                     {
                         user.role.indexOf('EMPLOYEE') !== -1 ?
-                        <span onClick={() => dispatch(cartActions.toggleCart())}>
-                            <CartIcon>
-                                {
-                                    isCartEmpty ?
-                                        <g id="Ellipse_5" data-name="Ellipse 5" transform="translate(1522 56)"
-                                            fill="#8bc8d4" stroke="#292929" strokeWidth="2">
-                                            <circle cx="8" cy="8" r="8" stroke="none" />
-                                            <circle cx="8" cy="8" r="7" fill="none" />
-                                        </g> : null
-                                }
-                            </CartIcon>
-                        </span> : null
+                            <span onClick={() => onclickCart()}>
+                                <CartIcon>
+                                    {
+                                        isCartEmpty ?
+                                            <g id="Ellipse_5" data-name="Ellipse 5" transform="translate(1522 56)"
+                                                fill="#8bc8d4" stroke="#292929" strokeWidth="2">
+                                                <circle cx="8" cy="8" r="8" stroke="none" />
+                                                <circle cx="8" cy="8" r="7" fill="none" />
+                                            </g> : null
+                                    }
+                                </CartIcon>
+                            </span> : null
                     }
                     <h6
                         className="dropdown-toggle"
