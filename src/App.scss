@@ -866,9 +866,8 @@ nav.tab {
     }
 }
 
-#payment_details_list {
-    .modal-dialog {
-        max-width: 750px;
+#payment_details_list.modal-dialog {
+        max-width: 850px;
         .general_table {
             th {
                 width: 50%;
@@ -882,7 +881,6 @@ nav.tab {
             }
         }
     }
-}
 
 #invoice_details {
     .modal-dialog {

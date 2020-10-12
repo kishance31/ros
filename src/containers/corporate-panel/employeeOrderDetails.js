@@ -1,147 +1,247 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+import { useSelector, useDispatch, shallowEqual } from 'react-redux';
+import { Input, Label, FormGroup } from 'reactstrap';
 import EmployeeOrderPaymentBox from '../../components/corporate-panel/employeeOrderDetails/employeeOrderPaymentBox';
 import EmployeeOrderTable from '../../components/corporate-panel/employeeOrderDetails/employeeOrderTable';
-import { EmployeeOrderDetailsList } from '../../utils/constants';
+import BasicPagination from '../../components/pagination/basicPagination';
+import { usePaginationHook } from '../../hooks/paginationHook';
+import { OverlayContext } from '../../context/loadingOverlay.context';
+import {
+	getEmployeeOrderDetailsAsync, EmployeeOrderDetailsActions, getEmployeeNamesAsync, confirmOrderPayment
+} from '../../actions/employeeOrderDetails.action';
+import { cancelOrderAsync } from '../../actions/employeeOrderHistory.action';
+import PaymentBox from '../../components/corporate-panel/employeeOrderDetails/paymentBox';
 
 const EmployeeOrderDetails = () => {
 
-  const [visibleConfirmModal, setVisibleConfirmModal] = useState(false);
+	const dispatch = useDispatch();
 
-  const [visibleTable, setVisibleTable] = useState(EmployeeOrderDetailsList);
+	const [visibleConfirmModal, setVisibleConfirmModal] = useState(false);
+	const [showPaymentModal, setShowPaymentModal] = useState(false);
 
-  const onTable = (event) => {
-    const tableId = event.target.getAttribute('toggle-table-data')
-    setVisibleTable(
-      visibleTable.map(id => {
-        if (id.srNo === tableId) {
-          id.active = !id.active;
-        }
-        return id;
-      })
-    );
-  }
+	const [rowIndex, setRowIndex] = useState(0)
+	const [selectedOrder, setselectedOrders] = useState([]);
+	const [firstTimeTotal, setFirstTimeTotal] = useState(0);
 
-  return (
-    <>
-      <div className="top_bar mb-4 mb-lg-0">
-        <form className="flex-grow-1">
-          <div className="row">
-            <div className="col-lg-3">
-              <div className="input-group">
-                <label>Select Employee</label>
-                <select title="SELECT" className="selectpicker form-control">
-                  <option>Option 1</option>
-                  <option>Option 2</option>
-                </select>
-              </div>
-            </div>
-            <div className="col-lg-3">
-              <div className="input-group">
-                <label>License Type</label>
-                <input
-                  type="text"
-                  className="form-control"
-                  readOnly
-                  value="SILVER"
-                  placeholder=""
-                />
-              </div>
-            </div>
-            <div className="col-lg-3">
-              <div className="input-group">
-                <label>License No.</label>
-                <input
-                  type="text"
-                  className="form-control"
-                  readOnly
-                  value="123456"
-                  placeholder=""
-                />
-              </div>
-            </div>
-          </div>
-        </form>
+	const { toggleOverlay } = useContext(OverlayContext);
 
-        <div className="btn_wrp">
-          <button className="btn_pink">Add</button>
+	const { orderDetails, totalRecords, refreshList, batchNumber, employeeNames } =
+		useSelector(state => state.employeeOrderDetails, shallowEqual);
 
-          <button className="btn_blue" data-toggle="modal" data-target="#payment_details_list"
-            onClick={() => {
-              setVisibleConfirmModal(true);
-            }}>Confirm</button>
-          <EmployeeOrderPaymentBox
-            isOpen={visibleConfirmModal}
-            toggleModal={() => {
-              setVisibleConfirmModal(!visibleConfirmModal);
-            }}
-          />
-        </div>
+	const onPageChange = (currentBatch) => {
+		dispatch(EmployeeOrderDetailsActions.setBatchNumber(currentBatch || batchNumber));
+		dispatch(EmployeeOrderDetailsActions.refreshEmployeeList());
+	}
 
-      </div>
+	const { limit, handleBatchChange } =
+		usePaginationHook(5, batchNumber, onPageChange);
 
-      <div className="container-fluid">
-        <div className="shadow_box">
-          <div className="general_table table-responsive">
-            <table className="">
-              <thead>
-                <tr>
-                  <th></th>
-                  <th></th>
-                  <th>Sr&nbsp;No</th>
-                  <th>ITEM&nbsp;CATEGORY</th>
-                  <th>ITEM&nbsp;NAME</th>
-                  <th>ITEM&nbsp;COST&nbsp;(USD)</th>
-                  <th>ORDER&nbsp;NO</th>
-                  <th>ORDER&nbsp;DATE</th>
-                  <th>ORDER&nbsp;STATUS</th>
-                  <th>DISPATCH&nbsp;DATE</th>
-                  <th>DELIVERY&nbsp;STATUS</th>
-                  <th className="text-center">ACTION</th>
-                </tr>
-              </thead>
-              <tbody>
-                {
-                  EmployeeOrderDetailsList.map((orderList, index) => (
-                    <>
-                      <tr key={index}>
-                        <td>
-                          <div className="custom_checkbox">
-                            <input type="checkbox" id={orderList.srNo} />
-                            <label htmlFor={orderList.srNo}></label>
-                          </div>
-                        </td>
-                        <td>
-                          <div toggle-table-data={orderList.srNo} className="toggle_icon" onClick={onTable}></div>
-                        </td>
-                        <td>{index + 1}</td>
-                        <td>{orderList.itemCategory}</td>
-                        <td>{orderList.itemName}</td>
-                        <td>${orderList.itemCost}</td>
-                        <td>{orderList.orderNo}</td>
-                        <td>{orderList.orderDate}</td>
-                        <td className="pink">{orderList.orderStatus}</td>
-                        <td>{orderList.dispatchDate}</td>
-                        <td>{orderList.deliveryStatus}</td>
-                        <td className="text-center">
-                          <div className="action_btn_wrap">
-                            <button className="btn_action btn_border">Edit</button>
-                            <button className="btn_action pink">Delete</button>
-                          </div>
-                        </td>
-                      </tr>
-                      {
-                        orderList.active ? <EmployeeOrderTable tableDetails={orderList.tableDetails} /> : null
-                      }
-                    </>
-                  ))
-                }
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-    </>
-  );
+	useEffect(() => {
+		if (refreshList) {
+			dispatch(getEmployeeOrderDetailsAsync());
+		}
+	}, [refreshList])
+
+	useEffect(() => {
+		if (!employeeNames.length) {
+			dispatch(getEmployeeNamesAsync());
+		}
+	}, [employeeNames])
+
+	const onTable = (index) => {
+		if (index === rowIndex) {
+			setRowIndex(0)
+		} else {
+			setRowIndex(index)
+		}
+	}
+
+	const onEmployeeSelect = (e) => {
+		if (e.target.value) {
+			dispatch(getEmployeeOrderDetailsAsync(e.target.value));
+		} else {
+			dispatch(getEmployeeOrderDetailsAsync());
+		}
+	}
+
+	const onSelectChange = (e) => {
+		if (e.target.checked) {
+			setselectedOrders([
+				...selectedOrder,
+				orderDetails.find(order => order._id === e.target.getAttribute('data-id')),
+			]);
+		} else {
+			setselectedOrders([
+				...selectedOrder.filter(order => order._id !== e.target.getAttribute('data-id')),
+			])
+		}
+	}
+
+	const showPaymentBox = (total) => {
+		setVisibleConfirmModal(!visibleConfirmModal);
+		setFirstTimeTotal(total);
+		setShowPaymentModal(!showPaymentModal);
+	}
+
+	const onConfirmPayment = (paypalDetails) => {
+		const orderIds = selectedOrder.map(order => order.orderId);
+		dispatch(confirmOrderPayment(orderIds, paypalDetails));
+		setShowPaymentModal(!showPaymentModal);
+		setselectedOrders([]);
+	}
+
+	const onDeleteOrder = (id) => {
+		dispatch(cancelOrderAsync(id, getEmployeeOrderDetailsAsync));
+	}
+
+	return (
+		<>
+			<div className="top_bar mb-4 mb-lg-0">
+				<form className="flex-grow-1">
+					<div className="row">
+						<div className="col-lg-3">
+							<div className="input-group">
+								<label>Select Employee</label>
+								<select title="SELECT" className="selectpicker form-control"
+									onChange={onEmployeeSelect}
+								>
+									<option value="">All</option>
+									{
+										employeeNames.map(emp => (
+											<option key={emp._id} value={emp._id}>{emp.firstName + " " + emp.lastName}</option>
+										))
+									}
+								</select>
+							</div>
+						</div>
+					</div>
+				</form>
+
+				<div className="btn_wrp">
+					<button className="btn_blue"
+						disabled={selectedOrder.length ? false : true}
+						onClick={() => {
+							setVisibleConfirmModal(true);
+						}}>Confirm</button>
+					<EmployeeOrderPaymentBox
+						isOpen={visibleConfirmModal}
+						toggleModal={() => {
+							setVisibleConfirmModal(!visibleConfirmModal);
+						}}
+						selectedOrder={selectedOrder}
+						showPaymentBox={showPaymentBox}
+					/>
+				</div>
+
+			</div>
+
+			<div className="container-fluid">
+				<div className="shadow_box">
+					<div className="general_table table-responsive">
+						<table className="">
+							<thead>
+								<tr>
+									<th></th>
+									<th></th>
+									<th>Sr&nbsp;No</th>
+									<th>EMPLOYEE&nbsp;NAME</th>
+									<th>TOTAL&nbsp;ORDER &nbsp; COST</th>
+									<th>FIRST&nbsp;TIME&nbsp;COST&nbsp;(USD)</th>
+									<th>ORDER&nbsp;NO</th>
+									<th>ORDER&nbsp;DATE</th>
+									<th>ORDER&nbsp;STATUS</th>
+									<th>DISPATCH&nbsp;DATE</th>
+									<th>DELIVERY&nbsp;DATE</th>
+									<th className="text-center">ACTION</th>
+								</tr>
+							</thead>
+							<tbody>
+								{
+									orderDetails.map((orderList, index) => (
+										<React.Fragment key={orderList._id}>
+											<tr>
+												<td>
+													{
+														!orderList.isFirstTimePayment ? (
+															<FormGroup check onChange={onSelectChange}>
+																<Label check>
+																	<Input type="checkbox" data-id={orderList._id} />
+																</Label>
+															</FormGroup>
+														) : null
+													}
+													{/* <input type="checkbox" />
+                            <label htmlFor={orderList.srNo}></label> */}
+												</td>
+												<td>
+													<div toggle-table-data={orderList.srNo} className="toggle_icon" onClick={() => onTable(index + 1)}></div>
+												</td>
+												<td>{index + 1}</td>
+												<td>
+													{
+														orderList.employeeDetails.length ? orderList.employeeDetails[0].firstName + " " + orderList.employeeDetails[0].lastName : ""
+													}
+												</td>
+												<td>${orderList.productDetails.reduce((acc, prod) => acc + prod.ros_cost, 0)}</td>
+												<td>
+													${
+														parseFloat((
+															((orderList.productDetails.reduce((acc, prod) => acc + prod.ros_cost, 0)) / 12)
+															* orderList.firstPaymentTerm))
+															.toFixed(2)
+													}
+												</td>
+												<td>{orderList.orderId}</td>
+												<td>{orderList.orderDate ? new Date(orderList.orderDate).toLocaleDateString() : ""}</td>
+												<td className="pink">{orderList.status}</td>
+												<td>{orderList.dispatchDate ? new Date(orderList.dispatchDate).toLocaleDateString() : "Pending"}</td>
+												<td>{orderList.deliveryDate ? new Date(orderList.deliveryDate).toLocaleDateString() : "Pending"}</td>
+												<td className="text-center">
+													{
+														!orderList.isFirstTimePayment ? (
+															<div className="action_btn_wrap">
+																<button className="btn_action pink"
+																	onClick={() => onDeleteOrder(orderList._id)}
+																>Delete</button>
+															</div>
+														) : null
+													}
+												</td>
+											</tr>
+											{
+												rowIndex && (rowIndex === (index + 1))
+													? <EmployeeOrderTable tableDetails={orderList.productDetails} firstPaymentTerm={orderList.firstPaymentTerm} /> : null
+											}
+										</React.Fragment>
+									))
+								}
+							</tbody>
+						</table>
+						{
+							orderDetails.length ? (
+								<div style={{ marginTop: 20, float: "right" }}>
+									<BasicPagination
+										totalRecords={totalRecords}
+										limit={limit}
+										batch={batchNumber}
+										onBatchChange={handleBatchChange}
+									/>
+								</div>
+							) : null
+						}
+					</div>
+				</div>
+			</div>
+			<PaymentBox
+				isOpen={showPaymentModal}
+				toggleModal={() => setShowPaymentModal(!showPaymentModal)}
+				orderList={selectedOrder}
+				toggleOverlay={toggleOverlay}
+				firstTimeTotal={firstTimeTotal}
+				onConfirmPayment={onConfirmPayment}
+			/>
+		</>
+	);
 };
 
 export default EmployeeOrderDetails;

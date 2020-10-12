@@ -162,7 +162,6 @@ export const signOutUserAsync = (tokens, role) => {
 
     return async (dispatch) => {
         try {
-            console.log(role)
             const signOutUser = await apiCall({
                 url: corporateUrl + (role.indexOf('EMPLOYEE') !== -1 ? "/employee" : "") + "/logout",
                 method: 'GET',
@@ -265,7 +264,6 @@ export const setPasswordAsync = (data) => {
                 },
                 data,
             })
-            console.log(setPasswordResponse)
             if (setPasswordResponse.response.responseCode === 200) {
                 if(setPasswordResponse.response.userProfile.user.isFirstLogin){
                     dispatch(AuthModelAction.toggleAuthModals(AuthMap.TOGGLE_SIGN_IN_MODAL, "Sign In With"));

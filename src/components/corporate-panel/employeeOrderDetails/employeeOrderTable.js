@@ -1,6 +1,6 @@
 import React from 'react';
 
-const EmployeeOrderTable = ({ tableDetails }) => {
+const EmployeeOrderTable = ({ tableDetails, firstPaymentTerm }) => {
 
     return (
         <>
@@ -10,20 +10,20 @@ const EmployeeOrderTable = ({ tableDetails }) => {
                         <thead>
                             <tr>
                                 <th className="w_20">SR&nbsp;NO</th>
-                                <th className="w_20">ITEM&nbsp;CODE</th>
+                                <th className="w_20">ITEM&nbsp;NAME</th>
                                 <th className="w_20">TOTAL&nbsp;COST</th>
-                                <th className="w_20">FIRST 3 MONTH&nbsp;COST</th>
+                                <th className="w_20">FIRST TIME COST&nbsp;COST</th>
                             </tr>
                         </thead>
                         <tbody>
                             {
                                 tableDetails.map((item, index) => {
                                     return (
-                                        <tr key={index}>
+                                        <tr key={item._id}>
                                             <td>{index + 1}</td>
-                                            <td>{item.itemCode}</td>
-                                            <td>${item.totalCost}</td>
-                                            <td>${item.first3MonthCost}</td>
+                                            <td>{item.product_name}</td>
+                                            <td>${item.ros_cost}</td>
+                                            <td>${((item.ros_cost / 12) * firstPaymentTerm)}</td>
                                         </tr>
                                     )
                                 })

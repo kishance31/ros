@@ -24,45 +24,51 @@ const ProductModal = (props) => {
             id="ProductDetails"
             className="item-listing"
         >
-            <div className="row">
-                <div className="col-lg-4 col-md-12">
-                    <div className="product_shadow">
-                        <div className="product_detail_image">
-                            {
-                                productDetails.image ?
-                                    <img src={require(`../../assets/images/${productDetails.image}`)} className="img-fluid" alt="product_image" /> : null
-                            }
+            {
+                productDetails ? (
+                    <div className="row">
+                        <div className="col-lg-4 col-md-12">
+                            <div className="product_shadow">
+                                <div className="product_detail_image">
+                                    {
+                                        productDetails.product_image ?
+                                            <img src={productDetails.product_image} className="img-fluid" alt="product_image" /> : null
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                        <div className="col-lg-8 col-md-12">
+                            <div className="product_content">
+                                <h3 className="product_content_title">{productDetails.product_name}</h3>
+                                <p className="product_content_text">{productDetails.product_description}</p>
+                                <div className="expected_date">
+                                    <table className="table">
+                                        <thead>
+                                            <tr>
+                                                <td>Expected Dispatch Date </td>
+                                                <td><b>13/06/2009</b> </td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>Expected Delivery Date </td>
+                                                <td><b>23/08/2010</b> </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <button className="modal-fill_btn_pay btn btn-sm"
+                                    onClick={() => addToCart(productDetails)}
+                                >
+                                    <span>ADD</span>
+                                </button>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div className="col-lg-8 col-md-12">
-                    <div className="product_content">
-                        <h3 className="product_content_title">{productDetails.title}</h3>
-                        <p className="product_content_text">{productDetails.description}</p>
-                        <div className="expected_date">
-                            <table className="table">
-                                <thead>
-                                    <tr>
-                                        <td>Expected Dispatch Date </td>
-                                        <td><b>13/06/2009</b> </td>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>Expected Delivery Date </td>
-                                        <td><b>23/08/2010</b> </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        <button className="modal-fill_btn_pay btn btn-sm"
-                            onClick={() => addToCart(productDetails)}
-                        >
-                            <span>ADD</span>
-                        </button>
-                    </div>
-                </div>
-            </div>
+                ) : (
+                    <div className="row">Select a Product.</div>
+                )
+            }
         </ModalComponent>
     )
 }

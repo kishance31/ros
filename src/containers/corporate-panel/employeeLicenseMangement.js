@@ -31,8 +31,8 @@ const EmployeeLicenseManagement = () => {
     const initFormState = {
         companyName: "", firstName: "", lastName: "", position: "", department: "", employeeId: "",
         email: "", username: "", mobileNo: "", password: "", reEnterPassword: "",
-        licenseType: availableLicenseList.length ? availableLicenseList[0].type : "" ,
-        branchName: branchNames.length ? branchNames[0].branch_name : "",
+        licenseId: availableLicenseList.length ? availableLicenseList[0]._id : "" ,
+        branchId: branchNames.length ? branchNames[0]._id : "",
     }
     const [employeeDetails, setEmployeeDetails] = useState(initFormState)
     const [visibleAddDataModal, setVisibleAddDataModal] = useState(false);

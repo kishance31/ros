@@ -9,26 +9,12 @@ const initialState = {
         showAdminApprovalModal: false
     },
     addToCart: [],
-    removeToCart: []
+    removeToCart: [],
+    refreshCart: true,
 };
 
 const cartReducer = (state = initialState, action) => {
     switch (action.type) {
-        case CartActionMap.ADD_TO_CART: {
-            return {
-                ...state,
-                shoppingCart: [
-                    ...state.shoppingCart,
-                    { ...action.payload },
-                ]
-            }
-        }
-        case CartActionMap.REMOVE_FROM_CART: {
-            return {
-                ...state,
-                shoppingCart: [...state.filter(product => product._id !== action.payload._id)],
-            }
-        }
         case CartActionMap.TOGGLE_CART: {
             return {
                 ...state,
@@ -51,8 +37,19 @@ const cartReducer = (state = initialState, action) => {
                 openCart: false,
                 modals: {
                     ShowthankYouModal: false,
-                    showAdminApprovalModal: true
+                    showAdminApprovalModal: false
                 }
+            }
+        }
+        case CartActionMap.TOGGLE_FINAL_MSG_MODAL: {
+            return {
+                ...state,
+                openCart: false,
+                modals: {
+                    ShowthankYouModal: false,
+                    showAdminApprovalModal: true
+                },
+                shoppingCart: [],
             }
         }
         case CartActionMap.CLOSE_ALL_MODAL: {
@@ -67,13 +64,28 @@ const cartReducer = (state = initialState, action) => {
         } case CartActionMap.ADD_TO_CART_SUCCESS: {
             return {
                 ...state,
-                addToCart: [...action.payload]
+                refreshCart: true,
+                // addToCart: [...action.payload]
             }
         }
         case CartActionMap.REMOVE_FROM_CART_BYID_SUCCESS: {
             return {
                 ...state,
-                removeToCart: action.payload
+                shoppingCart: state.shoppingCart.filter(prod => prod._id !== action.payload)
+            }
+        }
+        case CartActionMap.GET_CARTBY_EMPLOYEE_ID_SUCCESS: {
+            return {
+                ...state,
+                shoppingCart: action.payload.length ? [...action.payload[0].productDetails] : [],
+                refreshCart: false
+            }
+        }
+        case CartActionMap.GET_CARTBY_EMPLOYEE_ID_ERROR: {
+            return {
+                ...state,
+                shoppingCart: [...action.payload[0].productDetails],
+                refreshCart: false
             }
         }
         default:

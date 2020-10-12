@@ -8,8 +8,6 @@ import { AddMoreIcon } from '../../components/icons/Icons';
 const SetProfile = () => {
     
     const user = useSelector(state => state.auth.user);
-    const username = useSelector(state => state.auth.user.firstName)
-    const licenceType = useSelector(state => state.auth.user.licenseType)
     const history = useHistory();
     const onSubmit = (values) => {
         const data = new FormData()
@@ -23,7 +21,6 @@ const SetProfile = () => {
         data.set("email", values.email)
         data.set("officeContactNo", values.officeContactNo)
         data.set("mobileNo", values.mobileNo)
-        data.set("username", username)
         // data.set("deliveryAddress", values.deliveryAddress)
         // data.set("city", values.city)
         // data.set("state", values.state);
@@ -34,8 +31,8 @@ const SetProfile = () => {
     }
     return (
         <>
-            <h1>Hey {username}, </h1>
-            <p>Your Admin has assigned you a {licenceType} licence to buy items of your office use. Please setup your profile first and enjoy buying item from ROS System.</p>
+            <h1>Hey {user.firstName} &nbsp; {user.lastName}, </h1>
+            <p>Your Admin has assigned you a {user.license[0].type} licence to buy items of your office use. Please setup your profile first and enjoy buying item from ROS System.</p>
             <br />
             <div className="side_space">
                 <div className="container-fluid">
@@ -241,11 +238,11 @@ const SetProfile = () => {
                                                 <div className="col-lg-6">
                                                     <div className="mr-0 ml-xl-3 pl-40">
                                                         <div className="input-group two_side">
-                                                            <input readOnly value={licenceType} className="input_box_1 form-control" />
+                                                            <input readOnly value={user.license[0].type} className="input_box_1 form-control" />
                                                         </div>
 
                                                         <div className="input-group two_side">
-                                                            <input readOnly value={user.branchName} className="input_box_1 form-control" />
+                                                            <input readOnly value={user.branch && user.branch[0] ? user.branch[0].branch_name : ""} className="input_box_1 form-control" />
                                                         </div>
 
                                                         {/* <div className="input-group">
