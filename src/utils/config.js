@@ -13,7 +13,8 @@ const AppConfigs = {
         employee: 'employee',
         license: 'license',
         branch: 'branch',
-        purchaseLicense:'purchaseLicense'
+        purchaseLicense:'purchaseLicense',
+        serverUrl: 'http://localhost:4000/api'
     }
 };
 

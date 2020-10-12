@@ -1,4 +1,7 @@
 import axios from 'axios';
+import getServerCore from '../utils/apiUtils';
+
+const { serverUrl } = getServerCore();
 
 export const MyProfileMap = {
     ADD_USER_DATA: 'ADD_USER_DATA',
@@ -16,7 +19,7 @@ const myProfileAction = {
 export const addUserDataAsync = (userData, tokens) => {
     return async (dispatch) => {
         let userDataResponse = await axios({
-            url: `http://127.0.0.1:4000/api/branch/saveBranch`,
+            url: `${serverUrl}branch/saveBranch`,
             method: "POST",
             data: userData,
             headers: {

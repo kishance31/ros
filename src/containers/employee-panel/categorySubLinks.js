@@ -31,7 +31,7 @@ const CategorySubLinks = (props) => {
           (
             <div key={items._id} className="categories-header">
               <h2 className="mb-0">
-                <NavLink to={`${exactPath}${items.categoryRoute || "/"}`} onClick={() => props.setDefaultCategory(items.categoryRoute)}>
+                <NavLink to={`${exactPath}${items.categoryRoute || "/"}`} onClick={() => props.setSelectedCategory(items)}>
                   <span className="categories_name" type="button" >
                     {items.category_name}
                   </span>
@@ -47,9 +47,9 @@ const CategorySubLinks = (props) => {
               {
                 items.subCategories.map(sub =>
                   <NavLink className="list-group-item"
-                    key={sub.subCategoryRoute}
-                    to={`${exactPath}${sub.subCategoryRoute}`}
-                    onClick={() => props.setDefaultCategory(sub.subCategoryRoute)}>
+                    key={sub._id}
+                    to={`${exactPath}${items.categoryRoute}${sub.subCategoryRoute}`}
+                    onClick={() => props.setSelectedCategory(sub, items.categoryRoute)}>
                     {sub.subcategory_name}
                   </NavLink>
                 )

@@ -25,6 +25,15 @@ const Routes = () => {
             spinner
             text='Please wait . . .'
         >
+            {
+                user.tokens && user.role && user._id ?
+                    <Redirect
+                        to={
+                            user.role.indexOf('CORPORATE') !== -1 ? "/corporate/purchaseLicense" :
+                                user.role.indexOf('EMPLOYEE') !== -1 && user.setFirstProfile ? "/setProfile" : '/employee/itemListing' 
+                        }
+                    /> : <Redirect from='/*' to="/" />
+            }
             <Switch>
                 <Route exact path="/" component={Homepage} />
                 <Route path="/aboutUs" component={AboutUs} />
@@ -32,17 +41,7 @@ const Routes = () => {
                 <PrivateRoute path="/corporate" component={CorporateDashboard} user={user} />
                 <PrivateRoute path="/setProfile" component={setProfile} user={user} /> 
                 <PrivateRoute path="/employee" component={EmployeeDashboard} user={user} />
-                <Redirect from='/*' to="/" />
             </Switch>
-            {
-                user.tokens && user.role && user._id ?
-                    <Redirect
-                        to={
-                            user.role.indexOf('CORPORATE') !== -1 ? "/corporate/purchaseLicense" :
-                                user.role.indexOf('EMPLOYEE') !== -1 && user.setFirstProfile ? "/setProfile" : '/employee' 
-                        }
-                    /> : null
-            }
         </LoadingOverlay>
     )
 }
