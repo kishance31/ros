@@ -1,4 +1,9 @@
 import axios from 'axios';
+import cartActions from './cart.action';
+import {EmployeeOrderHistoryActions} from './employeeOrderHistory.action';
+import getServerCore from '../utils/apiUtils';
+
+const { serverUrl } = getServerCore();
 
 export const ItemListingMap = {
     CATEGORY_LIST_START: 'CATEGORY_LIST_START',
@@ -7,25 +12,30 @@ export const ItemListingMap = {
     PRODUCT_LIST_START: 'PRODUCT_LIST_START',
     PRODUCT_LIST_SUCCESS: 'PRODUCT_LIST_SUCCESS',
     PRODUCT_LIST_ERROR: 'PRODUCT_LIST_ERROR',
-    GET_CARTBY_EMPLOYEE_ID_START: 'GET_CARTBY_EMPLOYEE_ID_START',
-    GET_CARTBY_EMPLOYEE_ID_SUCCESS: 'GET_CARTBY_EMPLOYEE_ID_SUCCESS',
-    GET_CARTBY_EMPLOYEE_ID_ERROR: 'GET_CARTBY_EMPLOYEE_ID_ERROR',
+    
     PLACE_ORDER_START: 'PLACE_ORDER_START',
     PLACE_ORDER_SUCCESS: 'PLACE_ORDER_SUCCESS',
     PLACE_ORDER_ERROR: 'PLACE_ORDER_ERROR',
     UPDATE_ORDER_START: 'UPDATE_ORDER_START',
     UPDATE_ORDER_SUCCESS: 'UPDATE_ORDER_SUCCESS',
     UPDATE_ORDER_ERROR: 'UPDATE_ORDER_ERROR',
+    SET_SELECTED_CATEGORY: 'SET_SELECTED_CATEGORY',
+    ADD_MORE_PRODUCTS: 'ADD_MORE_PRODUCTS',
 }
 
-export const categoryListAsync = (tokens) => {
-    return async (dispatch) => {
+export const ItemListingActions = {
+    setSelectedCategory: (category) => ({type: ItemListingMap.SET_SELECTED_CATEGORY, payload: category}),
+}
+
+export const categoryListAsync = () => {
+    return async (dispatch, getState) => {
         try {
             dispatch({
                 type: ItemListingMap.CATEGORY_LIST_START
             });
+            const {tokens} = getState().auth.user
             let categoryListResponse = await axios({
-                url: `http://127.0.0.1:4000/api/corporate-admin/category/getCategoryWithSubCategory`,
+                url: `${serverUrl}/corporate-admin/category/getCategoryWithSubCategory`,
                 method: 'GET',
                 headers: { tokens }
             });
@@ -33,7 +43,8 @@ export const categoryListAsync = (tokens) => {
                 dispatch({
                     type: ItemListingMap.CATEGORY_LIST_SUCCESS,
                     payload: categoryListResponse.data.response.data
-                })
+                });
+                dispatch(productListAsync());
             }
         }
         catch (error) {
@@ -44,26 +55,53 @@ export const categoryListAsync = (tokens) => {
     }
 }
 
-export const productListAsync = (tokens, data) => {
-    return async (dispatch) => {
+export const productListAsync = (type) => {
+    return async (dispatch, getState) => {
         try {
             dispatch({
                 type: ItemListingMap.PRODUCT_LIST_START
             });
+            const { 
+                itemListing: {
+                    selectedCategory, page, limit
+                },
+                auth: {
+                    user: {
+                        tokens,
+                        license
+                    }
+                }
+            } = getState();
+            let productDetails = {
+                license_id: license[0]._id
+            };
+            if(selectedCategory.category_id) {
+                productDetails["category_id"] = selectedCategory.category_id;
+                productDetails["sub_category_id"] = selectedCategory._id;
+            } else {
+                productDetails["category_id"] = selectedCategory._id;
+            }
             let productListResponse = await axios({
-                url: `http://127.0.0.1:4000/api/corporate-admin/product/getProductList`,
+                url: `${serverUrl}/corporate-admin/product/getProductList/${type === "add" ? page + 1 : page}/${limit}`,
                 method: 'POST',
                 headers: {
                     'Content-type': 'application/json',
                     tokens
                 },
-                data: data
+                data: productDetails
             });
             if (productListResponse.data.response.responseCode === 200) {
-                dispatch({
-                    type: ItemListingMap.PRODUCT_LIST_SUCCESS,
-                    payload: productListResponse.data.response.data
-                })
+                if(type === "add") {
+                    dispatch({
+                        type: ItemListingMap.ADD_MORE_PRODUCTS,
+                        payload: productListResponse.data.response
+                    })                    
+                } else {
+                    dispatch({
+                        type: ItemListingMap.PRODUCT_LIST_SUCCESS,
+                        payload: productListResponse.data.response
+                    })
+                }
             }
         }
         catch (error) {
@@ -74,53 +112,45 @@ export const productListAsync = (tokens, data) => {
     }
 }
 
-export const getCartByEmployeeIdAsync = (tokens, id) => {
-    return async (dispatch) => {
-        try {
-            dispatch({
-                type: ItemListingMap.GET_CARTBY_EMPLOYEE_ID_START
-            });
-            let getCartByEmployeeIdResponse = await axios({
-                url: `http://127.0.0.1:4000/api/employee/cart/getCartByEmployeeId/${id}`,
-                method: 'GET',
-                headers: { tokens },
-            });
-            if (getCartByEmployeeIdResponse.data.response.responseCode === 200) {
-                dispatch({
-                    type: ItemListingMap.GET_CARTBY_EMPLOYEE_ID_SUCCESS,
-                    payload: getCartByEmployeeIdResponse.data.response.data
-                })
-            }
-        }
-        catch (error) {
-            dispatch({
-                type: ItemListingMap.GET_CARTBY_EMPLOYEE_ID_ERROR
-            })
-        }
-    }
-}
-
-export const placeOrderAsync = (tokens, data) => {
-    return async (dispatch) => {
+export const placeOrderAsync = () => {
+    return async (dispatch, getState) => {
         try {
             dispatch({
                 type: ItemListingMap.PLACE_ORDER_START
             });
-            let placeOrderResponse = await axios({
-                url: `http://127.0.0.1:4000/api/corporate-admin/employee/placeOrder`,
+            const {
+                auth: {
+                    user: {
+                        tokens,
+                        _id,
+                        corporate_admin_id,
+                    }
+                },
+                cart: {
+                    shoppingCart
+                }
+            } = getState();
+            const products = shoppingCart.map(product => product._id)
+            let {data} = await axios({
+                url: `${serverUrl}/corporate-admin/employee/placeOrder`,
                 method: 'POST',
                 headers: {
                     'Content-type': 'application/json',
                     tokens
                 },
-                data: data
+                data: {
+                    employeeId: _id,
+                    corporateId: corporate_admin_id,
+                    products,
+                }
             });
-            console.log("placeOrderResponseeeeeeeeeeeee", placeOrderResponse);
-            if (placeOrderResponse.data.response.responseCode === 200) {
+            if (data.response && data.response.responseCode === 200) {
                 dispatch({
                     type: ItemListingMap.PLACE_ORDER_SUCCESS,
-                    payload: placeOrderResponse.data.response.data
+                    // payload: data.response.data
                 })
+                dispatch(cartActions.toggleFinalMsgModal());
+                dispatch(EmployeeOrderHistoryActions.refreshOrderHistory());
             }
         }
         catch (error) {
@@ -138,7 +168,7 @@ export const updateOrderAsync = (tokens, data, id) => {
                 type: ItemListingMap.UPDATE_ORDER_START
             });
             let updateOrderResponse = await axios({
-                url: `http://127.0.0.1:4000/api/corporate-admin/employee/updateOrder/${id}`,
+                url: `${serverUrl}/corporate-admin/employee/updateOrder/${id}`,
                 method: 'PUT',
                 headers: {
                     'Content-type': 'application/json',
@@ -146,7 +176,6 @@ export const updateOrderAsync = (tokens, data, id) => {
                 },
                 data: data
             });
-            console.log("updateOrderResponseeeeeeeee", updateOrderResponse);
             if (updateOrderResponse.data.response.responseCode === 200) {
                 dispatch({
                     type: ItemListingMap.UPDATE_ORDER_SUCCESS,

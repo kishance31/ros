@@ -22,7 +22,6 @@ const BranchDataModal = (props) => {
             email_id: values.email_id,
             mobile_no: values.mobile_no
         }
-        console.log(values, modalType)
         if (modalType === "add") {
             dispatch(addBranchDataAsync(
                 { ...branchData, corporate_admin_id: user._id },

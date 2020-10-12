@@ -1,6 +1,7 @@
 import axios from 'axios';
 import notificationActions from './notifications.action';
 import employeeAndLicenseAction from './employeeAndLicense.action';
+import getServerCore from '../utils/apiUtils';
 
 export const BranchListMap = {
     OPEN_MODAL: 'OPEN_MODAL',
@@ -15,6 +16,7 @@ export const BranchListMap = {
     SET_BRANCH_BATCH_NUMBER: 'SET_BRANCH_BATCH_NUMBER'
 }
 
+const { serverUrl } = getServerCore();
 export const BranchListAction = {
     openModal: () => {
         return {
@@ -57,7 +59,7 @@ export const addBranchDataAsync = (userData, tokens) => {
     return async (dispatch) => {
         try {
             let userDataResponse = await axios({
-                url: `http://127.0.0.1:4000/api/branch/saveBranch`,
+                url: `${serverUrl}/branch/saveBranch`,
                 method: "POST",
                 data: userData,
                 headers: {
@@ -86,7 +88,7 @@ export const updateBranchDataAsync = (userData, tokens, id) => {
     return async (dispatch) => {
         try {
             let userDataResponse = await axios({
-                url: `http://127.0.0.1:4000/api/branch/updateBranch/${id}`,
+                url: `${serverUrl}/branch/updateBranch/${id}`,
                 method: "PUT",
                 data: userData,
                 headers: {
@@ -115,7 +117,7 @@ export const displayBranchListAsync = (tokens, id, batch, limit) => {
     return async (dispatch) => {
         try {
             let userDataResponse = await axios({
-                url: `http://127.0.0.1:4000/api/branch/getBranchByCorporateId/${id}`,
+                url: `${serverUrl}/branch/getBranchByCorporateId/${id}`,
                 method: "POST",
                 data: {
                     limit,
@@ -141,7 +143,7 @@ export const displayBranchListAsync = (tokens, id, batch, limit) => {
 export const deleteBranchAsync = (tokens, id) => {
     return async (dispatch) => {
         let deletedUser = await axios({
-            url: `http://127.0.0.1:4000/api/branch/deleteBranch/${id}`,
+            url: `${serverUrl}/branch/deleteBranch/${id}`,
             method: 'DELETE',
             headers: {
                 'tokens': tokens

@@ -10,7 +10,6 @@ import DoubleErrorMessage from '../../inputFields/inputErrorMessage';
 const EmployeeAndLicenseAddBox = (props) => {
 
     const { employeeDetails, toggleModal, availableLicenseList, corporateId, branchNames, popupType } = props;
-    console.log(employeeDetails)
 
     const dispatch = useDispatch();
 
@@ -21,8 +20,8 @@ const EmployeeAndLicenseAddBox = (props) => {
         data.set("lastName", values.lastName)
         data.set("position", values.position)
         data.set("department", values.department)
-        data.set("licenseType", values.licenseType)
-        data.set("branchName", values.branchName)
+        data.set("licenseId", values.licenseId)
+        data.set("branchId", values.branchId)
         data.set("mobileNo", values.mobileNo)
         data.set("corporate_admin_id", corporateId)
         data.set("email", values.email)
@@ -38,7 +37,7 @@ const EmployeeAndLicenseAddBox = (props) => {
             dispatch(employeeAndLicenseAddAsync(data));
         }
         if (popupType === "edit") {
-            dispatch(updateEmployeeAsync(data));
+            dispatch(updateEmployeeAsync(data, values._id));
         }
         toggleModal()
     }
@@ -233,21 +232,21 @@ const EmployeeAndLicenseAddBox = (props) => {
                                             <Field
                                                 as="select"
                                                 title="Select License Type"
-                                                name="licenseType"
+                                                name="licenseId"
                                                 className="selectpicker form-control"
                                             >
                                                 {
-                                                    availableLicenseList.map(license => <option key={license.type}>{license.type}</option>)
+                                                    availableLicenseList.map(license => <option key={license._id} value={license._id}>{license.type}</option>)
                                                 }
                                             </Field>
                                             <Field
                                                 as="select"
                                                 title="Select Branch"
                                                 className="selectpicker form-control input_box_2"
-                                                name="branchName"
+                                                name="branchId"
                                             >
                                                 {
-                                                    branchNames.map(branch => <option key={branch._id} value={branch.branch_name}>{branch.branch_name}</option>)
+                                                    branchNames.map(branch => <option key={branch._id} value={branch._id}>{branch.branch_name}</option>)
                                                 }
                                             </Field>
                                         </div>

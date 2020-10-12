@@ -2,17 +2,17 @@ import React from 'react';
 import { useDispatch } from 'react-redux'
 import ModalComponent from '../../components/modal/modal';
 import { MetroCancelIcon } from '../../components/icons/Icons';
-import cartActions, { CartActionMap } from '../../actions/cart.action';
+import cartActions from '../../actions/cart.action';
+import {placeOrderAsync} from '../../actions/itemListing.action';
 import { AddMoreIcon } from '../../components/icons/Icons';
 import { DeliveryAddress } from '../../utils/constants';
-import { updateOrderAsync } from '../../actions/itemListing.action'
 const ProductDeliverAddressPage = (props) => {
-    const { toggleModal, isOpen, tokens } = props;
+    const { toggleModal, isOpen } = props;
     const dispatch = useDispatch();
 
     const onClickPlaceOrder = () => {
-        dispatch(updateOrderAsync(tokens))
-        dispatch(cartActions.toggleAddressModal(CartActionMap.CLOSE_ADDRESS_MODAL))
+        dispatch(placeOrderAsync());
+        // dispatch(cartActions.toggleFinalMsgModal())
     }
 
     const ModalCloseIcon = () => (

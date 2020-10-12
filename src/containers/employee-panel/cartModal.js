@@ -1,9 +1,8 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import ModalComponent from '../../components/modal/modal';
 import { MetroCancelIcon } from '../../components/icons/Icons';
-import cartActions, { CartActionMap, removeFromCartAsync } from '../../actions/cart.action';
-import { placeOrderAsync } from '../../actions/itemListing.action';
+import cartActions, { removeFromCartAsync, getCartByEmployeeIdAsync } from '../../actions/cart.action';
 
 const CartModal = (props) => {
 
@@ -11,18 +10,19 @@ const CartModal = (props) => {
 
     const dispatch = useDispatch();
     const shoppingCartList = useSelector(state => state.cart.shoppingCart);
-    const user = useSelector(state => state.auth.user)
+    const refreshCart = useSelector(state => state.cart.refreshCart);
+    useEffect(() => {
+        if(refreshCart) {
+            dispatch(getCartByEmployeeIdAsync());
+        }
+    }, [refreshCart])
 
     const redirectToThankYou = () => {
-        dispatch(cartActions.toggleAddressModal(CartActionMap.OPEN_ADDRESS_MODAL))
-        dispatch(placeOrderAsync(user.tokens))
+        dispatch(cartActions.toggleAddressModal())
     }
-
-    const removeToCart = () => {
-        dispatch(cartActions.removeFromCart())
-        dispatch(removeFromCartAsync(user.tokens, user._id))
+    const removeToCart = (id) => {
+        dispatch(removeFromCartAsync(id))
     }
-
     const ModalCloseIcon = () => (
         <button type="button" className="close close_icon ml-auto" aria-label="Close" onClick={toggleModal}>
             <span aria-hidden="true">
@@ -72,7 +72,7 @@ const CartModal = (props) => {
                                                                     {product.product_name}
                                                                 </h3>
                                                                 <p className="product_content_text">
-                                                                    {product.description}
+                                                                    {product.product_description}
                                                                 </p>
                                                                 <div className="expected_date">
                                                                     <table className="table table-sm w-auto">
@@ -89,7 +89,7 @@ const CartModal = (props) => {
                                                         <div className="col-md-2 col-sm-12 d-flex justify-content-center">
                                                             <div className="text-center">
                                                                 <p className="remove_order" style={{ cursor: 'pointer' }}
-                                                                    onClick={() => { removeToCart() }}>remove</p>
+                                                                    onClick={() => { removeToCart(product._id) }}>remove</p>
                                                             </div>
                                                         </div>
                                                     </div>

@@ -10,7 +10,8 @@ const {
         userRoute,
         branch,
         license,
-        purchaseLicense
+        purchaseLicense,
+        serverUrl
     }
 } = AppConfigs;
 
@@ -61,6 +62,7 @@ const getServerCore = () => {
     return {
         serverUrls,
         apiCall,
+        serverUrl
     }
 }
 
