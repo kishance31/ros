@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Formik, Field } from 'formik';
 import { MetroCancelIcon } from '../../icons/Icons';
 import DoubleInputField from '../../inputFields/doubleInputField';
@@ -6,13 +6,14 @@ import ModalComponent from '../../modal/modal';
 import { useDispatch } from 'react-redux';
 import { employeeAndLicenseAddAsync, updateEmployeeAsync } from '../../../actions/employeeAndLicense.action';
 import DoubleErrorMessage from '../../inputFields/inputErrorMessage';
+import EmployeeAndLicenseAddressBox from './employeeAndLicenseAddressBox';
 
 const EmployeeAndLicenseAddBox = (props) => {
 
     const { employeeDetails, toggleModal, availableLicenseList, corporateId, branchNames, popupType } = props;
 
     const dispatch = useDispatch();
-
+    const [visibleAddDataModal, setVisibleAddDataModal] = useState(false);
     const onSubmit = (values) => {
         const data = new FormData();
         data.set("companyName", values.companyName)
@@ -28,11 +29,6 @@ const EmployeeAndLicenseAddBox = (props) => {
         data.set("username", values.username)
         data.set("password", values.password)
         data.set("employeeId", values.employeeId)
-        data.set("address", new Array())
-        // data.set("delivery_address",values.delivery_address)
-        // data.set("city",values.city)
-        // data.set("state",values.state)
-        // data.set("country",values.country)
         if (popupType === "add") {
             dispatch(employeeAndLicenseAddAsync(data));
         }
@@ -41,7 +37,6 @@ const EmployeeAndLicenseAddBox = (props) => {
         }
         toggleModal()
     }
-
     const ModalCloseIcon = () => (
         <button type="button" className="close close_icon ml-auto" data-dismiss="modal"
             aria-label="Close" onClick={toggleModal} >
@@ -196,7 +191,6 @@ const EmployeeAndLicenseAddBox = (props) => {
                                                 rightTouched={touched.mobileNo}
                                             />
                                         </div>
-
                                     </div>
                                 </div>
 
@@ -250,50 +244,25 @@ const EmployeeAndLicenseAddBox = (props) => {
                                                 }
                                             </Field>
                                         </div>
-
-                                        {/* <div className="input-group">
-                                                <Field
-                                                    placeholder="DELIVERY ADDRESS"
-                                                    type="text"
-                                                    name="companyName"
-                                                    className="form-control"
-                                                />
-                                            </div>
-                                            <DoubleErrorMessage
-                                                leftError={errors.delivery_address}
-                                                leftTouched={touched.delivery_address}
-                                            />
-
-                                            <div className="input-group">
-                                                <select title="Select City" className="selectpicker form-control input_box_1">
-                                                    <option>Option 1</option>
-                                                    <option>Option 2</option>
-                                                </select>
-                                                <select title="Select State" className="selectpicker form-control input_box_2">
-                                                    <option>Option 1</option>
-                                                    <option>Option 2</option>
-                                                </select>
-                                            </div>
-
-                                            <div className="input-group">
-                                                <select title="Select Country" className="selectpicker form-control">
-                                                    <option>Option 1</option>
-                                                    <option>Option 2</option>
-                                                </select>
-                                            </div> */}
-
                                     </div>
-
-                                    {/* <div className="text-center mt-4">
-                                                <a href="" className="dark font-weight-bold">
-                                                    <img className="mr-3"
-                                                        //src={require(`../../../assets/image/logo.svg`)} 
-                                                        alt="" />ADD MORE</a>
-                                            </div> */}
+                                    <div className="text-center mt-4">
+                                        <a className="dark font-weight-bold">
+                                            <img className="mr-3" src={require(`../../../assets/images/plus.svg`)} alt=""
+                                                onClick={() => { setVisibleAddDataModal(true) }}
+                                            />
+                                            Add Address
+                                        </a>
+                                        <EmployeeAndLicenseAddressBox
+                                            isOpen={visibleAddDataModal}
+                                            toggleModal={() => {
+                                                // setEmployeeDetails(employeeDetails)
+                                                setVisibleAddDataModal(!visibleAddDataModal);
+                                            }} />
+                                    </div>
                                 </div>
                             </div>
                             <div className="text-center mt-5 pt-lg-5">
-                                <button className="btn_blue" type="submit"><span>SAVE</span></button>
+                                <button className="btn_blue" type="submit" disabled={isSubmitting}><span>SAVE</span></button>
                             </div>
                         </form >
                     )}
