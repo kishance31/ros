@@ -19,7 +19,14 @@ export const AuthMap = {
     UPDATE_CORPORATE_PROFILE_ERROR: 'UPDATE_CORPORATE_PROFILE_ERROR',
     UPDATE_EMPLOYEE_PROFILE_START: 'UPDATE_EMPLOYEE_PROFILE_START',
     UPDATE_EMPLOYEE_PROFILE_SUCCESS: 'UPDATE_EMPLOYEE_PROFILE_SUCCESS',
-    UPDATE_EMPLOYEE_PROFILE_ERROR: 'UPDATE_EMPLOYEE_PROFILE_ERROR'
+    UPDATE_EMPLOYEE_PROFILE_ERROR: 'UPDATE_EMPLOYEE_PROFILE_ERROR',
+    FORGOT_PASSWORD_START:'FORGOT_PASSWORD_START',
+    FORGOT_PASSWORD_SUCCESS:'FORGOT_PASSWORD_SUCCESS',
+    FORGOT_PASSWORD_ERROR:'FORGOT_PASSWORD_ERROR',
+    RESET_PASSWORD_START:"RESET_PASSWORD_START",
+    RESET_PASSWORD_SUCCESS:"RESET_PASSWORD_SUCCESS",
+    RESET_PASSWORD_ERROR:"RESET_PASSWORD_ERROR"
+
 }
 
 const AuthModelAction = {
@@ -43,6 +50,8 @@ const AuthModelAction = {
 const { serverUrls, apiCall } = getServerCore();
 const corporateUrl = serverUrls.getCorporateUrl();
 const employeeUrl = serverUrls.getEmployeeUrl();
+
+
 
 export const signUpUserAsync = (user) => {
 
@@ -258,28 +267,84 @@ export const setPasswordAsync = (data) => {
         try {
             const { auth } = getState();
             let setPasswordResponse = await apiCall({
-                url: corporateUrl + "/employee/setPassword",
-                // + (role.indexOf('EMPLOYEE') != -1 ? "/employee" : "") + "/setPassword",
-                headers: {
-                    tokens: auth.tempToken
-                },
+                url: `${corporateUrl}/reset`,
                 data,
             })
-            console.log(setPasswordResponse)
-            if (setPasswordResponse.response.responseCode === 200) {
-                if(setPasswordResponse.response.userProfile.user.isFirstLogin){
-                    dispatch(AuthModelAction.toggleAuthModals(AuthMap.TOGGLE_SIGN_IN_MODAL, "Sign In With"));
-                }else {
-                
-                dispatch(AuthModelAction.signInUser({
-                    ...setPasswordResponse.response.userProfile.user,
-                    tokens: setPasswordResponse.response.userProfile.tokens
-                }))}
-            }
+                if (setPasswordResponse.response && setPasswordResponse.response.responseCode === 200) {
+                    dispatch(notificationActions.showNotification({
+                        title: 'Reset Password',
+                        message: setPasswordResponse.response.responseMessage,
+                        // duration: 5000,
+                    }));
+                    return dispatch({
+                        type: AuthMap.RESET_PASSWORD_SUCCESS,
+                        payload:setPasswordResponse.response.responseMessage
+                    });
+                }  else {
+                    dispatch(notificationActions.showNotification({
+                        title: 'Reset Password',
+                        message: setPasswordResponse.response.responseMessage,
+                        duration: 5000,
+                    }))
+                }
         } catch (error) {
-
+            dispatch(notificationActions.showNotification({
+                title: 'Reset Password',
+                message: error.message,
+                // duration: 5000,
+            }));
         }
     }
 }
+export const forgotPasswordApi = (email) => {
+    return async (dispatch) => {
+        try {
+            dispatch({
+                type: AuthMap.FORGOT_PASSWORD_START
+            });
 
+            let forgotPasswordResponce = await apiCall({
+                url: `${corporateUrl}/forgot_password`,
+                data: { email },
+                headers: {
+                    'Content-Type': "application/json",
+                }
+            });
+            if (forgotPasswordResponce.response && forgotPasswordResponce.response.responseCode === 200) {
+                dispatch(notificationActions.showNotification({
+                    title: 'Reset Password',
+                    message: forgotPasswordResponce.response.responseMessage,
+                    // duration: 5000,
+                }));
+                return dispatch({
+                   type: AuthMap.FORGOT_PASSWORD_SUCCESS,
+                   payload:{
+                     data:  forgotPasswordResponce.response,
+                     title:"Set Your Password"
+                    }
+                })
+            } else {
+                dispatch(notificationActions.showNotification({
+                    title: 'Reset Password',
+                    message: forgotPasswordResponce.response.responseMessage,
+                    // duration: 5000,
+                }));
+                dispatch({
+                    type: AuthMap.FORGOT_PASSWORD_ERROR
+                });
+                dispatch(
+                    AuthModelAction.toggleAuthModals(AuthMap.TOGGLE_FORGOT_PASSWORD_MODAL,'Forgot Password'))
+                   }
+        } catch (error) {
+            dispatch({
+                type: AuthMap.FORGOT_PASSWORD_ERROR,
+            });
+            dispatch(notificationActions.showNotification({
+                title: 'Reset Password',
+                message: error.message,
+                duration: 5000,
+            }));
+        }
+    }
+}
 export default AuthModelAction;

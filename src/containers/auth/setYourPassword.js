@@ -1,11 +1,12 @@
 import React from 'react';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import { ArrowRightIcon } from '../../components/icons/Icons';
 import { setPasswordAsync } from '../../actions/auth.action';
 
 const SetYourPassword = (props) => {
 
     const dispatch = useDispatch();
+    const resetToken = useSelector(state => state.auth.resetToken);
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -13,6 +14,7 @@ const SetYourPassword = (props) => {
         const data = {
             password: target.password.value,
             newPassword: target.newPassword.value,
+            resetToken:resetToken
         }
         dispatch(setPasswordAsync(data))
     }
