@@ -5,7 +5,6 @@ import { MetroCancelIcon } from '../../components/icons/Icons'
 import cartActions, { CartActionMap } from '../../actions/cart.action'
 const ProductDispatchMessagePage = (props) => {
     const { toggleModal, isOpen } = props;
-    console.log('isOpen', isOpen);
     const ModalCloseIcon = () => (
         <button type="button" className="close close_icon ml-auto" aria-label="Close" onClick={toggleModal}>
             <span aria-hidden="true">
@@ -16,7 +15,7 @@ const ProductDispatchMessagePage = (props) => {
 
     const dispatch = useDispatch();
     const CloseModal = () => {
-        dispatch(cartActions.toggleAddressModal(CartActionMap.CLOSE_ALL_MODAL))
+        dispatch(cartActions.closeAllModals())
     }
     return (
         <>

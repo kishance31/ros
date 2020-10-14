@@ -27,10 +27,11 @@
     "redux-thunk": "^2.3.0"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "REACT_APP_SERVER_URL=http://localhost:4000/api REACT_APP_HOST=http://localhost REACT_APP_PORT=4000 react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "stag": "REACT_APP_SERVER_URL=http://3.18.139.243:4000/api REACT_APP_HOST=http://3.18.139.243 REACT_APP_PORT=4000   react-scripts build"
   },
   "eslintConfig": {
     "extends": "react-app"

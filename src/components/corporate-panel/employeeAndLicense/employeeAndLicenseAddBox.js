@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Formik, Field } from 'formik';
 import { MetroCancelIcon } from '../../icons/Icons';
 import DoubleInputField from '../../inputFields/doubleInputField';
@@ -6,13 +6,20 @@ import ModalComponent from '../../modal/modal';
 import { useDispatch } from 'react-redux';
 import { employeeAndLicenseAddAsync, updateEmployeeAsync } from '../../../actions/employeeAndLicense.action';
 import DoubleErrorMessage from '../../inputFields/inputErrorMessage';
+import EmployeeAndLicenseAddressBox from './employeeAndLicenseAddressBox';
 
 const EmployeeAndLicenseAddBox = (props) => {
 
     const { employeeDetails, toggleModal, availableLicenseList, corporateId, branchNames, popupType } = props;
-    console.log(employeeDetails)
 
     const dispatch = useDispatch();
+
+    const [visibleAddDataModal, setVisibleAddDataModal] = useState(false);
+    const [addressList, setAddressList] = useState([]);
+    
+    useEffect(() => {
+        setAddressList(employeeDetails.address)
+    }, [employeeDetails.address])
 
     const onSubmit = (values) => {
         const data = new FormData();
@@ -21,34 +28,41 @@ const EmployeeAndLicenseAddBox = (props) => {
         data.set("lastName", values.lastName)
         data.set("position", values.position)
         data.set("department", values.department)
-        data.set("licenseType", values.licenseType)
-        data.set("branchName", values.branchName)
+        data.set("licenseId", values.licenseId)
+        data.set("branchId", values.branchId)
         data.set("mobileNo", values.mobileNo)
         data.set("corporate_admin_id", corporateId)
         data.set("email", values.email)
         data.set("username", values.username)
         data.set("password", values.password)
         data.set("employeeId", values.employeeId)
-        data.set("address", new Array())
-        // data.set("delivery_address",values.delivery_address)
-        // data.set("city",values.city)
-        // data.set("state",values.state)
-        // data.set("country",values.country)
+        data.set("address", JSON.stringify(addressList));
         if (popupType === "add") {
             dispatch(employeeAndLicenseAddAsync(data));
         }
         if (popupType === "edit") {
-            dispatch(updateEmployeeAsync(data));
+            dispatch(updateEmployeeAsync(data, values._id));
         }
-        toggleModal()
+        onCloseAddbox();
+    }
+
+    const onSaveAddress = (data) => {
+        setAddressList([...addressList, data]);
+        setVisibleAddDataModal(false);
+    }
+
+    const onCloseAddbox = () => {
+        setAddressList([]);
+        toggleModal();
     }
 
     const ModalCloseIcon = () => (
         <button type="button" className="close close_icon ml-auto" data-dismiss="modal"
-            aria-label="Close" onClick={toggleModal} >
+            aria-label="Close" onClick={onCloseAddbox} >
             <span aria-hidden="true"><MetroCancelIcon /></span>
         </button>
     )
+
     return (
         <ModalComponent
             {...props}
@@ -56,7 +70,7 @@ const EmployeeAndLicenseAddBox = (props) => {
             closeIcon={< ModalCloseIcon />}
             centered
             id="add_employeement"
-            toggleModal={toggleModal}
+            toggleModal={onCloseAddbox}
         >
             <Formik
                 initialValues={{
@@ -96,7 +110,7 @@ const EmployeeAndLicenseAddBox = (props) => {
                 }) => (
                         <form className="form-horizontal" onSubmit={handleSubmit} >
                             <div className="row">
-                                <div className="col-lg-12">
+                                <div className="col-lg-6">
                                     <div className="mr-0 mr-xl-6">
 
                                         <div className="mr-0 mr-xl-6">
@@ -197,11 +211,10 @@ const EmployeeAndLicenseAddBox = (props) => {
                                                 rightTouched={touched.mobileNo}
                                             />
                                         </div>
-
                                     </div>
                                 </div>
 
-                                <div className="col-lg-12">
+                                <div className="col-lg-6">
                                     <div className="mr-0 ml-xl-6">
                                         {
                                             popupType === "add" ? (
@@ -233,72 +246,76 @@ const EmployeeAndLicenseAddBox = (props) => {
                                             <Field
                                                 as="select"
                                                 title="Select License Type"
-                                                name="licenseType"
+                                                name="licenseId"
                                                 className="selectpicker form-control"
                                             >
                                                 {
-                                                    availableLicenseList.map(license => <option key={license.type}>{license.type}</option>)
+                                                    availableLicenseList.map(license => <option key={license._id} value={license._id}>{license.type}</option>)
                                                 }
                                             </Field>
                                             <Field
                                                 as="select"
                                                 title="Select Branch"
                                                 className="selectpicker form-control input_box_2"
-                                                name="branchName"
+                                                name="branchId"
                                             >
                                                 {
-                                                    branchNames.map(branch => <option key={branch._id} value={branch.branch_name}>{branch.branch_name}</option>)
+                                                    branchNames.map(branch => <option key={branch._id} value={branch._id}>{branch.branch_name}</option>)
                                                 }
                                             </Field>
                                         </div>
-
-                                        {/* <div className="input-group">
-                                                <Field
-                                                    placeholder="DELIVERY ADDRESS"
-                                                    type="text"
-                                                    name="companyName"
-                                                    className="form-control"
-                                                />
-                                            </div>
-                                            <DoubleErrorMessage
-                                                leftError={errors.delivery_address}
-                                                leftTouched={touched.delivery_address}
-                                            />
-
-                                            <div className="input-group">
-                                                <select title="Select City" className="selectpicker form-control input_box_1">
-                                                    <option>Option 1</option>
-                                                    <option>Option 2</option>
-                                                </select>
-                                                <select title="Select State" className="selectpicker form-control input_box_2">
-                                                    <option>Option 1</option>
-                                                    <option>Option 2</option>
-                                                </select>
-                                            </div>
-
-                                            <div className="input-group">
-                                                <select title="Select Country" className="selectpicker form-control">
-                                                    <option>Option 1</option>
-                                                    <option>Option 2</option>
-                                                </select>
-                                            </div> */}
-
                                     </div>
-
-                                    {/* <div className="text-center mt-4">
-                                                <a href="" className="dark font-weight-bold">
-                                                    <img className="mr-3"
-                                                        //src={require(`../../../assets/image/logo.svg`)} 
-                                                        alt="" />ADD MORE</a>
-                                            </div> */}
+                                    <div className="mr-0 ml-xl-6">
+                                        <Field
+                                            as="select"
+                                            title="Address List"
+                                            className="selectpicker form-control input_box_2"
+                                        >
+                                            {
+                                                !addressList.length ? (
+                                                    <option value="">Add Address</option>
+                                                ): null
+                                            }
+                                            {
+                                                addressList.map((address, idx) =>
+                                                    <option key={idx} value={idx}>
+                                                        {address.delivery_address}, 
+                                                        {address.city}, 
+                                                        {address.state}, 
+                                                        {address.country} - 
+                                                        {address.pincode}
+                                                        </option>
+                                                )
+                                            }
+                                        </Field>
+                                    </div>
+                                    <div className="text-center mt-4">
+                                        <a
+                                            className="dark font-weight-bold"
+                                            style={{ cursor: "pointer" }}
+                                            onClick={() => { setVisibleAddDataModal(true) }}
+                                        >
+                                            <img className="mr-3" src={require(`../../../assets/images/plus.svg`)} alt=""
+                                            />
+                                            Add Address
+                                        </a>
+                                    </div>
                                 </div>
                             </div>
                             <div className="text-center mt-5 pt-lg-5">
-                                <button className="btn_blue" type="submit"><span>SAVE</span></button>
+                                <button className="btn_blue" type="submit" disabled={isSubmitting}><span>SAVE</span></button>
                             </div>
                         </form >
                     )}
             </Formik>
+            <EmployeeAndLicenseAddressBox
+                isOpen={visibleAddDataModal}
+                toggleModal={() => {
+                    // setEmployeeDetails(employeeDetails)
+                    setVisibleAddDataModal(!visibleAddDataModal);
+                }}
+                onSaveAddress={onSaveAddress}
+            />
         </ModalComponent>
     )
 }

@@ -7,7 +7,7 @@ import { useDispatch } from 'react-redux';
 import { ArrowRightIcon, UploadPlusIcon } from '../../components/icons/Icons';
 import DoubleErrorMessage from '../../components/inputFields/inputErrorMessage';
 
-const SignUpForm = () => {
+const SignUpForm = ({ toggleOverlay }) => {
 
     const dispatch = useDispatch();
 
@@ -27,11 +27,11 @@ const SignUpForm = () => {
         data.set("email", values.personalEmail)
         data.set("officeContactNo", values.officeContactNo)
         data.set("mobileNo", values.mobileNo)
-        // data.set("employeeId", values.employeeId)
+        data.set("employeeId", values.employeeId)
         data.set("username", values.userName)
         data.set("password", values.password)
 
-        dispatch(signUpUserAsync(data));
+        dispatch(signUpUserAsync(data, toggleOverlay));
     }
 
     return (
@@ -57,7 +57,11 @@ const SignUpForm = () => {
                     const errors = {};
                     for (let key in values) {
                         if (!values[key]) {
-                            errors[key] = `${key} is required.`
+                            if (key === "corpDoc") {
+                                errors[key] = `Upload a document(Format: .pdf)`
+                            } else {
+                                errors[key] = `${key} is required.`
+                            }
                         }
                     }
                     if (values.corporateEmail && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.corporateEmail)) {
@@ -176,9 +180,14 @@ const SignUpForm = () => {
                                 <input type="file"
                                     className="custom-file-input"
                                     id="inputGroupFile03"
+                                    accept="application/pdf, image/*"
                                     onChange={event => setFieldValue('corpDoc', event.target.files[0])}
                                 />
                             </div>
+                            <DoubleErrorMessage
+                                leftError={errors.corpDoc}
+                                leftTouched={touched.corpDoc}
+                            />
 
                             <button type="submit" className="modal-fill_btn btn btn-lg">
                                 <span className="sign_in">SUBMIT</span>

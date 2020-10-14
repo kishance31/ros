@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useSelector } from 'react-redux'
 import { Formik } from 'formik';
 import DoubleErrorMessage from '../../components/inputFields/inputErrorMessage';
 import { AddMoreIcon } from '../../components/icons/Icons';
-const EmployeeProfile = () => {
+import EmployeeAndLicenseAddressBox from '../../components/corporate-panel/employeeAndLicense/employeeAndLicenseAddressBox';
 
+const EmployeeProfile = () => {
+    const [visibleAddDataModal, setVisibleAddDataModal] = useState(false);
     const user = useSelector(state => state.auth.user);
     const username = useSelector(state => state.auth.user.firstName)
     const licenceType = useSelector(state => state.auth.user.licenseType)
@@ -12,7 +14,7 @@ const EmployeeProfile = () => {
         const data = new FormData()
         data.set("companyName", values.companyName)
         data.set("firstName", values.firstName)
-        data.set("lastName", values.lastName) 
+        data.set("lastName", values.lastName)
         data.set("username", values.username)
         data.set("position", values.position)
         data.set("department", values.department)
@@ -24,7 +26,7 @@ const EmployeeProfile = () => {
         // data.set("deliveryAddress", values.deliveryAddress)
         // data.set("city", values.city)
         // data.set("state", values.state);
-        data.forEach((value, key) => {data[key] = value});
+        data.forEach((value, key) => { data[key] = value });
         const jsonEmployBody = JSON.stringify(data);
     }
     return (
@@ -194,7 +196,7 @@ const EmployeeProfile = () => {
                                                                 onChange={handleChange}
                                                                 value={values.email}
                                                                 className="input_box_2 form-control"
-                                                                
+
                                                             />
                                                         </div>
                                                         <DoubleErrorMessage
@@ -288,13 +290,18 @@ const EmployeeProfile = () => {
                                                             <span className="addmore_icon">
                                                                 <AddMoreIcon />
                                                             </span>
-                                                            <span className="pl-2">ADD MORE</span>
+                                                            <span className="pl-2" onClick={() => { setVisibleAddDataModal(true) }}>ADD ADDRESS</span>
+                                                            <EmployeeAndLicenseAddressBox
+                                                                isOpen={visibleAddDataModal}
+                                                                toggleModal={() => {
+                                                                    setVisibleAddDataModal(!visibleAddDataModal);
+                                                                }} />
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div className="text-center mt-5 pt-lg-5">
-                                                <button type="submit" disabled={isSubmitting} className="btn_blue">
+                                                <button type="submit" className="btn_blue">
                                                     <span className="">SAVE</span>
                                                 </button>
                                             </div>

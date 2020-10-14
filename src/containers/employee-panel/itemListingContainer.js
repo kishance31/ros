@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import CategoryLinks from './categoryList';
 import ProductsListContianer from './productLists';
@@ -7,31 +7,24 @@ import ProductModal from './productModal';
 import cartActions from '../../actions/cart.action';
 import CartModal from './cartModal';
 import ProductDeliverAddressPage from '../employee-panel/productDeliverAddressPage';
-import { ProductsList } from '../../utils/constants';
 import { CartActionMap, addToCartAsync } from '../../actions/cart.action';
 import ProductDispatchMessagePage from '../employee-panel/productDispatchMessagePage'
-import { categoryListAsync, productListAsync } from '../../actions/itemListing.action'
+import { categoryListAsync, productListAsync, ItemListingActions } from '../../actions/itemListing.action'
 
 const ItemListingContianer = (props) => {
 
-    const [viewProduct, setViewProduct] = useState({ title: "", description: "", image: "" });
+    const [viewProduct, setViewProduct] = useState(null);
     const [openProductModal, setOpenProductModal] = useState(false);
-    const { productCategory } = useParams();
     const tokens = useSelector(state => state.auth.user.tokens)
     const isOpenCart = useSelector(state => state.cart.openCart);
     const isOpenThankYouModal = useSelector(state => state.cart.modals.ShowthankYouModal);
     const isOpenDispatchModal = useSelector(state => state.cart.modals.showAdminApprovalModal);
-    const categoryList = useSelector(state => state.itemListing.categoryList)
-    const productList = useSelector(state => state.itemListing.productList);
+    const { productList, categoryList, productCount } = useSelector(state => state.itemListing, shallowEqual);
     const dispatch = useDispatch();
 
-    useEffect(() => {
-        dispatch(categoryListAsync(tokens))
-    }, [])
-
-    useEffect(() => {
-        dispatch(productListAsync(tokens))
-    }, [])
+    // useEffect(() => {
+    //     dispatch(productListAsync())
+    // }, [])
 
     const viewProductDetails = (productId) => {
         setViewProduct(productId);
@@ -39,9 +32,18 @@ const ItemListingContianer = (props) => {
     }
 
     const addToCart = (productDetails) => {
-        dispatch(cartActions.addToCart(productDetails));
+        dispatch(addToCartAsync(productDetails._id));
         setOpenProductModal(false);
-        dispatch(addToCartAsync(tokens));
+    }
+
+    const setSelectedCategory = (category, categoryRoute) => {
+        let route = categoryRoute ? categoryRoute + category.subCategoryRoute : category.categoryRoute;
+        dispatch(ItemListingActions.setSelectedCategory({ category, route }))
+        dispatch(productListAsync());
+    }
+
+    const getMoreProducts = () => {
+        dispatch(productListAsync('add'));
     }
 
     return (
@@ -49,7 +51,7 @@ const ItemListingContianer = (props) => {
             <div className="row">
                 <div className="col-xl-3 col-lg-12">
                     <CategoryLinks
-                        setDefaultCategory={props.setDefaultCategory}
+                        setSelectedCategory={setSelectedCategory}
                         categoryList={categoryList}
                     />
                 </div>
@@ -57,7 +59,8 @@ const ItemListingContianer = (props) => {
                     <ProductsListContianer
                         productList={productList}
                         setViewProduct={viewProductDetails}
-                        productsList={ProductsList[productCategory]}
+                        productCount={productCount}
+                        getMoreProducts={getMoreProducts}
                     />
                 </div>
             </div>
@@ -71,8 +74,14 @@ const ItemListingContianer = (props) => {
                 isOpen={isOpenCart}
                 toggleModal={() => dispatch(cartActions.toggleCart())}
             />
-            <ProductDeliverAddressPage tokens={tokens} isOpen={isOpenThankYouModal} toggleModal={() => dispatch(cartActions.toggleAddressModal(CartActionMap.CLOSE_ALL_MODAL))} />
-            <ProductDispatchMessagePage isOpen={isOpenDispatchModal} toggleModal={() => dispatch(cartActions.toggleAddressModal(CartActionMap.CLOSE_ALL_MODAL))} />
+            <ProductDeliverAddressPage
+                isOpen={isOpenThankYouModal}
+                toggleModal={() => dispatch(cartActions.closeAllModals())}
+            />
+            <ProductDispatchMessagePage
+                isOpen={isOpenDispatchModal}
+                toggleModal={() => dispatch(cartActions.closeAllModals())}
+            />
         </div>
     )
 }

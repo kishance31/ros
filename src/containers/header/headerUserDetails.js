@@ -18,7 +18,6 @@ const HeaderUserDetails = (props) => {
     }
     const onclickCart = () => {
         dispatch(cartActions.toggleCart())
-        dispatch(getCartByEmployeeIdAsync(user.tokens, user._id))
     }
 
     return (

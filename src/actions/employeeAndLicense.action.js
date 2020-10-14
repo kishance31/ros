@@ -1,5 +1,8 @@
 import axios from 'axios';
 import notificationActions from './notifications.action';
+import getServerCore from '../utils/apiUtils';
+
+const { serverUrl } = getServerCore();
 
 export const EmployeeAndLicenseMap = {
     Add_Employeement_START: 'add_employeement_start',
@@ -45,15 +48,14 @@ const employeeAndLicenseAction = {
 export default employeeAndLicenseAction;
 
 export const employeeAndLicenseAddAsync = (user) => {
-
     return async (dispatch, getState) => {
         const { auth } = getState()
         try {
             dispatch({
                 type: EmployeeAndLicenseMap.Add_Employeement_START
             });
-            let employeeAndLicenseResponse = await axios({
-                url: `http://127.0.0.1:4000/api/corporate-admin/employee/saveEmployee`,
+            let { data } = await axios({
+                url: `${serverUrl}/corporate-admin/employee/saveEmployee`,
                 method: "POST",
                 data: user,
                 headers: {
@@ -61,15 +63,15 @@ export const employeeAndLicenseAddAsync = (user) => {
                     tokens: auth.user.tokens
                 }
             });
-            if (employeeAndLicenseResponse.data.response.responseCode === 200) {
+            if (data.response && data.response.responseCode === 200) {
                 dispatch(employeeAndLicenseCountAsync(auth.user._id, auth.user.tokens));
-                dispatch({
+                return dispatch({
                     type: EmployeeAndLicenseMap.Add_Employeement_SUCCESS
                 })
             }
-            dispatch(notificationActions.showNotification({
+            return dispatch(notificationActions.showNotification({
                 title: "Added Employee",
-                message: employeeAndLicenseResponse.data.response.responseMessage,
+                message: "Error adding new employee",
                 // duration: 7000,
             }));
         } catch (error) {
@@ -82,22 +84,27 @@ export const employeeAndLicenseAddAsync = (user) => {
 
 export const employeeAndLicenseCountAsync = (id, tokens) => {
 
-    return async (dispatch) => {
+    return async (dispatch, getState) => {
         try {
             dispatch({
                 type: EmployeeAndLicenseMap.Available_LicenseCount_START
             });
-            let employeeAndLicenseResponse = await axios({
-                url: `http://127.0.0.1:4000/api/license/total/${id}`,
+            let { data } = await axios({
+                url: `${serverUrl}/license/total/${id}`,
                 method: "GET",
                 headers: {
                     tokens
                 }
             });
-            if (employeeAndLicenseResponse.data.response.responseCode === 200) {
+            if (data.response && data.response.responseCode === 200) {
+                const { availableLicenseList } = getState().purchaseLicense;
+                let licenseCount = {};
+                availableLicenseList.forEach(license => {
+                    licenseCount[license.type] = 0;
+                })
                 dispatch({
                     type: EmployeeAndLicenseMap.Available_LicenseCount_SUCCESS,
-                    payload: employeeAndLicenseResponse.data.response.availabelLicenseCount
+                    payload: { ...licenseCount, ...data.response.availabelLicenseCount }
                 })
             }
         } catch (error) {
@@ -116,7 +123,7 @@ export const getEmployeesAsync = (tokens, id, limit, batch) => {
                 type: EmployeeAndLicenseMap.Get_Employees_START
             });
             let getEmployeesResponse = await axios({
-                url: `http://127.0.0.1:4000/api/corporate-admin/employee/getEmployeeByCorporateId/${id}`,
+                url: `${serverUrl}/corporate-admin/employee/getEmployeeByCorporateId/${id}`,
                 method: "POST",
                 data: {
                     limit,
@@ -141,24 +148,30 @@ export const getEmployeesAsync = (tokens, id, limit, batch) => {
     }
 }
 
-export const updateEmployeeAsync = (id, tokens, user) => {
+export const updateEmployeeAsync = (user, id) => {
 
     return async (dispatch, getState) => {
         try {
             const { auth } = getState();
-            let updateEmployeesResponse = await axios({
-                url: `http://127.0.0.1:4000/api/corporate-admin/employee/updateEmployee/${auth.user._id}`,
+            let { data } = await axios({
+                url: `${serverUrl}/corporate-admin/employee/updateEmployee/${id}`,
                 method: "PUT",
                 data: user,
                 headers: {
                     tokens: auth.user.tokens
                 }
             });
-            dispatch(notificationActions.showNotification({
-                title: "Update Employee",
-                message: updateEmployeesResponse.data.response.responseMessage,
-                // duration: 7000,
-            }));
+            if (data.response && data.response.responseCode === 200) {
+                dispatch(employeeAndLicenseCountAsync(auth.user._id, auth.user.tokens));
+                dispatch({
+                    type: EmployeeAndLicenseMap.Add_Employeement_SUCCESS
+                })
+                dispatch(notificationActions.showNotification({
+                    title: "Update Employee",
+                    message: data.response.responseMessage,
+                    // duration: 7000,
+                }));
+            }
         } catch (error) {
             dispatch(notificationActions.showNotification({
                 title: "Update Employee",
@@ -177,7 +190,7 @@ export const deleteDataAsync = (id, tokens) => {
                 type: EmployeeAndLicenseMap.Delete_Employees_START
             });
             let deleteEmployeesResponse = await axios({
-                url: `http://127.0.0.1:4000/api/corporate-admin/employee/deleteEmployee/${id}`,
+                url: `${serverUrl}/corporate-admin/employee/deleteEmployee/${id}`,
                 method: "DELETE",
                 headers: {
                     tokens
@@ -204,7 +217,7 @@ export const getBranchNamesAsync = (id, tokens) => {
     return async (dispatch) => {
         try {
             let { data } = await axios({
-                url: `http://127.0.0.1:4000/api/branch/getCorporateBranchNames/${id}`,
+                url: `${serverUrl}/branch/getCorporateBranchNames/${id}`,
                 method: "GET",
                 headers: {
                     tokens

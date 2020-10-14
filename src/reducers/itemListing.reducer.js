@@ -6,7 +6,12 @@ const initialState = {
     getProductById: [],
     getCartByEmployeeId: [],
     placeOrder: [],
-    updateOrder: []
+    updateOrder: [],
+    productCount: 0,
+    selectedCategoryRoute: "",
+    selectedCategory: {},
+    page: 0,
+    limit: 8,
 }
 
 const itemListingReducer = (state = initialState, action) => {
@@ -14,31 +19,45 @@ const itemListingReducer = (state = initialState, action) => {
         case ItemListingMap.CATEGORY_LIST_SUCCESS: {
             return {
                 ...state,
-                categoryList: action.payload
+                categoryList: action.payload,
+                selectedCategoryRoute: action.payload.length ? action.payload[0].categoryRoute : "",
+                selectedCategory: action.payload.length ? action.payload[0] : {},
             }
         }
         case ItemListingMap.PRODUCT_LIST_SUCCESS: {
             return {
                 ...state,
-                productList: action.payload
+                productList: action.payload.list,
+                productCount: action.payload.totalProducts,
             }
         }
-        case ItemListingMap.GET_CARTBY_EMPLOYEE_ID_SUCCESS: {
+        case ItemListingMap.ADD_MORE_PRODUCTS: {
             return {
                 ...state,
-                getCartByEmployeeId: [...action.payload]
+                productList: [...state.productList, ...action.payload.list],
+                productCount: action.payload.totalProducts,
+                page: state.page + 1,
             }
         }
+        
         case ItemListingMap.PLACE_ORDER_SUCCESS: {
             return {
                 ...state,
-                placeOrder: action.payload
+                // placeOrder: action.payload
             }
         }
         case ItemListingMap.UPDATE_ORDER_SUCCESS: {
             return {
                 ...state,
                 updateOrder: action.payload
+            }
+        }
+        case ItemListingMap.SET_SELECTED_CATEGORY: {
+            return {
+                ...state,
+                selectedCategory: action.payload.category,
+                selectedCategoryRoute: action.payload.route,
+                page: 0,
             }
         }
         default:

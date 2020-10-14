@@ -1,5 +1,8 @@
 import axios from 'axios';
 import {employeeAndLicenseCountAsync} from './employeeAndLicense.action';
+import getServerCore from '../utils/apiUtils';
+
+const { serverUrl } = getServerCore();
 
 export const PurchaseLicenseMap = {
     ADD_LICENSE_ORDER: 'ADD_LICENSE_ORDER',
@@ -54,7 +57,7 @@ export const availableLicenseAsync = () => {
                 type: PurchaseLicenseMap.AVAILABLE_LICENSE_START
             });
             let availableLicenseResponse = await axios({
-                url: `http://127.0.0.1:4000/api/license/licenseList`,
+                url: `${serverUrl}/license/licenseList`,
                 method: "GET",
                 headers: {
                     'Content-type': 'application/json'
@@ -83,7 +86,7 @@ export const orderIdAsync = (orderId, token) => {
                 type: PurchaseLicenseMap.ORDER_ID_START
             });
             let orderIdResponse = await axios({
-                url: `http://127.0.0.1:4000/api/corporate-admin/purchaseLicense/orderId/${orderId}`,
+                url: `${serverUrl}/corporate-admin/purchaseLicense/orderId/${orderId}`,
                 method: "POST",
                 headers: {
                     'tokens': token
@@ -113,7 +116,7 @@ export const purchaseLicenseAsync = (orderId, purchaseLicenses, tokens, data) =>
                 type: PurchaseLicenseMap.PURCHASE_LICENSE_START
             });
             let purchaseLicenseResponse = await axios({
-                url: `http://127.0.0.1:4000/api/corporate-admin/purchaseLicense/purchase`,
+                url: `${serverUrl}/corporate-admin/purchaseLicense/purchase`,
                 method: "POST",
                 data: {
                     orderId, purchaseLicenses,
@@ -146,7 +149,7 @@ export const licenseOrderHistoryAsync = (corporateId, token, limit, batch) => {
                 type: PurchaseLicenseMap.LICENSE_ORDER_HISTORY_START
             });
             let licenseOrderHistoryResponse = await axios({
-                url: `http://127.0.0.1:4000/api/corporate-admin/purchaseLicense/purchase/${corporateId}`,
+                url: `${serverUrl}/corporate-admin/purchaseLicense/purchase/${corporateId}`,
                 data: {
                     limit,
                     batch: batch - 1
