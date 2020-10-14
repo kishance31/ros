@@ -65,13 +65,13 @@ export const employeeAndLicenseAddAsync = (user) => {
             });
             if (data.response && data.response.responseCode === 200) {
                 dispatch(employeeAndLicenseCountAsync(auth.user._id, auth.user.tokens));
-                dispatch({
+                return dispatch({
                     type: EmployeeAndLicenseMap.Add_Employeement_SUCCESS
                 })
             }
-            dispatch(notificationActions.showNotification({
+            return dispatch(notificationActions.showNotification({
                 title: "Added Employee",
-                message: data.response.responseMessage,
+                message: "Error adding new employee",
                 // duration: 7000,
             }));
         } catch (error) {
