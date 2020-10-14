@@ -29,6 +29,7 @@ const initialState = {
         companyRegisterNo: "",
     },
     tempToken: '',
+    resetToken:''
 }
 
 const authReducer = (state = initialState, action) => {
@@ -58,7 +59,9 @@ const authReducer = (state = initialState, action) => {
                     openModal: true,
                 }
             }
-
+        case AuthMap.RESET_PASSWORD_START:
+        case AuthMap.RESET_PASSWORD_SUCCESS:
+        case AuthMap.RESET_PASSWORD_ERROR:    
         case AuthMap.HIDE_ALL_AUTH_MODAL:
             return {
                 ...state,
@@ -83,6 +86,21 @@ const authReducer = (state = initialState, action) => {
                     openModal: true,
                 }
             }
+            case AuthMap.FORGOT_PASSWORD_START:
+            case AuthMap.FORGOT_PASSWORD_SUCCESS:
+                    return {
+                        ...state,
+                        modals: {
+                            showSignInModal: false,
+                            showSignUpModal: false,
+                            showForgotPasswordModal: false,
+                            showSetPasswordModal: true,
+                            title: action.payload ? action.payload.title : "",
+                            openModal: true,
+                        },
+                        resetToken: action.payload && action.payload.data ? action.payload.data.resetToken : ""
+                    }
+            case AuthMap.FORGOT_PASSWORD_ERROR:        
 
         case AuthMap.TOGGLE_SET_PASSWORD_MODAL:
             return {
@@ -95,7 +113,7 @@ const authReducer = (state = initialState, action) => {
                     title: action.payload ? action.payload.title : "",
                     openModal: true,
                 },
-                tempToken: action.payload ? action.payload.data : "",
+                resetToken: action.payload ? action.payload.data : "",
             }
         case AuthMap.SIGN_UP_START:
             return {
