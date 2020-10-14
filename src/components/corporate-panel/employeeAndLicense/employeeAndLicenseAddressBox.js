@@ -6,17 +6,7 @@ import DoubleErrorMessage from '../../inputFields/inputErrorMessage';
 
 const EmployeeAndLicenseAddressBox = (props) => {
 
-    const { toggleModal } = props;
-
-    const onSubmit = (values) => {
-        const data = new FormData();
-        data.set("address", new Array())
-        data.set("delivery_address", values.delivery_address)
-        data.set("city", values.city)
-        data.set("state", values.state)
-        data.set("country", values.country)
-        toggleModal()
-    }
+    const { toggleModal, onSaveAddress, isOpen } = props;
 
     const ModalCloseIcon = () => (
         <button type="button" className="close close_icon ml-auto" data-dismiss="modal"
@@ -33,96 +23,111 @@ const EmployeeAndLicenseAddressBox = (props) => {
             id="address_details"
             toggleModal={toggleModal}
         >
-            <Formik
-                initialValues={{
-                    delivery_address: "",
-                    city: "",
-                    state: "",
-                    country: ""
-                }}
+            {
+                isOpen ? (
 
-                validate={(values) => {
-                    const errors = {};
-                    for (let key in values) {
-                        if (key !== "_id")
-                            if (!values[key]) {
-                                errors[key] = `${key} is required.`
+                    <Formik
+                        initialValues={{
+                            delivery_address: "",
+                            city: "",
+                            state: "",
+                            country: "",
+                            pincode: "",
+                        }}
+
+                        validate={(values) => {
+                            const errors = {};
+                            for (let key in values) {
+                                if (key !== "_id")
+                                    if (!values[key]) {
+                                        errors[key] = `${key} is required.`
+                                    }
                             }
-                    }
-                    return errors;
-                }}
+                            return errors;
+                        }}
 
-                onSubmit={(values, { setSubmitting }) => {
-                    console.log(values);
-                    onSubmit(values);
-                    setSubmitting(false);
-                }}
-            >
-                {({ values,
-                    errors,
-                    touched,
-                    isSubmitting,
-                    handleSubmit
-                }) => (
-                        <form className="form-horizontal" onSubmit={handleSubmit} >
-                            <div className="row">
-                                <div className="col-lg-12">
-                                    <div className="mr-0 ml-xl-6">
-                                        <div className="input-group">
-                                            <Field
-                                                placeholder="DELIVERY ADDRESS"
-                                                type="text"
-                                                name="delivery_address"
-                                                className="form-control"
-                                            />
-                                            <DoubleErrorMessage
-                                                leftError={errors.delivery_address}
-                                                leftTouched={touched.delivery_address}
-                                            />
-                                        </div>
-                                        <div className="input-group">
-                                            <Field
-                                                type="text"
-                                                placeholder="Enter City"
-                                                className="form-control"
-                                                name="city"
-                                            />
-                                            <DoubleErrorMessage
-                                                leftError={errors.city}
-                                                leftTouched={touched.city}
-                                            />
-                                            <Field
-                                                type="text"
-                                                placeholder="Enter State"
-                                                className="form-control"
-                                                name="state"
-                                            />
-                                            <DoubleErrorMessage
-                                                leftError={errors.state}
-                                                leftTouched={touched.state}
-                                            />
-                                        </div>
-                                        <div className="input-group">
-                                            <Field
-                                                type="text"
-                                                placeholder="Enter Country"
-                                                className="form-control"
-                                                name="country"
-                                            />
-                                            <DoubleErrorMessage
-                                                leftError={errors.country}
-                                                leftTouched={touched.country}
-                                            />
+                        onSubmit={(values) => {
+                            onSaveAddress(values);
+                        }}
+                    >
+                        {({ values,
+                            errors,
+                            touched,
+                            handleSubmit
+                        }) => (
+                                <form className="form-horizontal" onSubmit={handleSubmit} >
+                                    <div className="row">
+                                        <div className="col-lg-12">
+                                            <div className="mr-0 ml-xl-6">
+                                                <div className="input-group">
+                                                    <Field
+                                                        placeholder="DELIVERY ADDRESS"
+                                                        type="text"
+                                                        name="delivery_address"
+                                                        className="form-control"
+                                                    />
+                                                    <DoubleErrorMessage
+                                                        leftError={errors.delivery_address}
+                                                        leftTouched={touched.delivery_address}
+                                                    />
+                                                </div>
+                                                <div className="input-group">
+                                                    <Field
+                                                        type="text"
+                                                        placeholder="Enter City"
+                                                        className="form-control"
+                                                        name="city"
+                                                    />
+                                                    <DoubleErrorMessage
+                                                        leftError={errors.city}
+                                                        leftTouched={touched.city}
+                                                    />
+                                                    <Field
+                                                        type="text"
+                                                        placeholder="Enter State"
+                                                        className="form-control"
+                                                        name="state"
+                                                    />
+                                                    <DoubleErrorMessage
+                                                        leftError={errors.state}
+                                                        leftTouched={touched.state}
+                                                    />
+                                                </div>
+                                                <div className="input-group">
+                                                    <Field
+                                                        type="text"
+                                                        placeholder="Enter Country"
+                                                        className="form-control"
+                                                        name="country"
+                                                    />
+                                                    <DoubleErrorMessage
+                                                        leftError={errors.country}
+                                                        leftTouched={touched.country}
+                                                    />
+                                                </div>
+                                                <div className="input-group">
+                                                    <Field
+                                                        type="text"
+                                                        placeholder="Enter Pincode"
+                                                        className="form-control"
+                                                        name="pincode"
+                                                    />
+                                                    <DoubleErrorMessage
+                                                        leftError={errors.pincode}
+                                                        leftTouched={touched.pincode}
+                                                    />
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            </div>
-                            <div className="text-center mt-5 pt-lg-5">
-                                <button className="btn_blue" type="submit"><span>SAVE</span></button>
-                            </div>
-                        </form >
-                    )}
-            </Formik>
+                                    <div className="text-center mt-5 pt-lg-5">
+                                        <button className="btn_blue" type="submit"><span>SAVE</span></button>
+                                    </div>
+                                </form >
+                            )}
+                    </Formik>
+                ) : null
+            }
         </ModalComponent>
     )
 }

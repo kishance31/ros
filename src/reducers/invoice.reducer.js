@@ -1,46 +1,48 @@
-import { EmployeeOrderDetailsMap } from '../actions/employeeOrderDetails.action';
+import { InvoiceMap } from '../actions/invoice.action';
 
 const initState = {
-    orderDetails: [],
+    invoiceList: [],
     totalRecords: 0,
     refreshList: true,
     isLoading: false,
     batchNumber: 1,
-    employeeNames: [],
+    limit: 5,
 }
 
-const employeeOrderDetailsReducer = (state = initState, action) => {
+const InvoiceReducer = (state = initState, action) => {
     switch (action.type) {
-        case EmployeeOrderDetailsMap.GET_ORDERDETAILS_SUCCESS: {
+        case InvoiceMap.GET_INVOICE_SUCCESS: {
             return {
                 ...state,
-                orderDetails: action.payload.list,
+                invoiceList: action.payload.list,
                 totalRecords: action.payload.totalRecords,
                 refreshList: false,
             }
         }
-        case EmployeeOrderDetailsMap.GET_ORDERDETAILS_ERROR: {
+        case InvoiceMap.GET_INVOICE_ERROR: {
             return {
                 ...state,
                 refreshList: false,
             }
         }
-        case EmployeeOrderDetailsMap.REFRESH_ORDERDETAILS_LIST: {
+        case InvoiceMap.SET_INVOICEPAGE_NUMBER: {
             return {
                 ...state,
+                batchNumber: action.payload,
                 refreshList: true
             }
         }
-        case EmployeeOrderDetailsMap.SET_ORDERDETAILS_NUMBER: {
+        case InvoiceMap.REFRSH_INVOICE_LIST: {
             return {
                 ...state,
-                batchNumber: action.payload
+                refreshList: true,
+                batchNumber: 1
             }
         }
-        case EmployeeOrderDetailsMap.GET_EMPLOYEE_NAMES_SUCCESS: {
+        case InvoiceMap.RECURRING_PAYMENT_SUCCESS: {
             return {
                 ...state,
-                employeeNames: action.payload
+                refreshList: true,
             }
         }
 
@@ -49,4 +51,4 @@ const employeeOrderDetailsReducer = (state = initState, action) => {
     }
 }
 
-export default employeeOrderDetailsReducer;
+export default InvoiceReducer;

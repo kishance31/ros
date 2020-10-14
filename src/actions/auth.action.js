@@ -44,10 +44,11 @@ const { serverUrls, apiCall } = getServerCore();
 const corporateUrl = serverUrls.getCorporateUrl();
 const employeeUrl = serverUrls.getEmployeeUrl();
 
-export const signUpUserAsync = (user) => {
+export const signUpUserAsync = (user, toggleOverlay) => {
 
     return async (dispatch) => {
         try {
+            toggleOverlay(true);
             dispatch({
                 type: AuthMap.SIGN_UP_START
             });
@@ -58,11 +59,16 @@ export const signUpUserAsync = (user) => {
                 headers: { "Content-Type": "multipart/form-data" },
                 method: 'POST'
             });
-
+            toggleOverlay(false);
             if (signuprespone.response && signuprespone.response.responseCode === 201) {
-                return dispatch({
+                dispatch({
                     type: AuthMap.SIGN_UP_SUCCESS
-                })
+                });
+                return dispatch(notificationActions.showNotification({
+                    title: 'Sign Up',
+                    message: "Sign up successfull.",
+                    // duration: 5000,
+                }));
             }
             dispatch({
                 type: AuthMap.SIGN_UP_ERROR
@@ -81,6 +87,7 @@ export const signUpUserAsync = (user) => {
                 // duration: 5000,
             }));
         } catch (error) {
+            toggleOverlay(false);
             dispatch({
                 type: AuthMap.SIGN_UP_ERROR
             });

@@ -1,5 +1,6 @@
 import axios from 'axios';
 import notificationActions from './notifications.action';
+import { InvoiceActions } from './invoice.action';
 import getServerCore from '../utils/apiUtils';
 
 const { serverUrl } = getServerCore();
@@ -107,6 +108,7 @@ export const confirmOrderPayment = (orders, paypalDetails) => async (dispatch, g
         const { data } = await axios(options);
         if (data.response && data.response.responseCode === 200) {
             dispatch(getEmployeeOrderDetailsAsync());
+            dispatch(InvoiceActions.refreshList());
             dispatch(notificationActions.showNotification({
                 title: "Order Payment Successfull.",
                 message: `Order payment is success.

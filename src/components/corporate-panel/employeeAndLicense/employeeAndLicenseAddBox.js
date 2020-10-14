@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Formik, Field } from 'formik';
 import { MetroCancelIcon } from '../../icons/Icons';
 import DoubleInputField from '../../inputFields/doubleInputField';
@@ -13,7 +13,14 @@ const EmployeeAndLicenseAddBox = (props) => {
     const { employeeDetails, toggleModal, availableLicenseList, corporateId, branchNames, popupType } = props;
 
     const dispatch = useDispatch();
+
     const [visibleAddDataModal, setVisibleAddDataModal] = useState(false);
+    const [addressList, setAddressList] = useState([]);
+    
+    useEffect(() => {
+        setAddressList(employeeDetails.address)
+    }, [employeeDetails.address])
+
     const onSubmit = (values) => {
         const data = new FormData();
         data.set("companyName", values.companyName)
@@ -29,20 +36,33 @@ const EmployeeAndLicenseAddBox = (props) => {
         data.set("username", values.username)
         data.set("password", values.password)
         data.set("employeeId", values.employeeId)
+        data.set("address", JSON.stringify(addressList));
         if (popupType === "add") {
             dispatch(employeeAndLicenseAddAsync(data));
         }
         if (popupType === "edit") {
             dispatch(updateEmployeeAsync(data, values._id));
         }
-        toggleModal()
+        onCloseAddbox();
     }
+
+    const onSaveAddress = (data) => {
+        setAddressList([...addressList, data]);
+        setVisibleAddDataModal(false);
+    }
+
+    const onCloseAddbox = () => {
+        setAddressList([]);
+        toggleModal();
+    }
+
     const ModalCloseIcon = () => (
         <button type="button" className="close close_icon ml-auto" data-dismiss="modal"
-            aria-label="Close" onClick={toggleModal} >
+            aria-label="Close" onClick={onCloseAddbox} >
             <span aria-hidden="true"><MetroCancelIcon /></span>
         </button>
     )
+
     return (
         <ModalComponent
             {...props}
@@ -50,7 +70,7 @@ const EmployeeAndLicenseAddBox = (props) => {
             closeIcon={< ModalCloseIcon />}
             centered
             id="add_employeement"
-            toggleModal={toggleModal}
+            toggleModal={onCloseAddbox}
         >
             <Formik
                 initialValues={{
@@ -90,7 +110,7 @@ const EmployeeAndLicenseAddBox = (props) => {
                 }) => (
                         <form className="form-horizontal" onSubmit={handleSubmit} >
                             <div className="row">
-                                <div className="col-lg-12">
+                                <div className="col-lg-6">
                                     <div className="mr-0 mr-xl-6">
 
                                         <div className="mr-0 mr-xl-6">
@@ -194,7 +214,7 @@ const EmployeeAndLicenseAddBox = (props) => {
                                     </div>
                                 </div>
 
-                                <div className="col-lg-12">
+                                <div className="col-lg-6">
                                     <div className="mr-0 ml-xl-6">
                                         {
                                             popupType === "add" ? (
@@ -245,19 +265,40 @@ const EmployeeAndLicenseAddBox = (props) => {
                                             </Field>
                                         </div>
                                     </div>
+                                    <div className="mr-0 ml-xl-6">
+                                        <Field
+                                            as="select"
+                                            title="Address List"
+                                            className="selectpicker form-control input_box_2"
+                                        >
+                                            {
+                                                !addressList.length ? (
+                                                    <option value="">Add Address</option>
+                                                ): null
+                                            }
+                                            {
+                                                addressList.map((address, idx) =>
+                                                    <option key={idx} value={idx}>
+                                                        {address.delivery_address}, 
+                                                        {address.city}, 
+                                                        {address.state}, 
+                                                        {address.country} - 
+                                                        {address.pincode}
+                                                        </option>
+                                                )
+                                            }
+                                        </Field>
+                                    </div>
                                     <div className="text-center mt-4">
-                                        <a className="dark font-weight-bold">
+                                        <a
+                                            className="dark font-weight-bold"
+                                            style={{ cursor: "pointer" }}
+                                            onClick={() => { setVisibleAddDataModal(true) }}
+                                        >
                                             <img className="mr-3" src={require(`../../../assets/images/plus.svg`)} alt=""
-                                                onClick={() => { setVisibleAddDataModal(true) }}
                                             />
                                             Add Address
                                         </a>
-                                        <EmployeeAndLicenseAddressBox
-                                            isOpen={visibleAddDataModal}
-                                            toggleModal={() => {
-                                                // setEmployeeDetails(employeeDetails)
-                                                setVisibleAddDataModal(!visibleAddDataModal);
-                                            }} />
                                     </div>
                                 </div>
                             </div>
@@ -267,6 +308,14 @@ const EmployeeAndLicenseAddBox = (props) => {
                         </form >
                     )}
             </Formik>
+            <EmployeeAndLicenseAddressBox
+                isOpen={visibleAddDataModal}
+                toggleModal={() => {
+                    // setEmployeeDetails(employeeDetails)
+                    setVisibleAddDataModal(!visibleAddDataModal);
+                }}
+                onSaveAddress={onSaveAddress}
+            />
         </ModalComponent>
     )
 }

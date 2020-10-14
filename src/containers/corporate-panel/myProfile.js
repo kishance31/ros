@@ -2,7 +2,7 @@ import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Formik } from 'formik';
 import { updateUserProfileAsync } from '../../actions/auth.action';
-import { UploadPlusIcon } from '../../components/icons/Icons';
+import { UploadPlusIcon, ArrowRightIcon } from '../../components/icons/Icons';
 import DoubleErrorMessage from '../../components/inputFields/inputErrorMessage';
 
 const MyProfile = () => {
@@ -13,7 +13,11 @@ const MyProfile = () => {
     const onSubmits = (values) => {
 
         const data = new FormData()
-        data.append('file', values.corpDoc)
+        if (typeof values.corpDoc === "string") {
+            data.set('corpDoc', values.corpDoc);
+        } else {
+            data.append('corpDoc', values.corpDoc)
+        }
         data.set("companyName", values.companyName)
         data.set("firstName", values.firstName)
         data.set("lastName", values.lastName)
@@ -52,11 +56,15 @@ const MyProfile = () => {
                     }}
                     validate={(values) => {
                         const errors = {};
-                        // for (let key in values) {
-                        //     if (!values[key]) {
-                        //         errors[key] = "Required Field"
-                        //     }
-                        // }
+                        for (let key in values) {
+                            if (!values[key]) {
+                                if (key === "corpDoc") {
+                                    errors[key] = `Upload a document(Format: .pdf)`
+                                } else {
+                                    errors[key] = `${key} is required.`
+                                }
+                            }
+                        }
                         if (values.corporateEmailId && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.corporateEmailId)) {
                             errors.corporateEmailId = "Invalid email address";
                         }
@@ -71,8 +79,9 @@ const MyProfile = () => {
                         }
                         return errors;
                     }}
-                    onSubmit={(values, { setSubmitting }) => {
+                    onSubmit={(values, { setSubmitting, setFieldValue }) => {
                         onSubmits(values);
+                        setFieldValue('corpDoc', "");
                         setSubmitting(false);
                     }}
                 >
@@ -245,21 +254,49 @@ const MyProfile = () => {
                                                         className="input_box_2 form-control"
                                                     />
                                                 </div>
-
+                                                <div className="input-group two_side">
+                                                    {
+                                                        typeof values.corpDoc === "string" && values.corpDoc ? (
+                                                            <a href={values.corpDoc} target="_blank">
+                                                            <div className="modal-fill_btn_pdf_btn">
+                                                                <span className="sign_in">pdf-{Date.now()}.pdf</span>
+                                                                <span className="left_arrow">
+                                                                    <ArrowRightIcon />
+                                                                </span>
+                                                                <span>
+                                                                </span>
+                                                            </div>
+                                                            </a>
+                                                        ) : null
+                                                    }
+                                                </div>
                                                 <div className="upload_document_file">
                                                     <UploadPlusIcon />
                                                     <div className="d-flex flex-column align-items-center justify-content-center">
                                                         <label className="upload_document mb-0">UPLOAD DOCUMENT</label>
-                                                        <button className="btn_action pink">REMOVE
-                                            <input
-                                                                type="file"
-                                                                className="custom-file-input"
-                                                                id="inputGroupFile03"
-                                                                onChange={event => setFieldValue('corpDoc', event.target.files[0])}
-                                                            />
-                                                        </button>
+                                                        {
+                                                            values.corpDoc && values.corpDoc.name ?
+                                                                <span className="upload_file_name">{values.corpDoc.name}</span> : null
+                                                        }
+                                                        <input
+                                                            type="file"
+                                                            className="custom-file-input"
+                                                            id="inputGroupFile03"
+                                                            accept="application/pdf, image/*"
+                                                            onChange={event => {
+                                                                if (event.target.files[0]) {
+                                                                    setFieldValue('corpDoc', event.target.files[0])
+                                                                }
+                                                            }}
+                                                        />
+                                                        {/* <button type="button" className="btn_action pink">REMOVE
+                                                        </button> */}
                                                     </div>
                                                 </div>
+                                                <DoubleErrorMessage
+                                                    leftError={errors.corpDoc}
+                                                    leftTouched={touched.corpDoc}
+                                                />
 
                                             </div>
                                         </div>
