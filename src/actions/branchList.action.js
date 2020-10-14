@@ -153,6 +153,11 @@ export const deleteBranchAsync = (tokens, id) => {
             dispatch({
                 type: BranchListMap.DELETED_BRANCH_SUCCESSFULLY
             })
+            dispatch(notificationActions.showNotification({
+                title: "Delete Branch",
+                message: deletedUser.data.response.responseMessage,
+                // duration: 7000,
+            }));
             dispatch(employeeAndLicenseAction.refreshBranchNames());
         }
     }

@@ -96,6 +96,11 @@ export const addToCartAsync = (products) => {
                     // duration: 5000,
                 }));
             }
+            dispatch(notificationActions.showNotification({
+                title: "Add to cart",
+                message: "Product added to cart successfully",
+                // duration: 7000,
+            }));
         }
         catch (error) {
             dispatch({
@@ -154,11 +159,21 @@ export const removeFromCartAsync = (productId) => {
                     payload: productId
                 })
             }
+            dispatch(notificationActions.showNotification({
+                title: "Remove from cart",
+                message: "Product removed from cart successfully",
+                // duration: 7000,
+            }));
         }
         catch (error) {
             dispatch({
                 type: CartActionMap.REMOVE_FROM_CART_BYID_ERROR
             })
+            dispatch(notificationActions.showNotification({
+                title: "Remove from cart",
+                message: error.message,
+                // duration: 7000,
+            }));
         }
     }
 }

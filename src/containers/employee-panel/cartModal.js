@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import ModalComponent from '../../components/modal/modal';
 import { MetroCancelIcon } from '../../components/icons/Icons';
 import cartActions, { removeFromCartAsync, getCartByEmployeeIdAsync } from '../../actions/cart.action';
+import notificationActions from '../../actions/notifications.action'
 
 const CartModal = (props) => {
 
@@ -12,13 +13,18 @@ const CartModal = (props) => {
     const shoppingCartList = useSelector(state => state.cart.shoppingCart);
     const refreshCart = useSelector(state => state.cart.refreshCart);
     useEffect(() => {
-        if(refreshCart) {
+        if (refreshCart) {
             dispatch(getCartByEmployeeIdAsync());
         }
     }, [refreshCart])
 
     const redirectToThankYou = () => {
         dispatch(cartActions.toggleAddressModal())
+        dispatch(notificationActions.showNotification({
+            title: "Confirm Order",
+            message: "Order confirmed successfully"
+            // duration: 7000,
+        }));
     }
     const removeToCart = (id) => {
         dispatch(removeFromCartAsync(id))

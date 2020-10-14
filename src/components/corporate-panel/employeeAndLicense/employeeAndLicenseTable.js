@@ -23,7 +23,7 @@ const EmployeeAndLicenseTable = (props) => {
                                 <td>{item.firstName}&nbsp;{item.lastName}</td>
                                 <td>{item.email}</td>
                                 <td>{item.license ? item.license[0].type : ""}</td>
-                                <td>{item.branch ? item.branch[0].branch_name : ""}</td>
+                                {/* <td>{item.branch ? item.branch[0].branch_name : ""}</td> */}
                                 <td className="action_col">
                                     <button className="btn_action btn_border"
                                         onClick={() => { onUpdate(item) }}>Edit</button>

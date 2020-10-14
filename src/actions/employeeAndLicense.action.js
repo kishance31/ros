@@ -201,14 +201,15 @@ export const deleteDataAsync = (id, tokens) => {
                     type: EmployeeAndLicenseMap.Delete_Employees_SUCCESS
                 });
             }
-            dispatch({
-                type: EmployeeAndLicenseMap.Delete_Employees_ERROR
-            });
+            dispatch(notificationActions.showNotification({
+                title: "Delete Employee",
+                message: "Delete employee successfully",
+                // duration: 7000,
+            }));
         } catch (error) {
             dispatch({
                 type: EmployeeAndLicenseMap.Delete_Employees_ERROR
             })
-
         }
     }
 }
