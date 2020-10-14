@@ -1,7 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import { MetroCancelIcon } from '../../icons/Icons';
 import ModalComponent from '../../modal/modal';
-import { EmployeeOrderPaymentDetails } from '../../../utils/constants';
 
 const EmployeeOrderPaymentBox = (props) => {
 

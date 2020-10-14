@@ -61,10 +61,10 @@ const LicenseOrderHistory = () => {
                                                     <tr key={index}>
                                                         <td>{(limit * (batchNumber - 1)) + (index + 1)}</td>
                                                         <td>{item.orderId}</td>
-                                                        <td>{new Date(item.createdAt).toLocaleString()}</td>
+                                                        <td>{new Date(item.createdAt).toLocaleDateString()}</td>
                                                         <td>
                                                             {
-                                                                item.purchasedLicenses.map((licenseType, key) =>
+                                                                item.licenseDetails.map((licenseType, key) =>
                                                                     <div key={key}>{licenseType.type}</div>
                                                                 )
                                                             }

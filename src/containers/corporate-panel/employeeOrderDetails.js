@@ -121,6 +121,8 @@ const EmployeeOrderDetails = () => {
 					<button className="btn_blue"
 						disabled={selectedOrder.length ? false : true}
 						onClick={() => {
+							// const orderIds = selectedOrder.map(order => order.orderId);
+							// dispatch(confirmOrderPayment(orderIds, {abc: 123}));
 							setVisibleConfirmModal(true);
 						}}>Confirm</button>
 					<EmployeeOrderPaymentBox

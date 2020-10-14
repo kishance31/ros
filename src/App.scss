@@ -184,7 +184,7 @@ ul.navbar-nav.mr-auto {
 }
 
 ._loading_overlay_wrapper {
-    height: 90vh;
+    height: 100vh;
     ._loading_overlay_overlay {
         z-index: 1200;
     }
@@ -882,9 +882,12 @@ nav.tab {
         }
     }
 
-#invoice_details {
-    .modal-dialog {
-        max-width: 600px;
+#add_employeement.modal-dialog {
+    max-width: 1000px;
+}
+
+#invoice_details.modal-dialog {
+        max-width: 700px;
         .general_table {
             th {
                 width: 50%;
@@ -894,7 +897,6 @@ nav.tab {
             }
         }
     }
-}
 
 .product_img {
     width: 40px;
@@ -1831,6 +1833,32 @@ nav.tab {
     margin: 0 auto;
     display: table;
     margin-top: 80px;
+    &:hover {
+        background: #96d8e5;
+        color: #fff;
+    }
+    @media screen and (max-width: 1279px) {
+        margin-top: 50px;
+    }
+    @media screen and (max-width:575px) {
+        margin-top: 60px;
+        padding: 16px 20px;
+        font-size: 16px;
+    }
+}
+
+.modal-fill_btn_pdf_btn {
+    font-family: "Futura Md BT";
+    font-weight: 500;
+    font-size: 19px;
+    letter-spacing: .05em;
+    color: #fff;
+    padding: 20px 30px;
+    border-radius: 4px;
+    background: #8bc8d4;
+    box-shadow: 0 0 50px rgba(0, 0, 0, 0.09);
+    text-transform: uppercase;
+    display: table;
     &:hover {
         background: #96d8e5;
         color: #fff;

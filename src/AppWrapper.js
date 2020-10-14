@@ -13,8 +13,8 @@ const AppWrapper = () => {
     return (
         <div className={wrapperClass}>
             <NotificationToastContainer />
-            <HeaderContainer />
             <OverlayProvider>
+                <HeaderContainer />
                 <Routes />
             </OverlayProvider>
         </div>
