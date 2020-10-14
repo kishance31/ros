@@ -94,9 +94,9 @@ const authReducer = (state = initialState, action) => {
                             showSignInModal: false,
                             showSignUpModal: false,
                             showForgotPasswordModal: false,
-                            showSetPasswordModal: true,
+                            showSetPasswordModal: false,
                             title: action.payload ? action.payload.title : "",
-                            openModal: true,
+                            openModal: false,
                         },
                         resetToken: action.payload && action.payload.data ? action.payload.data.resetToken : ""
                     }

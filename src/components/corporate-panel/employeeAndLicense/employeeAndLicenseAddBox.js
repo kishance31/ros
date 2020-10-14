@@ -16,7 +16,7 @@ const EmployeeAndLicenseAddBox = (props) => {
 
     const [visibleAddDataModal, setVisibleAddDataModal] = useState(false);
     const [addressList, setAddressList] = useState([]);
-    
+
     useEffect(() => {
         setAddressList(employeeDetails.address)
     }, [employeeDetails.address])
@@ -274,18 +274,20 @@ const EmployeeAndLicenseAddBox = (props) => {
                                             {
                                                 !addressList.length ? (
                                                     <option value="">Add Address</option>
-                                                ): null
+                                                ) : null
                                             }
                                             {
-                                                addressList.map((address, idx) =>
+                                                addressList.length && addressList.map((address, idx) => (
+                                                    address &&
                                                     <option key={idx} value={idx}>
-                                                        {address.delivery_address}, 
-                                                        {address.city}, 
-                                                        {address.state}, 
-                                                        {address.country} - 
+                                                        {address.delivery_address},
+                                                        {address.city},
+                                                        {address.state},
+                                                        {address.country} -
                                                         {address.pincode}
-                                                        </option>
-                                                )
+                                                    </option>
+
+                                                ))
                                             }
                                         </Field>
                                     </div>
