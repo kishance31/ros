@@ -20,6 +20,9 @@ export const EmployeeAndLicenseMap = {
     Delete_Employees_START: 'delete_employees_start',
     Delete_Employees_SUCCESS: 'delete_employees_success',
     Delete_Employees_ERROR: 'delete_employees_error',
+    SEND_INVITATION_START: 'SEND_INVITATION_START',
+    SEND_INVITATION_SUCCESS: 'SEND_INVITATION_SUCCESS',
+    SEND_INVITATION_ERROR: 'SEND_INVITATION_ERROR',
     REFRESH_EMPLOYEE_LIST: 'REFRESH_EMPLOYEE_LIST',
     GET_BRANCH_NAMES: 'GET_BRANCH_NAMES',
     REFRESH_BRANCH_NAMES: 'REFRESH_BRANCH_NAMES',
@@ -42,7 +45,7 @@ const employeeAndLicenseAction = {
             type: EmployeeAndLicenseMap.SET_EMPLOYEE_BATCH_NUMBER,
             payload: num,
         }
-    },
+    }
 }
 
 export default employeeAndLicenseAction;
@@ -232,6 +235,35 @@ export const getBranchNamesAsync = (id, tokens) => {
             }
         } catch (error) {
 
+        }
+    }
+}
+
+export const sendInvitationAsync = (id, tokens) => {
+    return async (dispatch) => {
+        try {
+            dispatch({
+                type: EmployeeAndLicenseMap.SEND_INVITATION_START
+            });
+            let sendInvitationResponse = await axios({
+                url: `${serverUrl}/corporate-admin/sendEmailToEmployee/${id}`,
+                method: "POST",
+                headers: { tokens }
+            });
+            if (sendInvitationResponse.data.response.responseCode === 200) {
+                return dispatch({
+                    type: EmployeeAndLicenseMap.SEND_INVITATION_SUCCESS
+                });
+            }
+            dispatch(notificationActions.showNotification({
+                title: "Send Invitation",
+                message: "Send invitation successfully",
+                // duration: 7000,
+            }));
+        } catch (error) {
+            dispatch({
+                type: EmployeeAndLicenseMap.SEND_INVITATION_ERROR
+            })
         }
     }
 }

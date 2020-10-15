@@ -1,8 +1,9 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { displayBranchListAsync, deleteBranchAsync, BranchListAction } from '../../actions/branchList.action';
 import BasicPagination from '../../components/pagination/basicPagination';
 import { usePaginationHook } from '../../hooks/paginationHook';
+import BranchManagementDeleteBox from './branchManagementDeleteBox';
 
 const BranchManagement = () => {
 
@@ -16,7 +17,7 @@ const BranchManagement = () => {
     const user = useSelector(state => state.auth.user);
     const { branchList, refreshBranchList, totalBranchCount, batchNumber } = useSelector(state => state.branchList)
 
-    const { limit, handleBatchChange } = 
+    const { limit, handleBatchChange } =
         usePaginationHook(5, batchNumber, onPageChange);
 
     useEffect(() => {
@@ -24,6 +25,8 @@ const BranchManagement = () => {
             dispatch(displayBranchListAsync(user.tokens, user._id, batchNumber, limit));
         }
     }, [refreshBranchList])
+
+    const [visibleDeleteModal, setVisibleDeleteModal] = useState(false);
 
     const deleteBranch = (id) => {
         dispatch(deleteBranchAsync(user.tokens, id))
@@ -61,7 +64,12 @@ const BranchManagement = () => {
                                             <td className="text-center">
                                                 <div className="action_btn_wrap">
                                                     <button className="btn_action btn_border" onClick={() => editBranchData(element)}>EDIT</button>
-                                                    <button className="btn_action pink" onClick={() => deleteBranch(element._id)}>DELETE</button>
+                                                    <button className="btn_action pink"
+                                                        onClick={
+                                                            () => deleteBranch(element._id)
+                                                            //setVisibleDeleteModal(true)
+                                                        }
+                                                    >DELETE</button>
                                                 </div>
                                             </td>
                                         </tr>)
@@ -69,6 +77,9 @@ const BranchManagement = () => {
                             }
                         </tbody>
                     </table>
+                    <BranchManagementDeleteBox
+                        isOpen={visibleDeleteModal}
+                        toggleModal={() => { setVisibleDeleteModal(!visibleDeleteModal) }} />
                     <div style={{ marginTop: 20, float: "right" }}>
                         <BasicPagination
                             totalRecords={totalBranchCount}

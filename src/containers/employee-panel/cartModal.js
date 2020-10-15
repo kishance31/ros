@@ -22,7 +22,7 @@ const CartModal = (props) => {
         dispatch(cartActions.toggleAddressModal())
         dispatch(notificationActions.showNotification({
             title: "Confirm Order",
-            message: "Order confirmed successfully"
+            message: 'Order confirmed successfully'
             // duration: 7000,
         }));
     }

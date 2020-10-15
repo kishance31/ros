@@ -147,7 +147,6 @@ export const placeOrderAsync = () => {
             if (data.response && data.response.responseCode === 200) {
                 dispatch({
                     type: ItemListingMap.PLACE_ORDER_SUCCESS,
-                    // payload: data.response.data
                 })
                 dispatch(cartActions.toggleFinalMsgModal());
                 dispatch(EmployeeOrderHistoryActions.refreshOrderHistory());
@@ -164,7 +163,7 @@ export const placeOrderAsync = () => {
             })
             dispatch(notificationActions.showNotification({
                 title: 'Place Order',
-                message: error.message,
+                message: "Failed to place order",
                 // duration: 5000,
             }));
         }

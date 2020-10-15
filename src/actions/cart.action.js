@@ -71,8 +71,8 @@ export const addToCartAsync = (products) => {
             dispatch({
                 type: CartActionMap.ADD_TO_CART_START
             });
-            const {tokens, _id} = getState().auth.user;
-            let {data} = await axios({
+            const { tokens, _id } = getState().auth.user;
+            let { data } = await axios({
                 url: `${serverUrl}/employee/cart/addToCart`,
                 method: 'POST',
                 headers: {
@@ -116,8 +116,8 @@ export const getCartByEmployeeIdAsync = () => {
             dispatch({
                 type: CartActionMap.GET_CARTBY_EMPLOYEE_ID_START
             });
-            const {tokens, _id} = getState().auth.user;
-            let {data} = await axios({
+            const { tokens, _id } = getState().auth.user;
+            let { data } = await axios({
                 url: `${serverUrl}/employee/cart/getCartByEmployeeId/${_id}`,
                 method: 'GET',
                 headers: { tokens },
@@ -143,8 +143,8 @@ export const removeFromCartAsync = (productId) => {
             dispatch({
                 type: CartActionMap.REMOVE_FROM_CART_BYID_START
             });
-            const {tokens, _id} = getState().auth.user;
-            let {data} = await axios({
+            const { tokens, _id } = getState().auth.user;
+            let { data } = await axios({
                 url: `${serverUrl}/employee/cart/removeProductFromCart`,
                 method: 'POST',
                 headers: { tokens },

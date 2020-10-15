@@ -210,7 +210,7 @@ export const updateUserProfileAsync = (data) => {
             })
             dispatch(notificationActions.showNotification({
                 title: "Update Corporate Profile",
-                message: updateUserResponse.response.responseMessage,
+                message: "Update corporate profile successfully",
                 // duration: 7000,
             }));
             if (updateUserResponse.response.responseCode === 201) {
