@@ -1,7 +1,8 @@
 import axios from 'axios';
 import cartActions from './cart.action';
-import {EmployeeOrderHistoryActions} from './employeeOrderHistory.action';
+import { EmployeeOrderHistoryActions } from './employeeOrderHistory.action';
 import getServerCore from '../utils/apiUtils';
+import notificationActions from './notifications.action';
 
 const { serverUrl } = getServerCore();
 
@@ -12,7 +13,6 @@ export const ItemListingMap = {
     PRODUCT_LIST_START: 'PRODUCT_LIST_START',
     PRODUCT_LIST_SUCCESS: 'PRODUCT_LIST_SUCCESS',
     PRODUCT_LIST_ERROR: 'PRODUCT_LIST_ERROR',
-    
     PLACE_ORDER_START: 'PLACE_ORDER_START',
     PLACE_ORDER_SUCCESS: 'PLACE_ORDER_SUCCESS',
     PLACE_ORDER_ERROR: 'PLACE_ORDER_ERROR',
@@ -24,7 +24,7 @@ export const ItemListingMap = {
 }
 
 export const ItemListingActions = {
-    setSelectedCategory: (category) => ({type: ItemListingMap.SET_SELECTED_CATEGORY, payload: category}),
+    setSelectedCategory: (category) => ({ type: ItemListingMap.SET_SELECTED_CATEGORY, payload: category }),
 }
 
 export const categoryListAsync = () => {
@@ -33,7 +33,7 @@ export const categoryListAsync = () => {
             dispatch({
                 type: ItemListingMap.CATEGORY_LIST_START
             });
-            const {tokens} = getState().auth.user
+            const { tokens } = getState().auth.user
             let categoryListResponse = await axios({
                 url: `${serverUrl}/corporate-admin/category/getCategoryWithSubCategory`,
                 method: 'GET',
@@ -61,7 +61,7 @@ export const productListAsync = (type) => {
             dispatch({
                 type: ItemListingMap.PRODUCT_LIST_START
             });
-            const { 
+            const {
                 itemListing: {
                     selectedCategory, page, limit
                 },
@@ -75,7 +75,7 @@ export const productListAsync = (type) => {
             let productDetails = {
                 license_id: license[0]._id
             };
-            if(selectedCategory.category_id) {
+            if (selectedCategory.category_id) {
                 productDetails["category_id"] = selectedCategory.category_id;
                 productDetails["sub_category_id"] = selectedCategory._id;
             } else {
@@ -91,11 +91,11 @@ export const productListAsync = (type) => {
                 data: productDetails
             });
             if (productListResponse.data.response.responseCode === 200) {
-                if(type === "add") {
+                if (type === "add") {
                     dispatch({
                         type: ItemListingMap.ADD_MORE_PRODUCTS,
                         payload: productListResponse.data.response
-                    })                    
+                    })
                 } else {
                     dispatch({
                         type: ItemListingMap.PRODUCT_LIST_SUCCESS,
@@ -131,7 +131,7 @@ export const placeOrderAsync = () => {
                 }
             } = getState();
             const products = shoppingCart.map(product => product._id)
-            let {data} = await axios({
+            let { data } = await axios({
                 url: `${serverUrl}/corporate-admin/employee/placeOrder`,
                 method: 'POST',
                 headers: {
@@ -147,16 +147,25 @@ export const placeOrderAsync = () => {
             if (data.response && data.response.responseCode === 200) {
                 dispatch({
                     type: ItemListingMap.PLACE_ORDER_SUCCESS,
-                    // payload: data.response.data
                 })
                 dispatch(cartActions.toggleFinalMsgModal());
                 dispatch(EmployeeOrderHistoryActions.refreshOrderHistory());
             }
+            dispatch(notificationActions.showNotification({
+                title: "Place Order",
+                message: "Order placed successfully"
+                // duration: 7000,
+            }));
         }
         catch (error) {
             dispatch({
                 type: ItemListingMap.PLACE_ORDER_ERROR
             })
+            dispatch(notificationActions.showNotification({
+                title: 'Place Order',
+                message: "Failed to place order",
+                // duration: 5000,
+            }));
         }
     }
 }
