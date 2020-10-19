@@ -112,7 +112,7 @@ export const productListAsync = (type) => {
     }
 }
 
-export const placeOrderAsync = () => {
+export const placeOrderAsync = (selectedAddress) => {
     return async (dispatch, getState) => {
         try {
             dispatch({
@@ -142,6 +142,7 @@ export const placeOrderAsync = () => {
                     employeeId: _id,
                     corporateId: corporate_admin_id,
                     products,
+                    address: selectedAddress
                 }
             });
             if (data.response && data.response.responseCode === 200) {

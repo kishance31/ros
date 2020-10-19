@@ -15,11 +15,13 @@ const ItemListingContianer = (props) => {
 
     const [viewProduct, setViewProduct] = useState(null);
     const [openProductModal, setOpenProductModal] = useState(false);
-    const tokens = useSelector(state => state.auth.user.tokens)
+    
+    const address = useSelector(state => state.auth.user.address)
     const isOpenCart = useSelector(state => state.cart.openCart);
     const isOpenThankYouModal = useSelector(state => state.cart.modals.ShowthankYouModal);
     const isOpenDispatchModal = useSelector(state => state.cart.modals.showAdminApprovalModal);
     const { productList, categoryList, productCount } = useSelector(state => state.itemListing, shallowEqual);
+    
     const dispatch = useDispatch();
 
     // useEffect(() => {
@@ -77,6 +79,7 @@ const ItemListingContianer = (props) => {
             <ProductDeliverAddressPage
                 isOpen={isOpenThankYouModal}
                 toggleModal={() => dispatch(cartActions.closeAllModals())}
+                address={address}
             />
             <ProductDispatchMessagePage
                 isOpen={isOpenDispatchModal}

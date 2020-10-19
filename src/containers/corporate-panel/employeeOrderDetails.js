@@ -159,63 +159,72 @@ const EmployeeOrderDetails = () => {
 							</thead>
 							<tbody>
 								{
-									orderDetails.map((orderList, index) => (
-										<React.Fragment key={orderList._id}>
-											<tr>
-												<td>
-													{
-														!orderList.isFirstTimePayment ? (
-															<FormGroup check onChange={onSelectChange}>
-																<Label check>
-																	<Input type="checkbox" data-id={orderList._id} />
-																</Label>
-															</FormGroup>
-														) : null
-													}
-													{/* <input type="checkbox" />
-                            <label htmlFor={orderList.srNo}></label> */}
-												</td>
-												<td>
-													<div toggle-table-data={orderList.srNo} className="toggle_icon" onClick={() => onTable(index + 1)}></div>
-												</td>
-												<td>{index + 1}</td>
-												<td>
-													{
-														orderList.employeeDetails.length ? orderList.employeeDetails[0].firstName + " " + orderList.employeeDetails[0].lastName : ""
-													}
-												</td>
-												<td>${orderList.productDetails.reduce((acc, prod) => acc + prod.ros_cost, 0)}</td>
-												<td>
-													${
-														parseFloat((
-															((orderList.productDetails.reduce((acc, prod) => acc + prod.ros_cost, 0)) / 12)
-															* orderList.firstPaymentTerm))
-															.toFixed(2)
-													}
-												</td>
-												<td>{orderList.orderId}</td>
-												<td>{orderList.orderDate ? new Date(orderList.orderDate).toLocaleDateString() : ""}</td>
-												<td className="pink">{orderList.status}</td>
-												<td>{orderList.dispatchDate ? new Date(orderList.dispatchDate).toLocaleDateString() : "Pending"}</td>
-												<td>{orderList.deliveryDate ? new Date(orderList.deliveryDate).toLocaleDateString() : "Pending"}</td>
-												<td className="text-center">
-													{
-														!orderList.isFirstTimePayment ? (
-															<div className="action_btn_wrap">
-																<button className="btn_action pink"
-																	onClick={() => onDeleteOrder(orderList._id)}
-																>Delete</button>
-															</div>
-														) : null
-													}
-												</td>
-											</tr>
-											{
-												rowIndex && (rowIndex === (index + 1))
-													? <EmployeeOrderTable tableDetails={orderList.productDetails} firstPaymentTerm={orderList.firstPaymentTerm} /> : null
-											}
-										</React.Fragment>
-									))
+									orderDetails.length ? (
+
+										orderDetails.map((orderList, index) => (
+											<React.Fragment key={orderList._id}>
+												<tr>
+													<td>
+														{
+															!orderList.isFirstTimePayment ? (
+																<FormGroup check onChange={onSelectChange}>
+																	<Label check>
+																		<Input type="checkbox" data-id={orderList._id} />
+																	</Label>
+																</FormGroup>
+															) : null
+														}
+														{/* <input type="checkbox" />
+								<label htmlFor={orderList.srNo}></label> */}
+													</td>
+													<td>
+														<div toggle-table-data={orderList.srNo} className="toggle_icon" onClick={() => onTable(index + 1)}></div>
+													</td>
+													<td>{index + 1}</td>
+													<td>
+														{
+															orderList.employeeDetails.length ? orderList.employeeDetails[0].firstName + " " + orderList.employeeDetails[0].lastName : ""
+														}
+													</td>
+													<td>${orderList.productDetails.reduce((acc, prod) => acc + prod.ros_cost, 0)}</td>
+													<td>
+														${
+															parseFloat((
+																((orderList.productDetails.reduce((acc, prod) => acc + prod.ros_cost, 0)) / 12)
+																* orderList.firstPaymentTerm))
+																.toFixed(2)
+														}
+													</td>
+													<td>{orderList.orderId}</td>
+													<td>{orderList.orderDate ? new Date(orderList.orderDate).toLocaleDateString() : ""}</td>
+													<td className="pink">{orderList.status}</td>
+													<td>{orderList.dispatchDate ? new Date(orderList.dispatchDate).toLocaleDateString() : "Pending"}</td>
+													<td>{orderList.deliveryDate ? new Date(orderList.deliveryDate).toLocaleDateString() : "Pending"}</td>
+													<td className="text-center">
+														{
+															!orderList.isFirstTimePayment ? (
+																<div className="action_btn_wrap">
+																	<button className="btn_action pink"
+																		onClick={() => onDeleteOrder(orderList._id)}
+																	>Delete</button>
+																</div>
+															) : null
+														}
+													</td>
+												</tr>
+												{
+													rowIndex && (rowIndex === (index + 1))
+														? <EmployeeOrderTable tableDetails={orderList.productDetails} firstPaymentTerm={orderList.firstPaymentTerm} /> : null
+												}
+											</React.Fragment>
+										))
+									) : (
+										<tr className="text-center">
+										  <td colSpan={12}>
+											No order placed.
+										</td>
+										</tr>
+									  )
 								}
 							</tbody>
 						</table>

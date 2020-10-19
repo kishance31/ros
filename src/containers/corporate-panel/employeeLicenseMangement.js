@@ -66,6 +66,9 @@ const EmployeeLicenseManagement = () => {
     }, [refreshBranchNames])
 
     const onUpdate = (employee) => {
+        if(employee.branchId === null) {
+            employee.branchId = ""
+        }
         setEmployeeDetails(employee)
         setVisibleAddDataModal(true);
         setPopupType('edit');
