@@ -75,7 +75,7 @@ export const addBranchDataAsync = (userData, tokens) => {
             }
             dispatch(notificationActions.showNotification({
                 title: "Add Branch",
-                message: userDataResponse.data.response.responseMessage,
+                message: "Add branch successfully",
                 // duration: 7000,
             }));
         } catch (error) {
@@ -104,7 +104,7 @@ export const updateBranchDataAsync = (userData, tokens, id) => {
             }
             dispatch(notificationActions.showNotification({
                 title: "Update Branch",
-                message: userDataResponse.data.response.responseMessage,
+                message: "Update branch successfully",
                 // duration: 7000,
             }));
         } catch (error) {
@@ -153,6 +153,11 @@ export const deleteBranchAsync = (tokens, id) => {
             dispatch({
                 type: BranchListMap.DELETED_BRANCH_SUCCESSFULLY
             })
+            dispatch(notificationActions.showNotification({
+                title: "Delete Branch",
+                message: "Delete branch successfully",
+                // duration: 7000,
+            }));
             dispatch(employeeAndLicenseAction.refreshBranchNames());
         }
     }

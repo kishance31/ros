@@ -216,7 +216,11 @@ export const updateUserProfileAsync = (data) => {
                     tokens: auth.user.tokens
                 }
             })
-
+            dispatch(notificationActions.showNotification({
+                title: "Update Corporate Profile",
+                message: "Update corporate profile successfully",
+                // duration: 7000,
+            }));
             if (updateUserResponse.response.responseCode === 201) {
                 return dispatch({
                     type: AuthMap.UPDATE_CORPORATE_PROFILE_SUCCESS,

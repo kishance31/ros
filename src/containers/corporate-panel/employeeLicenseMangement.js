@@ -7,7 +7,8 @@ import employeeAndLicenseAction, {
     employeeAndLicenseCountAsync,
     getEmployeesAsync,
     deleteDataAsync,
-    getBranchNamesAsync
+    getBranchNamesAsync,
+    sendInvitationAsync
 } from '../../actions/employeeAndLicense.action';
 import BasicPagination from '../../components/pagination/basicPagination';
 import { usePaginationHook } from '../../hooks/paginationHook';
@@ -31,7 +32,7 @@ const EmployeeLicenseManagement = () => {
     const initFormState = {
         companyName: "", firstName: "", lastName: "", position: "", department: "", employeeId: "",
         email: "", username: "", mobileNo: "", password: "", reEnterPassword: "",
-        licenseId: availableLicenseList.length ? availableLicenseList[0]._id : "" ,
+        licenseId: availableLicenseList.length ? availableLicenseList[0]._id : "",
         branchId: branchNames.length ? branchNames[0]._id : "",
         address: [],
     }
@@ -74,7 +75,11 @@ const EmployeeLicenseManagement = () => {
         setPopupType('edit');
     }
     const onDelete = (id) => {
-        dispatch(deleteDataAsync(id, user.tokens))
+        //dispatch(deleteDataAsync(id, user.tokens))
+    }
+
+    const onSendInvitation = (id) => {
+        dispatch(sendInvitationAsync(id, user.tokens))
     }
 
     return (
@@ -97,12 +102,12 @@ const EmployeeLicenseManagement = () => {
 
                     <div className="btn_wrp">
                         <button className="btn_blue">Import File</button>
-                        <button 
+                        <button
                             className="btn_blue"
-                            onClick={() => { 
+                            onClick={() => {
                                 setVisibleAddDataModal(true);
                                 setPopupType('add');
-                            }} 
+                            }}
                         >
                             Add
                         </button>
@@ -128,6 +133,7 @@ const EmployeeLicenseManagement = () => {
                                 getEmployeeList={getEmployeeList}
                                 onUpdate={onUpdate}
                                 onDelete={onDelete}
+                                onSendInvitation={onSendInvitation}
                             />
                             {
                                 getEmployeeList.length ? (

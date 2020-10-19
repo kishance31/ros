@@ -1,8 +1,9 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { displayBranchListAsync, deleteBranchAsync, BranchListAction } from '../../actions/branchList.action';
 import BasicPagination from '../../components/pagination/basicPagination';
 import { usePaginationHook } from '../../hooks/paginationHook';
+import BranchManagementDeleteBox from './branchManagementDeleteBox';
 
 const BranchManagement = () => {
 
@@ -24,6 +25,8 @@ const BranchManagement = () => {
             dispatch(displayBranchListAsync(user.tokens, user._id, batchNumber, limit));
         }
     }, [refreshBranchList])
+
+    const [visibleDeleteModal, setVisibleDeleteModal] = useState(false);
 
     const deleteBranch = (id) => {
         dispatch(deleteBranchAsync(user.tokens, id))
@@ -89,6 +92,9 @@ const BranchManagement = () => {
                             </div>
                         ) : null
                     }
+                    <BranchManagementDeleteBox
+                        isOpen={visibleDeleteModal}
+                        toggleModal={() => { setVisibleDeleteModal(!visibleDeleteModal) }} />
                 </div>
             </div>
         </div>
