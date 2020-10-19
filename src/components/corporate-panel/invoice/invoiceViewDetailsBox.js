@@ -71,8 +71,12 @@ const InvoiceViewDetailsBox = (props) => {
                                                         <>
                                                             {
                                                                 parseFloat((
-                                                                    (invoice.productDetails.reduce((acc, prod) => acc + prod.ros_cost, 0)) / 12))
-                                                                    .toFixed(2)
+                                                                    (
+                                                                        (invoice.productDetails.reduce((acc, prod) => acc + prod.ros_cost, 0)) -
+                                                                        (((invoice.productDetails.reduce((acc, prod) => acc + prod.ros_cost, 0)) / 12)
+                                                                            * invoice.firstPaymentTerm)) / invoice.recurringMonthsNo
+                                                                )
+                                                                ).toFixed(2)
                                                             }
                                                         </>
                                                     ) : (

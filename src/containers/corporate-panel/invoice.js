@@ -117,61 +117,74 @@ const Invoice = () => {
                             </thead>
                             <tbody>
                                 {
-                                    invoiceList.map((invoice, index) => (
-                                        <tr key={invoice.invoiceDetails.invoiceNo}>
-                                            <td>{index + 1}</td>
-                                            <td>
-                                                {invoice.employeeDetails[0].firstName + " " + invoice.employeeDetails[0].lastName}
-                                            </td>
-                                            <td>{new Date(invoice.firstInvoiceDate).toLocaleString()}</td>
-                                            <td>{invoice.orderId}</td>
-                                            <td>{new Date(invoice.invoiceDetails.invoiceDate).toLocaleString()}</td>
-                                            <td>$
-                                                {
-                                                    isReccuring ? (
-                                                        <>
-                                                            {
-                                                                parseFloat((
-                                                                    (invoice.productDetails.reduce((acc, prod) => acc + prod.ros_cost, 0)) / 12))
-                                                                    .toFixed(2)
-                                                            }
-                                                        </>
-                                                    ) : (
+                                    invoiceList.length ? (
+
+                                        invoiceList.map((invoice, index) => (
+                                            <tr key={invoice.invoiceDetails.invoiceNo}>
+                                                <td>{index + 1}</td>
+                                                <td>
+                                                    {invoice.employeeDetails[0].firstName + " " + invoice.employeeDetails[0].lastName}
+                                                </td>
+                                                <td>{new Date(invoice.firstInvoiceDate).toLocaleString()}</td>
+                                                <td>{invoice.orderId}</td>
+                                                <td>{new Date(invoice.invoiceDetails.invoiceDate).toLocaleString()}</td>
+                                                <td>$
+                                                    {
+                                                        isReccuring ? (
                                                             <>
                                                                 {
                                                                     parseFloat((
-                                                                        ((invoice.productDetails.reduce((acc, prod) => acc + prod.ros_cost, 0)) / 12)
-                                                                        * invoice.firstPaymentTerm))
-                                                                        .toFixed(2)
+                                                                        (
+                                                                            (invoice.productDetails.reduce((acc, prod) => acc + prod.ros_cost, 0)) - 
+                                                                            (((invoice.productDetails.reduce((acc, prod) => acc + prod.ros_cost, 0)) / 12)
+                                                                            * invoice.firstPaymentTerm)) / invoice.recurringMonthsNo
+                                                                        )
+                                                                    ).toFixed(2)
                                                                 }
                                                             </>
-                                                        )
-                                                }
-                                            </td>
-                                            <td className="text-center">
-                                                <div className="action_btn_wrap">
-
-                                                    <button className="btn_action btn_border"
-                                                        onClick={() => {
-                                                            setSelectedInvoice(invoice)
-                                                            setVisibleViewModal(true);
-                                                        }}>View</button>
-
-
-                                                    <button className="btn_action pink">Download</button>
-                                                    {
-                                                        isReccuring && !invoice.invoiceDetails.paymentDone ? (
-                                                            <button className="btn_action blue"
-                                                                onClick={() => {
-                                                                    setSelectedInvoice(invoice);
-                                                                    setVisiblePayModal(true);
-                                                                }}>Pay</button>
-                                                        ) : null
+                                                        ) : (
+                                                                <>
+                                                                    {
+                                                                        parseFloat((
+                                                                            ((invoice.productDetails.reduce((acc, prod) => acc + prod.ros_cost, 0)) / 12)
+                                                                            * invoice.firstPaymentTerm))
+                                                                            .toFixed(2)
+                                                                    }
+                                                                </>
+                                                            )
                                                     }
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    ))
+                                                </td>
+                                                <td className="text-center">
+                                                    <div className="action_btn_wrap">
+
+                                                        <button className="btn_action btn_border"
+                                                            onClick={() => {
+                                                                setSelectedInvoice(invoice)
+                                                                setVisibleViewModal(true);
+                                                            }}>View</button>
+
+
+                                                        <button className="btn_action pink">Download</button>
+                                                        {
+                                                            isReccuring && !invoice.invoiceDetails.paymentDone ? (
+                                                                <button className="btn_action blue"
+                                                                    onClick={() => {
+                                                                        setSelectedInvoice(invoice);
+                                                                        setVisiblePayModal(true);
+                                                                    }}>Pay</button>
+                                                            ) : null
+                                                        }
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        ))
+                                    ) : (
+                                            <tr className="text-center">
+                                                <td colSpan={6}>
+                                                    No invoice created yet.
+                                                    </td>
+                                            </tr>
+                                        )
                                 }
                             </tbody>
                         </table>

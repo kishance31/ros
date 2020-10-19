@@ -50,35 +50,45 @@ const OrderHistory = () => {
               </tr>
             </thead>
             <tbody>
-              {orderHistory.map((orderList, index) => (
-                <React.Fragment key={index}>
-                  <tr>
-                    {/* <td>
-                      <div className='custom_checkbox'>
-                        <input type='checkbox' id={index + 1} />
-                        <label htmlFor={index + 1}></label>
-                      </div>
-                    </td> */}
-                    <td>
-                      <div
-                        className='toggle_icon'
-                        // toggle-table-data={orderList.srNo}
-                        onClick={() => onTable(index + 1)}
-                      ></div>
-                    </td>
-                    <td>{index + 1}</td>
-                    <td>{orderList.orderId}</td>
-                    <td>{new Date(orderList.orderDate).toLocaleString()}</td>
-                    <td className='pink'>{orderList.status}</td>
-                    <td className='pink' onClick={() => onCancelOrder(orderList._id)}>CANCEL</td>
-                  </tr>
-                  {rowIndex && (rowIndex === (index + 1)) ? (
-                    <EmployeeOrderTable
-                      tableDetails={orderList.productDetails}
-                    />
-                  ) : null}
-                </React.Fragment>
-              ))}
+              {
+                orderHistory.length ? (
+                  orderHistory.map((orderList, index) => (
+                    <React.Fragment key={index}>
+                      <tr>
+                        {/* <td>
+                        <div className='custom_checkbox'>
+                          <input type='checkbox' id={index + 1} />
+                          <label htmlFor={index + 1}></label>
+                        </div>
+                      </td> */}
+                        <td>
+                          <div
+                            className='toggle_icon'
+                            // toggle-table-data={orderList.srNo}
+                            onClick={() => onTable(index + 1)}
+                          ></div>
+                        </td>
+                        <td>{index + 1}</td>
+                        <td>{orderList.orderId}</td>
+                        <td>{new Date(orderList.orderDate).toLocaleString()}</td>
+                        <td className='pink'>{orderList.status}</td>
+                        <td className='pink' onClick={() => onCancelOrder(orderList._id)}>CANCEL</td>
+                      </tr>
+                      {rowIndex && (rowIndex === (index + 1)) ? (
+                        <EmployeeOrderTable
+                          tableDetails={orderList.productDetails}
+                        />
+                      ) : null}
+                    </React.Fragment>
+                  ))
+                ) : (
+                    <tr className="text-center">
+                      <td colSpan={6}>
+                        No order placed.
+                  </td>
+                    </tr>
+                  )
+              }
             </tbody>
           </table>
           {

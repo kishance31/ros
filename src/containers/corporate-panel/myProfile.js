@@ -55,10 +55,13 @@ const MyProfile = () => {
                         corpDoc: user.corpDoc || "",
                     }}
                     validate={(values) => {
+                        console.log(values)
                         const errors = {};
                         for (let key in values) {
+                            if(key !== "taxNo" && key !== "companyRegisterNo")
                             if (!values[key]) {
                                 if (key === "corpDoc") {
+                                    console.log(values[key])
                                     errors[key] = `Upload a document(Format: .pdf)`
                                 } else {
                                     errors[key] = `${key} is required.`
@@ -81,7 +84,9 @@ const MyProfile = () => {
                     }}
                     onSubmit={(values, { setSubmitting, setFieldValue }) => {
                         onSubmits(values);
-                        setFieldValue('corpDoc', "");
+                        if(typeof values.corpDoc === "object") {
+                            // setFieldValue('corpDoc', "");
+                        }
                         setSubmitting(false);
                     }}
                 >
@@ -259,7 +264,7 @@ const MyProfile = () => {
                                                         typeof values.corpDoc === "string" && values.corpDoc ? (
                                                             <a href={values.corpDoc} target="_blank">
                                                             <div className="modal-fill_btn_pdf_btn">
-                                                                <span className="sign_in">pdf-{Date.now()}.pdf</span>
+                                                                <span className="sign_in">pdf-{user._id}.pdf</span>
                                                                 <span className="left_arrow">
                                                                     <ArrowRightIcon />
                                                                 </span>

@@ -4,7 +4,7 @@ import EmployeeAndLicenseDeleteBox from '../../corporate-panel/employeeAndLicens
 const EmployeeAndLicenseTable = (props) => {
 
     const [visibleDeleteModal, setVisibleDeleteModal] = useState(false);
-    const { getEmployeeList, onUpdate, onSendInvitation } = props;
+    const { getEmployeeList, onUpdate, onSendInvitation, onDelete } = props;
 
     return (
         <>
@@ -34,8 +34,8 @@ const EmployeeAndLicenseTable = (props) => {
                                             onClick={() => { onUpdate(item) }}>Edit</button>
                                         <button className="btn_action pink"
                                             onClick={() => {
-                                                //onDelete(item._id);
-                                                setVisibleDeleteModal(true)
+                                                onDelete(item._id);
+                                                // setVisibleDeleteModal(true)
                                             }}>Delete</button>
                                         <button className="btn_action orange" onClick={() => { onSendInvitation(item._id) }}>Send Invitation</button>
                                         <button className="btn_action light_blue" onClick={() => { onSendInvitation(item._id) }}>Resend Invitation</button>

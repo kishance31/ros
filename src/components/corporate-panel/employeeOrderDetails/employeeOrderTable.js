@@ -23,7 +23,7 @@ const EmployeeOrderTable = ({ tableDetails, firstPaymentTerm }) => {
                                             <td>{index + 1}</td>
                                             <td>{item.product_name}</td>
                                             <td>${item.ros_cost}</td>
-                                            <td>${((item.ros_cost / 12) * firstPaymentTerm)}</td>
+                                            <td>${parseFloat((item.ros_cost / 12) * firstPaymentTerm).toFixed(2)}</td>
                                         </tr>
                                     )
                                 })

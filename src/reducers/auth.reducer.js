@@ -114,6 +114,7 @@ const authReducer = (state = initialState, action) => {
                     openModal: true,
                 },
                 resetToken: action.payload ? action.payload.data : "",
+                tempToken: action.payload ? action.payload.data : "",
             }
         case AuthMap.SIGN_UP_START:
             return {

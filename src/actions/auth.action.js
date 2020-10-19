@@ -272,38 +272,64 @@ export const UpdateEmployeeProfile = (data) => {
 }
 
 export const setPasswordAsync = (data) => {
+
     return async (dispatch, getState) => {
         try {
             const { auth } = getState();
             let setPasswordResponse = await apiCall({
-                url: `${corporateUrl}/reset`,
+                url: corporateUrl + "/employee/setPassword",
+                // + (role.indexOf('EMPLOYEE') != -1 ? "/employee" : "") + "/setPassword",
+                headers: {
+                    tokens: auth.tempToken
+                },
                 data,
             })
-                if (setPasswordResponse.response && setPasswordResponse.response.responseCode === 200) {
-                    dispatch(notificationActions.showNotification({
-                        title: 'Reset Password',
-                        message: setPasswordResponse.response.responseMessage,
-                        // duration: 5000,
-                    }));
-                    return dispatch({
-                        type: AuthMap.RESET_PASSWORD_SUCCESS,
-                        payload:setPasswordResponse.response.responseMessage
-                    });
-                }  else {
-                    dispatch(notificationActions.showNotification({
-                        title: 'Reset Password',
-                        message: setPasswordResponse.response.responseMessage,
-                        duration: 5000,
-                    }))
-                }
+            if (setPasswordResponse.response.responseCode === 200) {
+                if(setPasswordResponse.response.userProfile.user.isFirstLogin){
+                    dispatch(AuthModelAction.toggleAuthModals(AuthMap.TOGGLE_SIGN_IN_MODAL, "Sign In With"));
+                }else {
+                dispatch(AuthModelAction.signInUser({
+                    ...setPasswordResponse.response.userProfile.user,
+                    tokens: setPasswordResponse.response.userProfile.tokens
+                }))}
+            }
         } catch (error) {
-            dispatch(notificationActions.showNotification({
-                title: 'Reset Password',
-                message: error.message,
-                // duration: 5000,
-            }));
+
         }
     }
+
+    // return async (dispatch, getState) => {
+    //     try {
+    //         const { auth } = getState();
+    //         let setPasswordResponse = await apiCall({
+    //             url: `${corporateUrl}/reset`,
+    //             data,
+    //         })
+    //             if (setPasswordResponse.response && setPasswordResponse.response.responseCode === 200) {
+    //                 dispatch(notificationActions.showNotification({
+    //                     title: 'Reset Password',
+    //                     message: setPasswordResponse.response.responseMessage,
+    //                     // duration: 5000,
+    //                 }));
+    //                 return dispatch({
+    //                     type: AuthMap.RESET_PASSWORD_SUCCESS,
+    //                     payload:setPasswordResponse.response.responseMessage
+    //                 });
+    //             }  else {
+    //                 dispatch(notificationActions.showNotification({
+    //                     title: 'Reset Password',
+    //                     message: setPasswordResponse.response.responseMessage,
+    //                     duration: 5000,
+    //                 }))
+    //             }
+    //     } catch (error) {
+    //         dispatch(notificationActions.showNotification({
+    //             title: 'Reset Password',
+    //             message: error.message,
+    //             // duration: 5000,
+    //         }));
+    //     }
+    // }
 }
 export const forgotPasswordApi = (email) => {
     return async (dispatch) => {

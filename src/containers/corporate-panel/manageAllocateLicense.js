@@ -58,38 +58,48 @@ const ManageAllocateLicense = () => {
                 </tr>
               </thead>
               <tbody>
-                {getEmployeeList.map((allocateLicense, index) =>
-                  <tr key={index}>
-                    <td>{index + 1}</td>
-                    <td>{allocateLicense.firstName + " " + allocateLicense.lastName}</td>
-                    <td>{allocateLicense.email}</td>
-                    <td>{allocateLicense.license.length ? allocateLicense.license[0].type : ""}</td>
-                    <td>{new Date(allocateLicense.licenseAssignDate).toLocaleDateString()}</td>
-                    <td>
-                      <div className="action_btn_wrap position-relative">
-                        {
-                          allocateLicense.status === "APPROVED" ? (
-                            <button className="btn_action pink deactive" onClick={renderPart}>
-                              Deactive
-                            </button>
-                          ) : (
-                              <button className="btn_action btn_border">
-                                Active
-                              </button>
-                            )
-                        }
-                      </div>
-                    </td>
-                    <td>
-                      {
-                        allocateLicense.deactivationDate ?
-                          new Date(allocateLicense.deactivationDate).toLocaleDateString() :
-                          "None"
-                      }
-                    </td>
-                    <td>{allocateLicense.deactivationDate || "None"}</td>
-                  </tr>
-                )}
+                {
+                  getEmployeeList.length ? (
+                    getEmployeeList.map((allocateLicense, index) =>
+                      <tr key={index}>
+                        <td>{index + 1}</td>
+                        <td>{allocateLicense.firstName + " " + allocateLicense.lastName}</td>
+                        <td>{allocateLicense.email}</td>
+                        <td>{allocateLicense.license.length ? allocateLicense.license[0].type : ""}</td>
+                        <td>{new Date(allocateLicense.licenseAssignDate).toLocaleDateString()}</td>
+                        <td>
+                          <div className="action_btn_wrap position-relative">
+                            {
+                              allocateLicense.status === "APPROVED" ? (
+                                <button className="btn_action pink deactive" onClick={renderPart}>
+                                  Deactive
+                                </button>
+                              ) : (
+                                  <button className="btn_action btn_border">
+                                    Active
+                                  </button>
+                                )
+                            }
+                          </div>
+                        </td>
+                        <td>
+                          {
+                            allocateLicense.deactivationDate ?
+                              new Date(allocateLicense.deactivationDate).toLocaleDateString() :
+                              "None"
+                          }
+                        </td>
+                        <td>{allocateLicense.deactivationDate || "None"}</td>
+                      </tr>
+                    )
+                  ) : (
+                      <tr className="text-center">
+                        <td colSpan={7}>
+                          No license allocated to any employee
+                      </td>
+                      </tr>
+                    )
+                }
               </tbody>
             </table>
             {
