@@ -17,8 +17,8 @@ const AboutUs = () => {
                                     </p>
                             </div>
                         </div>
-                        <div className="col-lg-6 col-md-12">
-                            <div className=""><img src={require(`../../assets/images/about_img.png`)} alt="" className="about_img" /></div>
+                        <div className="col-lg-6 col-md-12"> 
+                            <div><img src={require(`../../assets/images/about_img.png`)} alt="" className="about_img img-fluid" /></div>
                         </div>
                     </div>
                 </div>
