@@ -147,7 +147,7 @@ const EmployeeOrderDetails = () => {
 									<th></th>
 									<th>Sr&nbsp;No</th>
 									<th>EMPLOYEE&nbsp;NAME</th>
-									<th>TOTAL&nbsp;ORDER &nbsp; COST</th>
+									<th>TOTAL&nbsp;ORDER&nbsp;COST</th>
 									<th>FIRST&nbsp;TIME&nbsp;COST&nbsp;(USD)</th>
 									<th>ORDER&nbsp;NO</th>
 									<th>ORDER&nbsp;DATE</th>

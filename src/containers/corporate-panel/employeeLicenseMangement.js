@@ -67,7 +67,7 @@ const EmployeeLicenseManagement = () => {
     }, [refreshBranchNames])
 
     const onUpdate = (employee) => {
-        if(employee.branchId === null) {
+        if (employee.branchId === null) {
             employee.branchId = ""
         }
         setEmployeeDetails(employee)
@@ -84,7 +84,7 @@ const EmployeeLicenseManagement = () => {
 
     return (
         <>
-            <div className="side_space">
+            <div className="">
                 <div className="page_title">Available License</div>
                 <div className="top_bar">
                     <div className="license_detail">
@@ -101,7 +101,9 @@ const EmployeeLicenseManagement = () => {
                     </div>
 
                     <div className="btn_wrp">
-                        <button className="btn_blue">Import File</button>
+                        <button className="btn_blue">
+                            <img className="mr-2" src={require(`../../assets/images/excel.svg`)} alt="" />
+                            Import File</button>
                         <button
                             className="btn_blue"
                             onClick={() => {
