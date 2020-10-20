@@ -1,6 +1,11 @@
 @import 'variables.scss';
 $font_poppins: 'Poppins';
 $font_proxima_nova: 'proxima-nova';
+
+a {
+    cursor: pointer;
+}
+
 .custom_btn {
     padding: 12px 38px;
     background: #fff;
@@ -1307,9 +1312,9 @@ body .homepage {
     height: auto;
     .modal-header {
         border-bottom: none;
-        padding: 40px 0 50px;
+        padding: 40px 0 10px;
         @media screen and (max-width: 575px) {
-            padding: 30px 0 40px;
+            padding: 30px 0 10px;
         }
         h5.modal-title {
             font-size: 28px;
@@ -1340,7 +1345,7 @@ body .homepage {
                 color: #495057;
                 background-color: #fff;
                 border-bottom: solid 2px #f8afaf;
-                margin-bottom: 80px;
+                margin-bottom: 30px;
             }
             .nav-link {
                 border: none;
@@ -1450,8 +1455,7 @@ body .homepage {
                 margin: 0;
             }
             .navbar-text {
-                margin-top: 29px;
-                margin-bottom: 40px;
+                margin-bottom: 0;
                 &:before {
                     content: "";
                     border-bottom: solid 12px #E0EBEA;
