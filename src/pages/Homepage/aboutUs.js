@@ -3,6 +3,7 @@ import TextCardComponent from '../../components/card/textCard';
 import NewsLetterCard from '../../components/card/newsLetterCard';
 import { ContactUsDetails, ContactusLinks, NewsLetterDetails } from '../../utils/constants';
 const AboutUs = () => {
+    
     return (
         <>
             <section className="container-fluid">

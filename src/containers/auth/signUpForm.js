@@ -12,7 +12,7 @@ const SignUpForm = ({ toggleOverlay }) => {
     const dispatch = useDispatch();
 
     const navigateToSignIn = () => {
-        dispatch(AuthModelAction.toggleAuthModals(AuthMap.TOGGLE_SIGN_IN_MODAL));
+        dispatch(AuthModelAction.toggleAuthModals(AuthMap.TOGGLE_SIGN_IN_MODAL, "Sign In With"));
     }
 
     const onSubmits = (values) => {
@@ -47,7 +47,7 @@ const SignUpForm = ({ toggleOverlay }) => {
                     personalEmail: "",
                     officeContactNo: "",
                     mobileNo: "",
-                    // employeeId: "",
+                    employeeId: "",
                     userName: "",
                     password: "",
                     reEnterPassword: "",
@@ -59,8 +59,32 @@ const SignUpForm = ({ toggleOverlay }) => {
                         if (!values[key]) {
                             if (key === "corpDoc") {
                                 errors[key] = `Upload a document(Format: .pdf)`
-                            } else {
-                                errors[key] = `${key} is required.`
+                            }if (key === "companyName") {
+                                errors[key] = `Company Name is required.`
+                            }if (key === "firstName") {
+                                errors[key] = `First Name is required.`
+                            }if (key === "lastName") {
+                                errors[key] = `Last Name is required.`
+                            }if (key === "position") {
+                                errors[key] = `Position is required.`
+                            }if (key === "department") {
+                                errors[key] = `Department is required.`
+                            }if (key === "corporateEmail") {
+                                errors[key] = `Corporate Email ID is required.`
+                            }if (key === "personalEmail") {
+                                errors[key] = `Personal Email is required.`
+                            }if (key === "officeContactNo") {
+                                errors[key] = `Office Contact No is required.`
+                            }if (key === "mobileNo") {
+                                errors[key] = `Mobile No is required.`
+                            }if (key === "employeeId") {
+                                errors[key] = `Employee ID is required.`
+                            }if (key === "userName") {
+                                errors[key] = `Username is required.`
+                            }if (key === "password") {
+                                errors[key] = `Password is required.`
+                            }if (key === "reEnterPassword") {
+                                errors[key] = `RE ENTER PASSWORD is required.`
                             }
                         }
                     }
@@ -79,6 +103,14 @@ const SignUpForm = ({ toggleOverlay }) => {
                     if (values.password !== values.reEnterPassword) {
                         errors.reEnterPassword = "Password and Re Enter Password are not same."
                     }
+                    if (values.userName && !/^[ A-Za-z0-9_@./#&+-]{3,64}$/.test(values.userName)) {  
+                        errors.userName = "Invalid user name";
+                    }
+                    if (values.companyName && !/^[ A-Za-z0-9_@./#&+-]{3,64}$/.test(values.companyName)) {  
+                        errors.companyName = "Invalid company name";
+                    }
+                    
+                   
                     return errors;
                 }}
                 onSubmit={(values) => {
@@ -153,8 +185,10 @@ const SignUpForm = ({ toggleOverlay }) => {
                                 <Field placeholder="USERNAME" type='text' name='userName' className="input_box_2 form-control" />
                             </DoubleInputField>
                             <DoubleErrorMessage
-                                leftError={errors.userName}
-                                leftTouched={touched.userName}
+                                leftError={errors.employeeId}
+                                leftTouched={touched.employeeId}
+                                rightError={errors.userName}
+                                rightTouched={touched.userName}
                             />
 
                             <DoubleInputField>

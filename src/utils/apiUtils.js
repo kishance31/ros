@@ -11,7 +11,8 @@ const {
         branch,
         license,
         purchaseLicense,
-        serverUrl
+        serverUrl,
+        cms
     }
 } = AppConfigs;
 
@@ -38,6 +39,9 @@ const serverUrls = {
     },
     getPurchaseLicenseUrl() {
         return `${this.getCorporateUrl()}/${purchaseLicense}`
+    },
+    getCmsUrl() {
+        return `${this.getDefaulUrl()}/${cms}`
     }
 }
 
