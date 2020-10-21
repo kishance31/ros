@@ -7,7 +7,8 @@ import employeeAndLicenseAction, {
     employeeAndLicenseCountAsync,
     getEmployeesAsync,
     deleteDataAsync,
-    getBranchNamesAsync
+    getBranchNamesAsync,
+    sendInvitationAsync
 } from '../../actions/employeeAndLicense.action';
 import BasicPagination from '../../components/pagination/basicPagination';
 import { usePaginationHook } from '../../hooks/paginationHook';
@@ -31,7 +32,7 @@ const EmployeeLicenseManagement = () => {
     const initFormState = {
         companyName: "", firstName: "", lastName: "", position: "", department: "", employeeId: "",
         email: "", username: "", mobileNo: "", password: "", reEnterPassword: "",
-        licenseId: availableLicenseList.length ? availableLicenseList[0]._id : "" ,
+        licenseId: availableLicenseList.length ? availableLicenseList[0]._id : "",
         branchId: branchNames.length ? branchNames[0]._id : "",
         address: [],
     }
@@ -66,17 +67,24 @@ const EmployeeLicenseManagement = () => {
     }, [refreshBranchNames])
 
     const onUpdate = (employee) => {
+        if (employee.branchId === null) {
+            employee.branchId = ""
+        }
         setEmployeeDetails(employee)
         setVisibleAddDataModal(true);
         setPopupType('edit');
     }
     const onDelete = (id) => {
-        dispatch(deleteDataAsync(id, user.tokens))
+        //dispatch(deleteDataAsync(id, user.tokens))
+    }
+
+    const onSendInvitation = (id) => {
+        dispatch(sendInvitationAsync(id, user.tokens))
     }
 
     return (
         <>
-            <div className="side_space">
+            <div className="">
                 <div className="page_title">Available License</div>
                 <div className="top_bar">
                     <div className="license_detail">
@@ -93,13 +101,15 @@ const EmployeeLicenseManagement = () => {
                     </div>
 
                     <div className="btn_wrp">
-                        <button className="btn_blue">Import File</button>
-                        <button 
+                        <button className="btn_blue">
+                            <img className="mr-2" src={require(`../../assets/images/excel.svg`)} alt="" />
+                            Import File</button>
+                        <button
                             className="btn_blue"
-                            onClick={() => { 
+                            onClick={() => {
                                 setVisibleAddDataModal(true);
                                 setPopupType('add');
-                            }} 
+                            }}
                         >
                             Add
                         </button>
@@ -125,6 +135,7 @@ const EmployeeLicenseManagement = () => {
                                 getEmployeeList={getEmployeeList}
                                 onUpdate={onUpdate}
                                 onDelete={onDelete}
+                                onSendInvitation={onSendInvitation}
                             />
                             {
                                 getEmployeeList.length ? (

@@ -16,8 +16,12 @@ const PaymentBox = (props) => {
     )
 
     const totalAmt = invoice && parseFloat(parseFloat((
-        (invoice.productDetails.reduce((acc, prod) => acc + prod.ros_cost, 0)) / 12))
-        .toFixed(2));
+        (
+            (invoice.productDetails.reduce((acc, prod) => acc + prod.ros_cost, 0)) -
+            (((invoice.productDetails.reduce((acc, prod) => acc + prod.ros_cost, 0)) / 12)
+                * invoice.firstPaymentTerm)) / invoice.recurringMonthsNo
+    )
+    ).toFixed(2));
 
     return (
         <ModalComponent
@@ -48,7 +52,7 @@ const PaymentBox = (props) => {
                                     <tr>
                                         <th scope="row">Total</th>
                                         <td>
-                                        ${totalAmt}
+                                            ${totalAmt}
                                         </td>
                                     </tr>
                                 </tbody>

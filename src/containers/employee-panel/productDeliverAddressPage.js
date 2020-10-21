@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { useDispatch } from 'react-redux'
 import ModalComponent from '../../components/modal/modal';
 import { MetroCancelIcon } from '../../components/icons/Icons';
@@ -6,12 +6,24 @@ import cartActions from '../../actions/cart.action';
 import {placeOrderAsync} from '../../actions/itemListing.action';
 import { AddMoreIcon } from '../../components/icons/Icons';
 import { DeliveryAddress } from '../../utils/constants';
+import notificationActions from '../../actions/notifications.action';
+
 const ProductDeliverAddressPage = (props) => {
-    const { toggleModal, isOpen } = props;
+    const { toggleModal, isOpen, address } = props;
     const dispatch = useDispatch();
 
+    const [selectedAddress, setSelectAddress] = useState(address.length ? address[0] : null);
+
     const onClickPlaceOrder = () => {
-        dispatch(placeOrderAsync());
+        if(selectedAddress) {
+            dispatch(placeOrderAsync(selectedAddress));
+        } else {
+            dispatch(notificationActions.showNotification({
+                title: "Select address",
+                message: `Add a address first.`,
+                // duration: 7000,
+            }));
+        }
         // dispatch(cartActions.toggleFinalMsgModal())
     }
 
@@ -65,13 +77,31 @@ const ProductDeliverAddressPage = (props) => {
                                         <div className="order_no_text">
                                             <h6>Deliver to</h6>
                                             <div className="input-group mt-3">
-                                                <select title="SELECT DELIVERY ADDRESS" className="selectpicker form-control input_box_2">
-                                                    {DeliveryAddress.map((add, index) => <option key={add.id}>{add.address}</option>)}
+                                                <select title="SELECT DELIVERY ADDRESS" className="selectpicker form-control input_box_2"
+                                                    onChange={(e) => setSelectAddress(address[e.target.value])}
+                                                >
+                                                {
+                                                                    !address.length ? (
+                                                                        <option value="">Add Address</option>
+                                                                    ) : null
+                                                                }
+                                                                {
+                                                                    address.length && address.map((add, idx) => (
+                                                                        add &&
+                                                                        <option key={idx} value={idx}>
+                                                                            {add.delivery_address},
+                                                                            {add.city},
+                                                                            {add.state},
+                                                                            {add.country} -
+                                                                            {add.pincode}
+                                                                        </option>
+                                                                    ))
+                                                                }
                                                 </select>
                                             </div>
                                             <div className="addmore" type="button">
-                                                <AddMoreIcon />
-                                                <span className="pl-2">ADD MORE</span>
+                                                {/* <AddMoreIcon />
+                                                <span className="pl-2">ADD MORE</span> */}
                                                 <button type="button" className="modal-fill_btn_confirm_order btn btn-sm"
                                                     onClick={onClickPlaceOrder}>place order</button>
                                             </div>

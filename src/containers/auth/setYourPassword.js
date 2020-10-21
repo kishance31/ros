@@ -14,7 +14,7 @@ const SetYourPassword = (props) => {
         const data = {
             password: target.password.value,
             newPassword: target.newPassword.value,
-            resetToken:resetToken
+            // resetToken:resetToken
         }
         dispatch(setPasswordAsync(data))
     }
