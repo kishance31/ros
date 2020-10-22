@@ -1,13 +1,45 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import BasicCardComponent from '../../components/card/basicCard';
 import TextCardComponent from '../../components/card/textCard';
 import NewsLetterCard from '../../components/card/newsLetterCard';
-import { HomePageCardData, ContactUsDetails, ContactusLinks, NewsLetterDetails } from '../../utils/constants';
+import { HomePageCardData, ContactusLinks, NewsLetterDetails } from '../../utils/constants';
 
 const HomepageCards = () => {
+    // const refereshdata = useSelector(state => state.homepageContent.contactUsDetais.refreshData)
+    const dispatch = useDispatch()
+
+
     return (
         <>
-            <section className="section_two">
+            <section class="container-fluid mb-5">
+                <div className="home_categories">
+                    <h2>Our Categories</h2>
+                    <div className="row">
+                        <div className="col-lg-4">
+                            <div class="category">
+                                <img src={require(`../../assets/images/category1.png`)} alt="" className="img-fluid" />
+                                <p>Home Office Furniture's & Accessories</p>
+                            </div>
+                        </div>
+                        <div className="col-lg-4">
+                            <div class="category">
+                                <img src={require(`../../assets/images/category2.png`)} alt="" className="img-fluid" />
+                                <p>Home Office Electronics</p>
+                            </div>
+                        </div>
+                        <div className="col-lg-4">
+                            <div class="category">
+                                <img src={require(`../../assets/images/category3.png`)} alt="" className="img-fluid" />
+                                <p>Home Office Computers</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+
+            {/* <section className="section_two">
                 <div className="container-fluid">
                     <div className="row homepage_product_card">
                         {
@@ -21,13 +53,13 @@ const HomepageCards = () => {
                         }
                     </div>
                 </div>
-            </section>
+            </section>*/}
 
             <section className="section_four">
                 <div className="container-fluid pt-0">
                     <div className="row">
                         <div className="col-lg-8 col-sm-12">
-                            <TextCardComponent name="Contact Us" sName="Get In Touch" items={ContactUsDetails}>
+                            <TextCardComponent name="Contact Us" sName="Get In Touch">
                                 <div className="col-4 d-flex justify-content-end align-items-center" data-aos="fade-up">
                                     <ul className="list-unstyled text-small">
                                         {
@@ -43,6 +75,7 @@ const HomepageCards = () => {
                     </div>
                 </div>
             </section>
+
         </>
     )
 }
