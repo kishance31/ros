@@ -6,7 +6,7 @@ const AboutUs = () => {
     return (
         <>
             <section className="container-fluid">
-                <div className="section_about d-flex align-items-center">
+                <div className="section_about d-flex align-items- pt_180">
                     <div className="row">
                         <div className="col-lg-6 col-md-12 d-flex align-items-center">
                             <div className="about-caption text-left">

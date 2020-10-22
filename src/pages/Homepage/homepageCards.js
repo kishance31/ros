@@ -7,7 +7,34 @@ import { HomePageCardData, ContactUsDetails, ContactusLinks, NewsLetterDetails }
 const HomepageCards = () => {
     return (
         <>
-            <section className="section_two">
+            <section class="container-fluid mb-5">
+                <div className="home_categories">
+                    <h2>Our Categories</h2>
+                    <div className="row">
+                        <div className="col-lg-4">
+                            <div class="category">
+                                <img src={require(`../../assets/images/category1.png`)} alt="" className="img-fluid" />
+                                <p>Home Office Furniture's & Accessories</p>
+                            </div>
+                        </div>
+                        <div className="col-lg-4">
+                            <div class="category">
+                                <img src={require(`../../assets/images/category2.png`)} alt="" className="img-fluid" />
+                                <p>Home Office Electronics</p>
+                            </div>
+                        </div>
+                        <div className="col-lg-4">
+                            <div class="category">
+                                <img src={require(`../../assets/images/category3.png`)} alt="" className="img-fluid" />
+                                <p>Home Office Computers</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+
+            {/* <section className="section_two">
                 <div className="container-fluid">
                     <div className="row homepage_product_card">
                         {
@@ -21,7 +48,7 @@ const HomepageCards = () => {
                         }
                     </div>
                 </div>
-            </section>
+            </section>*/}
 
             <section className="section_four">
                 <div className="container-fluid pt-0">
@@ -43,6 +70,7 @@ const HomepageCards = () => {
                     </div>
                 </div>
             </section>
+
         </>
     )
 }
