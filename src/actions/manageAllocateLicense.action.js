@@ -10,6 +10,12 @@ export const ManageAllocateLicenseMap = {
     Get_AllocateLicense_ERROR: 'Get_AllocateLicense_ERROR',
     REFRESH_AllocateLicense_LIST: 'REFRESH_AllocateLicense_LIST',
     SET_AllocateLicense_NUMBER: 'SET_AllocateLicense_NUMBER',
+    DEACTIVATE_EMPLOYEE_START: 'DEACTIVATE_EMPLOYEE_START',
+    DEACTIVATE_EMPLOYEE_SUCCESS: 'DEACTIVATE_EMPLOYEE_SUCCESS',
+    DEACTIVATE_EMPLOYEE_ERROR: 'DEACTIVATE_EMPLOYEE_ERROR',
+    ACTIVATE_EMPLOYEE_START: 'ACTIVATE_EMPLOYEE_START',
+    ACTIVATE_EMPLOYEE_SUCCESS: 'ACTIVATE_EMPLOYEE_SUCCESS',
+    ACTIVATE_EMPLOYEE_ERROR: 'ACTIVATE_EMPLOYEE_ERROR',
 }
 
 export const ManageAllocateLicenseAction = {
@@ -41,7 +47,7 @@ export const getEmployeesAsync = (limit) => {
                     }
                 }
             } = getState();
-            let getEmployeesResponse = await axios({
+            let {data} = await axios({
                 url: `${serverUrl}/corporate-admin/employee/getEmployeeByCorporateId/${_id}`,
                 method: "POST",
                 data: {
@@ -52,17 +58,125 @@ export const getEmployeesAsync = (limit) => {
                     tokens
                 }
             });
+            if(data.response.responseCode === 200) {
+                return dispatch({
+                    type: ManageAllocateLicenseMap.Get_AllocateLicense_SUCCESS,
+                    payload: {
+                        employeeList: data.response.employeeList,
+                        totalEmployees: data.response.totalEmployees
+                    }
+                })
+            }
             dispatch({
-                type: ManageAllocateLicenseMap.Get_AllocateLicense_SUCCESS,
-                payload: {
-                    employeeList: getEmployeesResponse.data.response.employeeList,
-                    totalEmployees: getEmployeesResponse.data.response.totalEmployees
-                }
+                type: ManageAllocateLicenseMap.Get_AllocateLicense_ERROR
             })
         } catch (error) {
             dispatch({
                 type: ManageAllocateLicenseMap.Get_AllocateLicense_ERROR
             })
+        }
+    }
+}
+
+export const deactivateEmployeeAsync = (msg, id) => {
+
+    return async (dispatch, getState) => {
+        try {
+            dispatch({
+                type: ManageAllocateLicenseMap.DEACTIVATE_EMPLOYEE_START
+            });
+            const {
+                auth: {
+                    user: {
+                        tokens,
+                    }
+                }
+            } = getState();
+            let {data} = await axios({
+                url: `${serverUrl}/corporate-admin/employee/deactivateEmployee/${id}`,
+                method: "POST",
+                data: {
+                    reason: msg
+                },
+                headers: {
+                    tokens,
+                    'Content-Type': 'application/json'
+                }
+            });
+            if(data.response.responseCode === 200) {
+                dispatch({
+                    type: ManageAllocateLicenseMap.DEACTIVATE_EMPLOYEE_SUCCESS,
+                });
+                return dispatch(notificationActions.showNotification({
+                    title: 'Deactivate Employee',
+                    message: "Deactivate employee successfull.",
+                }))
+            }
+            dispatch({
+                type: ManageAllocateLicenseMap.DEACTIVATE_EMPLOYEE_ERROR
+            })
+            dispatch(notificationActions.showNotification({
+                title: 'Deactivate Employee',
+                message: "Deactivate employee error.",
+            }))
+        } catch (error) {
+            dispatch({
+                type: ManageAllocateLicenseMap.DEACTIVATE_EMPLOYEE_ERROR
+            })
+            dispatch(notificationActions.showNotification({
+                title: 'Deactivate Employee',
+                message: "Deactivate employee error.",
+            }))
+        }
+    }
+}
+
+export const activateEmployeeAsync = (id) => {
+
+    return async (dispatch, getState) => {
+        try {
+            dispatch({
+                type: ManageAllocateLicenseMap.ACTIVATE_EMPLOYEE_START
+            });
+            const {
+                auth: {
+                    user: {
+                        tokens,
+                    }
+                }
+            } = getState();
+            let {data} = await axios({
+                url: `${serverUrl}/corporate-admin/employee/activateEmployee/${id}`,
+                method: "POST",
+                headers: {
+                    tokens,
+                    'Content-Type': 'application/json'
+                }
+            });
+            if(data.response.responseCode === 200) {
+                dispatch({
+                    type: ManageAllocateLicenseMap.ACTIVATE_EMPLOYEE_SUCCESS,
+                });
+                return dispatch(notificationActions.showNotification({
+                    title: 'Activate Employee',
+                    message: "Activate employee successfull.",
+                }))
+            }
+            dispatch({
+                type: ManageAllocateLicenseMap.ACTIVATE_EMPLOYEE_ERROR
+            })
+            dispatch(notificationActions.showNotification({
+                title: 'Activate Employee',
+                message: "Activate employee error.",
+            }))
+        } catch (error) {
+            dispatch({
+                type: ManageAllocateLicenseMap.ACTIVATE_EMPLOYEE_ERROR
+            })
+            dispatch(notificationActions.showNotification({
+                title: 'Activate Employee',
+                message: "Activate employee error.",
+            }))
         }
     }
 }

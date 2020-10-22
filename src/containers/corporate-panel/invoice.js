@@ -43,7 +43,6 @@ const Invoice = () => {
     }
 
     const onConfirmPayment = (data) => {
-        console.log(selectedInvoice)
         if (data && selectedInvoice) {
             dispatch(confirmRecurringPayment(data, selectedInvoice))
             setVisiblePayModal(false);

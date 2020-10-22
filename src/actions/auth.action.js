@@ -20,12 +20,12 @@ export const AuthMap = {
     UPDATE_EMPLOYEE_PROFILE_START: 'UPDATE_EMPLOYEE_PROFILE_START',
     UPDATE_EMPLOYEE_PROFILE_SUCCESS: 'UPDATE_EMPLOYEE_PROFILE_SUCCESS',
     UPDATE_EMPLOYEE_PROFILE_ERROR: 'UPDATE_EMPLOYEE_PROFILE_ERROR',
-    FORGOT_PASSWORD_START:'FORGOT_PASSWORD_START',
-    FORGOT_PASSWORD_SUCCESS:'FORGOT_PASSWORD_SUCCESS',
-    FORGOT_PASSWORD_ERROR:'FORGOT_PASSWORD_ERROR',
-    RESET_PASSWORD_START:"RESET_PASSWORD_START",
-    RESET_PASSWORD_SUCCESS:"RESET_PASSWORD_SUCCESS",
-    RESET_PASSWORD_ERROR:"RESET_PASSWORD_ERROR"
+    FORGOT_PASSWORD_START: 'FORGOT_PASSWORD_START',
+    FORGOT_PASSWORD_SUCCESS: 'FORGOT_PASSWORD_SUCCESS',
+    FORGOT_PASSWORD_ERROR: 'FORGOT_PASSWORD_ERROR',
+    RESET_PASSWORD_START: "RESET_PASSWORD_START",
+    RESET_PASSWORD_SUCCESS: "RESET_PASSWORD_SUCCESS",
+    RESET_PASSWORD_ERROR: "RESET_PASSWORD_ERROR"
 
 }
 
@@ -81,14 +81,14 @@ export const signUpUserAsync = (user, toggleOverlay) => {
             dispatch({
                 type: AuthMap.SIGN_UP_ERROR
             })
-            if(signuprespone.error) {
+            if (signuprespone.error) {
                 return dispatch(notificationActions.showNotification({
                     title: 'Sign Up',
                     message: signuprespone.error.errors[0].message,
                     // duration: 5000,
                 }));
             }
-            
+
             dispatch(notificationActions.showNotification({
                 title: 'Sign Up',
                 message: signuprespone.response.responseMessage,
@@ -146,7 +146,7 @@ export const signInUserAsync = (userBody, type) => {
                 dispatch({
                     type: AuthMap.SIGN_IN_ERROR
                 });
-                if(signInResponce.error) {
+                if (signInResponce.error) {
                     return dispatch(notificationActions.showNotification({
                         title: 'Login In',
                         message: signInResponce.error.errors[0].message,
@@ -177,25 +177,20 @@ export const signOutUserAsync = (tokens, role) => {
 
     return async (dispatch) => {
         try {
-            const signOutUser = await apiCall({
+            await apiCall({
                 url: corporateUrl + (role.indexOf('EMPLOYEE') !== -1 ? "/employee" : "") + "/logout",
                 method: 'GET',
                 headers: { tokens }
             })
 
-            if (signOutUser.response.responseCode === 200) {
-                return dispatch({
-                    type: AuthMap.SIGN_OUT
-                });
-            }
+            dispatch({
+                type: AuthMap.SIGN_OUT
+            });
 
-            throw new Error('Error Logging Out.')
         } catch (error) {
-            dispatch(notificationActions.showNotification({
-                title: 'Login Out',
-                message: error.message,
-                // duration: 5000,
-            }));
+            dispatch({
+                type: AuthMap.SIGN_OUT
+            });
         }
     }
 }
@@ -247,7 +242,7 @@ export const UpdateEmployeeProfile = (data) => {
             })
             let updateEmployeeResponse = await apiCall({
                 url: "",
-                headers:{
+                headers: {
                     tokens: ""
                 },
                 data
@@ -258,7 +253,7 @@ export const UpdateEmployeeProfile = (data) => {
                     type: AuthMap.UPDATE_EMPLOYEE_PROFILE_SUCCESS,
                     payload: ""
                 })
-            }else {
+            } else {
                 dispatch({
                     type: AuthMap.UPDATE_EMPLOYEE_PROFILE_ERROR
                 });
@@ -285,13 +280,14 @@ export const setPasswordAsync = (data) => {
                 data,
             })
             if (setPasswordResponse.response.responseCode === 200) {
-                if(setPasswordResponse.response.userProfile.user.isFirstLogin){
+                if (setPasswordResponse.response.userProfile.user.isFirstLogin) {
                     dispatch(AuthModelAction.toggleAuthModals(AuthMap.TOGGLE_SIGN_IN_MODAL, "Sign In With"));
-                }else {
-                dispatch(AuthModelAction.signInUser({
-                    ...setPasswordResponse.response.userProfile.user,
-                    tokens: setPasswordResponse.response.userProfile.tokens
-                }))}
+                } else {
+                    dispatch(AuthModelAction.signInUser({
+                        ...setPasswordResponse.response.userProfile.user,
+                        tokens: setPasswordResponse.response.userProfile.tokens
+                    }))
+                }
             }
         } catch (error) {
 
@@ -352,10 +348,10 @@ export const forgotPasswordApi = (email) => {
                     // duration: 5000,
                 }));
                 return dispatch({
-                   type: AuthMap.FORGOT_PASSWORD_SUCCESS,
-                   payload:{
-                     data:  forgotPasswordResponce.response,
-                     title:"Set Your Password"
+                    type: AuthMap.FORGOT_PASSWORD_SUCCESS,
+                    payload: {
+                        data: forgotPasswordResponce.response,
+                        title: "Set Your Password"
                     }
                 })
             } else {
@@ -368,8 +364,8 @@ export const forgotPasswordApi = (email) => {
                     type: AuthMap.FORGOT_PASSWORD_ERROR
                 });
                 dispatch(
-                    AuthModelAction.toggleAuthModals(AuthMap.TOGGLE_FORGOT_PASSWORD_MODAL,'Forgot Password'))
-                   }
+                    AuthModelAction.toggleAuthModals(AuthMap.TOGGLE_FORGOT_PASSWORD_MODAL, 'Forgot Password'))
+            }
         } catch (error) {
             dispatch({
                 type: AuthMap.FORGOT_PASSWORD_ERROR,

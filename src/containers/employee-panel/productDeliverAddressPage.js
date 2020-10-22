@@ -66,7 +66,7 @@ const ProductDeliverAddressPage = (props) => {
                                             <tbody>
                                                 <tr>
                                                     <td>Expected Delivery Date </td>
-                                                    <td>23/08/2010 </td>
+                                                    <td>{new Date().toLocaleDateString()}</td>
                                                 </tr>
                                             </tbody>
                                         </table>

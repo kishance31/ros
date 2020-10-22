@@ -87,13 +87,11 @@ export const confirmRecurringPayment = (paypalDetails, invoice) => async (dispat
                 corporateId: _id,
             }
         })
-        console.log(data);
         if(data.response && data.response.responseCode === 200) {
             return dispatch(InvoiceActions.recurringSuccess())
         }
         dispatch(InvoiceActions.recurringError());
     } catch (error) {
-        console.log(error)
         dispatch(InvoiceActions.recurringError());
     }
 }

@@ -120,6 +120,7 @@ const EmployeeAndLicenseAddBox = (props) => {
                                                     type="text"
                                                     name="companyName"
                                                     className="form-control"
+                                                    disabled
                                                 />
                                             </div>
                                             <DoubleErrorMessage
@@ -250,7 +251,9 @@ const EmployeeAndLicenseAddBox = (props) => {
                                                 className="selectpicker form-control"
                                             >
                                                 {
-                                                    availableLicenseList.map(license => <option key={license._id} value={license._id}>{license.type}</option>)
+                                                    availableLicenseList.length ?
+                                                    availableLicenseList.map(license => <option key={license._id} value={license._id}>{license.type}</option>) :
+                                                    <option>Select License</option>
                                                 }
                                             </Field>
                                             <Field
@@ -260,7 +263,9 @@ const EmployeeAndLicenseAddBox = (props) => {
                                                 name="branchId"
                                             >
                                                 {
-                                                    branchNames.map(branch => <option key={branch._id} value={branch._id}>{branch.branch_name}</option>)
+                                                    branchNames.length ? 
+                                                    branchNames.map(branch => <option key={branch._id} value={branch._id}>{branch.branch_name}</option>) :
+                                                    <option>Select Branch</option>
                                                 }
                                             </Field>
                                         </div>

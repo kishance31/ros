@@ -17,8 +17,6 @@ const persistor = persistStore(store);
 
 function App() {
 
-	console.log(process.env)
-
 	// AOS(Animate on scroll initialization for the slide animations
 	AOS.init();
 
