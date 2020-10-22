@@ -10,7 +10,7 @@ import AboutUs from '../pages/Homepage/aboutUs'
 import ContactUs from '../pages/Homepage/contactUs'
 import setProfile from '../containers/employee-panel/setProfilePage';
 import AuthModalAction, {AuthMap} from '../actions/auth.action';
-
+import OurServices from './Homepage/OurServices';
 
 const Routes = () => {
 
@@ -45,15 +45,17 @@ const Routes = () => {
                             user.role.indexOf('CORPORATE') !== -1 ? "/corporate/purchaseLicense" :
                                 user.role.indexOf('EMPLOYEE') !== -1 && user.setFirstProfile ? "/setProfile" : '/employee/itemListing'
                         }
-                    /> : (
-                        location.search.indexOf('reset') < 0 ?
-                            <Redirect from='/*' to="/" /> : null
-                    )
+                    /> : null
+                    //  (
+                    //     location.search.indexOf('reset') < 0 ?
+                    //         <Redirect from='/*' to="/" /> : null
+                    // )
             }
             <Switch>
                 <Route exact path="/" component={Homepage} />
                 <Route path="/aboutUs" component={AboutUs} />
                 <Route path="/contactUs" component={ContactUs} />
+                <Route path="/ourservices" component={OurServices} />
                 <PrivateRoute path="/corporate" component={CorporateDashboard} user={user} />
                 <PrivateRoute path="/setProfile" component={setProfile} user={user} />
                 <PrivateRoute path="/employee" component={EmployeeDashboard} user={user} />

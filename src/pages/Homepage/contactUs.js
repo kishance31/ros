@@ -34,7 +34,7 @@ const ContactUs = () => {
                     </div>
                 </div>
                 <div className="col-lg-3 col-md-12">
-                    <ul className="list-unstyled text-small ">
+                    <ul className="list-unstyled text-small contact_social">
                         {
                             ContactusLinks.map((socialLink, index) => (
                                 <li key={socialLink.id}><a href={socialLink.url}>{socialLink.name}</a></li>))
