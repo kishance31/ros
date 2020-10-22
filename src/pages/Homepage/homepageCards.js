@@ -7,12 +7,9 @@ import { fetchConstactUsDetailsAsync, fetchAboutUsDetailsAsync } from '../../act
 import { HomePageCardData, ContactusLinks, NewsLetterDetails } from '../../utils/constants';
 
 const HomepageCards = () => {
-    alert('1234')
     const refereshdata = useSelector(state => state.homepageContent.contactUsDetais.refreshData)
-    console.log('refereshdata111111111', refereshdata);
     const dispatch = useDispatch()
     useEffect(() => {
-        alert('USE')
             dispatch(fetchConstactUsDetailsAsync());
             dispatch(fetchAboutUsDetailsAsync());
     }, [])
