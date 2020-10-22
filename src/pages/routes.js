@@ -46,10 +46,10 @@ const Routes = () => {
                                 user.role.indexOf('EMPLOYEE') !== -1 && user.setFirstProfile ? "/setProfile" : '/employee/itemListing'
                         }
                     /> : null
-                    //  (
-                    //     location.search.indexOf('reset') < 0 ?
-                    //         <Redirect from='/*' to="/" /> : null
-                    // )
+                     (
+                        location.search.indexOf('reset') < 0 ?
+                            <Redirect from='/*' to="/" /> : null
+                    )
             }
             <Switch>
                 <Route exact path="/" component={Homepage} />
