@@ -3,16 +3,12 @@ import { useSelector, useDispatch } from 'react-redux';
 import BasicCardComponent from '../../components/card/basicCard';
 import TextCardComponent from '../../components/card/textCard';
 import NewsLetterCard from '../../components/card/newsLetterCard';
-import { fetchConstactUsDetailsAsync, fetchAboutUsDetailsAsync } from '../../actions/homepageContent.action';
 import { HomePageCardData, ContactusLinks, NewsLetterDetails } from '../../utils/constants';
 
 const HomepageCards = () => {
-    const refereshdata = useSelector(state => state.homepageContent.contactUsDetais.refreshData)
+    // const refereshdata = useSelector(state => state.homepageContent.contactUsDetais.refreshData)
     const dispatch = useDispatch()
-    useEffect(() => {
-            dispatch(fetchConstactUsDetailsAsync());
-            dispatch(fetchAboutUsDetailsAsync());
-    }, [])
+
 
     return (
         <>

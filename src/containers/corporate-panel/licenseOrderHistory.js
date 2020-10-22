@@ -83,7 +83,7 @@ const LicenseOrderHistory = () => {
                                                         <td>
                                                             {
                                                                 item.purchasedLicenses.map((licenseType, key) =>
-                                                                    <div key={key}>{licenseType.totalPrice}</div>
+                                                                    <div key={key}>${licenseType.totalPrice}</div>
                                                                 )
                                                             }
                                                         </td>

@@ -6,13 +6,16 @@ import { AuthMap, signUpUserAsync } from '../../actions/auth.action';
 import { useDispatch } from 'react-redux';
 import { ArrowRightIcon, UploadPlusIcon } from '../../components/icons/Icons';
 import DoubleErrorMessage from '../../components/inputFields/inputErrorMessage';
+import {fetchConstactUsDetailsAsync} from '../../actions/homepageContent.action';
 
 const SignUpForm = ({ toggleOverlay }) => {
 
     const dispatch = useDispatch();
 
     const navigateToSignIn = () => {
+        dispatch(fetchConstactUsDetailsAsync());
         dispatch(AuthModelAction.toggleAuthModals(AuthMap.TOGGLE_SIGN_IN_MODAL, "Sign In With"));
+       
     }
 
     const onSubmits = (values) => {

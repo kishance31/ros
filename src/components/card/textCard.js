@@ -2,7 +2,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 
 const TextCardComponent = (props) => {
-    const abcd = useSelector(state => state.homepageContent.contactUsDetais[0])
+    const contactUsData = useSelector(state => state.homepageContent.contactUsDetais);
     const {
         name,
         sName,
@@ -14,24 +14,24 @@ const TextCardComponent = (props) => {
             <div className="col-8" data-aos="fade-up" >
                 <h2 className="title">{name}</h2>
                 <h6>{sName}</h6>
-                {abcd
+                {contactUsData
                     ? <>
                         <p>
                             <a>
-                                <b>A: &nbsp;</b>{abcd.address}
+                                <b>A: &nbsp;</b>{contactUsData.address}
                             </a>
                         </p>
                         <p>
                             <a>
-                                <b>E: &nbsp;</b>{abcd.email}
+                                <b>E: &nbsp;</b>{contactUsData.email}
                             </a>
                         </p>
                         <p>
                             <a>
-                                <b>P: &nbsp;</b>{abcd.contact}
+                                <b>P: &nbsp;</b>{contactUsData.contact}
                             </a>
                         </p>
-                    </> : []
+                    </> : null
                 }
             </div>
             {children}
