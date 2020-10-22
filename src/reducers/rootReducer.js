@@ -14,6 +14,7 @@ import employeeOrderDetailsReducer from './employeeOrderDetails.reducers';
 import ManageAllocateLicenseReducer from './manageAllocateLicense.reducer';
 import corporateProductViewReducer from './corporateProductView.reducer';
 import InvoiceReducer from './invoice.reducer';
+import homepageContentReducer from './homepageContent.reducer';
 
 const createRootReducer = () => {
 
@@ -39,6 +40,7 @@ const createRootReducer = () => {
             ManageAllocateLicense: ManageAllocateLicenseReducer,
             corporateProductView: corporateProductViewReducer,
             invoice: InvoiceReducer,
+            homepageContent: homepageContentReducer
         }
     )
 };

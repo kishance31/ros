@@ -79,14 +79,49 @@ const EmployeeAndLicenseAddBox = (props) => {
 
                 validate={(values) => {
                     const errors = {};
-                    // for (let key in values) {
-                    //     if (key !== "_id")
-                    //         if (!values[key]) {
-                    //             errors[key] = `${key} is required.`
-                    //         }
-                    // }
+                    for (let key in values) {
+                        if (key !== "_id") {
+                            
+                            if (!values[key]) {
+                                errors[key] = `${key} is required.`
+                            
+                            if (key === "companyName") {
+                                errors[key] = `Company Name is required.`
+                            }
+                            if (key === "firstName") {
+                                errors[key] = `First Name is required.`
+                            }
+                            if (key === "lastName") {
+                                errors[key] = `Last Name is required.`
+                            }
+                            if (key === "position") {
+                                errors[key] = `Position is required.`
+                            }
+                            if (key === "department") {
+                                errors[key] = `Department is required.`
+                            }
+                            if (key === "mobileNo") {
+                                errors[key] = `Mobile No is required.`
+                            }
+                            if (key === "email") {
+                                errors[key] = `Email ID is required.`
+                            }
+                            if (key === "employeeId") {
+                                errors[key] = `Employee ID is required.`
+                            }
+                            if (key === "username") {
+                                errors[key] = `Username is required.`
+                            }
+                            if (key === "password") {
+                                errors[key] = `Password is required.`
+                            }
+                            if (key === "reEnterPassword") {
+                                errors[key] = `RE ENTER PASSWORD is required.`
+                            }
+                        }}
+                    }
                     if (values.email && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)) {
-                        errors.email = "Invalid email address";
+                        errors.email = "Invalidnssssssssssss email address";
                     }
                     if (values.mobileNo && !/^\d{10}$/.test(values.mobileNo)) {
                         errors.mobileNo = "Invalid mobile number";

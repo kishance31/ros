@@ -1,10 +1,15 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import BasicCardComponent from '../../components/card/basicCard';
 import TextCardComponent from '../../components/card/textCard';
 import NewsLetterCard from '../../components/card/newsLetterCard';
-import { HomePageCardData, ContactUsDetails, ContactusLinks, NewsLetterDetails } from '../../utils/constants';
+import { HomePageCardData, ContactusLinks, NewsLetterDetails } from '../../utils/constants';
 
 const HomepageCards = () => {
+    // const refereshdata = useSelector(state => state.homepageContent.contactUsDetais.refreshData)
+    const dispatch = useDispatch()
+
+
     return (
         <>
             <section class="container-fluid mb-5">
@@ -54,7 +59,7 @@ const HomepageCards = () => {
                 <div className="container-fluid pt-0">
                     <div className="row">
                         <div className="col-lg-8 col-sm-12">
-                            <TextCardComponent name="Contact Us" sName="Get In Touch" items={ContactUsDetails}>
+                            <TextCardComponent name="Contact Us" sName="Get In Touch">
                                 <div className="col-4 d-flex justify-content-end align-items-center" data-aos="fade-up">
                                     <ul className="list-unstyled text-small">
                                         {
