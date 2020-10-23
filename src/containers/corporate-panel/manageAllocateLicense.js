@@ -1,14 +1,18 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useSelector, useDispatch } from 'react-redux';
 import BasicPagination from '../../components/pagination/basicPagination';
 import { usePaginationHook } from '../../hooks/paginationHook';
 import {
-  getEmployeesAsync, ManageAllocateLicenseAction
+  getEmployeesAsync, ManageAllocateLicenseAction, deactivateEmployeeAsync, activateEmployeeAsync
 } from '../../actions/manageAllocateLicense.action';
 
 const ManageAllocateLicense = () => {
 
+  const textRef = useRef();
+
   const dispatch = useDispatch();
+
+  const [selectedEmployee, setSelectedEmployee] = useState(null);
 
   const {
     refreshEmployee,
@@ -31,10 +35,21 @@ const ManageAllocateLicense = () => {
     }
   }, [refreshEmployee])
 
-  const renderPart = () => {
-    return (
-      <h1>ManageAllocateLicense</h1>
-    )
+  const handleDeactivateClick = (employee) => {
+    if(selectedEmployee && selectedEmployee._id === employee._id) {
+      setSelectedEmployee(null);
+    } else {
+      setSelectedEmployee(employee);
+    }
+  }
+
+  const onEmployeeDeactive = () => {
+    dispatch(deactivateEmployeeAsync(textRef.current.value, selectedEmployee._id));
+    setSelectedEmployee(null);
+  }
+
+  const onEmployeeActive = (employee) => {
+    dispatch(activateEmployeeAsync(employee._id));
   }
 
 
@@ -65,31 +80,48 @@ const ManageAllocateLicense = () => {
                         <td>{index + 1}</td>
                         <td>{allocateLicense.firstName + " " + allocateLicense.lastName}</td>
                         <td>{allocateLicense.email}</td>
-                        <td>{allocateLicense.license.length ? allocateLicense.license[0].type : ""}</td>
+                        <td>{allocateLicense.license ? allocateLicense.license.type : ""}</td>
                         <td>{new Date(allocateLicense.licenseAssignDate).toLocaleDateString()}</td>
                         <td>
                           <div className="action_btn_wrap position-relative">
                             {
-                              allocateLicense.status === "APPROVED" ? (
-                                <button className="btn_action pink deactive" onClick={renderPart}>
-                                  Deactive
+                              (allocateLicense.isActive || allocateLicense.isFirstLogin)  ? (
+                                <button
+                                  className="btn_action pink deactive"
+                                  onClick={() => handleDeactivateClick(allocateLicense)}
+                                >
+                                  Deactivate
                                 </button>
                               ) : (
-                                  <button className="btn_action btn_border">
-                                    Active
+                                  <button className="btn_action btn_border"
+                                    onClick={() => onEmployeeActive(allocateLicense)}
+                                  >
+                                    Activate
                                   </button>
                                 )
+                            }
+                            {
+                              selectedEmployee && selectedEmployee._id === allocateLicense._id ? (
+                                <div className="deactive_msg">
+                                  <textarea ref={textRef} placeholder="Write your message..."></textarea>
+                                  <button
+                                    type="button"
+                                    className="btn submit_msg"
+                                    onClick={onEmployeeDeactive}
+                                  >Submit</button>
+                                </div>
+                              ) : null
                             }
                           </div>
                         </td>
                         <td>
                           {
-                            allocateLicense.deactivationDate ?
+                            allocateLicense.deactivationDate && !allocateLicense.isActive && !allocateLicense.isFirstLogin ?
                               new Date(allocateLicense.deactivationDate).toLocaleDateString() :
                               "None"
                           }
                         </td>
-                        <td>{allocateLicense.deactivationDate || "None"}</td>
+                        <td>{allocateLicense.deactivationReason || "None"}</td>
                       </tr>
                     )
                   ) : (

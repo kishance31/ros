@@ -20,11 +20,6 @@ const CartModal = (props) => {
 
     const redirectToThankYou = () => {
         dispatch(cartActions.toggleAddressModal())
-        dispatch(notificationActions.showNotification({
-            title: "Confirm Order",
-            message: 'Order confirmed successfully'
-            // duration: 7000,
-        }));
     }
     const removeToCart = (id) => {
         dispatch(removeFromCartAsync(id))

@@ -11,7 +11,7 @@ const HomepageCarousel = () => {
     const dispatch = useDispatch();
 
     const showSignUpModal = () => {
-        dispatch(AuthModelAction.toggleAuthModals(AuthMap.TOGGLE_SIGN_UP_MODAL, "Sign Up"));
+        dispatch(AuthModelAction.toggleAuthModals(AuthMap.TOGGLE_SIGN_UP_MODAL, "Corporate Sign Up"));
     }
 
     return (
@@ -28,6 +28,7 @@ const HomepageCarousel = () => {
                                     <span className="t3">Solution</span>
                                 </h1>
                                 <p>Our solution (ROS – Remote Office Solution) focus is to provide corporates a platform to be a forward leaning company on remote work at their scale.</p>
+                                <button type="button" className="btn" onClick={showSignUpModal}>CORPORATE SIGNUP</button>
                             </div>
                         </div>
                         <div class="col-lg-6">

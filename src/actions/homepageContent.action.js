@@ -27,16 +27,15 @@ export default homepageContenaction;
 export const fetchConstactUsDetailsAsync = () => {
     return async (dispatch) => {
         try {
-            let data = await axios({
+            let {data} = await axios({
                 url: `${serverUrl}/admin/cms/getContactUsList`,
                 method: 'GET',
                 headers: {
                     'Content-type': 'application/json',
-                    'tokens': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI1ZjMyNTBiZDcxYzA0OTQxODI3ZTIzZWIiLCJlbWFpbCI6ImFkbWluQHJvcy5vcmciLCJyb2xlIjoiQURNSU4iLCJpYXQiOjE2MDA0MzI2ODEsImV4cCI6MTYwNDY2NjI4MX0.WYcVMzj2g8rfGR_LJuw6lBp_rdZBOoqJmfjLLF3-F0g'
                 }
             });
-            if (data.data.response.responseCode === 200) {
-                dispatch(homepageContenaction.addContactUs(data.data.response.data))
+            if (data.response.responseCode === 200) {
+                dispatch(homepageContenaction.addContactUs(data.response.data))
             }
         }
         catch (error) {
@@ -48,17 +47,16 @@ export const fetchConstactUsDetailsAsync = () => {
 export const fetchAboutUsDetailsAsync = () => {
     return async (dispatch) => {
         try {
-            let data = await axios({
+            let {data} = await axios({
                 url: `${serverUrl}/admin/cms/getAboutUsList`,
                 method: 'GET',
                 headers: {
                     'Content-type': 'application/json',
-                    'tokens': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI1ZjMyNTBiZDcxYzA0OTQxODI3ZTIzZWIiLCJlbWFpbCI6ImFkbWluQHJvcy5vcmciLCJyb2xlIjoiQURNSU4iLCJpYXQiOjE2MDA0MzI2ODEsImV4cCI6MTYwNDY2NjI4MX0.WYcVMzj2g8rfGR_LJuw6lBp_rdZBOoqJmfjLLF3-F0g'
                 }
             });
             console.log('data', data);
-            if (data.data.response.responseCode === 200) {
-                dispatch(homepageContenaction.addAboutUs(data.data.response.data))
+            if (data.response.responseCode === 200) {
+                dispatch(homepageContenaction.addAboutUs(data.response.data))
             }
         }
         catch (error) {

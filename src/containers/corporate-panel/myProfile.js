@@ -55,13 +55,11 @@ const MyProfile = () => {
                         corpDoc: user.corpDoc || "",
                     }}
                     validate={(values) => {
-                        console.log(values)
                         const errors = {};
                         for (let key in values) {
                             if(key !== "taxNo" && key !== "companyRegisterNo")
                             if (!values[key]) {
                                 if (key === "corpDoc") {
-                                    console.log(values[key])
                                     errors[key] = `Upload a document(Format: .pdf)`
                                 } else {
                                     errors[key] = `${key} is required.`

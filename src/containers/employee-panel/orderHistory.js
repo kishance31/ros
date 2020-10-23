@@ -19,7 +19,11 @@ const OrderHistory = () => {
   }, [refreshHistory])
 
   const onTable = (index) => {
-    setRowIndex(index)
+    if(index === rowIndex) {
+      setRowIndex(0)  
+    } else {
+      setRowIndex(index)
+    }
   };
 
   const onCancelOrder = (id) => {
@@ -64,7 +68,6 @@ const OrderHistory = () => {
                         <td>
                           <div
                             className='toggle_icon'
-                            // toggle-table-data={orderList.srNo}
                             onClick={() => onTable(index + 1)}
                           ></div>
                         </td>

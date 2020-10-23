@@ -13,7 +13,6 @@ const SignUpForm = ({ toggleOverlay }) => {
     const dispatch = useDispatch();
 
     const navigateToSignIn = () => {
-        dispatch(fetchConstactUsDetailsAsync());
         dispatch(AuthModelAction.toggleAuthModals(AuthMap.TOGGLE_SIGN_IN_MODAL, "Sign In With"));
        
     }

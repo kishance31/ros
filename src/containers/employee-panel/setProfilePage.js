@@ -40,10 +40,10 @@ const SetProfile = () => {
                         <div className="top_bar">
                             <div className="license_detail">
                                 <ul>
-                                    <li>REGISTRATION ID</li>
-                                    <li className="bg_pink">
+                                    <li>REGISTRATION</li>
+                                    {/* <li className="bg_pink">
                                         <span>ROS135487</span>
-                                    </li>
+                                    </li> */}
                                 </ul>
                             </div>
                         </div>

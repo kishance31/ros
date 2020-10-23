@@ -9,7 +9,7 @@ import EmployeeDashboard from './Employee-Dashboard/EmployeeDashboard';
 import AboutUs from '../pages/Homepage/aboutUs'
 import ContactUs from '../pages/Homepage/contactUs'
 import setProfile from '../containers/employee-panel/setProfilePage';
-import AuthModalAction, {AuthMap} from '../actions/auth.action';
+import AuthModalAction, { AuthMap } from '../actions/auth.action';
 import OurServices from './Homepage/OurServices';
 
 const Routes = () => {
@@ -28,7 +28,7 @@ const Routes = () => {
 
     useEffect(() => {
         if (location.search.indexOf('reset') >= 0) {
-            dispatch(AuthModalAction.toggleAuthModals(AuthMap.TOGGLE_SET_PASSWORD_MODAL, "Set Password"));
+            dispatch(AuthModalAction.toggleAuthModals(AuthMap.TOGGLE_RESET_PASSWORD, "Reset Password"));
         }
     }, [])
 
@@ -45,8 +45,8 @@ const Routes = () => {
                             user.role.indexOf('CORPORATE') !== -1 ? "/corporate/purchaseLicense" :
                                 user.role.indexOf('EMPLOYEE') !== -1 && user.setFirstProfile ? "/setProfile" : '/employee/itemListing'
                         }
-                    /> : null
-                     (
+                    /> :
+                    (
                         location.search.indexOf('reset') < 0 ?
                             <Redirect from='/*' to="/" /> : null
                     )

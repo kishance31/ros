@@ -1,14 +1,9 @@
-import React, { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import BasicCardComponent from '../../components/card/basicCard';
+import React from 'react';
 import TextCardComponent from '../../components/card/textCard';
 import NewsLetterCard from '../../components/card/newsLetterCard';
-import { HomePageCardData, ContactusLinks, NewsLetterDetails } from '../../utils/constants';
+import {  ContactusLinks, NewsLetterDetails } from '../../utils/constants';
 
 const HomepageCards = () => {
-    // const refereshdata = useSelector(state => state.homepageContent.contactUsDetais.refreshData)
-    const dispatch = useDispatch()
-
 
     return (
         <>

@@ -30,7 +30,7 @@ const EmployeeLicenseManagement = () => {
     const availableLicenseList = useSelector(state => state.purchaseLicense.availableLicenseList)
 
     const initFormState = {
-        companyName: "", firstName: "", lastName: "", position: "", department: "", employeeId: "",
+        companyName: user.companyName, firstName: "", lastName: "", position: "", department: "", employeeId: "",
         email: "", username: "", mobileNo: "", password: "", reEnterPassword: "",
         licenseId: availableLicenseList.length ? availableLicenseList[0]._id : "",
         branchId: branchNames.length ? branchNames[0]._id : "",

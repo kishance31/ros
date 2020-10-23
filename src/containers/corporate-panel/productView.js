@@ -88,11 +88,11 @@ const ProductView = () => {
                             <thead>
 
                                 <tr>
-                                    <th className="w_20">ITEM&nbsp;NAME</th>
-                                    <th className="w_20">ITEM&nbsp;CODE</th>
-                                    <th className="w_20">ITEM&nbsp;COST&nbsp;(USD)</th>
-                                    <th className="w_20">ITEM&nbsp;IMAGE</th>
-                                    <th className="w_20">ITEM&nbsp;DESCRIPTON</th>
+                                    <th className="w_20">PRODUCT&nbsp;NAME</th>
+                                    <th className="w_20">ROS&nbsp;CODE</th>
+                                    <th className="w_20">ROS&nbsp;COST&nbsp;(USD)</th>
+                                    <th className="w_20">PRODUCT&nbsp;IMAGE</th>
+                                    <th className="w_20">PRODUCT&nbsp;DESCRIPTON</th>
                                 </tr>
                             </thead>
                             <tbody>

@@ -52,14 +52,14 @@ const EmployeeProfile = () => {
                 <div className="container-fluid">
                     <div className="profile shadow_box">
                         <div className="top_bar">
-                            <div className="license_detail">
+                            {/* <div className="license_detail">
                                 <ul>
                                     <li>REGISTRATION ID</li>
                                     <li className="bg_pink">
                                         <span>ROS135487</span>
                                     </li>
                                 </ul>
-                            </div>
+                            </div> */}
                         </div>
 
                         <Formik initialValues={{
@@ -104,10 +104,7 @@ const EmployeeProfile = () => {
                                     values,
                                     errors,
                                     touched,
-                                    isSubmitting,
-                                    setFieldValue,
                                     handleChange,
-                                    handleBlur,
                                     handleSubmit,
                                 }) => (
                                         <form className="form-horizontal" onSubmit={handleSubmit}>
@@ -248,11 +245,21 @@ const EmployeeProfile = () => {
                                                 <div className="col-lg-6">
                                                     <div className="mr-0 ml-xl-3 pl-40">
                                                         <div className="input-group two_side">
-                                                            <input readOnly value={license.length ? license[0].type : ""} className="input_box_1 form-control" />
+                                                            <input
+                                                                readOnly
+                                                                value={license.length ? license[0].type : ""}
+                                                                className="input_box_1 form-control"
+                                                                placeholder="License Type"
+                                                            />
                                                         </div>
 
                                                         <div className="input-group two_side">
-                                                            <input readOnly value={user.branch && user.branch.length ? user.branch[0].branch_name : ""} className="input_box_1 form-control" />
+                                                            <input
+                                                                readOnly
+                                                                value={user.branch && user.branch.length ? user.branch[0].branch_name : ""}
+                                                                className="input_box_1 form-control"
+                                                                placeholder="Branch name"
+                                                            />
                                                         </div>
 
                                                         <div className="mr-0 ml-xl-6">

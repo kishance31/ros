@@ -73,8 +73,7 @@ const PurchaseLicense = () => {
         setShowPaymentModal(!showPaymentModal);
         dispatch(notificationActions.showNotification({
             title: "License purchased successfully",
-            message: `Licenses are purchased successfully.
-                You can see the details in the license order history in My account tab.`,
+            message: `Licenses are purchased successfully.`,
             // duration: 7000,
         }));
     }

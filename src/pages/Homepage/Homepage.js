@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import {useDispatch} from 'react-redux';
+import { useDispatch } from 'react-redux';
 import FooterContainer from '../../containers/footer/footer';
 import HomepageCards from './homepageCards';
 import HomepageCarousel from './homepageCarousel';
@@ -9,11 +9,11 @@ const Homepage = () => {
     useEffect(() => {
         dispatch(fetchConstactUsDetailsAsync());
         dispatch(fetchAboutUsDetailsAsync());
-}, [])
+    }, [])
     return (
         <>
             <main role="main">
-                <HomepageCarousel/>
+                <HomepageCarousel />
                 <HomepageCards />
             </main>
             <FooterContainer />

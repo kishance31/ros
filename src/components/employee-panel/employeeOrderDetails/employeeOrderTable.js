@@ -11,7 +11,7 @@ const EmployeeOrderTable = ({ tableDetails }) => {
                 <th className='w_20'>SR&nbsp;NO</th>
                 <th className='w_20'>ITEM&nbsp;NAME</th>
                 <th className='w_20'>ITEM&nbsp;CODE</th>
-                <th className='text-center'>ACTION</th>
+                {/* <th className='text-center'>ACTION</th> */}
               </tr>
             </thead>
             <tbody>
@@ -21,7 +21,7 @@ const EmployeeOrderTable = ({ tableDetails }) => {
                     <td>{index + 1}</td>
                     <td>{item.product_name}</td>
                     <td>{item.product_code}</td>
-                    <td className='text-center'>
+                    {/* <td className='text-center'>
                       <div className='action_btn_wrap'>
                         <button
                           className='btn_action btn_border'
@@ -31,7 +31,7 @@ const EmployeeOrderTable = ({ tableDetails }) => {
                           REPLACE
                         </button>
                       </div>
-                    </td>
+                    </td> */}
                   </tr>
                 );
               })}

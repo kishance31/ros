@@ -78,58 +78,58 @@ const EmployeeAndLicenseAddBox = (props) => {
                 }}
 
                 validate={(values) => {
-                    const errors = {};
-                    for (let key in values) {
-                        if (key !== "_id") {
+                    // const errors = {};
+                    // for (let key in values) {
+                    //     if (key !== "_id") {
                             
-                            if (!values[key]) {
-                                errors[key] = `${key} is required.`
+                    //         // if (!values[key]) {
+                    //         //     errors[key] = `${key} is required.`
                             
-                            if (key === "companyName") {
-                                errors[key] = `Company Name is required.`
-                            }
-                            if (key === "firstName") {
-                                errors[key] = `First Name is required.`
-                            }
-                            if (key === "lastName") {
-                                errors[key] = `Last Name is required.`
-                            }
-                            if (key === "position") {
-                                errors[key] = `Position is required.`
-                            }
-                            if (key === "department") {
-                                errors[key] = `Department is required.`
-                            }
-                            if (key === "mobileNo") {
-                                errors[key] = `Mobile No is required.`
-                            }
-                            if (key === "email") {
-                                errors[key] = `Email ID is required.`
-                            }
-                            if (key === "employeeId") {
-                                errors[key] = `Employee ID is required.`
-                            }
-                            if (key === "username") {
-                                errors[key] = `Username is required.`
-                            }
-                            if (key === "password") {
-                                errors[key] = `Password is required.`
-                            }
-                            if (key === "reEnterPassword") {
-                                errors[key] = `RE ENTER PASSWORD is required.`
-                            }
-                        }}
-                    }
-                    if (values.email && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)) {
-                        errors.email = "Invalidnssssssssssss email address";
-                    }
-                    if (values.mobileNo && !/^\d{10}$/.test(values.mobileNo)) {
-                        errors.mobileNo = "Invalid mobile number";
-                    }
-                    if (values.password !== values.reEnterPassword) {
-                        errors.reEnterPassword = "Password and Re Enter Password are not same."
-                    }
-                    return errors;
+                    //         if (key === "companyName") {
+                    //             errors[key] = `Company Name is required.`
+                    //         }
+                    //         if (key === "firstName") {
+                    //             errors[key] = `First Name is required.`
+                    //         }
+                    //         if (key === "lastName") {
+                    //             errors[key] = `Last Name is required.`
+                    //         }
+                    //         if (key === "position") {
+                    //             errors[key] = `Position is required.`
+                    //         }
+                    //         if (key === "department") {
+                    //             errors[key] = `Department is required.`
+                    //         }
+                    //         if (key === "mobileNo") {
+                    //             errors[key] = `Mobile No is required.`
+                    //         }
+                    //         if (key === "email") {
+                    //             errors[key] = `Email ID is required.`
+                    //         }
+                    //         if (key === "employeeId") {
+                    //             errors[key] = `Employee ID is required.`
+                    //         }
+                    //         if (key === "username") {
+                    //             errors[key] = `Username is required.`
+                    //         }
+                    //         if (key === "password") {
+                    //             errors[key] = `Password is required.`
+                    //         }
+                    //         if (key === "reEnterPassword") {
+                    //             errors[key] = `RE ENTER PASSWORD is required.`
+                    //         }
+                    //     }
+                    // }
+                    // if (values.email && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)) {
+                    //     errors.email = "Invalidnssssssssssss email address";
+                    // }
+                    // if (values.mobileNo && !/^\d{10}$/.test(values.mobileNo)) {
+                    //     errors.mobileNo = "Invalid mobile number";
+                    // }
+                    // if (values.password !== values.reEnterPassword) {
+                    //     errors.reEnterPassword = "Password and Re Enter Password are not same."
+                    // }
+                    // return errors;
                 }}
 
                 onSubmit={(values, { setSubmitting }) => {
@@ -155,6 +155,7 @@ const EmployeeAndLicenseAddBox = (props) => {
                                                     type="text"
                                                     name="companyName"
                                                     className="form-control"
+                                                    disabled
                                                 />
                                             </div>
                                             <DoubleErrorMessage
@@ -285,7 +286,9 @@ const EmployeeAndLicenseAddBox = (props) => {
                                                 className="selectpicker form-control"
                                             >
                                                 {
-                                                    availableLicenseList.map(license => <option key={license._id} value={license._id}>{license.type}</option>)
+                                                    availableLicenseList.length ?
+                                                    availableLicenseList.map(license => <option key={license._id} value={license._id}>{license.type}</option>) :
+                                                    <option>Select License</option>
                                                 }
                                             </Field>
                                             <Field
@@ -295,7 +298,9 @@ const EmployeeAndLicenseAddBox = (props) => {
                                                 name="branchId"
                                             >
                                                 {
-                                                    branchNames.map(branch => <option key={branch._id} value={branch._id}>{branch.branch_name}</option>)
+                                                    branchNames.length ? 
+                                                    branchNames.map(branch => <option key={branch._id} value={branch._id}>{branch.branch_name}</option>) :
+                                                    <option>Select Branch</option>
                                                 }
                                             </Field>
                                         </div>

@@ -2,9 +2,9 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import TextCardComponent from '../../components/card/textCard';
 import NewsLetterCard from '../../components/card/newsLetterCard';
-import { ContactUsDetails, ContactusLinks, NewsLetterDetails } from '../../utils/constants';
+import { ContactUsDetails, ContactusLinks, NewsLetterDetails, AboutUsDetails } from '../../utils/constants';
 const AboutUs = () => {
-    const data = useSelector(state => state.homepageContent.aboutUsDetais[0])
+    const data = useSelector(state => state.homepageContent.aboutUsDetais)
     return (
         <>
             {
@@ -15,14 +15,14 @@ const AboutUs = () => {
                             <div className="col-lg-6 col-md-12 d-flex align-items-center">
                                 <div className="about-caption text-left">
                                     <span>ABOUT US</span>
-                                    <h1 className="title">Lorem ipsum dolor sit amet<br />consectetur adipiscing elit</h1>
+                                    {/* <h1 className="title">Lorem ipsum dolor sit amet<br />consectetur adipiscing elit</h1> */}
                                     <p className="body_text">
-                                        {data.description}
+                                        {data.description || AboutUsDetails.description}
                                         </p>
                                 </div>
                             </div>
                             <div className="col-lg-6 col-md-12"> 
-                                <div><img src={data.aboutUsImage} alt="" className="about_img img-fluid" /></div>
+                                <div><img src={data.aboutUsImage || require(`../../assets/images/${AboutUsDetails.aboutUsImg}`)} alt="" className="about_img img-fluid" /></div>
                             </div>
                         </div>
                     </div>

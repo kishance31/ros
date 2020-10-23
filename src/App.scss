@@ -1077,11 +1077,12 @@ nav.tab {
   background: #fff;
   border: 8px solid #D5E9ED;
   @include border-radius(5px);
-  display: none;
+  // display: none;
   position: absolute;
   left: 210px;
   top: -30px;
-  height: 140px;
+  // height: 140px;
+  z-index: 10;
 
   &:before {
     content: "";
@@ -1311,7 +1312,7 @@ nav.tab {
       padding: 24px;
       text-align: center;
       margin: 0;
-      transition: transform .2s ease;
+      // transition: transform .2s ease;
       display: block;
       @media screen and (max-width: 1919px) {
         padding: 24px 18px;
@@ -1334,15 +1335,15 @@ nav.tab {
         box-shadow: 0 0 50px rgba(0, 0, 0, 0.17);
         -webkit-box-shadow: 0 0 50px rgba(0, 0, 0, 0.17);
         -moz-box-shadow: 0 0 50px rgba(0, 0, 0, 0.17);
-        -moz-transform: scale(1.06);
-        -webkit-transform: scale(1.06);
-        transform: scale(1.06);
+        // -moz-transform: scale(1);
+        // -webkit-transform: scale(1);
+        // transform: scale(1);
         position: absolute;
         @media screen and (max-width: 1279px) {
           height: auto;
-          -moz-transform: scale(1.02) !important;
-          -webkit-transform: scale(1.02) !important;
-          transform: scale(1.02) !important;
+          // -moz-transform: scale(1) !important;
+          // -webkit-transform: scale(1) !important;
+          // transform: scale(1) !important;
         }
         @media screen and (max-width: 991px) {
           margin-left: 0 !important;

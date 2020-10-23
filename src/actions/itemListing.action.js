@@ -150,12 +150,12 @@ export const placeOrderAsync = (selectedAddress) => {
                     type: ItemListingMap.PLACE_ORDER_SUCCESS,
                 })
                 dispatch(cartActions.toggleFinalMsgModal());
-                dispatch(EmployeeOrderHistoryActions.refreshOrderHistory());
+                return dispatch(EmployeeOrderHistoryActions.refreshOrderHistory());
             }
             dispatch(notificationActions.showNotification({
-                title: "Place Order",
-                message: "Order placed successfully"
-                // duration: 7000,
+                title: 'Place Order',
+                message: "Failed to place order",
+                // duration: 5000,
             }));
         }
         catch (error) {
