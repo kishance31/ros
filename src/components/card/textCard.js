@@ -6,7 +6,7 @@ const TextCardComponent = (props) => {
     const {
         name,
         sName,
-        children, items
+        children
     } = props;
 
     return (

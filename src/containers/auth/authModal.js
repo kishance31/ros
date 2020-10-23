@@ -4,6 +4,7 @@ import ModalComponent from '../../components/modal/modal';
 import SignInForm from './signInForm';
 import SignUpForm from './signUpForm';
 import ForgotPassword from './forgotPassword';
+import ResetPassword from './resetPassword';
 import AuthModelAction, { AuthMap } from '../../actions/auth.action';
 import { fetchConstactUsDetailsAsync } from '../../actions/homepageContent.action'
 import SetYourPassword from './setYourPassword';
@@ -18,7 +19,6 @@ const AuthModalContainer = props => {
 
     const toggleModal = () => {
         dispatch(AuthModelAction.toggleAuthModals(AuthMap.HIDE_ALL_AUTH_MODAL));
-        dispatch(fetchConstactUsDetailsAsync());
     }
     const ModalCloseIcon = () => (
         <button type="button" className="close close_icon ml-auto" data-dismiss="modal"
@@ -47,6 +47,9 @@ const AuthModalContainer = props => {
             }
             {
                 auth.modals.showSetPasswordModal ? <SetYourPassword /> : null
+            }
+             {
+                auth.modals.showResetPasswordModal ? <ResetPassword /> : null
             }
 
         </ModalComponent>

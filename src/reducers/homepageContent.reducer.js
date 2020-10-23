@@ -1,27 +1,41 @@
 import { homepageContentMap } from "../actions/homepageContent.action";
 
 const initialState = {
-    contactUsDetais: {},
-    aboutUsDetais: {},
+    contactUsDetais: {
+        address: "",
+        contact: "",
+        email: ""
+    },
+    aboutUsDetais: {
+        aboutUsImage: "",
+        description: "",
+    },
     refreshData: true
 };
 
 const homepageContentReducer = (state = initialState, action) => {
     switch (action.type) {
-        default:
             case homepageContentMap.FETCH_CONTACT_US_DETAILS: {
                 return {
                     ...state,
-                    contactUsDetais: action.payload
+                    contactUsDetais: {
+                        address: action.payload.address,
+                        contact: action.payload.contact,
+                        email: action.payload.email
+                    }
                 }
             }
             case homepageContentMap.FETCH_ABOUT_US_DETAILS: {
                 return {
                     ...state,
-                    aboutUsDetais: action.payload
+                    aboutUsDetais: {
+                        aboutUsImage: action.payload.aboutUsImage,
+                        description: action.payload.description,
+                    }
                 }
             }
-            return { ...state }
+            default: 
+                return {...state}
     }
 }
 

@@ -7,10 +7,13 @@ import HeaderButtons from './headerButtons';
 import HeaderUserDetails from './headerUserDetails';
 import { headerLinks } from '../../utils/constants';
 import logo from './../../assets/images/logo.svg';
+import {useActiveLinks} from '../../hooks/activeLinkHook';
 
 const HeaderContainer = () => {
     const user = useSelector(state => state.auth.user);
     const dispatch = useDispatch();
+
+    const headerLinksState = useActiveLinks(headerLinks);
 
     const toggleModal = (type, title) => {
         dispatch(AuthModelAction.toggleAuthModals(type, title));
@@ -25,7 +28,7 @@ const HeaderContainer = () => {
                     logo={logo}
                     alt="ROS"
                     collapsable={!user.tokens && !user.role && !user._id ? true : false}
-                    navLinks={!user.tokens && !user.role && !user._id ? headerLinks : []}
+                    navLinks={!user.tokens && !user.role && !user._id ? headerLinksState : []}
                     isOpen={false}
                     mrAuto
                     headerButtonVisiable

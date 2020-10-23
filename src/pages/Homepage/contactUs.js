@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import { ContactusLinks } from "../../utils/constants";
 
 const ContactUs = () => {
-    const data = useSelector(state => state.homepageContent.contactUsDetais[0])
+    const data = useSelector(state => state.homepageContent.contactUsDetais)
     return (
         <section className="container-fluid">
             <div className="row contact_page contact_us">

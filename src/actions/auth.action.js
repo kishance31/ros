@@ -25,8 +25,8 @@ export const AuthMap = {
     FORGOT_PASSWORD_ERROR: 'FORGOT_PASSWORD_ERROR',
     RESET_PASSWORD_START: "RESET_PASSWORD_START",
     RESET_PASSWORD_SUCCESS: "RESET_PASSWORD_SUCCESS",
-    RESET_PASSWORD_ERROR: "RESET_PASSWORD_ERROR"
-
+    RESET_PASSWORD_ERROR: "RESET_PASSWORD_ERROR",
+    TOGGLE_RESET_PASSWORD: 'TOGGLE_RESET_PASSWORD'
 }
 
 const AuthModelAction = {
@@ -293,40 +293,40 @@ export const setPasswordAsync = (data) => {
 
         }
     }
-
-    // return async (dispatch, getState) => {
-    //     try {
-    //         const { auth } = getState();
-    //         let setPasswordResponse = await apiCall({
-    //             url: `${corporateUrl}/reset`,
-    //             data,
-    //         })
-    //             if (setPasswordResponse.response && setPasswordResponse.response.responseCode === 200) {
-    //                 dispatch(notificationActions.showNotification({
-    //                     title: 'Reset Password',
-    //                     message: setPasswordResponse.response.responseMessage,
-    //                     // duration: 5000,
-    //                 }));
-    //                 return dispatch({
-    //                     type: AuthMap.RESET_PASSWORD_SUCCESS,
-    //                     payload:setPasswordResponse.response.responseMessage
-    //                 });
-    //             }  else {
-    //                 dispatch(notificationActions.showNotification({
-    //                     title: 'Reset Password',
-    //                     message: setPasswordResponse.response.responseMessage,
-    //                     duration: 5000,
-    //                 }))
-    //             }
-    //     } catch (error) {
-    //         dispatch(notificationActions.showNotification({
-    //             title: 'Reset Password',
-    //             message: error.message,
-    //             // duration: 5000,
-    //         }));
-    //     }
-    // }
 }
+
+export const resetPasswordAsync = (pswdData) => async (dispatch) => {
+    try {
+        let setPasswordResponse = await apiCall({
+            url: `${corporateUrl}/reset`,
+            data: pswdData,
+        })
+        if (setPasswordResponse.response && setPasswordResponse.response.responseCode === 200) {
+            dispatch(notificationActions.showNotification({
+                title: 'Reset Password',
+                message: "Reset password successfull.",
+                // duration: 5000,
+            }));
+            return dispatch({
+                type: AuthMap.TOGGLE_SIGN_IN_MODAL,
+                payload: "Sign In With"
+            });
+        } else {
+            dispatch(notificationActions.showNotification({
+                title: 'Reset Password',
+                message: "Reset Password Error. Please try again after sometime",
+                // duration: 5000,
+            }))
+        }
+    } catch (error) {
+        dispatch(notificationActions.showNotification({
+            title: 'Reset Password',
+            message: "Reset Password Error. Please try again after sometime",
+            // duration: 5000,
+        }));
+    }
+}
+
 export const forgotPasswordApi = (email) => {
     return async (dispatch) => {
         try {
