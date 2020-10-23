@@ -2,7 +2,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import TextCardComponent from '../../components/card/textCard';
 import NewsLetterCard from '../../components/card/newsLetterCard';
-import { ContactUsDetails, ContactusLinks, NewsLetterDetails, AboutUsDetails } from '../../utils/constants';
+import { ContactUsDetails, ContactusLinks, NewsLetterDetails } from '../../utils/constants';
 const AboutUs = () => {
     const data = useSelector(state => state.homepageContent.aboutUsDetais)
     return (
@@ -17,12 +17,14 @@ const AboutUs = () => {
                                     <span>ABOUT US</span>
                                     {/* <h1 className="title">Lorem ipsum dolor sit amet<br />consectetur adipiscing elit</h1> */}
                                     <p className="body_text">
-                                        {data.description || AboutUsDetails.description}
+                                        {data.description || 
+                                        "ROS will bring cost efficiency, flexibility and innovative solution to your talented workforce to reinforce belongingness, trust and comfort with the ‘Science of Space’ in mind to build a strong, productive, and sustainable virtual workforce."
+                                        }
                                         </p>
                                 </div>
                             </div>
                             <div className="col-lg-6 col-md-12"> 
-                                <div><img src={data.aboutUsImage || require(`../../assets/images/${AboutUsDetails.aboutUsImg}`)} alt="" className="about_img img-fluid" /></div>
+                                <div><img src={data.aboutUsImage || require(`../../assets/images/about_img.png`)} alt="" className="about_img img-fluid" /></div>
                             </div>
                         </div>
                     </div>
