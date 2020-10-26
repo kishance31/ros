@@ -649,6 +649,7 @@ nav.tab {
       padding: 4px 0;
       color: #495057;
       width: max-content;
+      cursor: pointer;
       @media screen and (max-width: 767px) {
         margin-right: 0;
         padding: 4px 0;
@@ -880,7 +881,7 @@ nav.tab {
     &.active,
     &:hover {
       .nav-link {
-        color: #000;
+        color: #000 !important;
         position: relative;
         @media screen and (min-width: 1200px) {
           &:after {
@@ -2120,5 +2121,92 @@ footer {
 .contact_social {
   li {
     text-align: right;
+  }
+}
+
+.faq {
+  padding-top: 160px;
+  padding-bottom: 60px;
+  margin-bottom: 50px;
+  background: #f8f8f8;
+
+  .accordion h3 p {
+    position: relative;
+  };
+
+  .questions {
+    margin: 0 auto;
+  }
+
+  .accordion h3 p::after {
+    // font-family: 'FontAwesome';
+    content: "";
+    background: url("./assets/images/minus1.svg");
+    width: 20px;
+    height: 20px;
+    font-weight: 400;
+    margin-bottom: 0;
+    position: absolute;
+    right: -30px;
+    top: 40%;
+    transform: translate(-25%, -35%);
+    @media screen and (max-width:991px) {
+      right: -40px;
+    }
+  }
+
+  .accordion h3.collapsed p::after {
+    background: url("./assets/images/plus1.svg");
+    font-weight: 400;
+  }
+
+  h1 {
+    font-size: 30px;
+    font-weight: 600;
+    margin-bottom: 40px;
+    text-align: center;
+    @media screen and (max-width:1279px) {
+      font-size: 25px;
+    }
+  }
+
+  h3 {
+    font-size: 22px;
+    line-height: 30px;
+    padding: 15px 50px 15px 15px;
+    background: #EDEDEB;
+    color: #4D4949;
+    cursor: pointer;
+    @media screen and (max-width:1279px) {
+      font-size: 18px;
+      line-height: 24px;
+    }
+
+    p {
+      margin-bottom: 0;
+
+      span {
+        font-weight: 600;
+        margin-right: 5px;
+        width: 55px;
+        display: inline-block;
+      }
+    }
+  }
+
+  h3 + p {
+    font-size: 20px;
+    margin-left: 75px;
+    margin-bottom: 30px;
+    @media screen and (max-width:1279px) {
+      margin-left: 5px;
+      font-size: 17px;
+    }
+  }
+}
+
+.services {
+  video {
+    width: 100%;
   }
 }
