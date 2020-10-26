@@ -30,7 +30,7 @@ const ProductDispatchMessagePage = (props) => {
                 {
                     <>
                         <div className="modal-header">
-                            <h5 className="placeorder-modal-title" >Thank you for your Order once admin will approved your will be dispatched </h5>
+                            <h5 className="placeorder-modal-title" >Thank you for your Order once admin will approved your order will be dispatched </h5>
                             <button type="button" className="modal-fill_btn_confirm_order btn btn-sm" onClick={CloseModal}>OKay</button>
                         </div></>
 

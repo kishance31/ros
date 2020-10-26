@@ -41,7 +41,7 @@ const EmployeeAndLicenseAddBox = (props) => {
             dispatch(employeeAndLicenseAddAsync(data));
         }
         if (popupType === "edit") {
-            dispatch(updateEmployeeAsync(data, values._id));
+            dispatch(updateEmployeeAsync(data, values._id, true));
         }
         onCloseAddbox();
     }

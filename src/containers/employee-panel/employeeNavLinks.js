@@ -16,7 +16,7 @@ const EmployeeLinksContainer = () => {
             collapsable
             navLinks={employeeLinks}
             isOpen={false}
-            searchBar={<NavSearchBar />}
+            // searchBar={<NavSearchBar />}
         />
     )
 }

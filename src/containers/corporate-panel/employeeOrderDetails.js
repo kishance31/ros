@@ -11,8 +11,12 @@ import {
 } from '../../actions/employeeOrderDetails.action';
 import { cancelOrderAsync } from '../../actions/employeeOrderHistory.action';
 import PaymentBox from '../../components/corporate-panel/employeeOrderDetails/paymentBox';
+import EmployeeOrderDeleteBox from '../../components/corporate-panel/employeeOrderDetails/orderDeleteBox';
 
 const EmployeeOrderDetails = () => {
+
+	const [visibleDeleteModal, setVisibleDeleteModal] = useState(false);
+	const [selectedEmployee, setSelectedEmployee] = useState(null);
 
 	const dispatch = useDispatch();
 
@@ -93,6 +97,14 @@ const EmployeeOrderDetails = () => {
 	const onDeleteOrder = (id) => {
 		dispatch(cancelOrderAsync(id, getEmployeeOrderDetailsAsync));
 	}
+
+	const onEmployeeOrderDelete = () => {
+        if(selectedEmployee) {
+            onDeleteOrder(selectedEmployee._id)
+        }
+        setSelectedEmployee(null);
+        setVisibleDeleteModal(false);
+    }
 
 	return (
 		<>
@@ -205,7 +217,11 @@ const EmployeeOrderDetails = () => {
 															!orderList.isFirstTimePayment ? (
 																<div className="action_btn_wrap">
 																	<button className="btn_action pink"
-																		onClick={() => onDeleteOrder(orderList._id)}
+																		onClick={() => {
+																			// onDeleteOrder(orderList._id)
+																			setVisibleDeleteModal(true);
+																			setSelectedEmployee(orderList);
+																		}}
 																	>Delete</button>
 																</div>
 															) : null
@@ -219,12 +235,12 @@ const EmployeeOrderDetails = () => {
 											</React.Fragment>
 										))
 									) : (
-										<tr className="text-center">
-										  <td colSpan={12}>
-											No order placed.
+											<tr className="text-center">
+												<td colSpan={12}>
+													No order placed.
 										</td>
-										</tr>
-									  )
+											</tr>
+										)
 								}
 							</tbody>
 						</table>
@@ -250,6 +266,14 @@ const EmployeeOrderDetails = () => {
 				toggleOverlay={toggleOverlay}
 				firstTimeTotal={firstTimeTotal}
 				onConfirmPayment={onConfirmPayment}
+			/>
+			<EmployeeOrderDeleteBox
+				isOpen={visibleDeleteModal}
+				toggleModal={() => {
+					setVisibleDeleteModal(!visibleDeleteModal);
+					setSelectedEmployee(null);
+				}}
+				onEmployeeOrderDelete={onEmployeeOrderDelete}
 			/>
 		</>
 	);
