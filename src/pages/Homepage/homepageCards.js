@@ -7,7 +7,7 @@ const HomepageCards = () => {
 
     return (
         <>
-            <section class="container-fluid mb-5">
+            {/* <section class="container-fluid mb-5">
                 <div className="home_categories">
                     <h2>Our Categories</h2>
                     <div className="row">
@@ -31,7 +31,7 @@ const HomepageCards = () => {
                         </div>
                     </div>
                 </div>
-            </section>
+            </section> */}
 
 
             {/* <section className="section_two">
