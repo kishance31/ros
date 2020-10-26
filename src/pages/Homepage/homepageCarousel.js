@@ -17,6 +17,7 @@ const HomepageCarousel = () => {
     return (
 
         <>
+            {/* MAIN BANNER */}
             <div class="container-fluid">
                 <div class="homebanner">
                     <div class="row">
@@ -28,7 +29,7 @@ const HomepageCarousel = () => {
                                     <span className="t3">Solution</span>
                                 </h1>
                                 <p>Our solution (ROS – Remote Office Solution) focus is to provide corporates a platform to be a forward leaning company on remote work at their scale.</p>
-                                <button type="button" className="btn" onClick={showSignUpModal}>CORPORATE SIGNUP</button>
+                                <button type="button" className="btn mt-4 mt-lg-3" onClick={showSignUpModal}>CORPORATE SIGNUP</button>
                             </div>
                         </div>
                         <div class="col-lg-6">
@@ -40,7 +41,7 @@ const HomepageCarousel = () => {
                 </div>
             </div>
 
-            <div class="container-fluid ">
+            {/* <div class="container-fluid ">
                 <div class="well_managed">
                     <div class="row">
                         <div class="col-lg-6 visual">
@@ -52,7 +53,103 @@ const HomepageCarousel = () => {
                         </div>
                     </div>
                 </div>
+            </div> */}
+
+            {/* OUR SERVICES */}
+            <section class="container-fluid services">
+                <div class="section_about mt-5">
+                    <div class="row">
+                        <div class="col-lg-6 col-md-12">
+                            <div class="about-caption text-left">
+                                <h1 class="title">User Friendly Platform</h1>
+                                <p class="body_text">Proin et accumsan ipsum. Ut et purus vitae dolor commodo laoreet. Vestibulum rhoncus tempus elit quis laoreet. Pellentesque eget enim eget sapien egestas venenatis nec condimentum purus. Morbi facilisis orci ac tellus ullamcorper, ac convallis risus pharetra. Praesent porttitor nibh justo, eu facilisis magna dictum a. Quisque maximus porta aliquet.
+                            </p>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-12">
+                            <video poster="/static/media/service1.61c55ec9.png" controls>
+                                <source src="https://ak.picdn.net/shutterstock/videos/1043775205/preview/stock-footage-microbiology-laboratory-scientist-works-with-petri-dishes-with-various-bacteria-tissue-and-blood.mp4" type="video/mp4"></source>
+                            </video>
+                            {/* <div class=""><img src={require(`../../assets/images/service1.png`)} alt="" className="about_img img-fluid" /></div> */}
+                        </div>
+                    </div>
+                </div>
+                <div class="section_about">
+
+                    <div class="row flex-column-reverse flex-lg-row">
+                        <div class="col-lg-6 col-md-12">
+                            <video poster="/static/media/service1.61c55ec9.png" controls>
+                                <source src="https://ak.picdn.net/shutterstock/videos/1043775205/preview/stock-footage-microbiology-laboratory-scientist-works-with-petri-dishes-with-various-bacteria-tissue-and-blood.mp4" type="video/mp4"></source>
+                            </video>
+                        </div> 
+                        <div class="col-lg-6 col-md-12">
+                            <div class="about-caption text-left pl-lg-5 pl-0">
+                                <h1 class="title">Employee Well Being</h1>
+                                <p class="body_text">Proin et accumsan ipsum. Ut et purus vitae dolor commodo laoreet. Vestibulum rhoncus tempus elit quis laoreet. Pellentesque eget enim eget sapien egestas venenatis nec condimentum purus. Morbi facilisis orci ac tellus ullamcorper, ac convallis risus pharetra. Praesent porttitor nibh justo, eu facilisis magna dictum a. Quisque maximus porta aliquet.
+
+                            </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="section_about">
+
+                    <div class="row">
+                        <div class="col-lg-6 col-md-12">
+                            <div class="about-caption text-left">
+                                <h1 class="title">Unique Workforce System</h1>
+                                <p class="body_text">Proin et accumsan ipsum. Ut et purus vitae dolor commodo laoreet. Vestibulum rhoncus tempus elit quis laoreet. Pellentesque eget enim eget sapien egestas venenatis nec condimentum purus. Morbi facilisis orci ac tellus ullamcorper, ac convallis risus pharetra. Praesent porttitor nibh justo, eu facilisis magna dictum a. Quisque maximus porta aliquet.
+
+                            </p>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-12">
+                            <video poster="/static/media/service1.61c55ec9.png" controls>
+                                <source src="https://ak.picdn.net/shutterstock/videos/1043775205/preview/stock-footage-microbiology-laboratory-scientist-works-with-petri-dishes-with-various-bacteria-tissue-and-blood.mp4" type="video/mp4"></source>
+                            </video>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            {/* FAQ */}
+            <div className="container-fluid">
+                <div className="faq">
+                    <div class="col-lg-12" id="accordion" class="accordion">
+                        <h1>Frequently Asked Question (FAQ)</h1>
+                        <div class="row">
+                            <div class="col-lg-6 questions">
+                                <h3 class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse1">
+                                    <p>
+                                        <span>Q1.</span>
+                                            Proin et accumsan ipsum. Ut et purus vitae dolor?</p></h3>
+                                <p id="collapse1" class="collapse" data-parent="#accordion">Proin et accumsan ipsum. Ut et purus vitae dolor commodo laoreet. Vestibulum rhoncus tempus elit quis laoreet. Pellentesque eget enim eget sapien egestas venenatis nec condimentum purus. Morbi facilisis orci ac tellus ullamcorper, ac convallis risus pharetra. Praesent porttitor nibh justo, eu facilisis magna dictum a. Quisque maximus porta aliquet.</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6 questions">
+                                <h3 class="collapsed" data-toggle="collapse" href="#collapse2">
+                                    <p>
+                                        <span>Q2.</span>
+                                            Proin et accumsan ipsum. Ut et purus vitae dolor?</p></h3>
+                                <p id="collapse2" class="collapse" data-parent="#accordion">
+                                    Proin et accumsan ipsum. Ut et purus vitae dolor commodo laoreet. Vestibulum rhoncus tempus elit quis laoreet. Pellentesque eget enim eget sapien egestas venenatis nec condimentum purus. Morbi facilisis orci ac tellus ullamcorper, ac convallis risus pharetra. Praesent porttitor nibh justo, eu facilisis magna dictum a. Quisque maximus porta aliquet.</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6 questions">
+                                <h3 class="collapsed" data-toggle="collapse" href="#collapse3">
+                                    <p>
+                                        <span>Q3.</span>
+                                            Proin et accumsan ipsum. Ut et purus vitae dolor?</p></h3>
+                                <p id="collapse3" class="collapse" data-parent="#accordion">
+                                    Proin et accumsan ipsum. Ut et purus vitae dolor commodo laoreet. Vestibulum rhoncus tempus elit quis laoreet. Pellentesque eget enim eget sapien egestas venenatis nec condimentum purus. Morbi facilisis orci ac tellus ullamcorper, ac convallis risus pharetra. Praesent porttitor nibh justo, eu facilisis magna dictum a. Quisque maximus porta aliquet.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
+
         </>
 
         // <section className="section_one">
