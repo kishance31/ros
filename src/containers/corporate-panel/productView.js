@@ -97,35 +97,44 @@ const ProductView = () => {
                             </thead>
                             <tbody>
                                 {
-                                    productList.map(product =>
-                                        <tr key={product._id}>
-                                            <td>{product.product_name}</td>
-                                            <td>{product.ros_code}</td>
-                                            <td>${product.ros_cost}</td>
-                                            <td className="text-center">
-                                                <div className="product_img">
-                                                    <img src={product.product_image} alt={product.product_name} />
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <div className="custom-tooltip" data-toggle="tooltip" data-placement="left" title={product.product_name}>{product.product_description}</div>
-                                            </td>
-                                        </tr>
-                                    )}
+                                    productList.length ? (
+                                        productList.map(product =>
+                                            <tr key={product._id}>
+                                                <td>{product.product_name}</td>
+                                                <td>{product.ros_code}</td>
+                                                <td>${product.ros_cost}</td>
+                                                <td className="text-center">
+                                                    <div className="product_img">
+                                                        <img src={product.product_image} alt={product.product_name} />
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div className="custom-tooltip" data-toggle="tooltip" data-placement="left" title={product.product_name}>{product.product_description}</div>
+                                                </td>
+                                            </tr>
+                                        )
+                                    ) : (
+                                            <tr className="text-center">
+                                                <td colSpan={12}>
+                                                    No order placed.
+												</td>
+                                            </tr>
+                                        )
+                                }
                             </tbody>
                         </table>
                         {
-							productList.length ? (
-								<div style={{ marginTop: 20, float: "right" }}>
-									<BasicPagination
-										totalRecords={productCount}
-										limit={limit}
-										batch={page}
-										onBatchChange={handleBatchChange}
-									/>
-								</div>
-							) : null
-						}
+                            productList.length ? (
+                                <div style={{ marginTop: 20, float: "right" }}>
+                                    <BasicPagination
+                                        totalRecords={productCount}
+                                        limit={limit}
+                                        batch={page}
+                                        onBatchChange={handleBatchChange}
+                                    />
+                                </div>
+                            ) : null
+                        }
                     </div>
                 </div>
             </div>

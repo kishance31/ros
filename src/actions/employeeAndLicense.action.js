@@ -1,6 +1,7 @@
 import axios from 'axios';
 import notificationActions from './notifications.action';
 import getServerCore from '../utils/apiUtils';
+import {AuthMap} from './auth.action';
 
 const { serverUrl } = getServerCore();
 
@@ -151,7 +152,7 @@ export const getEmployeesAsync = (tokens, id, limit, batch) => {
     }
 }
 
-export const updateEmployeeAsync = (user, id) => {
+export const updateEmployeeAsync = (user, id, getCount) => {
 
     return async (dispatch, getState) => {
         try {
@@ -165,10 +166,18 @@ export const updateEmployeeAsync = (user, id) => {
                 }
             });
             if (data.response && data.response.responseCode === 200) {
-                dispatch(employeeAndLicenseCountAsync(auth.user._id, auth.user.tokens));
+                if(getCount) {
+                    dispatch(employeeAndLicenseCountAsync(auth.user._id, auth.user.tokens));
+                }
                 dispatch({
-                    type: EmployeeAndLicenseMap.Add_Employeement_SUCCESS
+                    type: EmployeeAndLicenseMap.Add_Employeement_SUCCESS,
                 })
+                if(!getCount) {
+                    dispatch({
+                        type: AuthMap.UPDATE_EMPLOYEE_PROFILE_SUCCESS,
+                        payload: data.response.data,
+                    })
+                }
                 dispatch(notificationActions.showNotification({
                     title: "Update Employee",
                     message: data.response.responseMessage,

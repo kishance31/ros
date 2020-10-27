@@ -3,13 +3,14 @@ import { useSelector, useDispatch, shallowEqual } from 'react-redux';
 import purchaseLicenseAction, { licenseOrderHistoryAsync } from "../../actions/purchaseLicense.action";
 import BasicPagination from '../../components/pagination/basicPagination';
 import { usePaginationHook } from '../../hooks/paginationHook';
+import { generateLicensePDF } from '../../hooks/generateLicensePDF';
 
 const LicenseOrderHistory = () => {
 
     
     const dispatch = useDispatch();
     
-    const user = useSelector(state => state.auth.user);
+    const user = useSelector(state => state.auth.user, shallowEqual);
     
     const licenseOrderHistory = useSelector(state => state.purchaseLicense.licenseOrderHistory, shallowEqual);
     const licenseOrderRecords = useSelector(state => state.purchaseLicense.licenseOrderRecords);
@@ -93,7 +94,10 @@ const LicenseOrderHistory = () => {
                                                             }
                                                         </td>
                                                         <td>
-                                                            <a href="" className="download"><img src={require(`../../assets/images/download.svg`)} alt="" />DOWNLOAD</a>
+                                                            <a href="#" className="download"
+                                                                onClick={() => generateLicensePDF({data: item, corporate: user})}
+                                                            >
+                                                                <img src={require(`../../assets/images/download.svg`)} alt="" />DOWNLOAD</a>
                                                         </td>
                                                     </tr>
                                                 )

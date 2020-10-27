@@ -113,42 +113,6 @@ const HomepageCarousel = () => {
             </section>
 
             {/* FAQ */}
-            <div className="container-fluid">
-                <div className="faq">
-                    <div class="col-lg-12" id="accordion" class="accordion">
-                        <h1>Frequently Asked Question (FAQ)</h1>
-                        <div class="row">
-                            <div class="col-lg-6 questions">
-                                <h3 class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse1">
-                                    <p>
-                                        <span>Q1.</span>
-                                            Proin et accumsan ipsum. Ut et purus vitae dolor?</p></h3>
-                                <p id="collapse1" class="collapse" data-parent="#accordion">Proin et accumsan ipsum. Ut et purus vitae dolor commodo laoreet. Vestibulum rhoncus tempus elit quis laoreet. Pellentesque eget enim eget sapien egestas venenatis nec condimentum purus. Morbi facilisis orci ac tellus ullamcorper, ac convallis risus pharetra. Praesent porttitor nibh justo, eu facilisis magna dictum a. Quisque maximus porta aliquet.</p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-lg-6 questions">
-                                <h3 class="collapsed" data-toggle="collapse" href="#collapse2">
-                                    <p>
-                                        <span>Q2.</span>
-                                            Proin et accumsan ipsum. Ut et purus vitae dolor?</p></h3>
-                                <p id="collapse2" class="collapse" data-parent="#accordion">
-                                    Proin et accumsan ipsum. Ut et purus vitae dolor commodo laoreet. Vestibulum rhoncus tempus elit quis laoreet. Pellentesque eget enim eget sapien egestas venenatis nec condimentum purus. Morbi facilisis orci ac tellus ullamcorper, ac convallis risus pharetra. Praesent porttitor nibh justo, eu facilisis magna dictum a. Quisque maximus porta aliquet.</p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-lg-6 questions">
-                                <h3 class="collapsed" data-toggle="collapse" href="#collapse3">
-                                    <p>
-                                        <span>Q3.</span>
-                                            Proin et accumsan ipsum. Ut et purus vitae dolor?</p></h3>
-                                <p id="collapse3" class="collapse" data-parent="#accordion">
-                                    Proin et accumsan ipsum. Ut et purus vitae dolor commodo laoreet. Vestibulum rhoncus tempus elit quis laoreet. Pellentesque eget enim eget sapien egestas venenatis nec condimentum purus. Morbi facilisis orci ac tellus ullamcorper, ac convallis risus pharetra. Praesent porttitor nibh justo, eu facilisis magna dictum a. Quisque maximus porta aliquet.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
 
         </>
 
