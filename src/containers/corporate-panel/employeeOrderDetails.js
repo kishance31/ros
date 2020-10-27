@@ -99,12 +99,12 @@ const EmployeeOrderDetails = () => {
 	}
 
 	const onEmployeeOrderDelete = () => {
-        if(selectedEmployee) {
-            onDeleteOrder(selectedEmployee._id)
-        }
-        setSelectedEmployee(null);
-        setVisibleDeleteModal(false);
-    }
+		if (selectedEmployee) {
+			onDeleteOrder(selectedEmployee._id)
+		}
+		setSelectedEmployee(null);
+		setVisibleDeleteModal(false);
+	}
 
 	return (
 		<>
@@ -190,7 +190,7 @@ const EmployeeOrderDetails = () => {
 								<label htmlFor={orderList.srNo}></label> */}
 													</td>
 													<td>
-														<div toggle-table-data={orderList.srNo} className="toggle_icon" onClick={() => onTable(index + 1)}></div>
+														<div toggle-table-data={orderList.srNo} className={`toggle_icon ${rowIndex && (rowIndex === (index + 1)) ? "expanded" : ""}`} onClick={() => onTable(index + 1)}></div>
 													</td>
 													<td>{index + 1}</td>
 													<td>
@@ -238,7 +238,7 @@ const EmployeeOrderDetails = () => {
 											<tr className="text-center">
 												<td colSpan={12}>
 													No order placed.
-										</td>
+												</td>
 											</tr>
 										)
 								}
