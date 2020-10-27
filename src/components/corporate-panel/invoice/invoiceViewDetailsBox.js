@@ -48,7 +48,7 @@ const InvoiceViewDetailsBox = (props) => {
                                                 </>
                                             ) : null
                                         }
-                                        <tr>
+                                        {/* <tr>
                                             <td>Product Details:</td>
                                         </tr>
                                         {
@@ -58,7 +58,7 @@ const InvoiceViewDetailsBox = (props) => {
                                                     <td>Product total cost: &nbsp; <span className="font-weight-bold">${product.ros_cost}</span></td>
                                                 </tr>
                                             ))
-                                        }
+                                        } */}
                                         <tr>
                                             <td>Invoice Type:<br />
                                                 <span className="font-weight-bold">

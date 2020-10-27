@@ -8,6 +8,7 @@ import OrderHistory from '../../containers/employee-panel/orderHistory';
 import { categoryListAsync } from '../../actions/itemListing.action'
 import CartModal from '../../containers/employee-panel/cartModal';
 import cartActions from '../../actions/cart.action';
+import FAQS from '../Homepage/FAQs';
 
 const EmployeeDashboard = () => {
     const dispatch = useDispatch();
@@ -38,6 +39,7 @@ const EmployeeDashboard = () => {
                     />
                     <Route path={`${path}/profile`} component={EmployeeProfile} />
                     <Route path={`${path}/orderHistory`} component={OrderHistory} />
+                    <Route path={`${path}/faqs`} component={FAQS} />
                     {/* <Redirect from="/*" to={`${path}/itemListing${defaultCategory}`} /> */}
                 </Switch>
 
