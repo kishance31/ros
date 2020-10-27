@@ -83,10 +83,6 @@ const EmployeeAndLicenseAddBox = (props) => {
                        
                         if (!values[key]) {
                             
-                            if (!values[key]) {
-                                errors[key] = `${key} is required.`
-                            }
-                    
                             if (key === "companyName") {
                                 errors[key] = `Company Name is required.`
                             }
