@@ -1,27 +1,24 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
 import CategoryLinks from './categoryList';
 import ProductsListContianer from './productLists';
 import ProductModal from './productModal';
 import cartActions from '../../actions/cart.action';
-import CartModal from './cartModal';
 import ProductDeliverAddressPage from '../employee-panel/productDeliverAddressPage';
-import { CartActionMap, addToCartAsync } from '../../actions/cart.action';
+import { addToCartAsync } from '../../actions/cart.action';
 import ProductDispatchMessagePage from '../employee-panel/productDispatchMessagePage'
-import { categoryListAsync, productListAsync, ItemListingActions } from '../../actions/itemListing.action'
+import { productListAsync, ItemListingActions } from '../../actions/itemListing.action'
 
 const ItemListingContianer = (props) => {
 
     const [viewProduct, setViewProduct] = useState(null);
     const [openProductModal, setOpenProductModal] = useState(false);
-    
+
     const address = useSelector(state => state.auth.user.address)
-    const isOpenCart = useSelector(state => state.cart.openCart);
     const isOpenThankYouModal = useSelector(state => state.cart.modals.ShowthankYouModal);
     const isOpenDispatchModal = useSelector(state => state.cart.modals.showAdminApprovalModal);
     const { productList, categoryList, productCount } = useSelector(state => state.itemListing, shallowEqual);
-    
+
     const dispatch = useDispatch();
 
     // useEffect(() => {
@@ -71,10 +68,6 @@ const ItemListingContianer = (props) => {
                 toggleModal={() => setOpenProductModal(false)}
                 productDetails={viewProduct}
                 addToCart={addToCart}
-            />
-            <CartModal
-                isOpen={isOpenCart}
-                toggleModal={() => dispatch(cartActions.toggleCart())}
             />
             <ProductDeliverAddressPage
                 isOpen={isOpenThankYouModal}

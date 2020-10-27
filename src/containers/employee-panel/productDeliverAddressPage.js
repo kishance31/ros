@@ -52,21 +52,21 @@ const ProductDeliverAddressPage = (props) => {
                             <div className="row thank_you_body d-flex align-items-center">
                                 <div className="col-lg-6 col-md-12 ">
                                     <div className="order_no_text">
-                                        <h6>Order No. : 12545255</h6>
+                                        {/* <h6>Order No. : 12545255</h6> */}
                                         <p>We will dispatch item as soon as we get payment confirmation from admin. </p>
                                     </div>
                                     <div className="thank_you_table">
                                         <table className="table table-sm">
                                             <thead>
                                                 <tr>
-                                                    <td>Invoice No. </td>
-                                                    <td>: 12545255. </td>
+                                                    {/* <td>Invoice No. </td> */}
+                                                    {/* <td>: 12545255. </td> */}
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 <tr>
-                                                    <td>Expected Delivery Date </td>
-                                                    <td>{new Date().toLocaleDateString()}</td>
+                                                    {/* <td>Expected Delivery Date </td> */}
+                                                    {/* <td>{new Date().toLocaleDateString()}</td> */}
                                                 </tr>
                                             </tbody>
                                         </table>

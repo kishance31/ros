@@ -6,6 +6,7 @@ import PaymentBox from '../../components/corporate-panel/invoice/paymentBox';
 import { OverlayContext } from '../../context/loadingOverlay.context';
 import BasicPagination from '../../components/pagination/basicPagination';
 import { usePaginationHook } from '../../hooks/paginationHook';
+import { generateInvoicePDF } from '../../hooks/generateInvoicePDF';
 
 const Invoice = () => {
 
@@ -20,6 +21,7 @@ const Invoice = () => {
     const [selectedInvoice, setSelectedInvoice] = useState(null);
 
     const { invoiceList, totalRecords, refreshList, isLoading, batchNumber, limit } = useSelector(state => state.invoice, shallowEqual);
+    const user = useSelector(state => state.auth.user, shallowEqual);
 
     const onPageChange = (currentBatch) => {
         dispatch(InvoiceActions.setInvoicePage(currentBatch || batchNumber));
@@ -163,7 +165,9 @@ const Invoice = () => {
                                                             }}>View</button>
 
 
-                                                        <button className="btn_action pink">Download</button>
+                                                        <button className="btn_action pink"
+                                                            onClick={() => generateInvoicePDF({data: invoice, isReccuring, corporate: user})}
+                                                        >Download</button>
                                                         {
                                                             isReccuring && !invoice.invoiceDetails.paymentDone ? (
                                                                 <button className="btn_action blue"

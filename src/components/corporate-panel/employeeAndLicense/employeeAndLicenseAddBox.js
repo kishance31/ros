@@ -41,7 +41,7 @@ const EmployeeAndLicenseAddBox = (props) => {
             dispatch(employeeAndLicenseAddAsync(data));
         }
         if (popupType === "edit") {
-            dispatch(updateEmployeeAsync(data, values._id));
+            dispatch(updateEmployeeAsync(data, values._id, true));
         }
         onCloseAddbox();
     }
@@ -83,10 +83,6 @@ const EmployeeAndLicenseAddBox = (props) => {
                        
                         if (!values[key]) {
                             
-                            if (!values[key]) {
-                                errors[key] = `${key} is required.`
-                            }
-                    
                             if (key === "companyName") {
                                 errors[key] = `Company Name is required.`
                             }

@@ -45,14 +45,14 @@ const ProductModal = (props) => {
                                     <table className="table">
                                         <thead>
                                             <tr>
-                                                <td>Expected Dispatch Date </td>
-                                                <td><b>13/06/2009</b> </td>
+                                                {/* <td>Expected Dispatch Date </td> */}
+                                                {/* <td><b>13/06/2009</b> </td> */}
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <tr>
-                                                <td>Expected Delivery Date </td>
-                                                <td><b>23/08/2010</b> </td>
+                                                {/* <td>Expected Delivery Date </td> */}
+                                                {/* <td><b>23/08/2010</b> </td> */}
                                             </tr>
                                         </tbody>
                                     </table>

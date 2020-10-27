@@ -47,8 +47,13 @@ const EmployeeAndLicenseTable = (props) => {
                                                 setVisibleDeleteModal(true);
                                                 setSelectedEmployee(item);
                                             }}>Delete</button>
-                                        <button className="btn_action orange" onClick={() => { onSendInvitation(item._id) }}>Send Invitation</button>
-                                        <button className="btn_action light_blue" onClick={() => { onSendInvitation(item._id) }}>Resend Invitation</button>
+                                            {
+                                                item.isFirstLogin ? 
+                                                    <button className="btn_action orange" onClick={() => { onSendInvitation(item._id) }}>Send Invitation</button> :
+                                                    null
+
+                                            }
+                                        {/* <button className="btn_action light_blue" onClick={() => { onSendInvitation(item._id) }}>Resend Invitation</button> */}
                                     </td>
                                 </tr>
                             )

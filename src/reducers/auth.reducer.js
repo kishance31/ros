@@ -224,6 +224,7 @@ const authReducer = (state = initialState, action) => {
             return {
                 ...state,
                 user: {
+                    ...state.user,
                     ...action.payload
                 }
             }

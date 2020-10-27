@@ -2,9 +2,9 @@ import React from 'react';
 import ModalComponent from '../../modal/modal';
 import { MetroCancelIcon } from '../../icons/Icons';
 
-const EmployeeAndLicenseDeleteBox = (props) => {
+const EmployeeOrderDeleteBox = (props) => {
 
-    const { isOpen, toggleModal, onEmployeeDelete } = props;
+    const { isOpen, toggleModal, onEmployeeOrderDelete } = props;
 
     const ModalCloseIcon = () => (
         <button type="button" className="close close_icon ml-auto" data-dismiss="modal"
@@ -24,14 +24,14 @@ const EmployeeAndLicenseDeleteBox = (props) => {
                 isOpen={isOpen}
             >
                 <div className="modal-body">
-                    <h6>Are you sure to delete this employee permanently?</h6>
+                    <h6>Are you sure to delete this employee order permanently?</h6>
                 </div>
                 <div className="modal-footer">
                     <button type="button" className="btn_action light_blue" onClick={toggleModal}>Cancel</button>
                     <button
                     type="button"
                     className="btn_action pink"
-                    onClick={onEmployeeDelete}
+                    onClick={onEmployeeOrderDelete}
                     >Delete</button>
                 </div>
             </ModalComponent>
@@ -39,4 +39,4 @@ const EmployeeAndLicenseDeleteBox = (props) => {
         </>
     )
 }
-export default EmployeeAndLicenseDeleteBox;
+export default EmployeeOrderDeleteBox;

@@ -1,14 +1,17 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
+import { useHistory } from 'react-router-dom';
 import { Formik } from 'formik';
 import DoubleErrorMessage from '../../components/inputFields/inputErrorMessage';
 import { AddMoreIcon } from '../../components/icons/Icons';
 import EmployeeAndLicenseAddressBox from '../../components/corporate-panel/employeeAndLicense/employeeAndLicenseAddressBox';
 import { updateEmployeeAsync } from '../../actions/employeeAndLicense.action';
 
-const EmployeeProfile = () => {
+const EmployeeProfile = ({setFirstProfile}) => {
 
     const dispatch = useDispatch();
+
+    const history = useHistory();
 
     const user = useSelector(state => state.auth.user);
     const license = useSelector(state => state.auth.user.license)
@@ -33,7 +36,10 @@ const EmployeeProfile = () => {
         data.set("employeeId", user.employeeId)
         data.set("address", JSON.stringify(addressList));
 
-        dispatch(updateEmployeeAsync(data, user._id));
+        dispatch(updateEmployeeAsync(data, user._id, false));
+        if(setFirstProfile) {
+            history.push('/employee/itemListing')
+        }
     }
 
     const onSaveAddress = (data) => {
@@ -52,14 +58,11 @@ const EmployeeProfile = () => {
                 <div className="container-fluid">
                     <div className="profile shadow_box">
                         <div className="top_bar">
-                            {/* <div className="license_detail">
+                            <div className="license_detail">
                                 <ul>
-                                    <li>REGISTRATION ID</li>
-                                    <li className="bg_pink">
-                                        <span>ROS135487</span>
-                                    </li>
+                                    <li>PROFILE</li>
                                 </ul>
-                            </div> */}
+                            </div>
                         </div>
 
                         <Formik initialValues={{
