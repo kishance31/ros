@@ -248,7 +248,7 @@ ul.navbar-nav.mr-auto {
 
       .dropdown-menu {
         display: block;
-        top: 45px;
+        top: 16px;
         right: 0;
         left: unset;
         text-align: center;
@@ -509,6 +509,7 @@ h3.title {
   @include border-radius(5px);
   text-transform: uppercase;
   font-family: $font_futura_bold;
+  cursor: pointer;
   @media screen and (max-width: 1440px) {
     height: 45px;
   }
@@ -726,6 +727,10 @@ nav.tab {
 .general_table {
   table {
     width: 100%;
+
+    .form-check-input {
+      position: static !important;
+    }
 
     th {
       color: $blue;
@@ -1340,6 +1345,7 @@ nav.tab {
         // -webkit-transform: scale(1);
         // transform: scale(1);
         position: absolute;
+        top: 0;
         @media screen and (max-width: 1279px) {
           height: auto;
           // -moz-transform: scale(1) !important;
@@ -1977,6 +1983,7 @@ nav.tab {
 
   .addmore {
     text-align: center;
+    margin-top: 30px;
   }
 
   button.btn_blue {
