@@ -1,13 +1,13 @@
 import React from 'react';
 
 const DoubleErrorMessage = (props) => {
-    const { leftError, leftTouched, rightError, rightTouched } = props;
+    const { leftError, leftTouched, rightError, rightTouched, className } = props;
 
     return (
         <>
             {
                 (leftError && leftTouched) || (rightError && rightTouched) ? (
-                    <div className="error_wrap">
+                    <div className={`error_wrap ${className}`}>
                         {
                             leftError && leftTouched ? (
                                 <div className="left_side">
