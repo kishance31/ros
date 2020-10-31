@@ -6,7 +6,7 @@ import DoubleInputField from '../../components/inputFields/doubleInputField';
 import AuthModalAction from '../../actions/auth.action';
 import { ArrowRightIcon } from '../../components/icons/Icons.js';
 
-const Corporate = (props) => {
+const FormComponent = (props) => {
     const {
         tabName,
         handleInput,
@@ -16,7 +16,7 @@ const Corporate = (props) => {
         navigateToSignUp
     } = props;
     return (
-        <div className={`tab-pane fade show ${tabName === "corporate" ? "active" : ""}`} >
+        <div className={`tab-pane fade show active`} >
             <DoubleInputField>
                 <input
                     type="email"
@@ -35,63 +35,20 @@ const Corporate = (props) => {
                     className="input_box_2 form-control" required
                 />
             </DoubleInputField>
-            <button className="modal-fill_btn btn btn-lg" onClick={(e) => handleSubmit(e, 'corporate')} ><span className="sign_in">SIGN IN</span>
+            <button className="modal-fill_btn btn btn-lg" onClick={(e) => handleSubmit(e)} ><span className="sign_in">SIGN IN</span>
                 <span className="left_arrow">
                     <ArrowRightIcon />
                 </span>
             </button>
             <span className="navbar-text"> <a href="/#" onClick={redirectToForgotPassword}>FORGOT PASSWORD</a> </span>
-            <div className="modal-footer">
-                <h5 className="footer_title"> Don't have an account yet? </h5>
-                <a href onClick={navigateToSignUp}><span className="navbar-text" >SIGN UP</span></a>
-            </div>
-        </div>
-    )
-}
-
-const Employee = (props) => {
-    const {
-        tabName,
-        handleSubmit,
-        redirectToForgotPassword,
-        handleInput,
-        user,
-    } = props;
-    return (
-        <div className={`tab-pane fade show ${tabName === "employee" ? "active" : ""}`} id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
-            <div className={`tab-pane fade show ${tabName === "employee" ? "active" : ""}`} >
-                <DoubleInputField>
-                    <div className="input-group-prepend"></div>
-                    <input
-                        type="email"
-                        onChange={handleInput}
-                        placeholder="EMAIL"
-                        name="email"
-                        value={user.email}
-                        className="input_box_1 form-control"
-                    />
-                    <div className="input-group-prepend"></div>
-                    <input
-                        type="password"
-                        onChange={handleInput}
-                        placeholder="PASSWORD"
-                        name="password"
-                        value={user.password}
-                        className="input_box_2 form-control" required
-                    />
-                </DoubleInputField>
-                <button className="modal-fill_btn btn btn-lg" onClick={(e) => handleSubmit(e, 'employee')}>
-                    <span className="sign_in">
-                        SIGN IN
-                    </span>
-                    <span className="left_arrow">
-                        <ArrowRightIcon />
-                    </span>
-                </button>
-                <span className="navbar-text"> <a href="/#" onClick={redirectToForgotPassword}>FORGOT PASSWORD</a> </span>
-                <div className="modal-footer">
-                </div>
-            </div>
+            {
+                tabName === "corporate" ? (
+                    <div className="modal-footer">
+                        <h5 className="footer_title"> Don't have an account yet? </h5>
+                        <a href onClick={navigateToSignUp}><span className="navbar-text" >SIGN UP</span></a>
+                    </div>
+                ) : null
+            }
         </div>
     )
 }
@@ -113,9 +70,9 @@ const SignInForm = (props) => {
             [name]: value
         });
     }
-    const handleSubmit = (e, type) => {
+    const handleSubmit = (e) => {
         e.preventDefault();
-        dispatch(signInUserAsync(user, type));
+        dispatch(signInUserAsync(user, tabName));
     };
 
     const redirectToForgotPassword = () => {
@@ -152,28 +109,14 @@ const SignInForm = (props) => {
             </nav>
 
             <div className="tab-content" id="nav-tabContent" role="tabpanel" aria-labelledby="nav-profile-tab">
-                {
-                    tabName === "corporate" ?
-                        <
-                            Corporate
-                            tabName={tabName}
-                            handleInput={handleInput}
-                            user={user}
-                            handleSubmit={handleSubmit}
-                            redirectToForgotPassword={redirectToForgotPassword}
-                            navigateToSignUp={navigateToSignUp}
-                        /> : null
-                }
-                {
-                    tabName === "employee" ?
-                        < Employee
-                            tabName={tabName}
-                            handleSubmit={handleSubmit}
-                            redirectToForgotPassword={redirectToForgotPassword}
-                            user={user}
-                            handleInput={handleInput}
-                        /> : null
-                }
+                <FormComponent
+                    tabName={tabName}
+                    handleInput={handleInput}
+                    user={user}
+                    handleSubmit={handleSubmit}
+                    redirectToForgotPassword={redirectToForgotPassword}
+                    navigateToSignUp={navigateToSignUp}
+                />
             </div>
         </>
     )
