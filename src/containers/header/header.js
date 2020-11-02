@@ -14,9 +14,9 @@ const HeaderContainer = () => {
     const dispatch = useDispatch();
 
     const headerLinksState = useActiveLinks(
-        user.tokens && user._id && user.role ? 
-        headerLinks.filter(link => link.private) :
-        headerLinks.filter(link => !link.private)
+        user.tokens && user._id && user.role ?
+            headerLinks.filter(link => link.private) :
+            headerLinks.filter(link => !link.private)
     );
 
     const toggleModal = (type, title) => {

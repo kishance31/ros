@@ -1,7 +1,7 @@
 import axios from 'axios';
 import notificationActions from './notifications.action';
 import getServerCore from '../utils/apiUtils';
-import {AuthMap} from './auth.action';
+import { AuthMap } from './auth.action';
 
 const { serverUrl } = getServerCore();
 
@@ -166,13 +166,13 @@ export const updateEmployeeAsync = (user, id, getCount) => {
                 }
             });
             if (data.response && data.response.responseCode === 200) {
-                if(getCount) {
+                if (getCount) {
                     dispatch(employeeAndLicenseCountAsync(auth.user._id, auth.user.tokens));
                 }
                 dispatch({
                     type: EmployeeAndLicenseMap.Add_Employeement_SUCCESS,
                 })
-                if(!getCount) {
+                if (!getCount) {
                     dispatch({
                         type: AuthMap.UPDATE_EMPLOYEE_PROFILE_SUCCESS,
                         payload: data.response.data,
@@ -254,25 +254,29 @@ export const sendInvitationAsync = (id, tokens) => {
             dispatch({
                 type: EmployeeAndLicenseMap.SEND_INVITATION_START
             });
-            let sendInvitationResponse = await axios({
+            let { data } = await axios({
                 url: `${serverUrl}/corporate-admin/sendEmailToEmployee/${id}`,
                 method: "POST",
                 headers: { tokens }
             });
-            if (sendInvitationResponse.data.response.responseCode === 200) {
-                return dispatch({
-                    type: EmployeeAndLicenseMap.SEND_INVITATION_SUCCESS
-                });
+            if (data.response.responseCode === 200) {
+                return dispatch(notificationActions.showNotification({
+                    title: "Send Invitation",
+                    message: "Send invitation successfully",
+                    // duration: 7000,
+                }));
             }
             dispatch(notificationActions.showNotification({
-                title: "Send Invitation",
-                message: "Send invitation successfully",
+                title: "Send Invitation Error",
+                message: "Send invitation error",
                 // duration: 7000,
             }));
         } catch (error) {
-            dispatch({
-                type: EmployeeAndLicenseMap.SEND_INVITATION_ERROR
-            })
+            dispatch(notificationActions.showNotification({
+                title: "Send Invitation Error",
+                message: "Send invitation error",
+                // duration: 7000,
+            }));
         }
     }
 }

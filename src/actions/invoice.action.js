@@ -13,6 +13,7 @@ export const InvoiceMap = {
     RECURRING_PAYMENT_START: 'RECURRING_PAYMENT_START',
     RECURRING_PAYMENT_SUCCESS: 'RECURRING_PAYMENT_SUCCESS',
     RECURRING_PAYMENT_ERROR: 'RECURRING_PAYMENT_ERROR',
+    SET_IS_RECURRING: 'SET_IS_RECURRING'
 }
 
 export const InvoiceActions = {
@@ -24,9 +25,10 @@ export const InvoiceActions = {
     recurringSuccess: () => ({type: InvoiceMap.RECURRING_PAYMENT_SUCCESS}),
     recurringError: () => ({type: InvoiceMap.RECURRING_PAYMENT_ERROR}),
     refreshList: () => ({type: InvoiceMap.REFRSH_INVOICE_LIST}),
+    setIsRecurring: (data) => ({type: InvoiceMap.SET_IS_RECURRING, payload: data}),
 }
 
-export const getInvoiceListAsync = (isReccuring) => async (dispatch, getState) => {
+export const getInvoiceListAsync = () => async (dispatch, getState) => {
     try {
         dispatch(InvoiceActions.getInvoiceStart());
         const {
@@ -38,7 +40,8 @@ export const getInvoiceListAsync = (isReccuring) => async (dispatch, getState) =
             },
             invoice: {
                 limit,
-                batchNumber
+                batchNumber,
+                isReccuring,
             }
         } = getState();
         const {data} = await axios({

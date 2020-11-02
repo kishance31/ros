@@ -19,9 +19,9 @@ export const generateInvoicePDF = ({ data, isRecurring, corporate }) => {
     doc.text(corporate.companyName, 15, 60);
 
     doc.text("Invoice No.:", 100, 50);
-    doc.text(invoiceDetails.invoiceNo, 150, 50);
+    doc.text(data.invoiceNo, 150, 50);
     doc.text("Invoice Date:", 100, 60);
-    doc.text(new Date(invoiceDetails.invoiceDate).toLocaleDateString(), 150, 60);
+    doc.text(new Date(data.invoiceDate).toLocaleDateString(), 150, 60);
 
     let tableColumn = [
         "Sr. No.",
@@ -42,38 +42,38 @@ export const generateInvoicePDF = ({ data, isRecurring, corporate }) => {
     let tableRows = [];
     let totalPaymentConst = 0;
 
-    employeeDetails.forEach((emp, idx) => {
-        let cost = isRecurring ?
-            parseFloat((
-                ((productDetails.reduce((acc, prod) => acc + prod.ros_cost, 0)) / 12)
-                * data.firstPaymentTerm).toFixed(2))
-            :
-            parseFloat((
-                ((productDetails.reduce((acc, prod) => acc + prod.ros_cost, 0)) / 12)
-                * data.firstPaymentTerm).toFixed(2));
+    // employeeDetails.forEach((emp, idx) => {
+    //     let cost = isRecurring ?
+    //         parseFloat((
+    //             ((productDetails.reduce((acc, prod) => acc + prod.ros_cost, 0)) / 12)
+    //             * data.firstPaymentTerm).toFixed(2))
+    //         :
+    //         parseFloat((
+    //             ((productDetails.reduce((acc, prod) => acc + prod.ros_cost, 0)) / 12)
+    //             * data.firstPaymentTerm).toFixed(2));
 
-        totalPaymentConst += cost;
+    //     totalPaymentConst += cost;
 
-        const tblData = [
-            {content: idx + 1, rowSpan: 2},
-            {content: [emp.firstName + " " + emp.lastName], rowSpan: 2},
-            { content: productDetails.map(prod => `${prod.product_name}`), rowSpan: productDetails.length > 2 ?  productDetails.length : 2},
-            { content: productDetails.map(prod => `1`), rowSpan: productDetails.length > 2 ?  productDetails.length : 2 },
-            { content: productDetails.map(prod => `${prod.ros_cost}`), rowSpan: productDetails.length > 2 ?  productDetails.length : 2 },
-            {content: cost, rowSpan: 2},
-        ];
-        tableRows.push(tblData);
-    })
+    //     const tblData = [
+    //         {content: idx + 1, rowSpan: 2},
+    //         {content: [emp.firstName + " " + emp.lastName], rowSpan: 2},
+    //         { content: productDetails.map(prod => `${prod.product_name}`), rowSpan: productDetails.length > 2 ?  productDetails.length : 2},
+    //         { content: productDetails.map(prod => `1`), rowSpan: productDetails.length > 2 ?  productDetails.length : 2 },
+    //         { content: productDetails.map(prod => `${prod.ros_cost}`), rowSpan: productDetails.length > 2 ?  productDetails.length : 2 },
+    //         {content: cost, rowSpan: 2},
+    //     ];
+    //     tableRows.push(tblData);
+    // })
 
-    tableRows.push([
-        "",
-        "",
-        {content: "Total", styles: {fontStyle: "bold"}},
-        "",
-        {content: productDetails.reduce((acc, prod) => acc + prod.ros_cost, 0), styles: {fontStyle: "bold"}},
-        {content: totalPaymentConst, styles: {fontStyle: "bold"}},
-    ]);
+    // tableRows.push([
+    //     "",
+    //     "",
+    //     {content: "Total", styles: {fontStyle: "bold"}},
+    //     "",
+    //     {content: productDetails.reduce((acc, prod) => acc + prod.ros_cost, 0), styles: {fontStyle: "bold"}},
+    //     {content: totalPaymentConst, styles: {fontStyle: "bold"}},
+    // ]);
 
-    doc.autoTable(tableColumn, tableRows, { startY: 80 });
+    // doc.autoTable(tableColumn, tableRows, { startY: 80 });
     doc.save(`Order_Invoice_${Date.now()}.pdf`);
 }

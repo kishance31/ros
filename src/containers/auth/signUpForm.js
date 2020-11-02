@@ -6,7 +6,6 @@ import { AuthMap, signUpUserAsync } from '../../actions/auth.action';
 import { useDispatch } from 'react-redux';
 import { ArrowRightIcon, UploadPlusIcon } from '../../components/icons/Icons';
 import DoubleErrorMessage from '../../components/inputFields/inputErrorMessage';
-import {fetchConstactUsDetailsAsync} from '../../actions/homepageContent.action';
 
 const SignUpForm = ({ toggleOverlay }) => {
 
@@ -14,7 +13,6 @@ const SignUpForm = ({ toggleOverlay }) => {
 
     const navigateToSignIn = () => {
         dispatch(AuthModelAction.toggleAuthModals(AuthMap.TOGGLE_SIGN_IN_MODAL, "Sign In With"));
-       
     }
 
     const onSubmits = (values) => {
@@ -57,39 +55,40 @@ const SignUpForm = ({ toggleOverlay }) => {
                 }}
                 validate={(values) => {
                     const errors = {};
-                    for (let key in values) {
-                        if (!values[key]) {
-                            if (key === "corpDoc") {
-                                errors[key] = `Upload a document(Format: .pdf)`
-                            }if (key === "companyName") {
-                                errors[key] = `Company Name is required.`
-                            }if (key === "firstName") {
-                                errors[key] = `First Name is required.`
-                            }if (key === "lastName") {
-                                errors[key] = `Last Name is required.`
-                            }if (key === "position") {
-                                errors[key] = `Position is required.`
-                            }if (key === "department") {
-                                errors[key] = `Department is required.`
-                            }if (key === "corporateEmail") {
-                                errors[key] = `Corporate Email ID is required.`
-                            }if (key === "personalEmail") {
-                                errors[key] = `Personal Email is required.`
-                            }if (key === "officeContactNo") {
-                                errors[key] = `Office Contact No is required.`
-                            }if (key === "mobileNo") {
-                                errors[key] = `Mobile No is required.`
-                            }if (key === "employeeId") {
-                                errors[key] = `Employee ID is required.`
-                            }if (key === "userName") {
-                                errors[key] = `Username is required.`
-                            }if (key === "password") {
-                                errors[key] = `Password is required.`
-                            }if (key === "reEnterPassword") {
-                                errors[key] = `RE ENTER PASSWORD is required.`
-                            }
-                        }
+
+                    if (!values.companyName) {
+                        errors["companyName"] = `Company Name is required.`
+                    } if (!values.firstName) {
+                        errors["firstName"] = `First Name is required.`
+                    } if (!values.lastName) {
+                        errors["lastName"] = `Last Name is required.`
+                    } if (!values.position) {
+                        errors["position"] = `Position is required.`
+                    } if (!values.department) {
+                        errors["department"] = `Department is required.`
+                    } if (!values.corporateEmail) {
+                        errors["corporateEmail"] = `Corporate Email ID is required.`
+                    } if (!values.personalEmail) {
+                        errors["personalEmail"] = `Personal Email is required.`
+                    } if (!values.officeContactNo) {
+                        errors["officeContactNo"] = `Office Contact No is required.`
+                    } if (!values.mobileNo) {
+                        errors["mobileNo"] = `Mobile No is required.`
+                    } if (!values.employeeId) {
+                        errors["employeeId"] = `Employee ID is required.`
+                    } if (!values.userName) {
+                        errors["userName"] = `Username is required.`
+                    } if (!values.password) {
+                        errors["password"] = `Password is required.`
+                    } else if (values.password.length < 8) {
+                        errors["password"] = `Password length must be 8 characters`
+                    } if (!values.reEnterPassword) {
+                        errors["reEnterPassword"] = `RE ENTER PASSWORD is required.`
                     }
+                    if (!values.corpDoc) {
+                        errors["corporateEmailId"] = `Upload a document(Format: .pdf)`
+                    }
+
                     if (values.corporateEmail && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.corporateEmail)) {
                         errors.corporateEmail = "Invalid email address";
                     }
@@ -105,14 +104,14 @@ const SignUpForm = ({ toggleOverlay }) => {
                     if (values.password !== values.reEnterPassword) {
                         errors.reEnterPassword = "Password and Re Enter Password are not same."
                     }
-                    if (values.userName && !/^[ A-Za-z0-9_@./#&+-]{3,64}$/.test(values.userName)) {  
+                    if (values.userName && !/^[ A-Za-z0-9_@./#&+-]{3,64}$/.test(values.userName)) {
                         errors.userName = "Invalid user name";
                     }
-                    if (values.companyName && !/^[ A-Za-z0-9_@./#&+-]{3,64}$/.test(values.companyName)) {  
+                    if (values.companyName && !/^[ A-Za-z0-9_@./#&+-]{3,64}$/.test(values.companyName)) {
                         errors.companyName = "Invalid company name";
                     }
-                    
-                   
+
+
                     return errors;
                 }}
                 onSubmit={(values) => {

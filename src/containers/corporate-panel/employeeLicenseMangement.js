@@ -101,9 +101,9 @@ const EmployeeLicenseManagement = () => {
                     </div>
 
                     <div className="btn_wrp">
-                        <button className="btn_blue">
+                        {/* <button className="btn_blue">
                             <img className="mr-2" src={require(`../../assets/images/excel.svg`)} alt="" />
-                            Import File</button>
+                            Import File</button> */}
                         <button
                             className="btn_blue"
                             onClick={() => {
