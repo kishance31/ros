@@ -389,11 +389,15 @@ body .homepage {
       max-width: 470px;
       margin: 80px auto 0;
     }
+    
+    .news_letter_error{
+      margin-top: 0px;
+    }
 
     .form-control {
       font-size: 16px;
       letter-spacing: .02em;
-      color: #bfbfbf;
+      color: #000;
       text-align: center;
       background-color: #f8f8f8;
       border: none;

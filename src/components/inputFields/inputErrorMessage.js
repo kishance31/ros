@@ -1,7 +1,7 @@
 import React from 'react';
 
 const DoubleErrorMessage = (props) => {
-    const { leftError, leftTouched, rightError, rightTouched } = props;
+    const { leftError, leftTouched, rightError, rightTouched, className } = props;
 
     return (
         <>
