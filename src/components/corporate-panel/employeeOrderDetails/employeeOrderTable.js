@@ -1,6 +1,6 @@
 import React from 'react';
 
-const EmployeeOrderTable = ({ tableDetails, firstPaymentTerm }) => {
+const EmployeeOrderTable = ({ tableDetails }) => {
 
     return (
         <>
@@ -22,8 +22,8 @@ const EmployeeOrderTable = ({ tableDetails, firstPaymentTerm }) => {
                                         <tr key={item._id}>
                                             <td>{index + 1}</td>
                                             <td>{item.product_name}</td>
-                                            <td>${item.ros_cost}</td>
-                                            <td>${parseFloat((item.ros_cost / 12) * firstPaymentTerm).toFixed(2)}</td>
+                                            <td>${item.ros_cost.toFixed(2)}</td>
+                                            <td>${item.firstTimeCost.toFixed(2)}</td>
                                         </tr>
                                     )
                                 })

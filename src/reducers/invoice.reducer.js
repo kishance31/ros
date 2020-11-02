@@ -7,6 +7,7 @@ const initState = {
     isLoading: false,
     batchNumber: 1,
     limit: 5,
+    isReccuring: false,
 }
 
 const InvoiceReducer = (state = initState, action) => {
@@ -43,6 +44,13 @@ const InvoiceReducer = (state = initState, action) => {
             return {
                 ...state,
                 refreshList: true,
+            }
+        }
+        case InvoiceMap.SET_IS_RECURRING: {
+            return {
+                ...state,
+                refreshList: true,
+                isReccuring: action.payload,
             }
         }
 

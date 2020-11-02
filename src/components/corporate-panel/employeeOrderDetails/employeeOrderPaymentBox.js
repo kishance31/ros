@@ -1,12 +1,10 @@
-import React, { useState, useMemo } from 'react';
+import React from 'react';
 import { MetroCancelIcon } from '../../icons/Icons';
 import ModalComponent from '../../modal/modal';
 
 const EmployeeOrderPaymentBox = (props) => {
 
     const { toggleModal, selectedOrder, showPaymentBox } = props;
-    const [totalAmt, setTotal] = useState(0);
-    const [firstTimeTotal, setFirstTimeTotal] = useState(0);
 
     const ModalCloseIcon = () => (
         <button type="button" className="close close_icon ml-auto" data-dismiss="modal" aria-label="Close"
@@ -14,18 +12,6 @@ const EmployeeOrderPaymentBox = (props) => {
             <span aria-hidden="true"><MetroCancelIcon /></span>
         </button>
     )
-
-    useMemo(() => {
-        let { total, firstTotal } = selectedOrder.reduce((accumulator, item) => {
-            accumulator.total += item.productDetails.reduce((acc, prod) => acc + prod.ros_cost, 0);
-            accumulator.firstTotal += parseFloat((
-                ((item.productDetails.reduce((acc, prod) => acc + prod.ros_cost, 0)) / 12)
-                * item.firstPaymentTerm).toFixed(2))
-            return accumulator;
-        }, { total: 0, firstTotal: 0 });
-        setTotal(total);
-        setFirstTimeTotal(firstTotal);
-    }, [selectedOrder])
 
     return (
         <ModalComponent
@@ -62,15 +48,10 @@ const EmployeeOrderPaymentBox = (props) => {
                                             </td>
                                             <td>{item.orderId}</td>
                                             <td>${
-                                                parseFloat(item.productDetails.reduce((acc, prod) => acc + prod.ros_cost, 0)).toFixed(2)
+                                                item.totalOrderCost.toFixed(2)
                                             }</td>
                                             <td>
-                                                ${
-                                                    parseFloat((
-                                                        ((item.productDetails.reduce((acc, prod) => acc + prod.ros_cost, 0)) / 12)
-                                                        * item.firstPaymentTerm))
-                                                        .toFixed(2)
-                                                }
+                                                ${item.firstTimeCost.toFixed(2)}
                                             </td>
                                         </tr>
                                     )
@@ -79,15 +60,15 @@ const EmployeeOrderPaymentBox = (props) => {
                             <tr className="top_border">
                                 <td></td>
                                 <td className="font-weight-bold">TOTAL</td>
-                                <td className="font-weight-bold total">${parseFloat(totalAmt).toFixed(2)}</td>
-                                <td className="font-weight-bold total">${parseFloat(firstTimeTotal).toFixed(2)}</td>
+                                <td className="font-weight-bold total">${selectedOrder.reduce((acc, order) => acc + order.totalOrderCost, 0).toFixed(2)}</td>
+                                <td className="font-weight-bold total">${selectedOrder.reduce((acc, order) => acc + order.firstTimeCost, 0).toFixed(2)}</td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
                 <div className="text-center mt-5 mb-4 pt-3">
                     <button className="btn_blue"
-                        onClick={() => showPaymentBox(firstTimeTotal)}
+                        onClick={() => showPaymentBox()}
                     >PROCEED</button>
                 </div>
             </div>

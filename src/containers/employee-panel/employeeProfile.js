@@ -7,7 +7,7 @@ import { AddMoreIcon } from '../../components/icons/Icons';
 import EmployeeAndLicenseAddressBox from '../../components/corporate-panel/employeeAndLicense/employeeAndLicenseAddressBox';
 import { updateEmployeeAsync } from '../../actions/employeeAndLicense.action';
 
-const EmployeeProfile = ({setFirstProfile}) => {
+const EmployeeProfile = ({ setFirstProfile }) => {
 
     const dispatch = useDispatch();
 
@@ -37,7 +37,7 @@ const EmployeeProfile = ({setFirstProfile}) => {
         data.set("address", JSON.stringify(addressList));
 
         dispatch(updateEmployeeAsync(data, user._id, false));
-        if(setFirstProfile) {
+        if (setFirstProfile) {
             history.push('/employee/itemListing')
         }
     }
@@ -78,14 +78,36 @@ const EmployeeProfile = ({setFirstProfile}) => {
                         }}
                             validate={(values) => {
                                 const errors = {};
-                                for (let key in values) {
-                                    if (!values[key]) {
-                                        errors[key] = "Required Field"
-                                    }
+
+                                if (!values.companyName) {
+                                    errors["companyName"] = `Company Name is required.`
                                 }
-                                if (values.corporateEmailId && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.corporateEmailId)) {
-                                    errors.corporateEmailId = "Invalid email address";
+                                if (!values.firstName) {
+                                    errors["firstName"] = `First Name is required.`
                                 }
+                                if (!values.lastName) {
+                                    errors["lastName"] = `Last Name is required.`
+                                }
+                                if (!values.position) {
+                                    errors["position"] = `Position is required.`
+                                }
+                                if (!values.department) {
+                                    errors["department"] = `Department is required.`
+                                }
+                                if (!values.username) {
+                                    errors["username"] = `User Name is required.`
+                                }
+                                
+                                if (!values.email) {
+                                    errors["email"] = `Personal Email is required.`
+                                }
+                                if (!values.officeContactNo) {
+                                    errors["officeContactNo"] = `Office Contact No is required.`
+                                }
+                                if (!values.mobileNo) {
+                                    errors["mobileNo"] = `Mobile No is required.`
+                                }
+                                
                                 if (values.email && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)) {
                                     errors.email = "Invalid email address";
                                 }
@@ -118,10 +140,11 @@ const EmployeeProfile = ({setFirstProfile}) => {
                                                             <input
                                                                 placeholder="COMPANY NAME"
                                                                 type="text"
-                                                                onChange={handleChange}
+                                                                // onChange={handleChange}
                                                                 name="companyName"
                                                                 value={values.companyName}
                                                                 className="form-control"
+                                                                disabled
                                                             />
                                                         </div>
                                                         <DoubleErrorMessage

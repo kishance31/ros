@@ -18,11 +18,11 @@ const HomepageCarousel = () => {
 
         <>
             {/* MAIN BANNER */}
-            <div class="container-fluid">
-                <div class="homebanner">
-                    <div class="row">
-                        <div class="col-lg-6 hv_center">
-                            <div class="visual_content">
+            <div className="container-fluid">
+                <div className="homebanner">
+                    <div className="row">
+                        <div className="col-lg-6 hv_center">
+                            <div className="visual_content">
                                 <h1>
                                     <span className="t1">Remote&nbsp;</span>
                                     <span className="t2">Office</span><br />
@@ -32,8 +32,8 @@ const HomepageCarousel = () => {
                                 <button type="button" className="btn mt-4 mt-lg-3" onClick={showSignUpModal}>CORPORATE SIGNUP</button>
                             </div>
                         </div>
-                        <div class="col-lg-6">
-                            <div class="visual">
+                        <div className="col-lg-6">
+                            <div className="visual">
                                 <img src={require(`../../assets/images/main-banner.png`)} alt="" className="about_img img-fluid" />
                             </div>
                         </div>
@@ -41,14 +41,14 @@ const HomepageCarousel = () => {
                 </div>
             </div>
 
-            {/* <div class="container-fluid ">
-                <div class="well_managed">
-                    <div class="row">
-                        <div class="col-lg-6 visual">
+            {/* <div className="container-fluid ">
+                <div className="well_managed">
+                    <div className="row">
+                        <div className="col-lg-6 visual">
                             <img src={require(`../../assets/images/about_img.png`)} alt="" className="about_img img-fluid" />
                         </div>
-                        <div class="col-lg-6">
-                            <p class="visual_content">Well-managed home office environment can make orporate employees as effective as a face-to-face — and a lot easier and less expensive to maintain. You can argue corporate workforces will be less remote in 10 years than their leaders are predicting today, but surely much more remote than hey could have imagined six months ago. The real issue, owever, is not whose predictions turn out to be right or wrong (no one has a crystal ball), but whether you as a corporate leader thinking deeply enough about what you want your new corporate work paradigm to achieve — and that is exactly our platform can architect and construct which will allow corporate to meet their objectives. Using our platform corporate employees will feel most creative and productive…even once offices begin to reopen.
+                        <div className="col-lg-6">
+                            <p className="visual_content">Well-managed home office environment can make orporate employees as effective as a face-to-face — and a lot easier and less expensive to maintain. You can argue corporate workforces will be less remote in 10 years than their leaders are predicting today, but surely much more remote than hey could have imagined six months ago. The real issue, owever, is not whose predictions turn out to be right or wrong (no one has a crystal ball), but whether you as a corporate leader thinking deeply enough about what you want your new corporate work paradigm to achieve — and that is exactly our platform can architect and construct which will allow corporate to meet their objectives. Using our platform corporate employees will feel most creative and productive…even once offices begin to reopen.
                             </p>
                         </div>
                     </div>
@@ -56,54 +56,54 @@ const HomepageCarousel = () => {
             </div> */}
 
             {/* OUR SERVICES */}
-            <section class="container-fluid services">
-                <div class="section_about mt-5">
-                    <div class="row">
-                        <div class="col-lg-6 col-md-12">
-                            <div class="about-caption text-left">
-                                <h1 class="title">User Friendly Platform</h1>
-                                <p class="body_text">Proin et accumsan ipsum. Ut et purus vitae dolor commodo laoreet. Vestibulum rhoncus tempus elit quis laoreet. Pellentesque eget enim eget sapien egestas venenatis nec condimentum purus. Morbi facilisis orci ac tellus ullamcorper, ac convallis risus pharetra. Praesent porttitor nibh justo, eu facilisis magna dictum a. Quisque maximus porta aliquet.
+            <section className="container-fluid services">
+                <div className="section_about mt-5">
+                    <div className="row">
+                        <div className="col-lg-6 col-md-12">
+                            <div className="about-caption text-left">
+                                <h1 className="title">User Friendly Platform</h1>
+                                <p className="body_text">Proin et accumsan ipsum. Ut et purus vitae dolor commodo laoreet. Vestibulum rhoncus tempus elit quis laoreet. Pellentesque eget enim eget sapien egestas venenatis nec condimentum purus. Morbi facilisis orci ac tellus ullamcorper, ac convallis risus pharetra. Praesent porttitor nibh justo, eu facilisis magna dictum a. Quisque maximus porta aliquet.
                             </p>
                             </div>
                         </div>
-                        <div class="col-lg-6 col-md-12">
+                        <div className="col-lg-6 col-md-12">
                             <video poster="/static/media/service1.61c55ec9.png" controls>
                                 <source src="https://ak.picdn.net/shutterstock/videos/1043775205/preview/stock-footage-microbiology-laboratory-scientist-works-with-petri-dishes-with-various-bacteria-tissue-and-blood.mp4" type="video/mp4"></source>
                             </video>
-                            {/* <div class=""><img src={require(`../../assets/images/service1.png`)} alt="" className="about_img img-fluid" /></div> */}
+                            {/* <div className=""><img src={require(`../../assets/images/service1.png`)} alt="" className="about_img img-fluid" /></div> */}
                         </div>
                     </div>
                 </div>
-                <div class="section_about">
+                <div className="section_about">
 
-                    <div class="row flex-column-reverse flex-lg-row">
-                        <div class="col-lg-6 col-md-12">
+                    <div className="row flex-column-reverse flex-lg-row">
+                        <div className="col-lg-6 col-md-12">
                             <video poster="/static/media/service1.61c55ec9.png" controls>
                                 <source src="https://ak.picdn.net/shutterstock/videos/1043775205/preview/stock-footage-microbiology-laboratory-scientist-works-with-petri-dishes-with-various-bacteria-tissue-and-blood.mp4" type="video/mp4"></source>
                             </video>
                         </div> 
-                        <div class="col-lg-6 col-md-12">
-                            <div class="about-caption text-left pl-lg-5 pl-0">
-                                <h1 class="title">Employee Well Being</h1>
-                                <p class="body_text">Proin et accumsan ipsum. Ut et purus vitae dolor commodo laoreet. Vestibulum rhoncus tempus elit quis laoreet. Pellentesque eget enim eget sapien egestas venenatis nec condimentum purus. Morbi facilisis orci ac tellus ullamcorper, ac convallis risus pharetra. Praesent porttitor nibh justo, eu facilisis magna dictum a. Quisque maximus porta aliquet.
+                        <div className="col-lg-6 col-md-12">
+                            <div className="about-caption text-left pl-lg-5 pl-0">
+                                <h1 className="title">Employee Well Being</h1>
+                                <p className="body_text">Proin et accumsan ipsum. Ut et purus vitae dolor commodo laoreet. Vestibulum rhoncus tempus elit quis laoreet. Pellentesque eget enim eget sapien egestas venenatis nec condimentum purus. Morbi facilisis orci ac tellus ullamcorper, ac convallis risus pharetra. Praesent porttitor nibh justo, eu facilisis magna dictum a. Quisque maximus porta aliquet.
 
                             </p>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="section_about">
+                <div className="section_about">
 
-                    <div class="row">
-                        <div class="col-lg-6 col-md-12">
-                            <div class="about-caption text-left">
-                                <h1 class="title">Unique Workforce System</h1>
-                                <p class="body_text">Proin et accumsan ipsum. Ut et purus vitae dolor commodo laoreet. Vestibulum rhoncus tempus elit quis laoreet. Pellentesque eget enim eget sapien egestas venenatis nec condimentum purus. Morbi facilisis orci ac tellus ullamcorper, ac convallis risus pharetra. Praesent porttitor nibh justo, eu facilisis magna dictum a. Quisque maximus porta aliquet.
+                    <div className="row">
+                        <div className="col-lg-6 col-md-12">
+                            <div className="about-caption text-left">
+                                <h1 className="title">Unique Workforce System</h1>
+                                <p className="body_text">Proin et accumsan ipsum. Ut et purus vitae dolor commodo laoreet. Vestibulum rhoncus tempus elit quis laoreet. Pellentesque eget enim eget sapien egestas venenatis nec condimentum purus. Morbi facilisis orci ac tellus ullamcorper, ac convallis risus pharetra. Praesent porttitor nibh justo, eu facilisis magna dictum a. Quisque maximus porta aliquet.
 
                             </p>
                             </div>
                         </div>
-                        <div class="col-lg-6 col-md-12">
+                        <div className="col-lg-6 col-md-12">
                             <video poster="/static/media/service1.61c55ec9.png" controls>
                                 <source src="https://ak.picdn.net/shutterstock/videos/1043775205/preview/stock-footage-microbiology-laboratory-scientist-works-with-petri-dishes-with-various-bacteria-tissue-and-blood.mp4" type="video/mp4"></source>
                             </video>

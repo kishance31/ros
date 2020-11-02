@@ -1,5 +1,5 @@
 export const headerLinks = [
-  { name: 'Home', url: '/', active: true },
+  { name: 'Home', url: '/home', active: false },
   // { name: 'FAQ', url: '/faqs', active: false, private: true },
   // { name: 'Our services', url: '/ourservices', active: false },
   // { name: 'How it works', url: '#', active: false },

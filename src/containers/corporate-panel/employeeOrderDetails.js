@@ -25,7 +25,6 @@ const EmployeeOrderDetails = () => {
 
 	const [rowIndex, setRowIndex] = useState(0)
 	const [selectedOrder, setselectedOrders] = useState([]);
-	const [firstTimeTotal, setFirstTimeTotal] = useState(0);
 
 	const { toggleOverlay } = useContext(OverlayContext);
 
@@ -81,9 +80,8 @@ const EmployeeOrderDetails = () => {
 		}
 	}
 
-	const showPaymentBox = (total) => {
+	const showPaymentBox = () => {
 		setVisibleConfirmModal(!visibleConfirmModal);
-		setFirstTimeTotal(total);
 		setShowPaymentModal(!showPaymentModal);
 	}
 
@@ -133,8 +131,6 @@ const EmployeeOrderDetails = () => {
 					<button className="btn_blue"
 						disabled={selectedOrder.length ? false : true}
 						onClick={() => {
-							// const orderIds = selectedOrder.map(order => order.orderId);
-							// dispatch(confirmOrderPayment(orderIds, {abc: 123}));
 							setVisibleConfirmModal(true);
 						}}>Confirm</button>
 					<EmployeeOrderPaymentBox
@@ -195,17 +191,12 @@ const EmployeeOrderDetails = () => {
 													<td>{index + 1}</td>
 													<td>
 														{
-															orderList.employeeDetails.length ? orderList.employeeDetails[0].firstName + " " + orderList.employeeDetails[0].lastName : ""
+															orderList.employeeDetails.firstName ? orderList.employeeDetails.firstName + " " + orderList.employeeDetails.lastName : ""
 														}
 													</td>
-													<td>${orderList.productDetails.reduce((acc, prod) => acc + prod.ros_cost, 0)}</td>
+													<td>${orderList.totalOrderCost.toFixed(2)}</td>
 													<td>
-														${
-															parseFloat((
-																((orderList.productDetails.reduce((acc, prod) => acc + prod.ros_cost, 0)) / 12)
-																* orderList.firstPaymentTerm))
-																.toFixed(2)
-														}
+														${orderList.firstTimeCost.toFixed(2)}
 													</td>
 													<td>{orderList.orderId}</td>
 													<td>{orderList.orderDate ? new Date(orderList.orderDate).toLocaleDateString() : ""}</td>
@@ -230,7 +221,7 @@ const EmployeeOrderDetails = () => {
 												</tr>
 												{
 													rowIndex && (rowIndex === (index + 1))
-														? <EmployeeOrderTable tableDetails={orderList.productDetails} firstPaymentTerm={orderList.firstPaymentTerm} /> : null
+														? <EmployeeOrderTable tableDetails={orderList.products} firstPaymentTerm={orderList.firstPaymentTerm} /> : null
 												}
 											</React.Fragment>
 										))
@@ -264,7 +255,6 @@ const EmployeeOrderDetails = () => {
 				toggleModal={() => setShowPaymentModal(!showPaymentModal)}
 				orderList={selectedOrder}
 				toggleOverlay={toggleOverlay}
-				firstTimeTotal={firstTimeTotal}
 				onConfirmPayment={onConfirmPayment}
 			/>
 			<EmployeeOrderDeleteBox

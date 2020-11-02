@@ -17,10 +17,10 @@ const Invoice = () => {
     const [visibleViewModal, setVisibleViewModal] = useState(false);
     const [visiblePayModal, setVisiblePayModal] = useState(false);
 
-    const [isReccuring, setIsReccuring] = useState(false)
+    // const [isReccuring, setIsReccuring] = useState(false)
     const [selectedInvoice, setSelectedInvoice] = useState(null);
 
-    const { invoiceList, totalRecords, refreshList, isLoading, batchNumber, limit } = useSelector(state => state.invoice, shallowEqual);
+    const { invoiceList, totalRecords, refreshList, isLoading, batchNumber, limit, isReccuring } = useSelector(state => state.invoice, shallowEqual);
     const user = useSelector(state => state.auth.user, shallowEqual);
 
     const onPageChange = (currentBatch) => {
@@ -32,16 +32,17 @@ const Invoice = () => {
 
     useEffect(() => {
         if (refreshList) {
-            dispatch(getInvoiceListAsync(isReccuring));
+            dispatch(getInvoiceListAsync());
         }
     }, [refreshList])
 
     const onInvoiceTypeChange = (e) => {
         if (e.target.value === "license") {
-            return
+            return;
         }
-        setIsReccuring(e.target.value === "true" ? true : false);
-        dispatch(getInvoiceListAsync(e.target.value === "true" ? true : false));
+        dispatch(InvoiceActions.setIsRecurring(e.target.value === "true" ? true : false));
+        // setIsReccuring(e.target.value === "true" ? true : false);
+        // dispatch(getInvoiceListAsync(e.target.value === "true" ? true : false));
     }
 
     const onConfirmPayment = (data) => {
@@ -108,7 +109,11 @@ const Invoice = () => {
                             <thead>
                                 <tr>
                                     <th>Sr&nbsp;No</th>
-                                    <th>EMPLOYEE&nbsp;NAME</th>
+                                    {
+                                        !isReccuring ? (
+                                            <th>EMPLOYEE&nbsp;NAME</th>
+                                        ) : null
+                                    }
                                     <th>ORDER&nbsp;DATE</th>
                                     <th>ORDER&nbsp;NO</th>
                                     <th>INVOICE&nbsp;DATE</th>
@@ -121,38 +126,24 @@ const Invoice = () => {
                                     invoiceList.length ? (
 
                                         invoiceList.map((invoice, index) => (
-                                            <tr key={invoice.invoiceDetails.invoiceNo}>
+                                            <tr key={invoice.invoiceNo}>
                                                 <td>{index + 1}</td>
-                                                <td>
-                                                    {invoice.employeeDetails[0].firstName + " " + invoice.employeeDetails[0].lastName}
-                                                </td>
-                                                <td>{new Date(invoice.firstInvoiceDate).toLocaleString()}</td>
+                                                {
+                                                    !isReccuring ? (
+                                                        <td>
+                                                            {invoice.employeeDetails[0].firstName + " " + invoice.employeeDetails[0].lastName}
+                                                        </td>
+                                                    ) : null
+                                                }
+                                                <td>{new Date(invoice.orderDate).toLocaleString()}</td>
                                                 <td>{invoice.orderId}</td>
-                                                <td>{new Date(invoice.invoiceDetails.invoiceDate).toLocaleString()}</td>
+                                                <td>{new Date(invoice.invoiceDate).toLocaleString()}</td>
                                                 <td>$
                                                     {
-                                                        isReccuring ? (
-                                                            <>
-                                                                {
-                                                                    parseFloat((
-                                                                        (
-                                                                            (invoice.productDetails.reduce((acc, prod) => acc + prod.ros_cost, 0)) - 
-                                                                            (((invoice.productDetails.reduce((acc, prod) => acc + prod.ros_cost, 0)) / 12)
-                                                                            * invoice.firstPaymentTerm)) / invoice.recurringMonthsNo
-                                                                        )
-                                                                    ).toFixed(2)
-                                                                }
-                                                            </>
-                                                        ) : (
-                                                                <>
-                                                                    {
-                                                                        parseFloat((
-                                                                            ((invoice.productDetails.reduce((acc, prod) => acc + prod.ros_cost, 0)) / 12)
-                                                                            * invoice.firstPaymentTerm))
-                                                                            .toFixed(2)
-                                                                    }
-                                                                </>
-                                                            )
+                                                        isReccuring ?
+                                                            invoice.recurringCost.toFixed(2)
+                                                            :
+                                                            invoice.firstTimeCost.toFixed(2)
                                                     }
                                                 </td>
                                                 <td className="text-center">
@@ -166,10 +157,10 @@ const Invoice = () => {
 
 
                                                         <button className="btn_action pink"
-                                                            onClick={() => generateInvoicePDF({data: invoice, isReccuring, corporate: user})}
+                                                            onClick={() => generateInvoicePDF({ data: invoice, isReccuring, corporate: user })}
                                                         >Download</button>
                                                         {
-                                                            isReccuring && !invoice.invoiceDetails.paymentDone ? (
+                                                            isReccuring && !invoice.paymentDone ? (
                                                                 <button className="btn_action blue"
                                                                     onClick={() => {
                                                                         setSelectedInvoice(invoice);

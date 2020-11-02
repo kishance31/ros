@@ -5,7 +5,7 @@ import { MetroCancelIcon } from '../../icons/Icons';
 
 const PaymentBox = (props) => {
 
-    const { toggleModal, toggleOverlay, orderList, firstTimeTotal, isOpen, onConfirmPayment } = props;
+    const { toggleModal, toggleOverlay, orderList, isOpen, onConfirmPayment } = props;
 
     const ModalCloseIcon = () => (
         <button type="button" className="close close_icon ml-auto" aria-label="Close" onClick={toggleModal}>
@@ -40,12 +40,7 @@ const PaymentBox = (props) => {
                                             <tr key={item._id}>
                                                 <td>{item.orderId}</td>
                                                 <td>
-                                                    ${
-                                                        parseFloat((
-                                                            ((item.productDetails.reduce((acc, prod) => acc + prod.ros_cost, 0)) / 12)
-                                                            * item.firstPaymentTerm))
-                                                            .toFixed(2)
-                                                    }
+                                                    ${item.firstTimeCost.toFixed(2)}
                                                 </td>
                                             </tr>
                                         ))
@@ -53,7 +48,7 @@ const PaymentBox = (props) => {
                                     <tr>
                                         <th scope="row">Total</th>
                                         <td>
-                                            ${parseFloat(firstTimeTotal).toFixed(2)}
+                                            ${orderList.reduce((acc, order) => acc + order.firstTimeCost, 0).toFixed(2)}
                                         </td>
                                     </tr>
                                 </tbody>
@@ -75,7 +70,7 @@ const PaymentBox = (props) => {
                             {/* <button className="btn_blue"><span>PAY</span></button> */}
                             <PayPalButton
                                 payPurchaseLicenses={(data) => { onConfirmPayment(data) }}
-                                totalPrice={firstTimeTotal}
+                                totalPrice={orderList.reduce((acc, order) => acc + order.firstTimeCost, 0)}
                                 totalQuantity={orderList.length}
                                 toggleOverlay={toggleOverlay}
                             />

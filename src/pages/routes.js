@@ -3,14 +3,14 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Switch, Route, Redirect, useLocation } from 'react-router-dom';
 import LoadingOverlay from 'react-loading-overlay';
 import { OverlayContext } from '../context/loadingOverlay.context'
-import Homepage from './Homepage/Homepage';
+import HomePageRoutes from './Homepage/HomePageRoutes';
 import CorporateDashboard from './Corporate-Dashboard/CorporateDashboard';
 import EmployeeDashboard from './Employee-Dashboard/EmployeeDashboard';
-import AboutUs from '../pages/Homepage/aboutUs'
-import ContactUs from '../pages/Homepage/contactUs'
+// import AboutUs from '../pages/Homepage/aboutUs'
+// import ContactUs from '../pages/Homepage/contactUs'
 import setProfile from '../containers/employee-panel/setProfilePage';
 import AuthModalAction, { AuthMap } from '../actions/auth.action';
-import OurServices from './Homepage/OurServices';
+// import OurServices from './Homepage/OurServices';
 
 const Routes = () => {
 
@@ -48,14 +48,14 @@ const Routes = () => {
                     /> :
                     (
                         location.search.indexOf('reset') < 0 ?
-                            <Redirect from='/*' to="/" /> : null
+                            <Redirect from='/*' to="/home" /> : null
                     )
             }
             <Switch>
-                <Route exact path="/" component={Homepage} />
-                <Route path="/aboutUs" component={AboutUs} />
-                <Route path="/contactUs" component={ContactUs} />
-                <Route path="/ourservices" component={OurServices} />
+                <Route exact path="/home" component={HomePageRoutes} />
+                {/* <Route path="/aboutUs" component={AboutUs} /> */}
+                <Route path="/contactUs" component={HomePageRoutes} />
+                {/* <Route path="/ourservices" component={OurServices} /> */}
                 <PrivateRoute path="/corporate" component={CorporateDashboard} user={user} />
                 <PrivateRoute path="/setProfile" component={setProfile} user={user} />
                 <PrivateRoute path="/employee" component={EmployeeDashboard} user={user} />
@@ -73,7 +73,7 @@ const PrivateRoute = ({ component: Component, ...rest }) => (
             ) : (
                     <Redirect
                         to={{
-                            pathname: "/"
+                            pathname: "/home"
                         }}
                     />
                 )
