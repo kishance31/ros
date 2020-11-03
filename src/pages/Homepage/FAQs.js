@@ -8,7 +8,6 @@ const FAQS = () => {
     const [selectedIdx, setSelectedIdx] = useState(0)
 
     const onQuesClick = (idx) => {
-        console.log(idx)
         if (idx === selectedIdx) {
             return setSelectedIdx(0);
         }

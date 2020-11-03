@@ -56,16 +56,36 @@ const MyProfile = () => {
                     }}
                     validate={(values) => {
                         const errors = {};
-                        for (let key in values) {
-                            if(key !== "taxNo" && key !== "companyRegisterNo")
-                            if (!values[key]) {
-                                if (key === "corpDoc") {
-                                    errors[key] = `Upload a document(Format: .pdf)`
-                                } else {
-                                    errors[key] = `${key} is required.`
-                                }
-                            }
+                        
+                        if (!values.companyName) {
+                            errors["companyName"] = `Company Name is required.`
+                        } if (!values.firstName) {
+                            errors["firstName"] = `First Name is required.`
+                        } if (!values.lastName) {
+                            errors["lastName"] = `Last Name is required.`
+                        } if (!values.position) {
+                            errors["position"] = `Position is required.`
+                        } if (!values.department) {
+                            errors["department"] = `Department is required.`
+                        } if (!values.corporateEmailId) {
+                            errors["corporateEmailId"] = `Corporate Email ID is required.`
+                        } if (!values.personalEmail) {
+                            errors["personalEmail"] = `Personal Email is required.`
+                        } if (!values.officeContactNo) {
+                            errors["officeContactNo"] = `Office Contact No is required.`
+                        } if (!values.mobileNo) {
+                            errors["mobileNo"] = `Mobile No is required.`
                         }
+                        if (!values.corpDoc) {
+                            errors["corporateEmailId"] = `Upload a document(Format: .pdf)`
+                        }
+                        // if (!values.employeeId) {
+                        //     errors["employeeId"] = `Employee ID is required.`
+                        // }
+                        if (!values.username) {
+                            errors["username"] = `Username is required.`
+                        }
+
                         if (values.corporateEmailId && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.corporateEmailId)) {
                             errors.corporateEmailId = "Invalid email address";
                         }
@@ -78,11 +98,12 @@ const MyProfile = () => {
                         if (values.mobileNo && !/^\d{10}$/.test(values.mobileNo)) {
                             errors.mobileNo = "Invalid mobile number";
                         }
+                        console.log(errors)
                         return errors;
                     }}
                     onSubmit={(values, { setSubmitting, setFieldValue }) => {
                         onSubmits(values);
-                        if(typeof values.corpDoc === "object") {
+                        if (typeof values.corpDoc === "object") {
                             // setFieldValue('corpDoc', "");
                         }
                         setSubmitting(false);
@@ -261,14 +282,14 @@ const MyProfile = () => {
                                                     {
                                                         typeof values.corpDoc === "string" && values.corpDoc ? (
                                                             <a href={values.corpDoc} target="_blank">
-                                                            <div className="modal-fill_btn_pdf_btn">
-                                                                <span className="sign_in">pdf-{user._id}.pdf</span>
-                                                                <span className="left_arrow">
-                                                                    <ArrowRightIcon />
-                                                                </span>
-                                                                <span>
-                                                                </span>
-                                                            </div>
+                                                                <div className="modal-fill_btn_pdf_btn">
+                                                                    <span className="sign_in">pdf-{user._id}.pdf</span>
+                                                                    <span className="left_arrow">
+                                                                        <ArrowRightIcon />
+                                                                    </span>
+                                                                    <span>
+                                                                    </span>
+                                                                </div>
                                                             </a>
                                                         ) : null
                                                     }

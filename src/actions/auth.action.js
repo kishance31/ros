@@ -275,18 +275,30 @@ export const setPasswordAsync = (data) => {
                 url: corporateUrl + "/employee/setPassword",
                 // + (role.indexOf('EMPLOYEE') != -1 ? "/employee" : "") + "/setPassword",
                 headers: {
-                    tokens: auth.tempToken
+                    tokens: auth.tempToken || auth.user.tokens
                 },
                 data,
             })
             if (setPasswordResponse.response.responseCode === 200) {
-                if (setPasswordResponse.response.userProfile.user.isFirstLogin) {
-                    dispatch(AuthModelAction.toggleAuthModals(AuthMap.TOGGLE_SIGN_IN_MODAL, "Sign In With"));
+                if(setPasswordResponse.response.userProfile) {
+                    if (setPasswordResponse.response.userProfile.user.isFirstLogin) {
+                        dispatch(AuthModelAction.toggleAuthModals(AuthMap.TOGGLE_SIGN_IN_MODAL, "Sign In With"));
+                    } else {
+                        dispatch(AuthModelAction.signInUser({
+                            ...setPasswordResponse.response.userProfile.user,
+                            tokens: setPasswordResponse.response.userProfile.tokens
+                        }))
+                    }
                 } else {
-                    dispatch(AuthModelAction.signInUser({
-                        ...setPasswordResponse.response.userProfile.user,
-                        tokens: setPasswordResponse.response.userProfile.tokens
-                    }))
+                    dispatch(notificationActions.showNotification({
+                        title: 'Password change successfull',
+                        message: "Password change successfull. Login again with new password",
+                        // duration: 5000,
+                    }));
+                    dispatch({
+                        type: AuthMap.SIGN_OUT
+                    });
+                    dispatch(AuthModelAction.toggleAuthModals(AuthMap.TOGGLE_SIGN_IN_MODAL, "Sign In With"));
                 }
             }
         } catch (error) {

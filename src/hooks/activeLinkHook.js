@@ -4,9 +4,8 @@ import { useRouteMatch, useLocation } from 'react-router-dom';
 export const useActiveLinks = (navLinks) => {
     const { pathname } = useLocation();
     const { path } = useRouteMatch();
-
     const currentPath = pathname.split(path)[1]; //.split('/')[1];
-    let newLinks = navLinks;
+    let newLinks = [...navLinks];
 
     if (currentPath.length > 1) {
         newLinks = navLinks.map(links => {
@@ -23,5 +22,5 @@ export const useActiveLinks = (navLinks) => {
         })
     }
 
-    return newLinks;
+    return [...newLinks];
 }

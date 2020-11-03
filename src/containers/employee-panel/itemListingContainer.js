@@ -3,10 +3,7 @@ import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import CategoryLinks from './categoryList';
 import ProductsListContianer from './productLists';
 import ProductModal from './productModal';
-import cartActions from '../../actions/cart.action';
-import ProductDeliverAddressPage from '../employee-panel/productDeliverAddressPage';
 import { addToCartAsync } from '../../actions/cart.action';
-import ProductDispatchMessagePage from '../employee-panel/productDispatchMessagePage'
 import { productListAsync, ItemListingActions } from '../../actions/itemListing.action'
 
 const ItemListingContianer = (props) => {
@@ -14,16 +11,9 @@ const ItemListingContianer = (props) => {
     const [viewProduct, setViewProduct] = useState(null);
     const [openProductModal, setOpenProductModal] = useState(false);
 
-    const address = useSelector(state => state.auth.user.address)
-    const isOpenThankYouModal = useSelector(state => state.cart.modals.ShowthankYouModal);
-    const isOpenDispatchModal = useSelector(state => state.cart.modals.showAdminApprovalModal);
     const { productList, categoryList, productCount } = useSelector(state => state.itemListing, shallowEqual);
 
     const dispatch = useDispatch();
-
-    // useEffect(() => {
-    //     dispatch(productListAsync())
-    // }, [])
 
     const viewProductDetails = (productId) => {
         setViewProduct(productId);
@@ -68,15 +58,6 @@ const ItemListingContianer = (props) => {
                 toggleModal={() => setOpenProductModal(false)}
                 productDetails={viewProduct}
                 addToCart={addToCart}
-            />
-            <ProductDeliverAddressPage
-                isOpen={isOpenThankYouModal}
-                toggleModal={() => dispatch(cartActions.closeAllModals())}
-                address={address}
-            />
-            <ProductDispatchMessagePage
-                isOpen={isOpenDispatchModal}
-                toggleModal={() => dispatch(cartActions.closeAllModals())}
             />
         </div>
     )

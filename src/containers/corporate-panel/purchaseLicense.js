@@ -55,6 +55,13 @@ const PurchaseLicense = () => {
                 // duration: 7000,
             }));
         }
+        if (quantity.value > 1000) {
+            return dispatch(notificationActions.showNotification({
+                title: "Add License",
+                message: "Quantity must be less than 1000.",
+                // duration: 7000,
+            }));
+        }
         const availableLicenseDetails = availableLicenseList.find(license => license.type === licenseType.value);
         const data = {
             ...availableLicenseDetails,

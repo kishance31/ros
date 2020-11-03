@@ -5,14 +5,20 @@ const EmployeeAndLicenseTable = (props) => {
 
     const [visibleDeleteModal, setVisibleDeleteModal] = useState(false);
     const [selectedEmployee, setSelectedEmployee] = useState(null);
+    const [firstMail, setFirstMail] = useState(true);
     const { getEmployeeList, onUpdate, onSendInvitation, onDelete } = props;
 
     const onEmployeeDelete = () => {
-        if(selectedEmployee) {
+        if (selectedEmployee) {
             onDelete(selectedEmployee._id)
         }
         setSelectedEmployee(null);
         setVisibleDeleteModal(false);
+    }
+
+    const handleSendMail = (id) => {
+        setFirstMail(false);
+        onSendInvitation(id)
     }
 
     return (
@@ -47,12 +53,16 @@ const EmployeeAndLicenseTable = (props) => {
                                                 setVisibleDeleteModal(true);
                                                 setSelectedEmployee(item);
                                             }}>Delete</button>
-                                            {
-                                                item.isFirstLogin ? 
-                                                    <button className="btn_action orange" onClick={() => { onSendInvitation(item._id) }}>Send Invitation</button> :
-                                                    null
+                                        {
+                                            item.isFirstLogin ?
+                                                <button className="btn_action orange"
+                                                    onClick={() => { handleSendMail(item._id) }}
+                                                >
+                                                    {firstMail ? "Send Invitation" : "Re-Send Invitation"}
+                                                </button> :
+                                                null
 
-                                            }
+                                        }
                                         {/* <button className="btn_action light_blue" onClick={() => { onSendInvitation(item._id) }}>Resend Invitation</button> */}
                                     </td>
                                 </tr>

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { CartIcon } from '../../components/icons/Icons';
-import { signOutUserAsync } from '../../actions/auth.action';
+import AuthModelAction, { signOutUserAsync, AuthMap } from '../../actions/auth.action';
 import cartActions from '../../actions/cart.action';
 import { getCartByEmployeeIdAsync } from '../../actions/itemListing.action';
 
@@ -18,6 +18,10 @@ const HeaderUserDetails = (props) => {
     }
     const onclickCart = () => {
         dispatch(cartActions.toggleCart())
+    }
+
+    const toggleChangePassword = () => {
+        dispatch(AuthModelAction.toggleAuthModals(AuthMap.TOGGLE_SET_PASSWORD_MODAL, "Change Password"));
     }
 
     return (
@@ -50,7 +54,7 @@ const HeaderUserDetails = (props) => {
                     {
                         showButton ?
                             <div className="dropdown-menu" aria-labelledby="dropdownMenu2">
-                                <button className="dropdown-item" type="button">Setting</button>
+                                <button className="dropdown-item" type="button" onClick={toggleChangePassword}>Change Password</button>
                                 <button className="dropdown-item" type="button" onClick={onClickLogout}>Logout</button>
                             </div> : null
                     }
