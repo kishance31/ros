@@ -2,12 +2,19 @@ import React from 'react';
 import axios from 'axios';
 import { Formik, Field, } from 'formik';
 import DoubleErrorMessage from '../../components/inputFields/inputErrorMessage';
+import getServerCore from '../../utils/apiUtils';
+import { useDispatch } from 'react-redux';
+import notificationActions from '../../actions/notifications.action';
 
 const ContactUsForm = () => {
 
+    const dispatch = useDispatch();
+
+    const { serverUrl } = getServerCore();
+
     const contactUsAPI = async (details) => {
         let { data } = await axios({
-            url: `http://localhost:4000/api/admin/cms/saveContactUsQuery`,
+            url: `${serverUrl}/admin/cms/saveContactUsQuery`,
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -15,8 +22,12 @@ const ContactUsForm = () => {
             data: {
                 ...details,
             }
-        });
-        console.log(data);
+        }); if (data.response.responseCode === 200) {
+            dispatch(notificationActions.showNotification({
+                title: "Contact US",
+                message: "Query sent successful",
+            }));
+        }
     }
 
     return (
@@ -99,12 +110,12 @@ const ContactUsForm = () => {
                                 leftTouched={touched.comment}
                             />
                             <p>
-                                <a className="btn news_letter_btn btn-lg" href="#" role="button"
+                                <button type="submit" className="btn news_letter_btn btn-lg"
                                     onClick={handleSubmit}
                                     disabled={isSubmitting}
                                 >
                                     SEND
-                                </a>
+                                </button>
                             </p>
                         </form>
                     )}

@@ -1,27 +1,40 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { faqsData } from '../../utils/constants';
+import { useDispatch, useSelector } from 'react-redux';
+import { getFAQSAsync } from '../../actions/faq.action';
 
 const FAQS = () => {
 
     const [selectedIdx, setSelectedIdx] = useState(0)
 
     const onQuesClick = (idx) => {
-        if(idx === selectedIdx) {
+        if (idx === selectedIdx) {
             return setSelectedIdx(0);
         }
         setSelectedIdx(idx);
     }
 
+    const dispatch = useDispatch();
+
+    const { FAQList, refreshFAQData } = useSelector(state => state.faq);
+
+    useEffect(() => {
+        if (refreshFAQData) {
+
+            dispatch(getFAQSAsync())
+        }
+    }, [refreshFAQData])
+
     return (
         <div className="container-fluid">
             <div className="faq">
-                <div className="col-lg-12" id="accordion" className="accordion">
+                <div className="col-lg-12" id="accordion">
                     <h1>Frequently Asked Question (FAQ)</h1>
                     {
-                        faqsData.map((faq, idx) => (
+                        FAQList.map((faq, idx) => (
                             <div className="row">
                                 <div className="col-lg-6 questions">
-                                    <h3 className={`${selectedIdx === (idx + 1) ? "" : "collapsed"}`} onClick={() => onQuesClick(idx+ 1)} >
+                                    <h3 className={`${selectedIdx === (idx + 1) ? "" : "collapsed"}`} onClick={() => onQuesClick(idx + 1)} >
                                         <p>
                                             <span>Q{idx + 1}.</span>
                                             {faq.question}

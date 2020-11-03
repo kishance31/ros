@@ -4,14 +4,17 @@ import { Formik, Field, } from 'formik';
 import DoubleErrorMessage from '../../components/inputFields/inputErrorMessage';
 import notificationActions from '../../actions/notifications.action';
 import { useDispatch } from 'react-redux';
+import getServerCore from '../../utils/apiUtils';
 
 const NewsLetterCard = (props) => {
 
     const dispatch = useDispatch();
 
+    const { serverUrl } = getServerCore();
+
     const newsLetterAPI = async (details) => {
         let { data } = await axios({
-            url: `http://localhost:4000/api/admin/cms/saveNewsLetter`,
+            url: `${serverUrl}/admin/cms/saveNewsLetter`,
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -80,7 +83,7 @@ const NewsLetterCard = (props) => {
                                             disabled={isSubmitting}
                                         >
                                             SEND
-                                </button>
+                                        </button>
                                     </p>
                                 </form>
                             </div>
