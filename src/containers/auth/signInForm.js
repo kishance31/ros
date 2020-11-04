@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Formik, Field, } from 'formik';
@@ -9,26 +8,30 @@ import AuthModalAction from '../../actions/auth.action';
 import { ArrowRightIcon } from '../../components/icons/Icons.js';
 
 const FormComponent = (props) => {
+
     const {
         tabName,
         handleFormSubmit,
         redirectToForgotPassword,
         navigateToSignUp
     } = props;
+
     return (
         <div className={`tab-pane fade show active`} >
+
             <Formik
                 initialValues={{
                     email: "",
                     password: "",
                 }}
+
                 validate={(values) => {
                     const errors = {};
 
-                    if (!values.email) {
+                    if (!values.email.trim()) {
                         errors["email"] = `Email is required`
                     }
-                    if (!values.password) {
+                    if (!values.password.trim()) {
                         errors["password"] = `Password is required.`
                     }
                     if (values.email && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)) {
@@ -37,9 +40,9 @@ const FormComponent = (props) => {
 
                     return errors;
                 }}
+
                 onSubmit={(values) => {
                     handleFormSubmit(values)
-                    // onSubmits(values);
                 }}
             >
                 {({ handleSubmit,

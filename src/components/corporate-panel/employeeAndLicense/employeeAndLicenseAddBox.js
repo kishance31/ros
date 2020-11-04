@@ -80,9 +80,9 @@ const EmployeeAndLicenseAddBox = (props) => {
                 validate={(values) => {
                     const errors = {};
                     for (let key in values) {
-                       
-                        if (!values[key]) {
-                            
+
+                        if (!values[key].trim()) {
+
                             if (key === "companyName") {
                                 errors[key] = `Company Name is required.`
                             }
@@ -132,7 +132,6 @@ const EmployeeAndLicenseAddBox = (props) => {
 
                 onSubmit={(values) => {
                     onSubmit(values);
-                    //setSubmitting(false);
                 }}
             >
                 {({ values,
@@ -285,8 +284,8 @@ const EmployeeAndLicenseAddBox = (props) => {
                                             >
                                                 {
                                                     availableLicenseList.length ?
-                                                    availableLicenseList.map(license => <option key={license._id} value={license._id}>{license.type}</option>) :
-                                                    <option>Select License</option>
+                                                        availableLicenseList.map(license => <option key={license._id} value={license._id}>{license.type}</option>) :
+                                                        <option>Select License</option>
                                                 }
                                             </Field>
                                             <Field
@@ -296,9 +295,9 @@ const EmployeeAndLicenseAddBox = (props) => {
                                                 name="branchId"
                                             >
                                                 {
-                                                    branchNames.length ? 
-                                                    branchNames.map(branch => <option key={branch._id} value={branch._id}>{branch.branch_name}</option>) :
-                                                    <option>Select Branch</option>
+                                                    branchNames.length ?
+                                                        branchNames.map(branch => <option key={branch._id} value={branch._id}>{branch.branch_name}</option>) :
+                                                        <option>Select Branch</option>
                                                 }
                                             </Field>
                                         </div>
@@ -351,7 +350,6 @@ const EmployeeAndLicenseAddBox = (props) => {
             <EmployeeAndLicenseAddressBox
                 isOpen={visibleAddDataModal}
                 toggleModal={() => {
-                    // setEmployeeDetails(employeeDetails)
                     setVisibleAddDataModal(!visibleAddDataModal);
                 }}
                 onSaveAddress={onSaveAddress}

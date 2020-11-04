@@ -47,11 +47,6 @@ const EmployeeProfile = ({ setFirstProfile }) => {
         setVisibleAddDataModal(false);
     }
 
-    const onCloseAddbox = () => {
-        setAddressList([]);
-        // toggleModal();
-    }
-
     return (
         <>
             <div className="side_space">
@@ -65,49 +60,51 @@ const EmployeeProfile = ({ setFirstProfile }) => {
                             </div>
                         </div>
 
-                        <Formik initialValues={{
-                            companyName: user.companyName,
-                            firstName: user.firstName,
-                            lastName: user.lastName,
-                            username: user.username,
-                            position: user.position,
-                            department: user.department,
-                            email: user.email,
-                            officeContactNo: user.officeContactNo,
-                            mobileNo: user.mobileNo,
-                        }}
+                        <Formik
+
+                            initialValues={{
+                                companyName: user.companyName,
+                                firstName: user.firstName,
+                                lastName: user.lastName,
+                                username: user.username,
+                                position: user.position,
+                                department: user.department,
+                                email: user.email,
+                                officeContactNo: user.officeContactNo,
+                                mobileNo: user.mobileNo,
+                            }}
+
                             validate={(values) => {
                                 const errors = {};
 
-                                if (!values.companyName) {
+                                if (!values.companyName.trim()) {
                                     errors["companyName"] = `Company Name is required.`
                                 }
-                                if (!values.firstName) {
+                                if (!values.firstName.trim()) {
                                     errors["firstName"] = `First Name is required.`
                                 }
-                                if (!values.lastName) {
+                                if (!values.lastName.trim()) {
                                     errors["lastName"] = `Last Name is required.`
                                 }
-                                if (!values.position) {
+                                if (!values.position.trim()) {
                                     errors["position"] = `Position is required.`
                                 }
-                                if (!values.department) {
+                                if (!values.department.trim()) {
                                     errors["department"] = `Department is required.`
                                 }
-                                if (!values.username) {
+                                if (!values.username.trim()) {
                                     errors["username"] = `User Name is required.`
                                 }
-                                
-                                if (!values.email) {
+
+                                if (!values.email.trim()) {
                                     errors["email"] = `Personal Email is required.`
                                 }
-                                if (!values.officeContactNo) {
+                                if (!values.officeContactNo.trim()) {
                                     errors["officeContactNo"] = `Office Contact No is required.`
                                 }
-                                if (!values.mobileNo) {
+                                if (!values.mobileNo.trim()) {
                                     errors["mobileNo"] = `Mobile No is required.`
                                 }
-                                
                                 if (values.email && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)) {
                                     errors.email = "Invalid email address";
                                 }
@@ -119,9 +116,9 @@ const EmployeeProfile = ({ setFirstProfile }) => {
                                 }
                                 return errors;
                             }}
-                            onSubmit={(values, { setSubmitting }) => {
+
+                            onSubmit={(values) => {
                                 onSubmit(values);
-                                //  setSubmitting(false);
                             }}
                         >
                             {
@@ -131,6 +128,7 @@ const EmployeeProfile = ({ setFirstProfile }) => {
                                     touched,
                                     handleChange,
                                     handleSubmit,
+                                    isSubmitting
                                 }) => (
                                         <form className="form-horizontal" onSubmit={handleSubmit}>
                                             <div className="row">
@@ -140,7 +138,6 @@ const EmployeeProfile = ({ setFirstProfile }) => {
                                                             <input
                                                                 placeholder="COMPANY NAME"
                                                                 type="text"
-                                                                // onChange={handleChange}
                                                                 name="companyName"
                                                                 value={values.companyName}
                                                                 className="form-control"
@@ -216,15 +213,8 @@ const EmployeeProfile = ({ setFirstProfile }) => {
                                                             rightError={errors.department}
                                                             rightTouched={touched.department}
                                                         />
+
                                                         <div className="input-group two_side">
-                                                            {/* <input
-                                                                placeholder="CORPORATE EMAIL ID"
-                                                                onChange={handleChange}
-                                                                type="text"
-                                                                name="corporateEmailId"
-                                                                value={values.corporateEmailId || ""}
-                                                                className="input_box_1 form-control"
-                                                            /> */}
                                                             <input
                                                                 placeholder="PERSONAL EMAIL ID"
                                                                 type="email"
@@ -236,8 +226,6 @@ const EmployeeProfile = ({ setFirstProfile }) => {
                                                             />
                                                         </div>
                                                         <DoubleErrorMessage
-                                                            // leftError={errors.corporateEmailId}
-                                                            // leftTouched={touched.corporateEmailId}
                                                             rightError={errors.email}
                                                             rightTouched={touched.email}
                                                         />
@@ -322,7 +310,7 @@ const EmployeeProfile = ({ setFirstProfile }) => {
                                                 </div>
                                             </div>
                                             <div className="text-center mt-5 pt-lg-5">
-                                                <button type="submit" className="btn_blue">
+                                                <button type="submit" className="btn_blue" disabled={isSubmitting}>
                                                     <span className="">SAVE</span>
                                                 </button>
                                             </div>
@@ -334,13 +322,13 @@ const EmployeeProfile = ({ setFirstProfile }) => {
                     <EmployeeAndLicenseAddressBox
                         isOpen={visibleAddDataModal}
                         toggleModal={() => {
-                            // setEmployeeDetails(employeeDetails)
                             setVisibleAddDataModal(!visibleAddDataModal);
                         }}
                         onSaveAddress={onSaveAddress}
                     />
                 </div>
             </div>
-        </>)
+        </>
+    )
 }
 export default EmployeeProfile;

@@ -58,13 +58,12 @@ const BranchDataModal = (props) => {
                     initialValues={{
                         ...branchDetails
                     }}
+
                     validate={(values) => {
                         const errors = {};
                         for (let key in values) {
-                            if(!values[key]) {
-                                // if (!values[key]) {
-                                //     errors[key] = `${key} is required.`
-                                // }
+                            if (!values[key].trim()) {
+
                                 if (key === "branch_name") {
                                     errors[key] = `Branch Name is required.`
                                 }
@@ -88,17 +87,16 @@ const BranchDataModal = (props) => {
                         if (values.mobile_no && !/^\d{10}$/.test(values.mobile_no)) {
                             errors.mobile_no = "Invalid mobile number";
                         }
-                        if (values.location && !/^[ A-Za-z0-9_@./#&+-]{3,64}$/.test(values.location)) {  
+                        if (values.location && !/^[ A-Za-z0-9_@./#&+-]{3,64}$/.test(values.location)) {
                             errors.location = "Invalid Location name";
                         }
-                        if (values.branch_name && !/^[ A-Za-z0-9_@./#&+-]{3,64}$/.test(values.branch_name)) {  
+                        if (values.branch_name && !/^[ A-Za-z0-9_@./#&+-]{3,64}$/.test(values.branch_name)) {
                             errors.branch_name = "Invalid Branch name";
                         }
                         return errors;
                     }}
                     onSubmit={(values) => {
                         submitForm(values);
-                        // resetForm();
                     }}
                 >
                     {({
