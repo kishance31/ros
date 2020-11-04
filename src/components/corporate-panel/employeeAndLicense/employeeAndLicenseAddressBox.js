@@ -82,6 +82,8 @@ const EmployeeAndLicenseAddressBox = (props) => {
                                                         leftError={errors.city}
                                                         leftTouched={touched.city}
                                                     />
+                                                </div>
+                                                <div className="input-group">
                                                     <Field
                                                         type="text"
                                                         placeholder="Enter State"
@@ -120,7 +122,7 @@ const EmployeeAndLicenseAddressBox = (props) => {
                                             </div>
                                         </div>
                                     </div>
-                                    <div className="text-center mt-5 pt-lg-5">
+                                    <div className="text-center mt-4">
                                         <button className="btn_blue" type="submit"><span>SAVE</span></button>
                                     </div>
                                 </form >

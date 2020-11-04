@@ -248,7 +248,7 @@ ul.navbar-nav.mr-auto {
 
       .dropdown-menu {
         display: block;
-        top: 16px;
+        top: 40px;
         right: 0;
         left: unset;
         text-align: center;
@@ -2221,5 +2221,66 @@ footer {
 .services {
   video {
     width: 100%;
+  }
+}
+
+.custom_toast_msg {
+  @include border-radius(6px !important);
+
+  .toast-body {
+    position: relative;
+    padding-right: 40px;
+    color: #fff;
+    @include border-radius(5px !important);
+
+    &.green {
+      background: #28a745;
+      color: #fff;
+    }
+
+    &.red {
+      background: #dc3545;
+      color: #fff;
+    }
+
+    &.orange {
+      background: #ffc107;
+      color: #000;
+    }
+
+    .close_icon {
+      position: absolute;
+      right: 8px;
+      top: 7px;
+      cursor: pointer;
+
+      i {
+        font-size: 16px;
+      }
+    }
+  }
+}
+
+#address_details {
+  .modal-header {
+    margin-bottom: 0;
+  }
+
+  .input-group {
+    flex-direction: column !important;
+
+    .error_wrap {
+      margin-top: 0;
+      margin-bottom: 0;
+
+      .left_side,
+      .right_side {
+        width: 100%;
+
+        .error_msg {
+          margin-top: 2px;
+        }
+      }
+    }
   }
 }
