@@ -28,12 +28,12 @@ const FAQS = () => {
     return (
         <div className="container-fluid">
             <div className="faq">
-                <div className="col-lg-12" id="accordion">
+                <div className="col-lg-12 accordion" id="accordion">
                     <h1>Frequently Asked Question (FAQ)</h1>
                     {
                         FAQList.map((faq, idx) => (
                             <div className="row">
-                                <div className="col-lg-6 questions">
+                                <div className="col-lg-10 questions">
                                     <h3 className={`${selectedIdx === (idx + 1) ? "" : "collapsed"}`} onClick={() => onQuesClick(idx + 1)} >
                                         <p>
                                             <span>Q{idx + 1}.</span>

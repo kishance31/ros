@@ -6,7 +6,7 @@ import { Formik, Field, } from 'formik';
 import DoubleInputField from '../../components/inputFields/doubleInputField';
 import DoubleErrorMessage from '../../components/inputFields/inputErrorMessage';
 
-const SetYourPassword = (props) => {
+const SetYourPassword = () => {
 
     const dispatch = useDispatch();
 
@@ -25,10 +25,10 @@ const SetYourPassword = (props) => {
                 validate={(values) => {
                     const errors = {};
 
-                    if (!values.password) {
+                    if (!values.password.trim()) {
                         errors["password"] = `Old password is required`
                     }
-                    if (!values.newPassword) {
+                    if (!values.newPassword.trim()) {
                         errors["newPassword"] = `New password is required`
                     }
                     if (values.newPassword !== values.reNewPassword) {

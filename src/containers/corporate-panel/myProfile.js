@@ -38,7 +38,9 @@ const MyProfile = () => {
     return (
         <div>
             <div className="tab-pane fade show active" id="my_profile" role="tabpanel" aria-labelledby="">
+
                 <Formik
+
                     initialValues={{
                         companyName: user.companyName,
                         firstName: user.firstName,
@@ -54,38 +56,34 @@ const MyProfile = () => {
                         companyRegisterNo: user.companyRegisterNo || "",
                         corpDoc: user.corpDoc || "",
                     }}
+
                     validate={(values) => {
                         const errors = {};
-                        
-                        if (!values.companyName) {
+                        if (!values.companyName.trim()) {
                             errors["companyName"] = `Company Name is required.`
-                        } if (!values.firstName) {
+                        } if (!values.firstName.trim()) {
                             errors["firstName"] = `First Name is required.`
-                        } if (!values.lastName) {
+                        } if (!values.lastName.trim()) {
                             errors["lastName"] = `Last Name is required.`
-                        } if (!values.position) {
+                        } if (!values.position.trim()) {
                             errors["position"] = `Position is required.`
-                        } if (!values.department) {
+                        } if (!values.department.trim()) {
                             errors["department"] = `Department is required.`
-                        } if (!values.corporateEmailId) {
+                        } if (!values.corporateEmailId.trim()) {
                             errors["corporateEmailId"] = `Corporate Email ID is required.`
-                        } if (!values.personalEmail) {
+                        } if (!values.personalEmail.trim()) {
                             errors["personalEmail"] = `Personal Email is required.`
-                        } if (!values.officeContactNo) {
+                        } if (!values.officeContactNo.trim()) {
                             errors["officeContactNo"] = `Office Contact No is required.`
-                        } if (!values.mobileNo) {
+                        } if (!values.mobileNo.trim()) {
                             errors["mobileNo"] = `Mobile No is required.`
                         }
-                        if (!values.corpDoc) {
+                        if (!values.corpDoc.trim()) {
                             errors["corporateEmailId"] = `Upload a document(Format: .pdf)`
                         }
-                        // if (!values.employeeId) {
-                        //     errors["employeeId"] = `Employee ID is required.`
-                        // }
-                        if (!values.username) {
+                        if (!values.username.trim()) {
                             errors["username"] = `Username is required.`
                         }
-
                         if (values.corporateEmailId && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.corporateEmailId)) {
                             errors.corporateEmailId = "Invalid email address";
                         }
@@ -101,10 +99,10 @@ const MyProfile = () => {
                         console.log(errors)
                         return errors;
                     }}
+
                     onSubmit={(values, { setSubmitting, setFieldValue }) => {
                         onSubmits(values);
                         if (typeof values.corpDoc === "object") {
-                            // setFieldValue('corpDoc', "");
                         }
                         setSubmitting(false);
                     }}
@@ -264,11 +262,6 @@ const MyProfile = () => {
                                                 </div>
 
                                                 <div className="input-group two_side">
-                                                    {/* <input
-                                                    placeholder="EMPLOYEE ID"
-                                                    type="text"
-                                                    className="input_box_1 form-control"
-                                                /> */}
                                                     <input
                                                         placeholder="USERNAME"
                                                         type="text"
@@ -313,15 +306,12 @@ const MyProfile = () => {
                                                                 }
                                                             }}
                                                         />
-                                                        {/* <button type="button" className="btn_action pink">REMOVE
-                                                        </button> */}
                                                     </div>
                                                 </div>
                                                 <DoubleErrorMessage
                                                     leftError={errors.corpDoc}
                                                     leftTouched={touched.corpDoc}
                                                 />
-
                                             </div>
                                         </div>
                                     </div>
@@ -333,7 +323,6 @@ const MyProfile = () => {
                                 </form>
                             )
                     }
-
                 </Formik>
             </div>
         </div>

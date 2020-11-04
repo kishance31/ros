@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useDispatch } from 'react-redux';
 import { Formik, Field, } from 'formik';
 import DoubleInputField from '../../components/inputFields/doubleInputField';
@@ -7,11 +7,13 @@ import { forgotPasswordApi } from '../../actions/auth.action';
 import PropTypes from 'prop-types';
 import { ArrowRightIcon } from '../../components/icons/Icons'
 const ForgotPassword = () => {
+
     const dispatch = useDispatch();
 
     const navigateToSetPassword = (email) => {
         dispatch(forgotPasswordApi(email));
     }
+    
     return (
         <>
             <Formik
@@ -21,7 +23,7 @@ const ForgotPassword = () => {
                 validate={(values) => {
                     const errors = {};
 
-                    if (!values.email) {
+                    if (!values.email.trim()) {
                         errors["email"] = `Email is required`
                     }
                     if (values.email && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)) {
