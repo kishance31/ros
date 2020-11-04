@@ -6,10 +6,10 @@ import SignUpForm from './signUpForm';
 import ForgotPassword from './forgotPassword';
 import ResetPassword from './resetPassword';
 import AuthModelAction, { AuthMap } from '../../actions/auth.action';
-import { fetchConstactUsDetailsAsync } from '../../actions/homepageContent.action'
 import SetYourPassword from './setYourPassword';
 import { OverlayContext } from '../../context/loadingOverlay.context';
 import { MetroCancelIcon } from '../../components/icons/Icons';
+
 const AuthModalContainer = props => {
 
     const auth = useSelector(state => state.auth);
@@ -48,13 +48,10 @@ const AuthModalContainer = props => {
             {
                 auth.modals.showSetPasswordModal ? <SetYourPassword /> : null
             }
-             {
+            {
                 auth.modals.showResetPasswordModal ? <ResetPassword /> : null
             }
-
         </ModalComponent>
-
-            
     )
 }
 

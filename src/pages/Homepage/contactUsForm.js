@@ -22,7 +22,8 @@ const ContactUsForm = () => {
             data: {
                 ...details,
             }
-        }); if (data.response.responseCode === 200) {
+        });
+        if (data.response.responseCode === 200) {
             dispatch(notificationActions.showNotification({
                 title: "Contact US",
                 message: "Query sent successful",
@@ -33,16 +34,18 @@ const ContactUsForm = () => {
     return (
         <>
             <Formik
+
                 initialValues={{
                     fullName: "",
                     email: "",
                     mobileNo: "",
                     comment: ""
                 }}
+
                 validate={(values) => {
                     const errors = {};
                     for (let key in values) {
-                        if (!values[key]) {
+                        if (!values[key].trim()) {
                             if (key === "mobileNo") {
                                 errors[key] = `Mobile No is required.`
                             } if (key === "fullName") {

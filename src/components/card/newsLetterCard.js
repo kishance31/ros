@@ -41,7 +41,7 @@ const NewsLetterCard = (props) => {
                 validate={(values) => {
                     const errors = {};
                     for (let key in values) {
-                        if (!values[key]) {
+                        if (!values[key].trim()) {
                             if (key === "email") {
                                 errors[key] = `Email is required.`
                             }

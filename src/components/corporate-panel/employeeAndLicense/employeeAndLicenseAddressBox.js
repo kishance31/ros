@@ -25,7 +25,6 @@ const EmployeeAndLicenseAddressBox = (props) => {
         >
             {
                 isOpen ? (
-
                     <Formik
                         initialValues={{
                             delivery_address: "",
@@ -39,7 +38,7 @@ const EmployeeAndLicenseAddressBox = (props) => {
                             const errors = {};
                             for (let key in values) {
                                 if (key !== "_id")
-                                    if (!values[key]) {
+                                    if (!values[key].trim()) {
                                         errors[key] = `${key} is required.`
                                     }
                             }
@@ -50,7 +49,7 @@ const EmployeeAndLicenseAddressBox = (props) => {
                             onSaveAddress(values);
                         }}
                     >
-                        {({ values,
+                        {({
                             errors,
                             touched,
                             handleSubmit
@@ -75,29 +74,27 @@ const EmployeeAndLicenseAddressBox = (props) => {
                                                     <Field
                                                         type="text"
                                                         placeholder="Enter City"
-                                                        className="form-control"
+                                                        className="input_box_1 form-control"
                                                         name="city"
-                                                    />
-                                                    <DoubleErrorMessage
-                                                        leftError={errors.city}
-                                                        leftTouched={touched.city}
                                                     />
                                                     <Field
                                                         type="text"
                                                         placeholder="Enter State"
-                                                        className="form-control"
+                                                        className="input_box_2 form-control"
                                                         name="state"
                                                     />
                                                     <DoubleErrorMessage
-                                                        leftError={errors.state}
-                                                        leftTouched={touched.state}
+                                                        leftError={errors.city}
+                                                        leftTouched={touched.city}
+                                                        rightError={errors.state}
+                                                        rightTouched={touched.state}
                                                     />
                                                 </div>
                                                 <div className="input-group">
                                                     <Field
                                                         type="text"
                                                         placeholder="Enter Country"
-                                                        className="form-control"
+                                                        className="input_box_1 form-control"
                                                         name="country"
                                                     />
                                                     <DoubleErrorMessage
@@ -109,7 +106,7 @@ const EmployeeAndLicenseAddressBox = (props) => {
                                                     <Field
                                                         type="text"
                                                         placeholder="Enter Pincode"
-                                                        className="form-control"
+                                                        className="input_box_1 form-control"
                                                         name="pincode"
                                                     />
                                                     <DoubleErrorMessage

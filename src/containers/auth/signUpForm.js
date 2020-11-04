@@ -56,36 +56,36 @@ const SignUpForm = ({ toggleOverlay }) => {
                 validate={(values) => {
                     const errors = {};
 
-                    if (!values.companyName) {
+                    if (!values.companyName.trim()) {
                         errors["companyName"] = `Company Name is required.`
-                    } if (!values.firstName) {
+                    } if (!values.firstName.trim()) {
                         errors["firstName"] = `First Name is required.`
-                    } if (!values.lastName) {
+                    } if (!values.lastName.trim()) {
                         errors["lastName"] = `Last Name is required.`
-                    } if (!values.position) {
+                    } if (!values.position.trim()) {
                         errors["position"] = `Position is required.`
-                    } if (!values.department) {
+                    } if (!values.department.trim()) {
                         errors["department"] = `Department is required.`
-                    } if (!values.corporateEmail) {
+                    } if (!values.corporateEmail.trim()) {
                         errors["corporateEmail"] = `Corporate Email ID is required.`
-                    } if (!values.personalEmail) {
+                    } if (!values.personalEmail.trim()) {
                         errors["personalEmail"] = `Personal Email is required.`
-                    } if (!values.officeContactNo) {
+                    } if (!values.officeContactNo.trim()) {
                         errors["officeContactNo"] = `Office Contact No is required.`
-                    } if (!values.mobileNo) {
+                    } if (!values.mobileNo.trim()) {
                         errors["mobileNo"] = `Mobile No is required.`
-                    } if (!values.employeeId) {
+                    } if (!values.employeeId.trim()) {
                         errors["employeeId"] = `Employee ID is required.`
-                    } if (!values.userName) {
+                    } if (!values.userName.trim()) {
                         errors["userName"] = `Username is required.`
-                    } if (!values.password) {
+                    } if (!values.password.trim()) {
                         errors["password"] = `Password is required.`
                     } else if (values.password.length < 8) {
                         errors["password"] = `Password length must be 8 characters`
-                    } if (!values.reEnterPassword) {
+                    } if (!values.reEnterPassword.trim()) {
                         errors["reEnterPassword"] = `RE ENTER PASSWORD is required.`
                     }
-                    if (!values.corpDoc) {
+                    if (!values.corpDoc.trim()) {
                         errors["corporateEmailId"] = `Upload a document(Format: .pdf)`
                     }
 
