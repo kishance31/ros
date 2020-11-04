@@ -23,16 +23,17 @@ const NotificationToast = (props) => {
     }, [])
 
     return (
-        <Toast
+        <Toast className="custom_toast_msg"
             isOpen={show}
         >
-            <ToastHeader
+            {/* <ToastHeader
                 toggle={toggle}
                 icon={icon || null}
             >
                 {title}
-            </ToastHeader>
-            <ToastBody>
+            </ToastHeader> */}
+            <ToastBody className="green">
+                <div className="close_icon"><i className="las la-times"></i></div>
                 {message}
             </ToastBody>
         </Toast>
