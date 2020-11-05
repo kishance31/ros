@@ -23,8 +23,8 @@ const MyProfile = () => {
         data.set("lastName", values.lastName)
         data.set("position", values.position)
         data.set("department", values.department)
-        data.set("corporateEmailId", values.corporateEmailId)
-        data.set("email", values.personalEmail)
+        data.set("email", values.email)
+        data.set("personalEmailId", values.personalEmailId)
         data.set("officeContactNo", values.officeContactNo)
         data.set("mobileNo", values.mobileNo)
         data.set("username", values.username)
@@ -47,8 +47,8 @@ const MyProfile = () => {
                         lastName: user.lastName,
                         position: user.position,
                         department: user.department,
-                        corporateEmailId: user.corporateEmailId,
-                        personalEmail: user.email,
+                        email: user.email,
+                        personalEmailId: user.personalEmailId,
                         officeContactNo: user.officeContactNo,
                         mobileNo: user.mobileNo,
                         username: user.username,
@@ -69,26 +69,26 @@ const MyProfile = () => {
                             errors["position"] = `Position is required.`
                         } if (!values.department.trim()) {
                             errors["department"] = `Department is required.`
-                        } if (!values.corporateEmailId.trim()) {
-                            errors["corporateEmailId"] = `Corporate Email ID is required.`
-                        } if (!values.personalEmail.trim()) {
-                            errors["personalEmail"] = `Personal Email is required.`
-                        } if (!values.officeContactNo.trim()) {
+                        } if (!values.email.trim()) {
+                            errors["email"] = `Corporate Email ID is required.`
+                        } if (!values.personalEmailId.trim()) {
+                            errors["personalEmailId"] = `Personal Email is required.`
+                        } if (!values.officeContactNo) {
                             errors["officeContactNo"] = `Office Contact No is required.`
-                        } if (!values.mobileNo.trim()) {
+                        } if (!values.mobileNo) {
                             errors["mobileNo"] = `Mobile No is required.`
                         }
-                        if (!values.corpDoc.trim()) {
-                            errors["corporateEmailId"] = `Upload a document(Format: .pdf)`
+                        if (typeof corpDoc === "string" && !values.corpDoc.trim()) {
+                            errors["corpDoc"] = `Upload a document(Format: .pdf)`
                         }
                         if (!values.username.trim()) {
                             errors["username"] = `Username is required.`
                         }
-                        if (values.corporateEmailId && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.corporateEmailId)) {
-                            errors.corporateEmailId = "Invalid email address";
+                        if (values.email && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)) {
+                            errors.email = "Invalid email address";
                         }
-                        if (values.personalEmail && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.personalEmail)) {
-                            errors.personalEmail = "Invalid email address";
+                        if (values.personalEmailId && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.personalEmailId)) {
+                            errors.personalEmailId = "Invalid email address";
                         }
                         if (values.officeContactNo && !/^\d{10}$/.test(values.officeContactNo)) {
                             errors.officeContactNo = "Invalid mobile number";
@@ -193,24 +193,24 @@ const MyProfile = () => {
                                                         placeholder="CORPORATE EMAIL ID"
                                                         onChange={handleChange}
                                                         type="text"
-                                                        name="corporateEmailId"
-                                                        value={values.corporateEmailId}
+                                                        name="email"
+                                                        value={values.email}
                                                         className="input_box_1 form-control"
                                                     />
                                                     <input
                                                         placeholder="PERSONAL EMAIL ID"
                                                         type="email"
-                                                        name="personalEmail"
-                                                        defaultValue={values.personalEmail}
+                                                        name="personalEmailId"
+                                                        defaultValue={values.personalEmailId}
                                                         className="input_box_2 form-control"
                                                         disabled
                                                     />
                                                 </div>
                                                 <DoubleErrorMessage
-                                                    leftError={errors.corporateEmailId}
-                                                    leftTouched={touched.corporateEmailId}
-                                                    rightError={errors.personalEmail}
-                                                    rightTouched={touched.personalEmail}
+                                                    leftError={errors.email}
+                                                    leftTouched={touched.email}
+                                                    rightError={errors.personalEmailId}
+                                                    rightTouched={touched.personalEmailId}
                                                 />
 
                                                 <div className="input-group two_side">

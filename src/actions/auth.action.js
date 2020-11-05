@@ -75,6 +75,7 @@ export const signUpUserAsync = (user, toggleOverlay) => {
                 return dispatch(notificationActions.showNotification({
                     title: 'Sign Up',
                     message: "Sign up successfull.",
+                    color: 'success',
                     // duration: 5000,
                 }));
             }
@@ -85,6 +86,7 @@ export const signUpUserAsync = (user, toggleOverlay) => {
                 return dispatch(notificationActions.showNotification({
                     title: 'Sign Up',
                     message: signuprespone.error.errors[0].message,
+                    color: 'error',
                     // duration: 5000,
                 }));
             }
@@ -92,6 +94,7 @@ export const signUpUserAsync = (user, toggleOverlay) => {
             dispatch(notificationActions.showNotification({
                 title: 'Sign Up',
                 message: signuprespone.response.responseMessage,
+                color: 'error',
                 // duration: 5000,
             }));
         } catch (error) {
@@ -102,6 +105,7 @@ export const signUpUserAsync = (user, toggleOverlay) => {
             dispatch(notificationActions.showNotification({
                 title: 'Sign Up',
                 message: error.message,
+                color: 'error',
                 // duration: 5000,
             }));
         }
@@ -150,12 +154,14 @@ export const signInUserAsync = (userBody, type) => {
                     return dispatch(notificationActions.showNotification({
                         title: 'Login In',
                         message: signInResponce.error.errors[0].message,
+                        color: 'error',
                         // duration: 5000,
                     }));
                 }
                 dispatch(notificationActions.showNotification({
                     title: 'Login In',
                     message: signInResponce.response.responseMessage,
+                    color: 'error',
                     // duration: 5000,
                 }));
             }
@@ -166,6 +172,7 @@ export const signInUserAsync = (userBody, type) => {
             dispatch(notificationActions.showNotification({
                 title: 'Login In',
                 message: error.message,
+                color: 'error',
                 // duration: 5000,
             }));
         }
@@ -186,11 +193,23 @@ export const signOutUserAsync = (tokens, role) => {
             dispatch({
                 type: AuthMap.SIGN_OUT
             });
+            return dispatch(notificationActions.showNotification({
+                title: 'Logout',
+                message: "Logout successfull",
+                color: 'success',
+                // duration: 5000,
+            }));
 
         } catch (error) {
             dispatch({
                 type: AuthMap.SIGN_OUT
             });
+            return dispatch(notificationActions.showNotification({
+                title: 'Logout',
+                message: "Logout successfull",
+                color: 'success',
+                // duration: 5000,
+            }));
         }
     }
 }
@@ -211,24 +230,37 @@ export const updateUserProfileAsync = (data) => {
                     tokens: auth.user.tokens
                 }
             })
-            dispatch(notificationActions.showNotification({
-                title: "Update Corporate Profile",
-                message: "Update corporate profile successfully",
-                // duration: 7000,
-            }));
             if (updateUserResponse.response.responseCode === 201) {
-                return dispatch({
+                dispatch({
                     type: AuthMap.UPDATE_CORPORATE_PROFILE_SUCCESS,
                     payload: updateUserResponse.response.userProfile,
                 })
+                return dispatch(notificationActions.showNotification({
+                    title: "Update Corporate Profile",
+                    message: "Update corporate profile successfully",
+                    color: 'success',
+                    // duration: 7000,
+                }));
             }
             dispatch({
                 type: AuthMap.UPDATE_CORPORATE_PROFILE_ERROR,
             })
+            return dispatch(notificationActions.showNotification({
+                title: "Update Corporate Profile",
+                message: "Error Updating corporate profile",
+                color: 'error',
+                // duration: 7000,
+            }));
         } catch (error) {
             dispatch({
                 type: AuthMap.UPDATE_CORPORATE_PROFILE_ERROR
             });
+            return dispatch(notificationActions.showNotification({
+                title: "Update Corporate Profile",
+                message: "Error Updating corporate profile",
+                color: 'error',
+                // duration: 7000,
+            }));
         }
     }
 }
@@ -249,7 +281,7 @@ export const UpdateEmployeeProfile = (data) => {
             })
 
             if (updateEmployeeResponse.response.responseCode === 201) {
-                return dispatch({
+                dispatch({
                     type: AuthMap.UPDATE_EMPLOYEE_PROFILE_SUCCESS,
                     payload: ""
                 })
@@ -293,6 +325,7 @@ export const setPasswordAsync = (data) => {
                     dispatch(notificationActions.showNotification({
                         title: 'Password change successfull',
                         message: "Password change successfull. Login again with new password",
+                        color: 'success',
                         // duration: 5000,
                     }));
                     dispatch({
@@ -302,7 +335,12 @@ export const setPasswordAsync = (data) => {
                 }
             }
         } catch (error) {
-
+            dispatch(notificationActions.showNotification({
+                title: 'Password change successfull',
+                message: "Error setting new password.",
+                color: 'error',
+                // duration: 5000,
+            }));
         }
     }
 }
@@ -317,6 +355,7 @@ export const resetPasswordAsync = (pswdData) => async (dispatch) => {
             dispatch(notificationActions.showNotification({
                 title: 'Reset Password',
                 message: "Reset password successfull.",
+                color: 'success',
                 // duration: 5000,
             }));
             return dispatch({
@@ -327,6 +366,7 @@ export const resetPasswordAsync = (pswdData) => async (dispatch) => {
             dispatch(notificationActions.showNotification({
                 title: 'Reset Password',
                 message: "Reset Password Error. Please try again after sometime",
+                color: 'error',
                 // duration: 5000,
             }))
         }
@@ -334,6 +374,7 @@ export const resetPasswordAsync = (pswdData) => async (dispatch) => {
         dispatch(notificationActions.showNotification({
             title: 'Reset Password',
             message: "Reset Password Error. Please try again after sometime",
+            color: 'error',
             // duration: 5000,
         }));
     }
@@ -357,6 +398,7 @@ export const forgotPasswordApi = (email) => {
                 dispatch(notificationActions.showNotification({
                     title: 'Reset Password',
                     message: forgotPasswordResponce.response.responseMessage,
+                    color: 'success',
                     // duration: 5000,
                 }));
                 return dispatch({
@@ -370,6 +412,7 @@ export const forgotPasswordApi = (email) => {
                 dispatch(notificationActions.showNotification({
                     title: 'Reset Password',
                     message: forgotPasswordResponce.response.responseMessage,
+                    color: 'error',
                     // duration: 5000,
                 }));
                 dispatch({
@@ -386,6 +429,7 @@ export const forgotPasswordApi = (email) => {
                 title: 'Reset Password',
                 message: error.message,
                 duration: 5000,
+                color: 'error',
             }));
         }
     }

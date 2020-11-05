@@ -110,6 +110,7 @@ export const deactivateEmployeeAsync = (msg, id) => {
                 return dispatch(notificationActions.showNotification({
                     title: 'Deactivate Employee',
                     message: "Deactivate employee successfull.",
+                    color: 'success',
                 }))
             }
             dispatch({
@@ -118,6 +119,7 @@ export const deactivateEmployeeAsync = (msg, id) => {
             dispatch(notificationActions.showNotification({
                 title: 'Deactivate Employee',
                 message: "Deactivate employee error.",
+                color: 'error',
             }))
         } catch (error) {
             dispatch({
@@ -126,6 +128,7 @@ export const deactivateEmployeeAsync = (msg, id) => {
             dispatch(notificationActions.showNotification({
                 title: 'Deactivate Employee',
                 message: "Deactivate employee error.",
+                color: 'error',
             }))
         }
     }
@@ -160,6 +163,7 @@ export const activateEmployeeAsync = (id) => {
                 return dispatch(notificationActions.showNotification({
                     title: 'Activate Employee',
                     message: "Activate employee successfull.",
+                    color: 'success',
                 }))
             }
             dispatch({
@@ -168,6 +172,7 @@ export const activateEmployeeAsync = (id) => {
             dispatch(notificationActions.showNotification({
                 title: 'Activate Employee',
                 message: "Activate employee error.",
+                color: 'error',
             }))
         } catch (error) {
             dispatch({
@@ -176,6 +181,7 @@ export const activateEmployeeAsync = (id) => {
             dispatch(notificationActions.showNotification({
                 title: 'Activate Employee',
                 message: "Activate employee error.",
+                color: 'error',
             }))
         }
     }
