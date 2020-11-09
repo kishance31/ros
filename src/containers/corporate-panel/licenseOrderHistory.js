@@ -4,14 +4,16 @@ import purchaseLicenseAction, { licenseOrderHistoryAsync } from "../../actions/p
 import BasicPagination from '../../components/pagination/basicPagination';
 import { usePaginationHook } from '../../hooks/paginationHook';
 import { generateLicensePDF } from '../../hooks/generateLicensePDF';
+import LicenseInvoicePdf from '../../components/pdf/licenseInvoicePdf';
+import { PDFDownloadLink } from '@react-pdf/renderer'
 
 const LicenseOrderHistory = () => {
 
-    
+
     const dispatch = useDispatch();
-    
+
     const user = useSelector(state => state.auth.user, shallowEqual);
-    
+
     const licenseOrderHistory = useSelector(state => state.purchaseLicense.licenseOrderHistory, shallowEqual);
     const licenseOrderRecords = useSelector(state => state.purchaseLicense.licenseOrderRecords);
     const batchNumber = useSelector(state => state.purchaseLicense.batchNumber);
@@ -21,7 +23,7 @@ const LicenseOrderHistory = () => {
         dispatch(purchaseLicenseAction.setBatchNumber(currentBatch || batchNumber));
         dispatch(purchaseLicenseAction.refreshOrderHistory());
     }
-    
+
     const { limit, handleBatchChange } = usePaginationHook(5, batchNumber, onPageChange)
 
     useEffect(() => {
@@ -74,7 +76,7 @@ const LicenseOrderHistory = () => {
                                                             {
                                                                 item.purchasedLicenses.map((licenseType, key) =>
                                                                     <div key={key}>{
-                                                                        licenseType.quantity < 10 ? 
+                                                                        licenseType.quantity < 10 ?
                                                                             "0" + licenseType.quantity :
                                                                             licenseType.quantity
                                                                     }</div>
@@ -95,9 +97,11 @@ const LicenseOrderHistory = () => {
                                                         </td>
                                                         <td>
                                                             <a href="#" className="download"
-                                                                onClick={() => generateLicensePDF({data: item, corporate: user})}
+                                                                onClick={() => generateLicensePDF({ data: item, corporate: user })}
                                                             >
-                                                                <img src={require(`../../assets/images/download.svg`)} alt="" />DOWNLOAD</a>
+                                                                <img src={require(`../../assets/images/download.svg`)} alt="" />
+                                                            DOWNLOAD
+                                                            </a>
                                                         </td>
                                                     </tr>
                                                 )
