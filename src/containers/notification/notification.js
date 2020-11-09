@@ -30,6 +30,7 @@ const NotificationToastContainer = () => {
                         title={notification.title}
                         message={notification.message}
                         duration={notification.duration}
+                        color={notification.color}
                         key={key}
                     />
                 )

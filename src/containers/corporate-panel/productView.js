@@ -92,7 +92,7 @@ const ProductView = () => {
                                     <th className="w_20">ROS&nbsp;CODE</th>
                                     <th className="w_20">ROS&nbsp;COST&nbsp;(USD)</th>
                                     <th className="w_20">PRODUCT&nbsp;IMAGE</th>
-                                    <th className="w_20">PRODUCT&nbsp;DESCRIPTON</th>
+                                    {/* <th className="w_20">PRODUCT&nbsp;DESCRIPTON</th> */}
                                 </tr>
                             </thead>
                             <tbody>
@@ -104,13 +104,13 @@ const ProductView = () => {
                                                 <td>{product.ros_code}</td>
                                                 <td>${product.ros_cost}</td>
                                                 <td className="text-center">
-                                                    <div className="product_img">
+                                                    <div className="product_img custom-tooltip" data-toggle="tooltip" data-placement="left" title={product.product_description}>
                                                         <img src={product.product_image} alt={product.product_name} />
                                                     </div>
                                                 </td>
-                                                <td>
-                                                    <div className="custom-tooltip" data-toggle="tooltip" data-placement="left" title={product.product_name}>{product.product_description}</div>
-                                                </td>
+                                                {/* <td>
+                                                    <div>{product.product_description}</div>
+                                                </td> */}
                                             </tr>
                                         )
                                     ) : (

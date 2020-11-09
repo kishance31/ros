@@ -79,44 +79,32 @@ const EmployeeAndLicenseAddBox = (props) => {
 
                 validate={(values) => {
                     const errors = {};
-                    for (let key in values) {
-
-                        if (!values[key].trim()) {
-
-                            if (key === "companyName") {
-                                errors[key] = `Company Name is required.`
-                            }
-                            if (key === "firstName") {
-                                errors[key] = `First Name is required.`
-                            }
-                            if (key === "lastName") {
-                                errors[key] = `Last Name is required.`
-                            }
-                            if (key === "position") {
-                                errors[key] = `Position is required.`
-                            }
-                            if (key === "department") {
-                                errors[key] = `Department is required.`
-                            }
-                            if (key === "mobileNo") {
-                                errors[key] = `Mobile No is required.`
-                            }
-                            if (key === "email") {
-                                errors[key] = `Email ID is required.`
-                            }
-                            if (key === "employeeId") {
-                                errors[key] = `Employee ID is required.`
-                            }
-                            if (key === "username") {
-                                errors[key] = `Username is required.`
-                            }
-                            if (key === "password") {
-                                errors[key] = `Password is required.`
-                            }
-                            if (key === "reEnterPassword") {
-                                errors[key] = `RE ENTER PASSWORD is required.`
-                            }
-                        }
+                    if (!values.companyName.trim()) {
+                        errors["companyName"] = `Company Name is required.`
+                    }
+                    if (!values.firstName.trim()) {
+                        errors["firstName"] = `First Name is required.`
+                    } if (!values.lastName.trim()) {
+                        errors["lastName"] = `Last Name is required.`
+                    } if (!values.position.trim()) {
+                        errors["position"] = `Position is required.`
+                    } if (!values.department.trim()) {
+                        errors["department"] = `Department is required.`
+                    } if (!values.email.trim()) {
+                        errors["email"] = `Email ID is required.`
+                    }
+                    if (!values.mobileNo) {
+                        errors["mobileNo"] = `Mobile No is required.`
+                    } if (!values.employeeId.trim()) {
+                        errors["employeeId"] = `Employee ID is required.`
+                    } if (!values.username.trim()) {
+                        errors["username"] = `Username is required.`
+                    } if (!values.password.trim()) {
+                        errors["password"] = `Password is required.`
+                    } else if (values.password.length < 8) {
+                        errors["password"] = `Password length must be 8 characters`
+                    } if (!values.reEnterPassword.trim()) {
+                        errors["reEnterPassword"] = `RE ENTER PASSWORD is required.`
                     }
                     if (values.email && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)) {
                         errors.email = "Invalid email address";

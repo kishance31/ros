@@ -26,7 +26,8 @@ const ContactUsForm = () => {
         if (data.response.responseCode === 200) {
             dispatch(notificationActions.showNotification({
                 title: "Contact US",
-                message: "Query sent successful",
+                message: "Query sent successfull",
+                color: 'success',
             }));
         }
     }

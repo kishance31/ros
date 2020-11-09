@@ -27,6 +27,7 @@ const NewsLetterCard = (props) => {
             dispatch(notificationActions.showNotification({
                 title: "News Letter Subscription",
                 message: "News letter subscription successful",
+                color: 'success',
             }));
         }
     }

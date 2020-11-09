@@ -3,11 +3,11 @@ import "jspdf-autotable";
 
 export const generateInvoicePDF = ({ data, isRecurring, corporate }) => {
     const doc = new jsPDF();
-    let {
-        invoiceDetails,
-        employeeDetails,
-        productDetails
-    } = data;
+    // let {
+    //     invoiceDetails,
+    //     employeeDetails,
+    //     productDetails
+    // } = data;
 
     if (isRecurring) {
         doc.text("Recurring Payment Invoice", 70, 15)
@@ -37,7 +37,7 @@ export const generateInvoicePDF = ({ data, isRecurring, corporate }) => {
         tableColumn.push("First Time Cost(USD)")
     }
 
-    // tableColumn.push("Total(USD)");
+    tableColumn.push("Total(USD)");
 
     let tableRows = [];
     let totalPaymentConst = 0;

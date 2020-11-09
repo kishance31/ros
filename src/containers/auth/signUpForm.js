@@ -23,8 +23,8 @@ const SignUpForm = ({ toggleOverlay }) => {
         data.set("lastName", values.lastName)
         data.set("position", values.position)
         data.set("department", values.department)
-        data.set("corporateEmailId", values.corporateEmail)
-        data.set("email", values.personalEmail)
+        data.set("personalEmailId", values.personalEmailId)
+        data.set("email", values.email)
         data.set("officeContactNo", values.officeContactNo)
         data.set("mobileNo", values.mobileNo)
         data.set("employeeId", values.employeeId)
@@ -43,8 +43,8 @@ const SignUpForm = ({ toggleOverlay }) => {
                     lastName: "",
                     position: "",
                     department: "",
-                    corporateEmail: "",
-                    personalEmail: "",
+                    email: "",
+                    personalEmailId: "",
                     officeContactNo: "",
                     mobileNo: "",
                     employeeId: "",
@@ -66,13 +66,13 @@ const SignUpForm = ({ toggleOverlay }) => {
                         errors["position"] = `Position is required.`
                     } if (!values.department.trim()) {
                         errors["department"] = `Department is required.`
-                    } if (!values.corporateEmail.trim()) {
-                        errors["corporateEmail"] = `Corporate Email ID is required.`
-                    } if (!values.personalEmail.trim()) {
-                        errors["personalEmail"] = `Personal Email is required.`
-                    } if (!values.officeContactNo.trim()) {
+                    } if (!values.email.trim()) {
+                        errors["email"] = `Corporate Email ID is required.`
+                    } if (!values.personalEmailId.trim()) {
+                        errors["personalEmailId"] = `Personal Email is required.`
+                    } if (!values.officeContactNo) {
                         errors["officeContactNo"] = `Office Contact No is required.`
-                    } if (!values.mobileNo.trim()) {
+                    } if (!values.mobileNo) {
                         errors["mobileNo"] = `Mobile No is required.`
                     } if (!values.employeeId.trim()) {
                         errors["employeeId"] = `Employee ID is required.`
@@ -85,15 +85,15 @@ const SignUpForm = ({ toggleOverlay }) => {
                     } if (!values.reEnterPassword.trim()) {
                         errors["reEnterPassword"] = `RE ENTER PASSWORD is required.`
                     }
-                    if (!values.corpDoc.trim()) {
-                        errors["corporateEmailId"] = `Upload a document(Format: .pdf)`
+                    if (typeof corpDoc === "string" && !values.corpDoc.trim()) {
+                        errors["corpDoc"] = `Upload a document(Format: .pdf)`
                     }
 
-                    if (values.corporateEmail && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.corporateEmail)) {
-                        errors.corporateEmail = "Invalid email address";
+                    if (values.email && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)) {
+                        errors.email = "Invalid email address";
                     }
-                    if (values.personalEmail && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.personalEmail)) {
-                        errors.personalEmail = "Invalid email address";
+                    if (values.personalEmailId && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.personalEmailId)) {
+                        errors.personalEmailId = "Invalid email address";
                     }
                     if (values.officeContactNo && !/^\d{10}$/.test(values.officeContactNo)) {
                         errors.officeContactNo = "Invalid mobile number";
@@ -160,14 +160,14 @@ const SignUpForm = ({ toggleOverlay }) => {
                             />
 
                             <DoubleInputField>
-                                <Field placeholder="CORPORATE EMAIL ID" type='email' name='corporateEmail' className="input_box_1 form-control" />
-                                <Field placeholder="PERSONAL EMAIL ID" type='email' name='personalEmail' className="input_box_2 form-control" />
+                                <Field placeholder="CORPORATE EMAIL ID" type='email' name='email' className="input_box_1 form-control" />
+                                <Field placeholder="PERSONAL EMAIL ID" type='email' name='personalEmailId' className="input_box_2 form-control" />
                             </DoubleInputField>
                             <DoubleErrorMessage
-                                leftError={errors.corporateEmail}
-                                leftTouched={touched.corporateEmail}
-                                rightError={errors.personalEmail}
-                                rightTouched={touched.personalEmail}
+                                leftError={errors.email}
+                                leftTouched={touched.email}
+                                rightError={errors.personalEmailId}
+                                rightTouched={touched.personalEmailId}
                             />
 
                             <DoubleInputField>

@@ -45,6 +45,7 @@ const PurchaseLicense = () => {
             return dispatch(notificationActions.showNotification({
                 title: "Add License",
                 message: "Please enter quantity.",
+                color: 'error',
                 // duration: 7000,
             }));
         }
@@ -52,13 +53,15 @@ const PurchaseLicense = () => {
             return dispatch(notificationActions.showNotification({
                 title: "Add License",
                 message: "Quantity must be greater than 0.",
+                color: 'error',
                 // duration: 7000,
             }));
         }
-        if (quantity.value > 1000) {
+        if (quantity.value > 100) {
             return dispatch(notificationActions.showNotification({
                 title: "Add License",
-                message: "Quantity must be less than 1000.",
+                message: "Quantity must not be more than 100.",
+                color: 'error',
                 // duration: 7000,
             }));
         }
@@ -81,6 +84,7 @@ const PurchaseLicense = () => {
         dispatch(notificationActions.showNotification({
             title: "License purchased successfully",
             message: `Licenses are purchased successfully.`,
+            color: 'success',
             // duration: 7000,
         }));
     }
@@ -90,6 +94,7 @@ const PurchaseLicense = () => {
             return dispatch(notificationActions.showNotification({
                 title: "Add License",
                 message: "No license added. Add a license to proceed.",
+                color: 'error',
                 // duration: 7000,
             }));
         }

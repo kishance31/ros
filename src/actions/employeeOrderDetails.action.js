@@ -109,16 +109,26 @@ export const confirmOrderPayment = (orders, paypalDetails) => async (dispatch, g
         if (data.response && data.response.responseCode === 200) {
             dispatch(getEmployeeOrderDetailsAsync());
             dispatch(InvoiceActions.refreshList());
-            dispatch(notificationActions.showNotification({
+            return dispatch(notificationActions.showNotification({
                 title: "Order Payment Successfull.",
                 message: `Order payment is success.
                 once admin confirms the order will be delivered.`,
+                color: 'success'
                 // duration: 7000,
             }));
-            // return dispatch(
-            //     EmployeeOrderDetailsActions.getEmployeeNameSuccess(data.response.data)
-            // );
         }
+        dispatch(notificationActions.showNotification({
+            title: "Order Payment Successfull.",
+            message: `Error while confirming order. Please contact ROS Admin, if amount is deducted.`,
+            color: 'error'
+            // duration: 7000,
+        }));
     } catch (error) {
+        dispatch(notificationActions.showNotification({
+            title: "Order Payment Successfull.",
+            message: `Error while confirming order. Please contact ROS Admin, if amount is deducted.`,
+            color: 'error'
+            // duration: 7000,
+        }));
     }
 }

@@ -21,6 +21,7 @@ const ProductDeliverAddressPage = (props) => {
             dispatch(notificationActions.showNotification({
                 title: "Select address",
                 message: `Add a address first.`,
+                color: 'error',
                 // duration: 7000,
             }));
         }

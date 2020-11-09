@@ -65,6 +65,7 @@ export const cancelOrderAsync = (id, cb) => async (dispatch, getState) => {
             return dispatch(notificationActions.showNotification({
                 title: 'Cancel Order',
                 message: "Cancel Order successfull.",
+                color: 'success',
                 // duration: 5000,
             }));
         }
@@ -72,6 +73,7 @@ export const cancelOrderAsync = (id, cb) => async (dispatch, getState) => {
         return dispatch(notificationActions.showNotification({
             title: 'Cancel Order',
             message: "Error cancelling order.",
+            color: 'error',
             // duration: 5000,
         }));
     } catch (error) {
@@ -79,6 +81,7 @@ export const cancelOrderAsync = (id, cb) => async (dispatch, getState) => {
         return dispatch(notificationActions.showNotification({
             title: 'Cancel Order',
             message: "Error cancelling order.",
+            color: 'error',
             // duration: 5000,
         }));
     }

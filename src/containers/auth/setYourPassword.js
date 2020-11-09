@@ -27,6 +27,8 @@ const SetYourPassword = () => {
 
                     if (!values.password.trim()) {
                         errors["password"] = `Old password is required`
+                    } else if (values.password.length < 8) {
+                        errors["password"] = `Password length must be 8 characters`
                     }
                     if (!values.newPassword.trim()) {
                         errors["newPassword"] = `New password is required`

@@ -69,19 +69,32 @@ export const employeeAndLicenseAddAsync = (user) => {
             });
             if (data.response && data.response.responseCode === 200) {
                 dispatch(employeeAndLicenseCountAsync(auth.user._id, auth.user.tokens));
-                return dispatch({
+                dispatch({
                     type: EmployeeAndLicenseMap.Add_Employeement_SUCCESS
                 })
+                return dispatch(notificationActions.showNotification({
+                    title: "Added Employee",
+                    message: "employee added successfully",
+                    color: 'success'
+                    // duration: 7000,
+                }));
             }
             return dispatch(notificationActions.showNotification({
                 title: "Added Employee",
                 message: "Error adding new employee",
+                color: 'error'
                 // duration: 7000,
             }));
         } catch (error) {
             dispatch({
                 type: EmployeeAndLicenseMap.Add_Employeement_ERROR
             })
+            return dispatch(notificationActions.showNotification({
+                title: "Added Employee",
+                message: "Error adding new employee",
+                color: 'error'
+                // duration: 7000,
+            }));
         }
     }
 }
@@ -178,16 +191,24 @@ export const updateEmployeeAsync = (user, id, getCount) => {
                         payload: data.response.data,
                     })
                 }
-                dispatch(notificationActions.showNotification({
+                return dispatch(notificationActions.showNotification({
                     title: "Update Employee",
                     message: data.response.responseMessage,
+                    color: 'success'
                     // duration: 7000,
                 }));
             }
-        } catch (error) {
-            dispatch(notificationActions.showNotification({
+            return dispatch(notificationActions.showNotification({
                 title: "Update Employee",
-                message: error.message,
+                message: "Error updating employee",
+                color: 'error'
+                // duration: 7000,
+            }));
+        } catch (error) {
+            return dispatch(notificationActions.showNotification({
+                title: "Update Employee",
+                message: "Error updating employee",
+                color: 'error'
                 // duration: 7000,
             }));
         }
@@ -209,19 +230,32 @@ export const deleteDataAsync = (id, tokens) => {
                 }
             });
             if (deleteEmployeesResponse.data.response.responseCode === 200) {
-                return dispatch({
+                dispatch({
                     type: EmployeeAndLicenseMap.Delete_Employees_SUCCESS
                 });
+                return  dispatch(notificationActions.showNotification({
+                    title: "Delete Employee",
+                    message: "Delete employee successfully",
+                    color: 'success'
+                    // duration: 7000,
+                }));
             }
             dispatch(notificationActions.showNotification({
                 title: "Delete Employee",
-                message: "Delete employee successfully",
+                message: "Error deleting employee",
+                color: 'error'
                 // duration: 7000,
             }));
         } catch (error) {
             dispatch({
                 type: EmployeeAndLicenseMap.Delete_Employees_ERROR
             })
+            dispatch(notificationActions.showNotification({
+                title: "Delete Employee",
+                message: "Error deleting employee",
+                color: 'error'
+                // duration: 7000,
+            }));
         }
     }
 }
@@ -263,18 +297,21 @@ export const sendInvitationAsync = (id, tokens) => {
                 return dispatch(notificationActions.showNotification({
                     title: "Send Invitation",
                     message: "Send invitation successfully",
+                    color: 'success'
                     // duration: 7000,
                 }));
             }
             dispatch(notificationActions.showNotification({
                 title: "Send Invitation Error",
                 message: "Send invitation error",
+                color: 'error'
                 // duration: 7000,
             }));
         } catch (error) {
             dispatch(notificationActions.showNotification({
                 title: "Send Invitation Error",
                 message: "Send invitation error",
+                color: 'error'
                 // duration: 7000,
             }));
         }

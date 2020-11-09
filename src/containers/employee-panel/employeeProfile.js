@@ -99,10 +99,10 @@ const EmployeeProfile = ({ setFirstProfile }) => {
                                 if (!values.email.trim()) {
                                     errors["email"] = `Personal Email is required.`
                                 }
-                                if (!values.officeContactNo.trim()) {
+                                if (!values.officeContactNo) {
                                     errors["officeContactNo"] = `Office Contact No is required.`
                                 }
-                                if (!values.mobileNo.trim()) {
+                                if (!values.mobileNo) {
                                     errors["mobileNo"] = `Mobile No is required.`
                                 }
                                 if (values.email && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)) {
@@ -114,6 +114,7 @@ const EmployeeProfile = ({ setFirstProfile }) => {
                                 if (values.mobileNo && !/^\d{10}$/.test(values.mobileNo)) {
                                     errors.mobileNo = "Invalid mobile number";
                                 }
+                                console.log(errors)
                                 return errors;
                             }}
 

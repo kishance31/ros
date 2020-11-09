@@ -8,7 +8,7 @@ const SetProfile = () => {
     
     return (
         <>
-        <div className="side_space">
+        <div className="side_space mt-5">
             <h4>Hey {user.firstName} {user.lastName}, </h4>
             <p>Your Admin has assigned you a {user.license[0].type} licence to buy items of your office use. Please setup your profile first and enjoy buying item from ROS System.</p>
         </div>

@@ -150,11 +150,18 @@ export const placeOrderAsync = (selectedAddress) => {
                     type: ItemListingMap.PLACE_ORDER_SUCCESS,
                 })
                 dispatch(cartActions.toggleFinalMsgModal());
-                return dispatch(EmployeeOrderHistoryActions.refreshOrderHistory());
+                dispatch(EmployeeOrderHistoryActions.refreshOrderHistory());
+                return dispatch(notificationActions.showNotification({
+                    title: 'Place Order',
+                    message: "Order place successfull",
+                    color: 'success',
+                    // duration: 5000,
+                }));
             }
             dispatch(notificationActions.showNotification({
                 title: 'Place Order',
                 message: "Failed to place order",
+                color: 'error',
                 // duration: 5000,
             }));
         }
@@ -165,6 +172,7 @@ export const placeOrderAsync = (selectedAddress) => {
             dispatch(notificationActions.showNotification({
                 title: 'Place Order',
                 message: "Failed to place order",
+                color: 'error',
                 // duration: 5000,
             }));
         }
