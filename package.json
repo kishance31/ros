@@ -34,7 +34,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "stag": "REACT_APP_SERVER_URL=http://3.18.139.243:4000/api REACT_APP_HOST=http://3.18.139.243 REACT_APP_PORT=4000   react-scripts build"
+    "stag": "REACT_APP_SERVER_URL=http://3.18.139.243:4000/api REACT_APP_HOST=http://3.18.139.243 REACT_APP_PORT=4000   react-scripts build",
+    "qa": "REACT_APP_SERVER_URL=http://3.18.139.243:4050/api REACT_APP_HOST=http://3.18.139.243 REACT_APP_PORT=4050   react-scripts build"
   },
   "eslintConfig": {
     "extends": "react-app"
