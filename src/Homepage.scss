@@ -6,6 +6,20 @@ a {
   cursor: pointer;
 }
 
+h1 {
+  .t1 {
+    color: #2F72EF;
+  }
+
+  .t2 {
+    color: #666;
+  }
+
+  .t3 {
+    color: #F95B3D;
+  }
+}
+
 .custom_btn {
   padding: 12px 38px;
   background: #fff;
@@ -49,17 +63,59 @@ a {
 
 body .homepage {
   header {
-    background-color: #ffffff;
+    // background-color: #ffffff;
     z-index: 99;
     width: 100%;
-
+    
     &.fixed {
       position: fixed;
+    }
+    
+    .headertitle_and_links {
+      backdrop-filter: blur(20px);
+      display: flex;
+      align-items: center;
+      width: 100%;
+      @media screen and (max-width: 991px) {
+        flex-direction: column;
+        backdrop-filter: blur(10px);
+      }
+
+      .title {
+        font-size: 40px;
+        // font-weight: 600;
+        font-family: $SF_Pro_Display;
+        margin: 0 auto;
+        text-align: center;
+        @media screen and (max-width: 1280px) {
+          font-size: 30px;
+        }
+        @media screen and (max-width: 991px) {
+          margin: 0 0 20px;
+        }
+      }
+    }
+
+    .right_side_buttons {
+      a {
+        display: inline-block;
+        margin-right: 40px;
+        @media screen and (max-width: 991px) {
+          margin: 0 20px;
+        }
+
+        img {
+          height: 35px;
+          @media screen and (max-width: 1280px) {
+            height: 25px;
+          }
+        }
+      }
     }
 
     nav.navbar {
       padding: 0 !important;
-      background-color: #292929 !important;
+      background-color: transparent !important;
       @media screen and (max-width: 767px) {
         display: flex;
       }
@@ -75,6 +131,9 @@ body .homepage {
 
     .navbar-brand {
       margin-left: 20px;
+      @media screen and (max-width: 991px) {
+        margin-left: 0;
+      }
     }
 
     .navbar-dark {
@@ -389,9 +448,9 @@ body .homepage {
       max-width: 470px;
       margin: 80px auto 0;
     }
-    
-    .news_letter_error{
-      margin-top: 0px;
+
+    .news_letter_error {
+      margin-top: 0;
     }
 
     .form-control {
@@ -1746,26 +1805,29 @@ li.nav-item.active .nav-link {
     }
 
     .title {
-      font-size: 1.9rem;
+      font-size: 38px;
+      word-break: break-word;
       margin: 40px 0 15px;
       @media screen and (max-width: 1289px) {
         margin: 20px 0 15px;
       }
       @media screen and (max-width: 991px) {
-        font-size: 1.6rem;
+        font-size: 30px;
         margin: 0 0 15px;
       }
       @media screen and (max-width: 575px) {
-        font-size: 1.4rem;
+        font-size: 25px;
       }
     }
 
     .body_text {
+      font-family: $Comic_Sans_MS;
+      font-size: 30px;
       @media screen and (max-width: 1365px) {
-        font-size: 16px;
+        font-size: 25px;
       }
       @media screen and (max-width: 575px) {
-        font-size: 14px;
+        font-size: 20px;
         padding: 0;
       }
     }
@@ -1853,45 +1915,33 @@ section.container-fluid .contact_page.contact_us {
 }
 
 .homebanner {
+  text-align: center;
   margin: 180px 100px 0;
   @media screen and (max-width: 1280px) {
-    margin: 150px 0 0;
+    margin: 120px 0 0;
   }
   @media screen and (max-width: 991px) {
+    margin: 200px 0 0;
     text-align: center;
-
-    .row {
-      flex-direction: column-reverse;
-    }
   }
 
   h1 {
-    margin-bottom: 30px;
+    font-family: $SF_Pro_Display;
+    font-weight: 600;
+    margin-bottom: 100px;
     font-size: 55px;
     line-height: 55px;
-    font-weight: 500;
     @media screen and (max-width: 1280px) {
       font-size: 40px;
       line-height: 40px;
     }
     @media screen and (max-width: 991px) {
-      margin: 0 auto;
+      margin-bottom: 80px;
+      // margin: 0 auto;
     }
     @media screen and (max-width: 575px) {
       font-size: 30px;
       line-height: 35px;
-    }
-
-    .t1 {
-      color: #2F72EF;
-    }
-
-    .t2 {
-      color: #666;
-    }
-
-    .t3 {
-      color: #F95B3D;
     }
   }
 
@@ -1910,23 +1960,24 @@ section.container-fluid .contact_page.contact_us {
   }
 
   .visual_content {
-    @media screen and (max-width: 1280px) {
-      margin: 50px auto 0;
-    }
+    width: 100%;
+    @media screen and (max-width: 1280px) {}
 
     p {
-      max-width: 550px;
+      font-family: $SF_Pro_Display;
+      margin: 100px auto 50px;
+      max-width: 1080px;
       font-size: 26px;
       line-height: 35px;
       font-weight: 500;
       letter-spacing: -1px;
-      color: #666;
+      color: #000;
       @media screen and (max-width: 1280px) {
         font-size: 20px;
         line-height: 30px;
       }
       @media screen and (max-width: 991px) {
-        margin: 20px auto 0;
+        margin: 50px auto 30px;
       }
       @media screen and (max-width: 575px) {
         font-size: 16px;

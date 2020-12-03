@@ -26,25 +26,38 @@ const NavbarComponent = (props) => {
 
     return (
         <Navbar color={color || "light"} dark={!!dark} light={!!light} expand={expand || "md"} className={className}>
-            {
-                logo &&
-                <NavbarBrand href="/">
-                    <img src={logo} alt={alt} className="logo logo img-fluid" />
-                </NavbarBrand>
-            }
+            <div className="headertitle_and_links">
+                {
+                    logo &&
+                    <NavbarBrand href="/">
+                        <img src={logo} alt={alt} className="logo logo img-fluid" />
+                    </NavbarBrand>
+                }
+
+                <div className="title">Remote Office Solutions</div>
+                <div className="btn_wrap">
+                    <div class="right_side_buttons">
+                        <a href=""><img src={require(`../../assets/images/home.svg`)} alt="" /></a>
+                        <a href=""><img src={require(`../../assets/images/call.svg`)} alt="" /></a>
+                        <a href=""><img src={require(`../../assets/images/login.svg`)} alt="" /></a>
+                    </div>
+                </div>
+            </div>
+
+
             {
                 collapsable ?
                     <>
-                        <NavbarToggler onClick={toggle} />
-                        <Collapse isOpen={isOpenNav} navbar>
-                            <NavbarLinksComponent navLinks={navLinks} />
-                            {props.children}
-                        </Collapse>
+                        {/* <NavbarToggler onClick={toggle} /> */}
+                        {/* <Collapse isOpen={isOpenNav} navbar> */}
+                        {/* <NavbarLinksComponent navLinks={navLinks} /> */}
+                        {/* {props.children} */}
+                        {/* </Collapse> */}
                     </>
                     :
                     <>
-                        <NavbarLinksComponent navLinks={navLinks} />
-                        {props.children}
+                        {/* <NavbarLinksComponent navLinks={navLinks} />
+                        {props.children} */}
                     </>
             }
             {searchBar || null}
@@ -63,7 +76,7 @@ NavbarComponent.propTypes = {
     logo: PropTypes.string,
     alt: PropTypes.string,
     collapsable: PropTypes.bool,
-    navLinks:PropTypes.arrayOf(PropTypes.shape({
+    navLinks: PropTypes.arrayOf(PropTypes.shape({
         name: PropTypes.string,
         url: PropTypes.string,
     })),
