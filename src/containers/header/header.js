@@ -6,7 +6,7 @@ import AuthModalContainer from '../auth/authModal';
 import HeaderButtons from './headerButtons';
 import HeaderUserDetails from './headerUserDetails';
 import { headerLinks } from '../../utils/constants';
-import logo from './../../assets/images/logo.svg';
+import logo from './../../assets/images/logo.png';
 import { useActiveLinks } from '../../hooks/activeLinkHook';
 
 const HeaderContainer = () => {
@@ -26,7 +26,7 @@ const HeaderContainer = () => {
         <header className="header fixed" data-aos="fade-down">
             <div className="container-fluid">
                 <NavbarComponent
-                    color="dark"
+                    color="light"
                     dark
                     expand="lg"
                     logo={logo}

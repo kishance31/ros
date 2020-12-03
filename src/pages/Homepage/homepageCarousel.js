@@ -20,21 +20,17 @@ const HomepageCarousel = () => {
             {/* MAIN BANNER */}
             <div className="container-fluid">
                 <div className="homebanner">
+                    <h1>Remote Office Solution</h1>
                     <div className="row">
-                        <div className="col-lg-6 hv_center">
-                            <div className="visual_content">
-                                <h1>
-                                    <span className="t1">Remote&nbsp;</span>
-                                    <span className="t2">Office</span><br />
-                                    <span className="t3">Solution</span>
-                                </h1>
-                                <p>Our solution (ROS – Remote Office Solution) focus is to provide corporates a platform to be a forward leaning company on remote work at their scale.</p>
-                                <button type="button" className="btn mt-4 mt-lg-3" onClick={showSignUpModal}>CORPORATE SIGNUP</button>
-                            </div>
-                        </div>
-                        <div className="col-lg-6">
+                        <div className="col-lg-12">
                             <div className="visual">
                                 <img src={require(`../../assets/images/main-banner.png`)} alt="" className="about_img img-fluid" />
+                            </div>
+                        </div>
+                        <div className="col-lg-12 hv_center">
+                            <div className="visual_content">
+                                <p>Our solution (ROS – Remote Office Solution) focus is to provide corporates a<br /> platform to be a forward leaning company on remote work at their scale.</p>
+                                <button type="button" className="btn mt-4 mt-lg-3" onClick={showSignUpModal}>CORPORATE SIGNUP</button>
                             </div>
                         </div>
                     </div>
@@ -61,13 +57,17 @@ const HomepageCarousel = () => {
                     <div className="row">
                         <div className="col-lg-6 col-md-12">
                             <div className="about-caption text-left">
-                                <h1 className="title">User Friendly Platform</h1>
-                                <p className="body_text">Proin et accumsan ipsum. Ut et purus vitae dolor commodo laoreet. Vestibulum rhoncus tempus elit quis laoreet. Pellentesque eget enim eget sapien egestas venenatis nec condimentum purus. Morbi facilisis orci ac tellus ullamcorper, ac convallis risus pharetra. Praesent porttitor nibh justo, eu facilisis magna dictum a. Quisque maximus porta aliquet.
+                                <h1 className="title">
+                                    <span className="t1">User&nbsp;</span>
+                                    <span className="t2">Friendly&nbsp;</span>
+                                    <span className="t3">Platform</span>
+                                </h1>
+                                <p className="body_text">“Ease of use – friendly platform”
                             </p>
                             </div>
                         </div>
                         <div className="col-lg-6 col-md-12">
-                            <video controls>
+                            <video controls poster={require(`../../assets/images/service1.png`)}>
                                 <source src={`${finalUrl}/static/videos/ROS%20-%20Unique%20Workforce%20System.mp4`} type="video/mp4"></source>
                             </video>
                             {/* <div className=""><img src={require(`../../assets/images/service1.png`)} alt="" className="about_img img-fluid" /></div> */}
@@ -75,19 +75,20 @@ const HomepageCarousel = () => {
                     </div>
                 </div>
                 <div className="section_about">
-
                     <div className="row flex-column-reverse flex-lg-row">
                         <div className="col-lg-6 col-md-12">
-                            <video controls>
+                            <video controls poster={require(`../../assets/images/service2.png`)}>
                                 <source src={`${finalUrl}/static/videos/ROS - User Friendly Platform.mp4`} type="video/mp4"></source>
                             </video>
-                        </div> 
+                        </div>
                         <div className="col-lg-6 col-md-12">
                             <div className="about-caption text-left pl-lg-5 pl-0">
-                                <h1 className="title">Employee Well Being</h1>
-                                <p className="body_text">Proin et accumsan ipsum. Ut et purus vitae dolor commodo laoreet. Vestibulum rhoncus tempus elit quis laoreet. Pellentesque eget enim eget sapien egestas venenatis nec condimentum purus. Morbi facilisis orci ac tellus ullamcorper, ac convallis risus pharetra. Praesent porttitor nibh justo, eu facilisis magna dictum a. Quisque maximus porta aliquet.
-
-                            </p>
+                                <h1 className="title">
+                                    <span className="t1">Employee&nbsp;</span>
+                                    <span className="t2">Well&nbsp;</span>
+                                    <span className="t3">Being</span>
+                                </h1>
+                                <p className="body_text">“Peace of Mind” </p>
                             </div>
                         </div>
                     </div>
@@ -97,14 +98,16 @@ const HomepageCarousel = () => {
                     <div className="row">
                         <div className="col-lg-6 col-md-12">
                             <div className="about-caption text-left">
-                                <h1 className="title">Unique Workforce System</h1>
-                                <p className="body_text">Proin et accumsan ipsum. Ut et purus vitae dolor commodo laoreet. Vestibulum rhoncus tempus elit quis laoreet. Pellentesque eget enim eget sapien egestas venenatis nec condimentum purus. Morbi facilisis orci ac tellus ullamcorper, ac convallis risus pharetra. Praesent porttitor nibh justo, eu facilisis magna dictum a. Quisque maximus porta aliquet.
-
-                            </p>
+                                <h1 className="title">
+                                    <span className="t1">Unique&nbsp;</span>
+                                    <span className="t2">Workforce&nbsp;</span>
+                                    <span className="t3">System</span>
+                                </h1>
+                                <p className="body_text">“Make things possible”</p>
                             </div>
                         </div>
                         <div className="col-lg-6 col-md-12">
-                            <video poster="/static/media/service1.61c55ec9.png" controls>
+                            <video controls poster={require(`../../assets/images/service3.png`)}>
                                 <source src={`${finalUrl}/static/videos/ROS- Employees Well Being.mp4`} type="video/mp4"></source>
                             </video>
                         </div>
