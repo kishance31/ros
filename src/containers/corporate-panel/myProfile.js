@@ -96,7 +96,6 @@ const MyProfile = () => {
                         if (values.mobileNo && !/^\d{10}$/.test(values.mobileNo)) {
                             errors.mobileNo = "Invalid mobile number";
                         }
-                        console.log(errors)
                         return errors;
                     }}
 

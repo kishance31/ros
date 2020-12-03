@@ -92,7 +92,7 @@ const ProductView = () => {
                                     <th className="w_20">ROS&nbsp;CODE</th>
                                     <th className="w_20">ROS&nbsp;COST&nbsp;(USD)</th>
                                     <th className="w_20">PRODUCT&nbsp;IMAGE</th>
-                                    {/* <th className="w_20">PRODUCT&nbsp;DESCRIPTON</th> */}
+                                    <th className="w_20">PRODUCT&nbsp;DESCRIPTON</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -108,9 +108,9 @@ const ProductView = () => {
                                                         <img src={product.product_image} alt={product.product_name} />
                                                     </div>
                                                 </td>
-                                                {/* <td>
+                                                <td>
                                                     <div>{product.product_description}</div>
-                                                </td> */}
+                                                </td>
                                             </tr>
                                         )
                                     ) : (

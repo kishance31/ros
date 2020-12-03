@@ -49,7 +49,7 @@ const LicenseOrderHistory = () => {
                                         <thead>
                                             <tr>
                                                 <th>Sr&nbsp;No</th>
-                                                <th>ORDER&nbsp;NO</th>
+                                                <th>LIC.&nbsp;ORDER&nbsp;NO</th>
                                                 <th>ORDER&nbsp;DATE</th>
                                                 <th>LICENSE&nbsp;TYPE</th>
                                                 <th>NO&nbsp;OF&nbsp;LICENSE</th>

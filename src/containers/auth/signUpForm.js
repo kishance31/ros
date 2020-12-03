@@ -236,7 +236,7 @@ const SignUpForm = ({ toggleOverlay }) => {
             <div className="modal-footer">
                 <h5 className="footer_title"> Already have an account!</h5>
                 <span className="navbar-text">
-                    <a href onClick={navigateToSignIn}>SIGN IN</a>
+                    <a onClick={navigateToSignIn}>SIGN IN</a>
                 </span>
             </div>
         </>

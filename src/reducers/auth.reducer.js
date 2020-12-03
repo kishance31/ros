@@ -65,6 +65,7 @@ const authReducer = (state = initialState, action) => {
         case AuthMap.TOGGLE_RESET_PASSWORD:
             return {
                 ...state,
+                user: initialState.user,
                 modals: {
                     showSignInModal: false,
                     showSignUpModal: false,
