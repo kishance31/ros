@@ -31,15 +31,13 @@ const HeaderContainer = () => {
                     expand="lg"
                     logo={logo}
                     alt="ROS"
-                    collapsable={!user.tokens && !user.role && !user._id ? true : false}
-                    navLinks={headerLinksState}
                     isOpen={false}
                     mrAuto
                     headerButtonVisiable
                 >
                     {
                         !user.tokens && !user.role && !user._id ?
-                            <HeaderButtons buttonClick={toggleModal} /> :
+                            <HeaderButtons logo={logo} alt="ROS" buttonClick={toggleModal} /> :
                             <HeaderUserDetails name={`${user.firstName} ${user.lastName}`} />
                     }
                     <AuthModalContainer />

@@ -45,9 +45,9 @@ const ForgotPassword = () => {
                             leftError={errors.email}
                             leftTouched={touched.email}
                         />
-                        <button class="modal-fill_btn btn btn-lg" type="submit">
-                            <span class="sign_in" >SEND</span>
-                            <span class="left_arrow">
+                        <button className="modal-fill_btn btn btn-lg" type="submit">
+                            <span className="sign_in" >SEND</span>
+                            <span className="left_arrow">
                                 <ArrowRightIcon />
                             </span>
                         </button>
