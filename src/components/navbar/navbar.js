@@ -17,7 +17,8 @@ const NavbarComponent = (props) => {
         isOpen,
         className,
         searchBar,
-        otherComponent
+        otherComponent,
+        homepage
     } = props;
 
     const [isOpenNav, setIsOpen] = useState(!!isOpen);
@@ -26,38 +27,27 @@ const NavbarComponent = (props) => {
 
     return (
         <Navbar color={color || "light"} dark={!!dark} light={!!light} expand={expand || "md"} className={className}>
-            <div className="headertitle_and_links">
-                {
-                    logo &&
-                    <NavbarBrand href="/">
-                        <img src={logo} alt={alt} className="logo logo img-fluid" />
-                    </NavbarBrand>
-                }
-
-                <div className="title">Remote Office Solutions</div>
-                <div className="btn_wrap">
-                    <div class="right_side_buttons">
-                        <a href=""><img src={require(`../../assets/images/home.svg`)} alt="" /></a>
-                        <a href=""><img src={require(`../../assets/images/call.svg`)} alt="" /></a>
-                        <a href=""><img src={require(`../../assets/images/login.svg`)} alt="" /></a>
-                    </div>
-                </div>
-            </div>
-
-
             {
                 collapsable ?
                     <>
-                        {/* <NavbarToggler onClick={toggle} /> */}
-                        {/* <Collapse isOpen={isOpenNav} navbar> */}
-                        {/* <NavbarLinksComponent navLinks={navLinks} /> */}
-                        {/* {props.children} */}
-                        {/* </Collapse> */}
+                        <NavbarToggler onClick={toggle} />
+                        <Collapse isOpen={isOpenNav} navbar>
+                            <NavbarLinksComponent navLinks={navLinks} />
+                            {
+                                !homepage ? (
+                                    props.children
+                                ) : null
+                            }
+                        </Collapse>
                     </>
                     :
                     <>
-                        {/* <NavbarLinksComponent navLinks={navLinks} />
-                        {props.children} */}
+                        {
+                            navLinks ? (
+                                <NavbarLinksComponent navLinks={navLinks} />
+                            ) : null
+                        }
+                        {props.children}
                     </>
             }
             {searchBar || null}

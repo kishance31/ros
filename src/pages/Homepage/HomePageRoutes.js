@@ -14,7 +14,7 @@ const HomePageRoutes = () => {
                 <Route path="/home" component={Homepage} />
                 <Route path="/contactUs" component={ContactUs} />
             </Switch>
-            <FooterContainer />
+            {/* <FooterContainer /> */}
         </>
     )
 }

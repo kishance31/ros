@@ -3,8 +3,10 @@ import { Provider } from 'react-redux';
 import { persistStore } from 'redux-persist';
 import { PersistGate } from 'redux-persist/integration/react'
 import { BrowserRouter } from 'react-router-dom';
-import AppWrapper from './AppWrapper';
 import AOS from 'aos';
+import SplashScreenProvider from './context/splashScreenContext';
+import AppWrapper from './AppWrapper';
+
 import 'aos/dist/aos.css';
 
 import './Homepage.scss';
@@ -24,7 +26,9 @@ function App() {
 		<Provider store={store}>
 			<PersistGate loading={null} persistor={persistor}>
 				<BrowserRouter>
+					<SplashScreenProvider>
 						<AppWrapper />
+					</SplashScreenProvider>
 				</BrowserRouter>
 			</PersistGate>
 		</Provider>

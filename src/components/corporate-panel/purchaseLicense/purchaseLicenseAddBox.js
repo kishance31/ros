@@ -3,7 +3,7 @@ import ShadowCard from '../../card/shadowCard';
 
 const PurchaseLicenseAddBox = (props) => {
 
-    const { availableLicenseList, addLicense,orderId,companyName } = props;
+    const { availableLicenseList, addLicense, orderId, companyName } = props;
 
     const currDate = new Date().toLocaleDateString();
 
@@ -24,7 +24,7 @@ const PurchaseLicenseAddBox = (props) => {
                         <div className="input-group">
                             <label>Order No</label>
                             <input type="text" className="form-control" placeholder="ROS-12345"
-                                disabled={true} required={true} value={orderId}/>
+                                disabled={true} required={true} value={orderId} />
                         </div>
                     </div>
                 </div>
@@ -33,7 +33,7 @@ const PurchaseLicenseAddBox = (props) => {
                         <div className="input-group">
                             <label>NAME OF ORGANIZATION</label>
                             <input type="text" className="form-control" placeholder="COMPANY NAME"
-                                disabled={true} required={true} value={companyName}/>
+                                disabled={true} required={true} value={companyName} />
                         </div>
                     </div>
                 </div>
@@ -45,7 +45,7 @@ const PurchaseLicenseAddBox = (props) => {
                                 {
                                     availableLicenseList.map(item => (
                                         <option key={item.type} value={item.type}>{item.type}</option>
-                                        ))
+                                    ))
                                 }
                             </select>
                         </div>

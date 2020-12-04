@@ -44,13 +44,13 @@ const AuthModelAction = {
             type: AuthMap.SIGN_IN_SUCCESS,
             payload
         }
-    }
+    },
 }
 
 const { serverUrls, apiCall } = getServerCore();
 const corporateUrl = serverUrls.getCorporateUrl();
 const employeeUrl = serverUrls.getEmployeeUrl();
-
+const defaulUrl = serverUrls.getDefaulUrl();
 
 export const signUpUserAsync = (user, toggleOverlay) => {
 
@@ -312,7 +312,7 @@ export const setPasswordAsync = (data) => {
                 data,
             })
             if (setPasswordResponse.response.responseCode === 200) {
-                if(setPasswordResponse.response.userProfile) {
+                if (setPasswordResponse.response.userProfile) {
                     if (setPasswordResponse.response.userProfile.user.isFirstLogin) {
                         dispatch(AuthModelAction.toggleAuthModals(AuthMap.TOGGLE_SIGN_IN_MODAL, "Sign In With"));
                     } else {
@@ -434,4 +434,36 @@ export const forgotPasswordApi = (email) => {
         }
     }
 }
+
+export const expireTokenLogout = () => (dispatch) => {
+    dispatch({
+        type: AuthMap.SIGN_OUT
+    });
+    dispatch(notificationActions.showNotification({
+        title: 'Sign Out',
+        message: 'Please login again',
+        duration: 5000,
+        color: 'error',
+    }));
+}
+
+export const verifyUserToken = async (tokens) => {
+    try {
+        console.log(defaulUrl)
+        let result = await apiCall({
+            url: `auth/verifyUserToken`,
+            method: "GET",
+            headers: {
+                tokens,
+            }
+        });
+
+        console.log(result);
+        return result;
+    } catch (error) {
+        return null;
+        // dispatch(expireTokenLogout());
+    }
+}
+
 export default AuthModelAction;

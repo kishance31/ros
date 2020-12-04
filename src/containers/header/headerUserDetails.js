@@ -29,7 +29,7 @@ const HeaderUserDetails = (props) => {
             <div className="shopping_bag_icon">
                 <div className="dropdown">
                     {
-                        user.role.indexOf('EMPLOYEE') !== -1 ?
+                        user.role === 'EMPLOYEE' ?
                             <span onClick={() => onclickCart()}>
                                 <CartIcon>
                                     {

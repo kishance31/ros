@@ -68,7 +68,7 @@ const FormComponent = (props) => {
                         </form>
                     )}
             </Formik>
-            <span className="navbar-text"> <a href="/#" onClick={redirectToForgotPassword}>FORGOT PASSWORD</a> </span>
+            <span className="navbar-text"> <a onClick={redirectToForgotPassword}>FORGOT PASSWORD</a> </span>
             {
                 tabName === "corporate" ? (
                     <div className="modal-footer">

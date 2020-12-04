@@ -28,7 +28,7 @@ const SignUpForm = ({ toggleOverlay }) => {
         data.set("officeContactNo", values.officeContactNo)
         data.set("mobileNo", values.mobileNo)
         data.set("employeeId", values.employeeId)
-        data.set("username", values.userName)
+        // data.set("username", values.userName)
         data.set("password", values.password)
 
         dispatch(signUpUserAsync(data, toggleOverlay));
@@ -48,7 +48,7 @@ const SignUpForm = ({ toggleOverlay }) => {
                     officeContactNo: "",
                     mobileNo: "",
                     employeeId: "",
-                    userName: "",
+                    // userName: "",
                     password: "",
                     reEnterPassword: "",
                     corpDoc: "",
@@ -76,9 +76,11 @@ const SignUpForm = ({ toggleOverlay }) => {
                         errors["mobileNo"] = `Mobile No is required.`
                     } if (!values.employeeId.trim()) {
                         errors["employeeId"] = `Employee ID is required.`
-                    } if (!values.userName.trim()) {
-                        errors["userName"] = `Username is required.`
-                    } if (!values.password.trim()) {
+                    } 
+                    // if (!values.userName.trim()) {
+                    //     errors["userName"] = `Username is required.`
+                    // }
+                     if (!values.password.trim()) {
                         errors["password"] = `Password is required.`
                     } else if (values.password.length < 8) {
                         errors["password"] = `Password length must be 8 characters`
@@ -104,9 +106,9 @@ const SignUpForm = ({ toggleOverlay }) => {
                     if (values.password !== values.reEnterPassword) {
                         errors.reEnterPassword = "Password and Re Enter Password are not same."
                     }
-                    if (values.userName && !/^[ A-Za-z0-9_@./#&+-]{3,64}$/.test(values.userName)) {
-                        errors.userName = "Invalid user name";
-                    }
+                    // if (values.userName && !/^[ A-Za-z0-9_@./#&+-]{3,64}$/.test(values.userName)) {
+                    //     errors.userName = "Invalid user name";
+                    // }
                     if (values.companyName && !/^[ A-Za-z0-9_@./#&+-]{3,64}$/.test(values.companyName)) {
                         errors.companyName = "Invalid company name";
                     }
@@ -183,13 +185,13 @@ const SignUpForm = ({ toggleOverlay }) => {
 
                             <DoubleInputField>
                                 <Field placeholder="EMPLOYEE ID" type='text' name='employeeId' className="input_box_1 form-control" />
-                                <Field placeholder="USERNAME" type='text' name='userName' className="input_box_2 form-control" />
+                                {/* <Field placeholder="USERNAME" type='text' name='userName' className="input_box_2 form-control" /> */}
                             </DoubleInputField>
                             <DoubleErrorMessage
                                 leftError={errors.employeeId}
                                 leftTouched={touched.employeeId}
-                                rightError={errors.userName}
-                                rightTouched={touched.userName}
+                                // rightError={errors.userName}
+                                // rightTouched={touched.userName}
                             />
 
                             <DoubleInputField>
@@ -236,7 +238,7 @@ const SignUpForm = ({ toggleOverlay }) => {
             <div className="modal-footer">
                 <h5 className="footer_title"> Already have an account!</h5>
                 <span className="navbar-text">
-                    <a href onClick={navigateToSignIn}>SIGN IN</a>
+                    <a onClick={navigateToSignIn}>SIGN IN</a>
                 </span>
             </div>
         </>

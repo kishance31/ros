@@ -66,7 +66,7 @@ const SetYourPassword = () => {
                             rightTouched={touched.reNewPassword}
                         />
                         <button type="submit" className="modal-fill_btn btn btn-lg">
-                            <span className="sign_in" >SEND</span>
+                            <span className="sign_in" >SAVE</span>
                             <span className="left_arrow">
                                 <ArrowRightIcon />
                             </span>
