@@ -104,12 +104,16 @@ const ProductView = () => {
                                                 <td>{product.ros_code}</td>
                                                 <td>${product.ros_cost}</td>
                                                 <td className="text-center">
-                                                    <div className="product_img custom-tooltip" data-toggle="tooltip" data-placement="left" title={product.product_description}>
+                                                    <div className="product_img custom-tooltip" >
                                                         <img src={product.product_image} alt={product.product_name} />
                                                     </div>
                                                 </td>
                                                 <td>
-                                                    <div>{product.product_description}</div>
+                                                    <div className="custom-tooltip" data-toggle="tooltip" data-placement="left" title={product.product_description}>{product.product_description ? (
+                                                        product.product_description.length > 49 ? 
+                                                        product.product_description.substr(0, 30) + "..." :
+                                                        product.product_description
+                                                    ) : null}</div>
                                                 </td>
                                             </tr>
                                         )

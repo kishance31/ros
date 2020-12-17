@@ -1687,6 +1687,8 @@ nav.tab {
 
       .product_content_text {
         max-width: 669px;
+        height: 200px;
+        overflow-y: auto;
         font-weight: 400;
         font-size: 18px;
         letter-spacing: .06em;
@@ -1768,6 +1770,7 @@ nav.tab {
   }
 
   .product_content {
+    width: inherit;
     h3.product_content_title {
       font-family: "Futura Md BT";
       font-weight: 800;
@@ -1784,8 +1787,9 @@ nav.tab {
     }
 
     p.product_content_text {
+      cursor: pointer;
       width: 100%;
-      height: 59px;
+      height: 60px;
       font-family: 'Poppins', 'sans-serif';
       font-weight: 500;
       font-size: 18px;
@@ -2336,4 +2340,8 @@ footer {
       letter-spacing: 1px;
     }
   }
+}
+
+.product-image-carousel-item {
+  width: 300px;
 }

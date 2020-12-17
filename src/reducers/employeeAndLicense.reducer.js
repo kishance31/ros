@@ -1,7 +1,7 @@
 import { EmployeeAndLicenseMap } from '../actions/employeeAndLicense.action';
 
 const initialState = {
-    availabelLicenseCount: {},
+    availabelLicenseCount: [],
     getEmployeeList: [],
     deleteEmployee: [],
     refreshEmployee: true,
@@ -17,7 +17,7 @@ const employeeAndLicenseReducer = (state = initialState, action) => {
         case EmployeeAndLicenseMap.Available_LicenseCount_SUCCESS: {
             return {
                 ...state,
-                availabelLicenseCount: action.payload,
+                availabelLicenseCount: [...action.payload],
             }
         }
         case EmployeeAndLicenseMap.Add_Employeement_SUCCESS: {

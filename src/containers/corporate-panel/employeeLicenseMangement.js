@@ -90,10 +90,10 @@ const EmployeeLicenseManagement = () => {
                     <div className="license_detail">
                         <ul>
                             {
-                                Object.keys(availabelLicenseCount).map((key) =>
-                                    <li key={key} className="bg_pink">
-                                        <span>{key}</span>
-                                        <span>{availabelLicenseCount[key]}</span>
+                                availabelLicenseCount.map((lic) =>
+                                    <li key={lic.licenseName} className="bg_pink">
+                                        <span>{lic.licenseName}</span>
+                                        <span>{lic.count}</span>
                                     </li>
                                 )
                             }
