@@ -75,7 +75,7 @@ const EmployeeLicenseManagement = () => {
         setPopupType('edit');
     }
     const onDelete = (id) => {
-        //dispatch(deleteDataAsync(id, user.tokens))
+        dispatch(deleteDataAsync(id, user.tokens))
     }
 
     const onSendInvitation = (id) => {

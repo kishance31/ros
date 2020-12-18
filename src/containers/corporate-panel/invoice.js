@@ -114,10 +114,23 @@ const Invoice = () => {
                                             <th>EMPLOYEE&nbsp;NAME</th>
                                         ) : null
                                     }
-                                    <th>ORDER&nbsp;DATE</th>
-                                    <th>ORDER&nbsp;NO</th>
+                                    {
+                                        !isReccuring ?
+                                            <th>
+                                                "INVOICE DATE"
+                                            </th> : null
+                                    }
+                                    <th>
+                                        {
+                                            isReccuring ?
+                                                "INVOICE No"
+                                                :
+                                                "PRODUCT ORDER NO"
+                                        }
+                                    </th>
                                     <th>INVOICE&nbsp;DATE</th>
                                     <th>AMOUNT</th>
+                                    <th>PAYMENT STATUS</th>
                                     <th className="text-center">ACTION</th>
                                 </tr>
                             </thead>
@@ -135,8 +148,18 @@ const Invoice = () => {
                                                         </td>
                                                     ) : null
                                                 }
-                                                <td>{new Date(invoice.orderDate).toLocaleString()}</td>
-                                                <td>{invoice.orderId}</td>
+                                                {
+                                                    !isReccuring ?
+                                                        <td>
+                                                            {new Date(invoice.orderDate).toLocaleString()}
+                                                        </td> : null
+                                                }
+                                                <td>{
+                                                    isReccuring ?
+                                                    invoice.invoiceNo
+                                                    :
+                                                    invoice.orderId
+                                                }</td>
                                                 <td>{new Date(invoice.invoiceDate).toLocaleString()}</td>
                                                 <td>$
                                                     {
@@ -146,6 +169,7 @@ const Invoice = () => {
                                                             invoice.firstTimeCost.toFixed(2)
                                                     }
                                                 </td>
+                                                <td className="pink">{invoice.paymentDone ? "Done" : "Pending"}</td>
                                                 <td className="text-center">
                                                     <div className="action_btn_wrap">
 

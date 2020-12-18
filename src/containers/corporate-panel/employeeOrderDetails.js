@@ -200,7 +200,7 @@ const EmployeeOrderDetails = () => {
 													</td>
 													<td>{orderList.orderId}</td>
 													<td>{orderList.orderDate ? new Date(orderList.orderDate).toLocaleDateString() : ""}</td>
-													<td className="pink">{orderList.status}</td>
+													<td className="pink">{orderList.deliveryStatus !== "pending" ? orderList.deliveryStatus : orderList.status}</td>
 													<td>{orderList.dispatchDate ? new Date(orderList.dispatchDate).toLocaleDateString() : "Pending"}</td>
 													<td>{orderList.deliveryDate ? new Date(orderList.deliveryDate).toLocaleDateString() : "Pending"}</td>
 													<td className="text-center">
