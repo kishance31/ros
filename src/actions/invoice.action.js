@@ -67,6 +67,7 @@ export const getInvoiceListAsync = () => async (dispatch, getState) => {
 
 export const confirmRecurringPayment = (paypalDetails, invoice) => async (dispatch, getState) => {
     try {
+        console.log(invoice)
         dispatch(InvoiceActions.recurringStart());
         const {
             auth: {
@@ -86,7 +87,7 @@ export const confirmRecurringPayment = (paypalDetails, invoice) => async (dispat
             data: {
                 paypalDetails,
                 orderId: invoice.orderId,
-                invoiceNo: invoice.invoiceDetails.invoiceNo,
+                invoiceNo: invoice.invoiceNo,
                 corporateId: _id,
             }
         })
@@ -95,6 +96,7 @@ export const confirmRecurringPayment = (paypalDetails, invoice) => async (dispat
         }
         dispatch(InvoiceActions.recurringError());
     } catch (error) {
+        console.log(error)
         dispatch(InvoiceActions.recurringError());
     }
 }

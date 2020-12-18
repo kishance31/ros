@@ -112,7 +112,7 @@ const PurchaseLicense = () => {
                     <div className="col-lg-6 mt-5 mt-lg-0">
                         <PurchaseLicenseTable
                             purchaseLicenseList={purchaseLicenseList}
-                            showPaymentModal= {payPurchaseLicenses}//{openPaymentModalBox}
+                            showPaymentModal= {openPaymentModalBox}
                             removeAddedLicense={removeAddedLicense}
                         />
                     </div>

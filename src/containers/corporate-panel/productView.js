@@ -105,7 +105,7 @@ const ProductView = () => {
                                                 <td>${product.ros_cost}</td>
                                                 <td className="text-center">
                                                     <div className="product_img custom-tooltip" >
-                                                        <img src={product.product_image} alt={product.product_name} />
+                                                        <img src={product.product_image[0]} alt={product.product_name} />
                                                     </div>
                                                 </td>
                                                 <td>
