@@ -99,11 +99,11 @@ const EmployeeAndLicenseAddBox = (props) => {
                         errors["employeeId"] = `Employee ID is required.`
                     } if (!values.username.trim()) {
                         errors["username"] = `Username is required.`
-                    } if (!values.password.trim()) {
+                    } if (values.password && !values.password.trim()) {
                         errors["password"] = `Password is required.`
-                    } else if (values.password.length < 8) {
+                    } else if (values.password && values.password.length < 8) {
                         errors["password"] = `Password length must be 8 characters`
-                    } if (!values.reEnterPassword.trim()) {
+                    } if (values.reEnterPassword && !values.reEnterPassword.trim()) {
                         errors["reEnterPassword"] = `RE ENTER PASSWORD is required.`
                     }
                     if (values.email && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)) {

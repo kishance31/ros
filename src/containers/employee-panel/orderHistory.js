@@ -54,9 +54,9 @@ const OrderHistory = () => {
 								{/* <th></th> */}
 								<th></th>
 								<th>Sr&nbsp;No</th>
-								<th>ORDER&nbsp;NO</th>
-								<th>ORDER&nbsp;DATE</th>
-								<th>ORDER&nbsp;STATUS</th>
+								<th>PRODUCT&nbsp;ORDER&nbsp;NO</th>
+								<th>PRODUCT&nbsp;ORDER&nbsp;DATE</th>
+								<th>PRODUCT&nbsp;ORDER&nbsp;STATUS</th>
 								<th>CANCEL&nbsp;ORDER</th>
 							</tr>
 						</thead>
@@ -96,7 +96,7 @@ const OrderHistory = () => {
 											</tr>
 											{rowIndex && (rowIndex === (index + 1)) ? (
 												<EmployeeOrderTable
-													tableDetails={orderList.productDetails}
+													tableDetails={orderList.products}
 												/>
 											) : null}
 										</React.Fragment>

@@ -11,7 +11,7 @@ const ProductsListContianer = (props) => {
                     productList.map((prod, index) =>
                         <div key={prod._id} className={`col-lg-3 col-md-6 col-sm-12 products ${index > 3 ? "pt_80" : ""}`}>
                             <div className="product_image">
-                                <img src={prod.product_image} className="img-fluid" style={{ height: "190px" }} alt="product_img" />
+                                <img src={prod.product_image[0]} className="img-fluid" style={{ height: "190px" }} alt="product_img" />
                                 <h6 className="product_first_title">{prod.product_name}</h6>
                                 <button
                                     className="modal-fill_btn_view_product btn btn-sm"

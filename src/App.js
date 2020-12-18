@@ -6,6 +6,7 @@ import { BrowserRouter } from 'react-router-dom';
 import AOS from 'aos';
 import SplashScreenProvider from './context/splashScreenContext';
 import AppWrapper from './AppWrapper';
+import OverlayProvider from './context/loadingOverlay.context';
 
 import 'aos/dist/aos.css';
 
@@ -27,7 +28,9 @@ function App() {
 			<PersistGate loading={null} persistor={persistor}>
 				<BrowserRouter>
 					<SplashScreenProvider>
-						<AppWrapper />
+						<OverlayProvider>
+							<AppWrapper />
+						</OverlayProvider>
 					</SplashScreenProvider>
 				</BrowserRouter>
 			</PersistGate>

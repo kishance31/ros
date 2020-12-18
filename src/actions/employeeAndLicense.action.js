@@ -114,14 +114,9 @@ export const employeeAndLicenseCountAsync = (id, tokens) => {
                 }
             });
             if (data.response && data.response.responseCode === 200) {
-                const { availableLicenseList } = getState().purchaseLicense;
-                let licenseCount = {};
-                availableLicenseList.forEach(license => {
-                    licenseCount[license.type] = 0;
-                })
                 dispatch({
                     type: EmployeeAndLicenseMap.Available_LicenseCount_SUCCESS,
-                    payload: { ...licenseCount, ...data.response.availabelLicenseCount }
+                    payload: [...data.response.availabelLicenseCount]
                 })
             }
         } catch (error) {
@@ -233,7 +228,7 @@ export const deleteDataAsync = (id, tokens) => {
                 dispatch({
                     type: EmployeeAndLicenseMap.Delete_Employees_SUCCESS
                 });
-                return  dispatch(notificationActions.showNotification({
+                return dispatch(notificationActions.showNotification({
                     title: "Delete Employee",
                     message: "Delete employee successfully",
                     color: 'success'

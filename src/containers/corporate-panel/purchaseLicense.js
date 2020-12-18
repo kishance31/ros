@@ -79,7 +79,7 @@ const PurchaseLicense = () => {
     }
 
     const payPurchaseLicenses = (data) => {
-        dispatch(purchaseLicenseAsync(orderId, purchaseLicenseList, user.tokens, data));
+        dispatch(purchaseLicenseAsync(orderId, purchaseLicenseList, user.tokens, {a: 1}));
         setShowPaymentModal(!showPaymentModal);
         dispatch(notificationActions.showNotification({
             title: "License purchased successfully",
@@ -112,7 +112,7 @@ const PurchaseLicense = () => {
                     <div className="col-lg-6 mt-5 mt-lg-0">
                         <PurchaseLicenseTable
                             purchaseLicenseList={purchaseLicenseList}
-                            showPaymentModal={openPaymentModalBox}
+                            showPaymentModal= {payPurchaseLicenses}//{openPaymentModalBox}
                             removeAddedLicense={removeAddedLicense}
                         />
                     </div>
