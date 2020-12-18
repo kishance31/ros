@@ -58,9 +58,18 @@ export const getEmployeeOrderDetailsAsync = (employeeId) => async (dispatch, get
         }
         const { data } = await axios(options);
         if (data.response && data.response.responseCode === 200) {
+            let newList = {};
+            data.response.list.forEach(order => {
+                let email = order.employeeDetails.email
+                if (newList[email]) {
+                    newList[email].push(order)
+                } else {
+                    newList[email] = [order]
+                }
+            })
             return dispatch(
                 EmployeeOrderDetailsActions.getOrderSuccess(
-                    { list: data.response.list, totalRecords: data.response.totalRecords }
+                    { list: newList, totalRecords: data.response.totalRecords }
                 )
             );
         }
