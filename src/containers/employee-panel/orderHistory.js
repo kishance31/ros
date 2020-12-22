@@ -81,17 +81,21 @@ const OrderHistory = () => {
 												<td>{index + 1}</td>
 												<td>{orderList.orderId}</td>
 												<td>{new Date(orderList.orderDate).toLocaleString()}</td>
-												<td className='pink'>{orderList.status}</td>
+												<td className='pink'>{orderList.deliveryStatus !== "pending" ? orderList.deliveryStatus : orderList.status}</td>
 												<td>
-													<span
-														onClick={() => {
-															setShowCancelBox(true);
-															setSelectedOrderId(orderList._id);
-														}}
-														style={{ cursor: "pointer", color: "#F8AFAF" }}
-													>
-														CANCEL
-                          							</span>
+													{
+														!orderList.isFirstTimePayment ? (
+															<span
+																onClick={() => {
+																	setShowCancelBox(true);
+																	setSelectedOrderId(orderList._id);
+																}}
+																style={{ cursor: "pointer", color: "#F8AFAF" }}
+															>
+																CANCEL
+															</span>
+														) : null
+													}
 												</td>
 											</tr>
 											{rowIndex && (rowIndex === (index + 1)) ? (

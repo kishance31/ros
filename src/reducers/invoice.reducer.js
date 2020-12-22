@@ -51,6 +51,7 @@ const InvoiceReducer = (state = initState, action) => {
                 ...state,
                 refreshList: true,
                 isReccuring: action.payload,
+                invoiceList: [],
             }
         }
 

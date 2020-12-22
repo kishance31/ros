@@ -30,7 +30,7 @@ const EmployeeOrderTable = (props) => {
                             {/* <th>Sr&nbsp;No</th> */}
                             <th>TOTAL&nbsp;ORDER&nbsp;COST</th>
                             <th>FIRST&nbsp;TIME&nbsp;COST&nbsp;(USD)</th>
-                            <th>ORDER&nbsp;NO</th>
+                            <th>PRODUCT&nbsp;ORDER&nbsp;NO</th>
                             <th>ORDER&nbsp;DATE</th>
                             <th>ORDER&nbsp;STATUS</th>
                             <th>DISPATCH&nbsp;DATE</th>
@@ -69,7 +69,7 @@ const EmployeeOrderTable = (props) => {
                                             </td>
                                             <td>{orderList.orderId}</td>
                                             <td>{orderList.orderDate ? new Date(orderList.orderDate).toLocaleDateString() : ""}</td>
-                                            <td className="pink">{orderList.status}</td>
+                                            <td className="pink">{orderList.deliveryStatus !== "pending" ? orderList.deliveryStatus : orderList.status}</td>
                                             <td>{orderList.dispatchDate ? new Date(orderList.dispatchDate).toLocaleDateString() : "Pending"}</td>
                                             <td>{orderList.deliveryDate ? new Date(orderList.deliveryDate).toLocaleDateString() : "Pending"}</td>
                                             <td className="text-center">

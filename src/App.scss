@@ -1,56 +1,60 @@
-@import 'variables.scss';
+@import "variables.scss";
 
 body {
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   margin: 0;
   font-size: 14px;
   line-height: 27px;
-  color: #4D4949;
+  color: #4d4949;
   overflow-x: hidden;
   max-width: 100%;
 }
 @font-face {
-  font-family: 'Futura Md BT';
-  src: url('./assets/fonts/FuturaBT-Medium.eot');
-  src: url('./assets/fonts/FuturaBT-Medium.eot?#iefix') format('embedded-opentype'), url('./assets/fonts/FuturaBT-Medium.woff2') format('woff2'), url('./assets/fonts/FuturaBT-Medium.woff') format('woff'), url('./assets/fonts/FuturaBT-Medium.ttf') format('truetype'), url('./assets/fonts/FuturaBT-Medium.svg#FuturaBT-Medium') format('svg');
+  font-family: "Futura Md BT";
+  src: url("./assets/fonts/FuturaBT-Medium.eot");
+  src: url("./assets/fonts/FuturaBT-Medium.eot?#iefix") format("embedded-opentype"),
+    url("./assets/fonts/FuturaBT-Medium.woff2") format("woff2"),
+    url("./assets/fonts/FuturaBT-Medium.woff") format("woff"),
+    url("./assets/fonts/FuturaBT-Medium.ttf") format("truetype"),
+    url("./assets/fonts/FuturaBT-Medium.svg#FuturaBT-Medium") format("svg");
   font-style: normal;
   font-display: swap;
 }
 @font-face {
-  font-family: 'Futura';
-  src: url('./assets/fonts/Futura-Bold.eot');
-  src: url('./assets/fonts/Futura-Bold.eot?#iefix') format('embedded-opentype'), url('./assets/fonts/Futura-Bold.woff2') format('woff2'), url('./assets/fonts/Futura-Bold.woff') format('woff'), url('./assets/fonts/Futura-Bold.ttf') format('truetype'), url('./assets/fonts/Futura-Bold.svg#Futura-Bold') format('svg');
+  font-family: "Futura";
+  src: url("./assets/fonts/Futura-Bold.eot");
+  src: url("./assets/fonts/Futura-Bold.eot?#iefix") format("embedded-opentype"),
+    url("./assets/fonts/Futura-Bold.woff2") format("woff2"), url("./assets/fonts/Futura-Bold.woff") format("woff"),
+    url("./assets/fonts/Futura-Bold.ttf") format("truetype"),
+    url("./assets/fonts/Futura-Bold.svg#Futura-Bold") format("svg");
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: 'SF Pro Display';
-  src: url('./assets/fonts/SFProDisplay-Regular.eot');
-  src: url('./assets/fonts/SFProDisplay-Regular.eot?#iefix') format('embedded-opentype'),
-      url('./assets/fonts/SFProDisplay-Regular.woff2') format('woff2'),
-      url('./assets/fonts/SFProDisplay-Regular.woff') format('woff'),
-      url('./assets/fonts/SFProDisplay-Regular.ttf') format('truetype'),
-      url('./assets/fonts/SFProDisplay-Regular.svg#SFProDisplay-Regular') format('svg');
+  font-family: "SF Pro Display";
+  src: url("./assets/fonts/SFProDisplay-Regular.eot");
+  src: url("./assets/fonts/SFProDisplay-Regular.eot?#iefix") format("embedded-opentype"),
+    url("./assets/fonts/SFProDisplay-Regular.woff2") format("woff2"),
+    url("./assets/fonts/SFProDisplay-Regular.woff") format("woff"),
+    url("./assets/fonts/SFProDisplay-Regular.ttf") format("truetype"),
+    url("./assets/fonts/SFProDisplay-Regular.svg#SFProDisplay-Regular") format("svg");
   font-weight: normal;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: 'Comic Sans MS';
-  src: url('./assets/fonts/ComicSansMS.eot');
-  src: url('./assets/fonts/ComicSansMS.eot?#iefix') format('embedded-opentype'),
-      url('./assets/fonts/ComicSansMS.woff2') format('woff2'),
-      url('./assets/fonts/ComicSansMS.woff') format('woff'),
-      url('./assets/fonts/ComicSansMS.ttf') format('truetype'),
-      url('./assets/fonts/ComicSansMS.svg#ComicSansMS') format('svg');
+  font-family: "Comic Sans MS";
+  src: url("./assets/fonts/ComicSansMS.eot");
+  src: url("./assets/fonts/ComicSansMS.eot?#iefix") format("embedded-opentype"),
+    url("./assets/fonts/ComicSansMS.woff2") format("woff2"), url("./assets/fonts/ComicSansMS.woff") format("woff"),
+    url("./assets/fonts/ComicSansMS.ttf") format("truetype"),
+    url("./assets/fonts/ComicSansMS.svg#ComicSansMS") format("svg");
   font-weight: normal;
   font-style: normal;
   font-display: swap;
 }
-
-
 
 button,
 input,
@@ -74,7 +78,7 @@ textarea:focus {
 
 ::selection {
   color: #ffffff;
-  background: #4D4949;
+  background: #4d4949;
 }
 
 a:hover {
@@ -85,7 +89,7 @@ a:hover {
 a,
 button {
   &:focus {
-    outline: #4D4949;
+    outline: #4d4949;
   }
 }
 
@@ -95,7 +99,7 @@ button {
 
 .btn {
   &:focus {
-    outline: #4D4949;
+    outline: #4d4949;
     outline: 0;
     box-shadow: none;
   }
@@ -199,12 +203,12 @@ nav.navbar {
 .navbar-dark {
   .navbar-nav {
     .nav-link {
-      color: #FFFFFF;
-      color: #FFFFFF;
+      color: #ffffff;
+      color: #ffffff;
       font-family: "Poppins";
       font-weight: normal;
       font-size: 14px;
-      letter-spacing: .11em;
+      letter-spacing: 0.11em;
       text-align: left;
       color: #fff;
       padding: 24px;
@@ -237,6 +241,18 @@ ul.navbar-nav.mr-auto {
   }
 }
 
+.user-navbar-action {
+  width: 100%;
+  display: flex;
+  justify-content: end;
+  padding: 20px 0;
+  align-items: center;
+
+  img{
+    height: 40px;
+  }
+}
+
 .shopping_bag_navbar {
   @media screen and (max-width: 575px) {
     margin-bottom: 20px;
@@ -257,7 +273,7 @@ ul.navbar-nav.mr-auto {
         font-weight: normal;
         font-size: 16px;
         text-align: left;
-        color: #fff;
+        color: #000;
         margin-bottom: 0;
         margin-left: 20px;
 
@@ -266,7 +282,7 @@ ul.navbar-nav.mr-auto {
           font-weight: 500;
           font-size: 20px;
           text-align: left;
-          color: #fff;
+          color: #000;
         }
 
         &.dropdown-toggle::after {
@@ -286,7 +302,7 @@ ul.navbar-nav.mr-auto {
 
         .dropdown-item {
           text-transform: uppercase;
-          padding: .35rem 1.5rem;
+          padding: 0.35rem 1.5rem;
         }
       }
     }
@@ -304,7 +320,7 @@ h3.title {
   font-family: "Proxima Nova";
   font-weight: bold;
   font-size: 45px;
-  letter-spacing: .05em;
+  letter-spacing: 0.05em;
   line-height: 56px;
   color: #4d4949;
 }
@@ -410,7 +426,7 @@ h3.title {
     border: 1px solid #bfbfbf !important;
     font-weight: 400;
     font-size: 14px;
-    letter-spacing: .05em;
+    letter-spacing: 0.05em;
     color: $dark;
     padding: 0 18px;
     height: 56px !important;
@@ -445,9 +461,9 @@ h3.title {
 
       &:after {
         border-bottom: 0;
-        border-right: .5em solid transparent;
-        border-top: .5em solid;
-        border-left: .5em solid transparent;
+        border-right: 0.5em solid transparent;
+        border-top: 0.5em solid;
+        border-left: 0.5em solid transparent;
         color: #666;
       }
 
@@ -515,7 +531,7 @@ h3.title {
     position: absolute;
     z-index: 2;
     width: 100%;
-    height: calc(1.5em + .75rem + 2px);
+    height: calc(1.5em + 0.75rem + 2px);
     margin: 0;
     opacity: 0;
     right: 0;
@@ -603,7 +619,7 @@ h3.title {
   }
 
   label:before {
-    content: '';
+    content: "";
     -webkit-appearance: none;
     background-color: transparent;
     border: 1px solid $dark;
@@ -616,8 +632,8 @@ h3.title {
     margin-right: 5px;
   }
 
-  input:checked+label:after {
-    content: '';
+  input:checked + label:after {
+    content: "";
     display: block;
     position: absolute;
     top: 1px;
@@ -687,7 +703,7 @@ nav.tab {
       a {
         font-weight: 500;
         font-size: 14px;
-        letter-spacing: .03em;
+        letter-spacing: 0.03em;
         color: #131313;
       }
       @media screen and (max-width: 575px) {
@@ -919,7 +935,7 @@ nav.tab {
         @media screen and (min-width: 1200px) {
           &:after {
             content: "";
-            border-bottom: 2px solid #FE8F7B;
+            border-bottom: 2px solid #fe8f7b;
             position: absolute;
             width: 62%;
             bottom: -8px;
@@ -1109,7 +1125,7 @@ nav.tab {
 
 .deactive_msg {
   background: #fff;
-  border: 8px solid #D5E9ED;
+  border: 8px solid #d5e9ed;
   @include border-radius(5px);
   // display: none;
   position: absolute;
@@ -1251,7 +1267,7 @@ nav.tab {
       font-weight: 500;
       text-transform: uppercase;
       font-size: 18px;
-      letter-spacing: .05em;
+      letter-spacing: 0.05em;
       text-align: left;
       color: #fff;
       margin: 35px 0 40px 24px;
@@ -1264,7 +1280,7 @@ nav.tab {
         font-weight: 300;
         font-size: 14px;
         line-height: 26px;
-        letter-spacing: .1em;
+        letter-spacing: 0.1em;
         text-align: left;
         text-transform: uppercase;
         color: #fff;
@@ -1283,7 +1299,7 @@ nav.tab {
       font-family: "Futura Lt BT";
       font-weight: 300;
       font-size: 14px;
-      letter-spacing: .05em;
+      letter-spacing: 0.05em;
       text-align: left;
       color: #fff;
       text-transform: uppercase;
@@ -1291,7 +1307,7 @@ nav.tab {
 
       &:hover {
         color: #f9ed92;
-        background-color: #50686D;
+        background-color: #50686d;
         font-weight: 500;
       }
     }
@@ -1302,7 +1318,7 @@ nav.tab {
       font-family: "Futura Lt BT";
       font-weight: 300;
       font-size: 14px;
-      letter-spacing: .05em;
+      letter-spacing: 0.05em;
       text-align: left;
       color: #fff;
       text-transform: uppercase;
@@ -1310,7 +1326,7 @@ nav.tab {
 
       &:hover {
         color: #f9ed92;
-        background-color: #50686D;
+        background-color: #50686d;
         font-weight: 500;
       }
     }
@@ -1400,7 +1416,7 @@ nav.tab {
         /* font-family: "Futura Md BT"; */
         font-weight: bold;
         font-size: 16px;
-        letter-spacing: .05em;
+        letter-spacing: 0.05em;
         text-align: center;
         text-transform: uppercase;
         color: #1c1c1c;
@@ -1413,7 +1429,7 @@ nav.tab {
         font-weight: 500;
         font-size: 14px;
         text-transform: uppercase;
-        letter-spacing: .05em;
+        letter-spacing: 0.05em;
         text-align: center;
         color: #fff;
         border-radius: 2px;
@@ -1452,7 +1468,7 @@ nav.tab {
       background: #eaebef;
       font-weight: 500;
       font-size: 16px;
-      letter-spacing: .05em;
+      letter-spacing: 0.05em;
       text-align: left;
       color: #292929;
       margin: 110px 0 30px;
@@ -1462,7 +1478,6 @@ nav.tab {
       }
     }
   }
-
 }
 
 #ShoppingBagModal.modal-dialog {
@@ -1506,7 +1521,7 @@ nav.tab {
           font-family: "Futura Md BT";
           font-weight: 500;
           font-size: 24px;
-          letter-spacing: .05em;
+          letter-spacing: 0.05em;
           color: #fff;
           width: 100%;
           padding: 20px;
@@ -1526,7 +1541,7 @@ nav.tab {
             font-family: "Futura Md BT";
             font-weight: bold;
             font-size: 22px;
-            letter-spacing: .05em;
+            letter-spacing: 0.05em;
             color: #f8afaf;
             text-transform: uppercase;
             padding: 42px 0 24px;
@@ -1545,7 +1560,7 @@ nav.tab {
             font-family: "Futura Md BT";
             font-weight: 500;
             font-size: 22px;
-            letter-spacing: .05em;
+            letter-spacing: 0.05em;
             color: #1c1c1c;
             text-transform: uppercase;
             padding: 0 0 60px;
@@ -1561,7 +1576,7 @@ nav.tab {
         font-weight: 500;
         text-decoration: underline;
         font-size: 18px;
-        letter-spacing: .05em;
+        letter-spacing: 0.05em;
         text-align: left;
         color: #8bc8d4;
         text-transform: uppercase;
@@ -1641,7 +1656,7 @@ nav.tab {
         align-items: center;
         display: flex;
       }
-      @media screen and (max-width:575px) {
+      @media screen and (max-width: 575px) {
         padding: 20px;
       }
 
@@ -1659,7 +1674,8 @@ nav.tab {
         @media screen and (max-width: 1279px) {
           padding: 14px 10px;
         }
-        @media screen and (max-width: 991px) {}
+        @media screen and (max-width: 991px) {
+        }
       }
     }
 
@@ -1678,11 +1694,12 @@ nav.tab {
       .product_content_title {
         font-weight: bold;
         font-size: 30px;
-        letter-spacing: .05em;
+        letter-spacing: 0.05em;
         text-align: left;
         color: #1c1c1c;
         text-transform: uppercase;
-        @media screen and (max-width: 991px) {}
+        @media screen and (max-width: 991px) {
+        }
       }
 
       .product_content_text {
@@ -1691,7 +1708,7 @@ nav.tab {
         overflow-y: auto;
         font-weight: 400;
         font-size: 18px;
-        letter-spacing: .06em;
+        letter-spacing: 0.06em;
         text-align: left;
         color: #4d4949;
         margin-top: 34px;
@@ -1700,8 +1717,9 @@ nav.tab {
           margin-top: 14px;
           margin-bottom: 40px;
         }
-        @media screen and (max-width: 991px) {}
-        @media screen and (max-width:575px) {
+        @media screen and (max-width: 991px) {
+        }
+        @media screen and (max-width: 575px) {
           padding: 10px;
         }
       }
@@ -1729,7 +1747,7 @@ nav.tab {
         margin-bottom: 40px;
         font-weight: bold;
         font-size: 14px;
-        letter-spacing: .06em;
+        letter-spacing: 0.06em;
         border: transparent;
         color: #292929;
         border-radius: 5px;
@@ -1737,7 +1755,7 @@ nav.tab {
         display: table;
 
         &:hover {
-          background: #C6ECF3;
+          background: #c6ecf3;
         }
         @media screen and (max-width: 1365px) {
           margin-top: 0;
@@ -1764,7 +1782,7 @@ nav.tab {
     font-weight: 500;
     font-size: 14px;
     margin: 15px;
-    letter-spacing: .05em;
+    letter-spacing: 0.05em;
     text-align: center;
     color: #f95b3d;
   }
@@ -1775,7 +1793,7 @@ nav.tab {
       font-family: "Futura Md BT";
       font-weight: 800;
       font-size: 24px;
-      letter-spacing: .05em;
+      letter-spacing: 0.05em;
       text-align: left;
       color: #1c1c1c;
       text-transform: uppercase;
@@ -1790,10 +1808,10 @@ nav.tab {
       cursor: pointer;
       width: 100%;
       height: 60px;
-      font-family: 'Poppins', 'sans-serif';
+      font-family: "Poppins", "sans-serif";
       font-weight: 500;
       font-size: 18px;
-      letter-spacing: .06em;
+      letter-spacing: 0.06em;
       text-align: left;
       color: #4d4949;
       @media screen and (max-width: 991px) {
@@ -1821,14 +1839,14 @@ nav.tab {
     font-family: "Futura Md BT";
     font-weight: 500;
     font-size: 12px;
-    letter-spacing: .05em;
+    letter-spacing: 0.05em;
     text-align: center;
     color: #292929;
     border-radius: 5px;
     background: transparent;
     border: 1px solid #292929;
     box-shadow: 0 0 50px rgba(0, 0, 0, 0.09);
-    letter-spacing: .05em;
+    letter-spacing: 0.05em;
 
     &:hover {
       background: #8bc8d4;
@@ -1843,7 +1861,7 @@ nav.tab {
     font-family: "Proxima Nova";
     font-weight: bold;
     font-size: 40px;
-    letter-spacing: .05em;
+    letter-spacing: 0.05em;
     text-align: center;
     color: #4d4949;
     @media screen and (max-width: 575px) {
@@ -1871,7 +1889,7 @@ nav.tab {
       font-family: "Proxima Nova";
       font-weight: bold;
       font-size: 49px;
-      letter-spacing: .05em;
+      letter-spacing: 0.05em;
       text-align: center;
       color: #4d4949;
       margin-top: 120px;
@@ -1895,7 +1913,7 @@ nav.tab {
         font-family: "Proxima Nova";
         font-weight: bold;
         font-size: 30px;
-        letter-spacing: .05em;
+        letter-spacing: 0.05em;
         text-align: left;
         color: #4d4949;
         margin-bottom: 30px;
@@ -1908,7 +1926,7 @@ nav.tab {
         font-family: "Proxima Nova";
         font-weight: normal;
         font-size: 24px;
-        letter-spacing: .05em;
+        letter-spacing: 0.05em;
         text-align: left;
         color: #4d4949;
         margin-bottom: 52px;
@@ -1925,7 +1943,7 @@ nav.tab {
           font-family: "Futura Md BT";
           font-weight: bold;
           font-size: 22px;
-          letter-spacing: .05em;
+          letter-spacing: 0.05em;
           color: #f8afaf;
           text-transform: uppercase;
           padding: 42px 0 24px;
@@ -1941,7 +1959,7 @@ nav.tab {
           font-family: "Futura Md BT";
           font-weight: 500;
           font-size: 22px;
-          letter-spacing: .05em;
+          letter-spacing: 0.05em;
           color: #1c1c1c;
           text-transform: uppercase;
           padding: 0 0 60px;
@@ -1957,7 +1975,7 @@ nav.tab {
         font-family: "Proxima Nova";
         font-weight: 400;
         font-size: 24px;
-        letter-spacing: .05em;
+        letter-spacing: 0.05em;
         line-height: 50px;
         text-align: left;
         color: #4d4949;
@@ -1967,7 +1985,7 @@ nav.tab {
         width: 40%;
         @media screen and (max-width: 575px) {
           font-size: 20px;
-          letter-spacing: .05em;
+          letter-spacing: 0.05em;
           line-height: 34px;
         }
       }
@@ -1999,7 +2017,7 @@ nav.tab {
     font-family: $font_poppins;
     font-weight: 500;
     font-size: 24px;
-    letter-spacing: .05em;
+    letter-spacing: 0.05em;
     text-align: center;
     color: #8bc8d4;
     margin: 100px;
@@ -2059,7 +2077,7 @@ nav.tab {
   font-family: "Futura Md BT";
   font-weight: 500;
   font-size: 19px;
-  letter-spacing: .05em;
+  letter-spacing: 0.05em;
   color: #fff;
   padding: 20px 30px;
   border-radius: 4px;
@@ -2077,7 +2095,7 @@ nav.tab {
   @media screen and (max-width: 1279px) {
     margin-top: 50px;
   }
-  @media screen and (max-width:575px) {
+  @media screen and (max-width: 575px) {
     margin-top: 60px;
     padding: 16px 20px;
     font-size: 16px;
@@ -2088,7 +2106,7 @@ nav.tab {
   font-family: "Futura Md BT";
   font-weight: 500;
   font-size: 14px;
-  letter-spacing: .05em;
+  letter-spacing: 0.05em;
   color: #fff;
   padding: 20px 30px;
   border-radius: 4px;
@@ -2104,7 +2122,7 @@ nav.tab {
   @media screen and (max-width: 1279px) {
     margin-top: 50px;
   }
-  @media screen and (max-width:575px) {
+  @media screen and (max-width: 575px) {
     margin-top: 60px;
     padding: 16px 20px;
     font-size: 16px;
@@ -2177,7 +2195,7 @@ footer {
 
   .accordion h3 p {
     position: relative;
-  };
+  }
 
   .questions {
     margin: 0 auto;
@@ -2195,7 +2213,7 @@ footer {
     right: -30px;
     top: 40%;
     transform: translate(-25%, -35%);
-    @media screen and (max-width:991px) {
+    @media screen and (max-width: 991px) {
       right: -40px;
     }
   }
@@ -2210,7 +2228,7 @@ footer {
     font-weight: 600;
     margin-bottom: 40px;
     text-align: center;
-    @media screen and (max-width:1279px) {
+    @media screen and (max-width: 1279px) {
       font-size: 25px;
     }
   }
@@ -2219,10 +2237,10 @@ footer {
     font-size: 22px;
     line-height: 30px;
     padding: 15px 50px 15px 15px;
-    background: #EDEDEB;
-    color: #4D4949;
+    background: #ededeb;
+    color: #4d4949;
     cursor: pointer;
-    @media screen and (max-width:1279px) {
+    @media screen and (max-width: 1279px) {
       font-size: 18px;
       line-height: 24px;
     }
@@ -2243,7 +2261,7 @@ footer {
     font-size: 20px;
     margin-left: 75px;
     margin-bottom: 30px;
-    @media screen and (max-width:1279px) {
+    @media screen and (max-width: 1279px) {
       margin-left: 5px;
       font-size: 17px;
     }
@@ -2317,7 +2335,6 @@ footer {
   }
 }
 
-
 .ROS-splash-screen-Wrapper {
   display: flex;
   position: fixed; /* Stay in place */
@@ -2327,8 +2344,8 @@ footer {
   width: 100%; /* Full width */
   height: 100%; /* Full height */
   overflow: auto; /* Enable scroll if needed */
-  background-color: rgb(0,0,0); /* Fallback color */
-  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  background-color: rgb(0, 0, 0); /* Fallback color */
+  background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
 
   .splash-screen-container {
     margin: auto;
