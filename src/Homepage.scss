@@ -69,6 +69,10 @@ body .homepage {
     
     &.fixed {
       position: fixed;
+      top: 0;
+    }
+    .container-fluid {
+      padding: 0 !important;
     }
     
     .headertitle_and_links {
@@ -1921,7 +1925,7 @@ section.container-fluid .contact_page.contact_us {
 
 .homebanner {
   text-align: center;
-  margin: 180px 100px 0;
+  margin: 150px 100px 0;
   @media screen and (max-width: 1280px) {
     margin: 120px 0 0;
   }
