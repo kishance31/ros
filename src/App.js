@@ -3,8 +3,11 @@ import { Provider } from 'react-redux';
 import { persistStore } from 'redux-persist';
 import { PersistGate } from 'redux-persist/integration/react'
 import { BrowserRouter } from 'react-router-dom';
-import AppWrapper from './AppWrapper';
 import AOS from 'aos';
+import SplashScreenProvider from './context/splashScreenContext';
+import AppWrapper from './AppWrapper';
+import OverlayProvider from './context/loadingOverlay.context';
+
 import 'aos/dist/aos.css';
 
 import './Homepage.scss';
@@ -17,8 +20,6 @@ const persistor = persistStore(store);
 
 function App() {
 
-	console.log(process.env)
-
 	// AOS(Animate on scroll initialization for the slide animations
 	AOS.init();
 
@@ -26,7 +27,11 @@ function App() {
 		<Provider store={store}>
 			<PersistGate loading={null} persistor={persistor}>
 				<BrowserRouter>
-						<AppWrapper />
+					<SplashScreenProvider>
+						<OverlayProvider>
+							<AppWrapper />
+						</OverlayProvider>
+					</SplashScreenProvider>
 				</BrowserRouter>
 			</PersistGate>
 		</Provider>

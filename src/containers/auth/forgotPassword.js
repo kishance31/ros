@@ -1,31 +1,59 @@
-import React,{useState} from 'react';
+import React from 'react';
 import { useDispatch } from 'react-redux';
-import { AuthMap } from '../../actions/auth.action'
-import SingleInputField from '../../components/inputFields/singleInputFields';
-import {forgotPasswordApi} from '../../actions/auth.action';
+import { Formik, Field, } from 'formik';
+import DoubleInputField from '../../components/inputFields/doubleInputField';
+import DoubleErrorMessage from '../../components/inputFields/inputErrorMessage';
+import { forgotPasswordApi } from '../../actions/auth.action';
 import PropTypes from 'prop-types';
 import { ArrowRightIcon } from '../../components/icons/Icons'
 const ForgotPassword = () => {
+
     const dispatch = useDispatch();
-    const [email, setEmail] = useState("");
- 
-    const navigateToSetPassword = (event) => {
-        event.preventDefault()
+
+    const navigateToSetPassword = (email) => {
         dispatch(forgotPasswordApi(email));
     }
+    
     return (
         <>
-            <form className="form-horizontal" onSubmit={navigateToSetPassword}>
-            <div className="input-group">
-                <input placeholder="Email" type="email" name="email" value={email} onChange={e => setEmail(e.target.value)} className="form-control" />
-            </div>
-            <button class="modal-fill_btn btn btn-lg" type="submit" data-dismiss="modal" data-toggle="modal" data-target="#SigninModalCenter">
-                <span class="sign_in" >SEND</span>
-                <span class="left_arrow">
-                <ArrowRightIcon />
-                </span>
-                </button>
-            </form>
+            <Formik
+                initialValues={{
+                    email: "",
+                }}
+                validate={(values) => {
+                    const errors = {};
+
+                    if (!values.email.trim()) {
+                        errors["email"] = `Email is required`
+                    }
+                    if (values.email && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)) {
+                        errors.email = "Invalid email address";
+                    }
+
+                    return errors;
+                }}
+                onSubmit={(values) => {
+                    navigateToSetPassword(values.email)
+                }}
+            >
+                {({ handleSubmit, errors, touched }) => (
+                    <form className="form-horizontal" onSubmit={handleSubmit}>
+                        <DoubleInputField>
+                            <Field placeholder="EMAIL ID" type='email' name='email' className="input_box_1 form-control" />
+                        </DoubleInputField>
+                        <DoubleErrorMessage
+                            leftError={errors.email}
+                            leftTouched={touched.email}
+                        />
+                        <button className="modal-fill_btn btn btn-lg" type="submit">
+                            <span className="sign_in" >SEND</span>
+                            <span className="left_arrow">
+                                <ArrowRightIcon />
+                            </span>
+                        </button>
+                    </form>
+                )}
+            </Formik>
         </>
     )
 }

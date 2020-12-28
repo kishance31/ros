@@ -12,7 +12,7 @@ const SignUpForm = ({ toggleOverlay }) => {
     const dispatch = useDispatch();
 
     const navigateToSignIn = () => {
-        dispatch(AuthModelAction.toggleAuthModals(AuthMap.TOGGLE_SIGN_IN_MODAL));
+        dispatch(AuthModelAction.toggleAuthModals(AuthMap.TOGGLE_SIGN_IN_MODAL, "Sign In With"));
     }
 
     const onSubmits = (values) => {
@@ -23,12 +23,12 @@ const SignUpForm = ({ toggleOverlay }) => {
         data.set("lastName", values.lastName)
         data.set("position", values.position)
         data.set("department", values.department)
-        data.set("corporateEmailId", values.corporateEmail)
-        data.set("email", values.personalEmail)
+        data.set("personalEmailId", values.personalEmailId)
+        data.set("email", values.email)
         data.set("officeContactNo", values.officeContactNo)
         data.set("mobileNo", values.mobileNo)
         data.set("employeeId", values.employeeId)
-        data.set("username", values.userName)
+        // data.set("username", values.userName)
         data.set("password", values.password)
 
         dispatch(signUpUserAsync(data, toggleOverlay));
@@ -43,32 +43,59 @@ const SignUpForm = ({ toggleOverlay }) => {
                     lastName: "",
                     position: "",
                     department: "",
-                    corporateEmail: "",
-                    personalEmail: "",
+                    email: "",
+                    personalEmailId: "",
                     officeContactNo: "",
                     mobileNo: "",
-                    // employeeId: "",
-                    userName: "",
+                    employeeId: "",
+                    // userName: "",
                     password: "",
                     reEnterPassword: "",
                     corpDoc: "",
                 }}
                 validate={(values) => {
                     const errors = {};
-                    for (let key in values) {
-                        if (!values[key]) {
-                            if (key === "corpDoc") {
-                                errors[key] = `Upload a document(Format: .pdf)`
-                            } else {
-                                errors[key] = `${key} is required.`
-                            }
-                        }
+
+                    if (!values.companyName.trim()) {
+                        errors["companyName"] = `Company Name is required.`
+                    } if (!values.firstName.trim()) {
+                        errors["firstName"] = `First Name is required.`
+                    } if (!values.lastName.trim()) {
+                        errors["lastName"] = `Last Name is required.`
+                    } if (!values.position.trim()) {
+                        errors["position"] = `Position is required.`
+                    } if (!values.department.trim()) {
+                        errors["department"] = `Department is required.`
+                    } if (!values.email.trim()) {
+                        errors["email"] = `Corporate Email ID is required.`
+                    } if (!values.personalEmailId.trim()) {
+                        errors["personalEmailId"] = `Personal Email is required.`
+                    } if (!values.officeContactNo) {
+                        errors["officeContactNo"] = `Office Contact No is required.`
+                    } if (!values.mobileNo) {
+                        errors["mobileNo"] = `Mobile No is required.`
+                    } if (!values.employeeId.trim()) {
+                        errors["employeeId"] = `Employee ID is required.`
+                    } 
+                    // if (!values.userName.trim()) {
+                    //     errors["userName"] = `Username is required.`
+                    // }
+                     if (!values.password.trim()) {
+                        errors["password"] = `Password is required.`
+                    } else if (values.password.length < 8) {
+                        errors["password"] = `Password length must be 8 characters`
+                    } if (!values.reEnterPassword.trim()) {
+                        errors["reEnterPassword"] = `RE ENTER PASSWORD is required.`
                     }
-                    if (values.corporateEmail && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.corporateEmail)) {
-                        errors.corporateEmail = "Invalid email address";
+                    if (typeof corpDoc === "string" && !values.corpDoc.trim()) {
+                        errors["corpDoc"] = `Upload a document(Format: .pdf)`
                     }
-                    if (values.personalEmail && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.personalEmail)) {
-                        errors.personalEmail = "Invalid email address";
+
+                    if (values.email && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)) {
+                        errors.email = "Invalid email address";
+                    }
+                    if (values.personalEmailId && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.personalEmailId)) {
+                        errors.personalEmailId = "Invalid email address";
                     }
                     if (values.officeContactNo && !/^\d{10}$/.test(values.officeContactNo)) {
                         errors.officeContactNo = "Invalid mobile number";
@@ -79,6 +106,14 @@ const SignUpForm = ({ toggleOverlay }) => {
                     if (values.password !== values.reEnterPassword) {
                         errors.reEnterPassword = "Password and Re Enter Password are not same."
                     }
+                    // if (values.userName && !/^[ A-Za-z0-9_@./#&+-]{3,64}$/.test(values.userName)) {
+                    //     errors.userName = "Invalid user name";
+                    // }
+                    if (values.companyName && !/^[ A-Za-z0-9_@./#&+-]{3,64}$/.test(values.companyName)) {
+                        errors.companyName = "Invalid company name";
+                    }
+
+
                     return errors;
                 }}
                 onSubmit={(values) => {
@@ -127,14 +162,14 @@ const SignUpForm = ({ toggleOverlay }) => {
                             />
 
                             <DoubleInputField>
-                                <Field placeholder="CORPORATE EMAIL ID" type='email' name='corporateEmail' className="input_box_1 form-control" />
-                                <Field placeholder="PERSONAL EMAIL ID" type='email' name='personalEmail' className="input_box_2 form-control" />
+                                <Field placeholder="CORPORATE EMAIL ID" type='email' name='email' className="input_box_1 form-control" />
+                                <Field placeholder="PERSONAL EMAIL ID" type='email' name='personalEmailId' className="input_box_2 form-control" />
                             </DoubleInputField>
                             <DoubleErrorMessage
-                                leftError={errors.corporateEmail}
-                                leftTouched={touched.corporateEmail}
-                                rightError={errors.personalEmail}
-                                rightTouched={touched.personalEmail}
+                                leftError={errors.email}
+                                leftTouched={touched.email}
+                                rightError={errors.personalEmailId}
+                                rightTouched={touched.personalEmailId}
                             />
 
                             <DoubleInputField>
@@ -150,11 +185,13 @@ const SignUpForm = ({ toggleOverlay }) => {
 
                             <DoubleInputField>
                                 <Field placeholder="EMPLOYEE ID" type='text' name='employeeId' className="input_box_1 form-control" />
-                                <Field placeholder="USERNAME" type='text' name='userName' className="input_box_2 form-control" />
+                                {/* <Field placeholder="USERNAME" type='text' name='userName' className="input_box_2 form-control" /> */}
                             </DoubleInputField>
                             <DoubleErrorMessage
-                                leftError={errors.userName}
-                                leftTouched={touched.userName}
+                                leftError={errors.employeeId}
+                                leftTouched={touched.employeeId}
+                                // rightError={errors.userName}
+                                // rightTouched={touched.userName}
                             />
 
                             <DoubleInputField>
@@ -201,7 +238,7 @@ const SignUpForm = ({ toggleOverlay }) => {
             <div className="modal-footer">
                 <h5 className="footer_title"> Already have an account!</h5>
                 <span className="navbar-text">
-                    <a href onClick={navigateToSignIn}>SIGN IN</a>
+                    <a onClick={navigateToSignIn}>SIGN IN</a>
                 </span>
             </div>
         </>

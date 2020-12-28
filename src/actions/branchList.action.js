@@ -70,16 +70,30 @@ export const addBranchDataAsync = (userData, tokens) => {
             if (userDataResponse.data.response.responseCode === 200) {
                 dispatch({ type: BranchListMap.BRANCH_ADDED_SUCCESSFULLY })
                 dispatch(employeeAndLicenseAction.refreshBranchNames());
+                dispatch(notificationActions.showNotification({
+                    title: "Add Branch",
+                    message: "Add branch successfully",
+                    color: 'success',
+                    // duration: 7000,
+                }));
             } else {
                 dispatch({ type: BranchListMap.ERROR_WHILE_ADDING_BRANCH })
+                dispatch(notificationActions.showNotification({
+                    title: "Add Branch",
+                    message: "Erroring adding new branch.",
+                    color: 'error',
+                    // duration: 7000,
+                }));
             }
-            dispatch(notificationActions.showNotification({
-                title: "Add Branch",
-                message: "Add branch successfully",
-                // duration: 7000,
-            }));
+            
         } catch (error) {
             dispatch({ type: BranchListMap.ERROR_WHILE_ADDING_BRANCH });
+            dispatch(notificationActions.showNotification({
+                title: "Add Branch",
+                message: "Erroring adding new branch.",
+                color: 'error',
+                // duration: 7000,
+            }));
         }
     }
 }
@@ -99,16 +113,30 @@ export const updateBranchDataAsync = (userData, tokens, id) => {
             if (userDataResponse.data.response.responseCode === 200) {
                 dispatch({ type: BranchListMap.UPDATE_BRANCH_SUCCESS })
                 dispatch(employeeAndLicenseAction.refreshBranchNames());
+                dispatch(notificationActions.showNotification({
+                    title: "Update Branch",
+                    message: "Update branch successfully",
+                    color: 'success'
+                    // duration: 7000,
+                }));
             } else {
                 dispatch({ type: BranchListMap.CLOSE_MODAL })
+                dispatch(notificationActions.showNotification({
+                    title: "Update Branch",
+                    message: "Error while updating branch.",
+                    color: 'error'
+                    // duration: 7000,
+                }));
             }
-            dispatch(notificationActions.showNotification({
-                title: "Update Branch",
-                message: "Update branch successfully",
-                // duration: 7000,
-            }));
+            
         } catch (error) {
             dispatch({ type: BranchListMap.CLOSE_MODAL });
+            dispatch(notificationActions.showNotification({
+                title: "Update Branch",
+                message: "Error while updating branch.",
+                color: 'error'
+                // duration: 7000,
+            }));
         }
     }
 }

@@ -7,7 +7,7 @@ const PurchaseLicenseTable = (props) => {
 
     return (
         <ShadowCard className="ml-0 ml-xl-3">
-            <div className="general_table table-responsive">
+            <div className="general_table table-responsive text-center">
                 <table>
                     <thead>
                         <tr>
@@ -29,7 +29,7 @@ const PurchaseLicenseTable = (props) => {
                                             <td>{item.quantity}</td>
                                             <td>{item.price}</td>
                                             <td 
-                                                style={{cursor: 'pointer'}}
+                                                style={{cursor: 'pointer', color: "#F8AFAF"}}
                                                 onClick={() => removeAddedLicense(item.type)}
                                             >
                                                 X

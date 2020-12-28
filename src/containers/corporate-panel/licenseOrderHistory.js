@@ -3,14 +3,17 @@ import { useSelector, useDispatch, shallowEqual } from 'react-redux';
 import purchaseLicenseAction, { licenseOrderHistoryAsync } from "../../actions/purchaseLicense.action";
 import BasicPagination from '../../components/pagination/basicPagination';
 import { usePaginationHook } from '../../hooks/paginationHook';
+import { generateLicensePDF } from '../../hooks/generateLicensePDF';
+import LicenseInvoicePdf from '../../components/pdf/licenseInvoicePdf';
+import { PDFDownloadLink } from '@react-pdf/renderer'
 
 const LicenseOrderHistory = () => {
 
-    
+
     const dispatch = useDispatch();
-    
-    const user = useSelector(state => state.auth.user);
-    
+
+    const user = useSelector(state => state.auth.user, shallowEqual);
+
     const licenseOrderHistory = useSelector(state => state.purchaseLicense.licenseOrderHistory, shallowEqual);
     const licenseOrderRecords = useSelector(state => state.purchaseLicense.licenseOrderRecords);
     const batchNumber = useSelector(state => state.purchaseLicense.batchNumber);
@@ -20,7 +23,7 @@ const LicenseOrderHistory = () => {
         dispatch(purchaseLicenseAction.setBatchNumber(currentBatch || batchNumber));
         dispatch(purchaseLicenseAction.refreshOrderHistory());
     }
-    
+
     const { limit, handleBatchChange } = usePaginationHook(5, batchNumber, onPageChange)
 
     useEffect(() => {
@@ -46,7 +49,7 @@ const LicenseOrderHistory = () => {
                                         <thead>
                                             <tr>
                                                 <th>Sr&nbsp;No</th>
-                                                <th>ORDER&nbsp;NO</th>
+                                                <th>LIC.&nbsp;ORDER&nbsp;NO</th>
                                                 <th>ORDER&nbsp;DATE</th>
                                                 <th>LICENSE&nbsp;TYPE</th>
                                                 <th>NO&nbsp;OF&nbsp;LICENSE</th>
@@ -73,7 +76,7 @@ const LicenseOrderHistory = () => {
                                                             {
                                                                 item.purchasedLicenses.map((licenseType, key) =>
                                                                     <div key={key}>{
-                                                                        licenseType.quantity < 10 ? 
+                                                                        licenseType.quantity < 10 ?
                                                                             "0" + licenseType.quantity :
                                                                             licenseType.quantity
                                                                     }</div>
@@ -83,7 +86,7 @@ const LicenseOrderHistory = () => {
                                                         <td>
                                                             {
                                                                 item.purchasedLicenses.map((licenseType, key) =>
-                                                                    <div key={key}>{licenseType.totalPrice}</div>
+                                                                    <div key={key}>${licenseType.totalPrice}</div>
                                                                 )
                                                             }
                                                         </td>
@@ -93,7 +96,12 @@ const LicenseOrderHistory = () => {
                                                             }
                                                         </td>
                                                         <td>
-                                                            <a href="" className="download"><img src={require(`../../assets/images/download.svg`)} alt="" />DOWNLOAD</a>
+                                                            <a href="#" className="download"
+                                                                onClick={() => generateLicensePDF({ data: item, corporate: user })}
+                                                            >
+                                                                <img src={require(`../../assets/images/download.svg`)} alt="" />
+                                                            DOWNLOAD
+                                                            </a>
                                                         </td>
                                                     </tr>
                                                 )

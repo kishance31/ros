@@ -7,7 +7,6 @@ const OverlayProvider = ({ children }) => {
     const [isActive, setState] = useState(true);
 
     const toggleOverlay = (value) => {
-        console.log(value);
         setState(value)
     }
 

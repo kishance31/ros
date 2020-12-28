@@ -1,34 +1,52 @@
 import React, { useState } from 'react';
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
+import { useHistory } from 'react-router-dom';
 import { Formik } from 'formik';
 import DoubleErrorMessage from '../../components/inputFields/inputErrorMessage';
 import { AddMoreIcon } from '../../components/icons/Icons';
 import EmployeeAndLicenseAddressBox from '../../components/corporate-panel/employeeAndLicense/employeeAndLicenseAddressBox';
+import { updateEmployeeAsync } from '../../actions/employeeAndLicense.action';
 
-const EmployeeProfile = () => {
-    const [visibleAddDataModal, setVisibleAddDataModal] = useState(false);
+const EmployeeProfile = ({ setFirstProfile }) => {
+
+    const dispatch = useDispatch();
+
+    const history = useHistory();
+
     const user = useSelector(state => state.auth.user);
-    const username = useSelector(state => state.auth.user.firstName)
-    const licenceType = useSelector(state => state.auth.user.licenseType)
+    const license = useSelector(state => state.auth.user.license)
+
+    const [visibleAddDataModal, setVisibleAddDataModal] = useState(false);
+    const [addressList, setAddressList] = useState(user.address || []);
+
     const onSubmit = (values) => {
-        const data = new FormData()
+        const data = new FormData();
         data.set("companyName", values.companyName)
         data.set("firstName", values.firstName)
         data.set("lastName", values.lastName)
-        data.set("username", values.username)
         data.set("position", values.position)
         data.set("department", values.department)
-        // data.set("corporateEmailId", values.corporateEmailId)
-        data.set("email", values.email)
-        data.set("officeContactNo", values.officeContactNo)
+        data.set("licenseId", user.licenseId)
+        data.set("branchId", user.branchId)
         data.set("mobileNo", values.mobileNo)
-        data.set("username", username)
-        // data.set("deliveryAddress", values.deliveryAddress)
-        // data.set("city", values.city)
-        // data.set("state", values.state);
-        data.forEach((value, key) => { data[key] = value });
-        const jsonEmployBody = JSON.stringify(data);
+        data.set("email", values.email)
+        data.set("username", values.username)
+        data.set("officeContactNo", values.officeContactNo)
+        data.set("corporate_admin_id", user.corporate_admin_id)
+        data.set("employeeId", user.employeeId)
+        data.set("address", JSON.stringify(addressList));
+
+        dispatch(updateEmployeeAsync(data, user._id, false));
+        if (setFirstProfile) {
+            history.push('/employee/itemListing')
+        }
     }
+
+    const onSaveAddress = (data) => {
+        setAddressList([...addressList, data]);
+        setVisibleAddDataModal(false);
+    }
+
     return (
         <>
             <div className="side_space">
@@ -37,38 +55,55 @@ const EmployeeProfile = () => {
                         <div className="top_bar">
                             <div className="license_detail">
                                 <ul>
-                                    <li>REGISTRATION ID</li>
-                                    <li className="bg_pink">
-                                        <span>ROS135487</span>
-                                    </li>
+                                    <li>PROFILE</li>
                                 </ul>
                             </div>
                         </div>
 
-                        <Formik initialValues={{
-                            companyName: user.companyName,
-                            firstName: user.firstName,
-                            lastName: user.lastName,
-                            username: user.username,
-                            position: user.position,
-                            department: user.department,
-                            // corporateEmailId: user.corporateEmailId,
-                            email: user.email,
-                            officeContactNo: user.officeContactNo,
-                            mobileNo: user.mobileNo,
-                            // deliveryAddress: user.deliveryAddress,
-                            // city: user.city,
-                            // state: user.state
-                        }}
+                        <Formik
+
+                            initialValues={{
+                                companyName: user.companyName,
+                                firstName: user.firstName,
+                                lastName: user.lastName,
+                                username: user.username,
+                                position: user.position,
+                                department: user.department,
+                                email: user.email,
+                                officeContactNo: user.officeContactNo,
+                                mobileNo: user.mobileNo,
+                            }}
+
                             validate={(values) => {
                                 const errors = {};
-                                for (let key in values) {
-                                    if (!values[key]) {
-                                        errors[key] = "Required Field"
-                                    }
+
+                                if (!values.companyName.trim()) {
+                                    errors["companyName"] = `Company Name is required.`
                                 }
-                                if (values.corporateEmailId && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.corporateEmailId)) {
-                                    errors.corporateEmailId = "Invalid email address";
+                                if (!values.firstName.trim()) {
+                                    errors["firstName"] = `First Name is required.`
+                                }
+                                if (!values.lastName.trim()) {
+                                    errors["lastName"] = `Last Name is required.`
+                                }
+                                if (!values.position.trim()) {
+                                    errors["position"] = `Position is required.`
+                                }
+                                if (!values.department.trim()) {
+                                    errors["department"] = `Department is required.`
+                                }
+                                if (!values.username.trim()) {
+                                    errors["username"] = `User Name is required.`
+                                }
+
+                                if (!values.email.trim()) {
+                                    errors["email"] = `Personal Email is required.`
+                                }
+                                if (!values.officeContactNo) {
+                                    errors["officeContactNo"] = `Office Contact No is required.`
+                                }
+                                if (!values.mobileNo) {
+                                    errors["mobileNo"] = `Mobile No is required.`
                                 }
                                 if (values.email && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)) {
                                     errors.email = "Invalid email address";
@@ -79,11 +114,12 @@ const EmployeeProfile = () => {
                                 if (values.mobileNo && !/^\d{10}$/.test(values.mobileNo)) {
                                     errors.mobileNo = "Invalid mobile number";
                                 }
+                                console.log(errors)
                                 return errors;
                             }}
-                            onSubmit={(values, { setSubmitting }) => {
+
+                            onSubmit={(values) => {
                                 onSubmit(values);
-                                //  setSubmitting(false);
                             }}
                         >
                             {
@@ -91,11 +127,9 @@ const EmployeeProfile = () => {
                                     values,
                                     errors,
                                     touched,
-                                    isSubmitting,
-                                    setFieldValue,
                                     handleChange,
-                                    handleBlur,
                                     handleSubmit,
+                                    isSubmitting
                                 }) => (
                                         <form className="form-horizontal" onSubmit={handleSubmit}>
                                             <div className="row">
@@ -105,10 +139,10 @@ const EmployeeProfile = () => {
                                                             <input
                                                                 placeholder="COMPANY NAME"
                                                                 type="text"
-                                                                onChange={handleChange}
                                                                 name="companyName"
                                                                 value={values.companyName}
                                                                 className="form-control"
+                                                                disabled
                                                             />
                                                         </div>
                                                         <DoubleErrorMessage
@@ -180,15 +214,8 @@ const EmployeeProfile = () => {
                                                             rightError={errors.department}
                                                             rightTouched={touched.department}
                                                         />
+
                                                         <div className="input-group two_side">
-                                                            {/* <input
-                                                                placeholder="CORPORATE EMAIL ID"
-                                                                onChange={handleChange}
-                                                                type="text"
-                                                                name="corporateEmailId"
-                                                                value={values.corporateEmailId || ""}
-                                                                className="input_box_1 form-control"
-                                                            /> */}
                                                             <input
                                                                 placeholder="PERSONAL EMAIL ID"
                                                                 type="email"
@@ -200,8 +227,6 @@ const EmployeeProfile = () => {
                                                             />
                                                         </div>
                                                         <DoubleErrorMessage
-                                                            // leftError={errors.corporateEmailId}
-                                                            // leftTouched={touched.corporateEmailId}
                                                             rightError={errors.email}
                                                             rightTouched={touched.email}
                                                         />
@@ -235,73 +260,58 @@ const EmployeeProfile = () => {
                                                 <div className="col-lg-6">
                                                     <div className="mr-0 ml-xl-3 pl-40">
                                                         <div className="input-group two_side">
-                                                            <input readOnly value={licenceType} className="input_box_1 form-control" />
+                                                            <input
+                                                                readOnly
+                                                                value={license.length ? license[0].type : ""}
+                                                                className="input_box_1 form-control"
+                                                                placeholder="License Type"
+                                                            />
                                                         </div>
 
                                                         <div className="input-group two_side">
-                                                            <input readOnly value={user.branchName} className="input_box_1 form-control" />
+                                                            <input
+                                                                readOnly
+                                                                value={user.branch && user.branch.length ? user.branch[0].branch_name : ""}
+                                                                className="input_box_1 form-control"
+                                                                placeholder="Branch name"
+                                                            />
                                                         </div>
 
-                                                        {/* <div className="input-group">
-                                                            <input
-                                                                placeholder="Delivery Address"
-                                                                type="text"
-                                                                onChange={handleChange}
-                                                                name="deliveryAddress"
-                                                                value={values.deliveryAddress || ""}
-                                                                className="form-control"
-                                                            />
-                                                        </div>
-                                                        <DoubleErrorMessage
-                                                            leftError={errors.deliveryAddress}
-                                                            leftTouched={touched.deliveryAddress}
-                                                        /> */}
-                                                        {/* <div className="input-group two_side">
-                                                            <input
-                                                                placeholder="CITY"
-                                                                onChange={handleChange}
-                                                                type="text"
-                                                                name="city"
-                                                                value={values.city || ""}
-                                                                className="input_box_1 form-control"
-                                                            />
-                                                            <input
-                                                                placeholder="STATE"
-                                                                type="text"
-                                                                name="state"
-                                                                onChange={handleChange}
-                                                                value={values.state || ""}
-                                                                className="input_box_2 form-control"
-                                                            />
-                                                        </div>
-                                                        <DoubleErrorMessage
-                                                            leftError={errors.city}
-                                                            leftTouched={touched.city}
-                                                            rightError={errors.state}
-                                                            rightTouched={touched.state}
-                                                        /> */}
-                                                        {/* <div className="input-group">
-                                                            <select title="COUNTRY" className="selectpicker form-control">
-                                                                <option>Option 1</option>
-                                                                <option>Option 2</option>
+                                                        <div className="mr-0 ml-xl-6">
+                                                            <select
+                                                                placeholder="Address List"
+                                                                className="selectpicker form-control input_box_2"
+                                                            >
+                                                                {
+                                                                    !addressList.length ? (
+                                                                        <option value="">Add Address</option>
+                                                                    ) : null
+                                                                }
+                                                                {
+                                                                    addressList.length && addressList.map((address, idx) => (
+                                                                        address &&
+                                                                        <option key={idx} value={idx}>
+                                                                            {address.delivery_address},
+                                                                            {address.city},
+                                                                            {address.state},
+                                                                            {address.country} -
+                                                                            {address.pincode}
+                                                                        </option>
+                                                                    ))
+                                                                }
                                                             </select>
-                                                        </div> */}
+                                                        </div>
                                                         <div className="addmore" type="button">
                                                             <span className="addmore_icon">
                                                                 <AddMoreIcon />
                                                             </span>
                                                             <span className="pl-2" onClick={() => { setVisibleAddDataModal(true) }}>ADD ADDRESS</span>
-                                                            <EmployeeAndLicenseAddressBox
-                                                                isOpen={visibleAddDataModal}
-                                                                toggleModal={() => {
-                                                                    setVisibleAddDataModal(!visibleAddDataModal);
-                                                                }} />
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div className="text-center mt-5 pt-lg-5">
-                                                <button type="submit" className="btn_blue">
+                                                <button type="submit" className="btn_blue" disabled={isSubmitting}>
                                                     <span className="">SAVE</span>
                                                 </button>
                                             </div>
@@ -310,8 +320,16 @@ const EmployeeProfile = () => {
                             }
                         </Formik>
                     </div>
+                    <EmployeeAndLicenseAddressBox
+                        isOpen={visibleAddDataModal}
+                        toggleModal={() => {
+                            setVisibleAddDataModal(!visibleAddDataModal);
+                        }}
+                        onSaveAddress={onSaveAddress}
+                    />
                 </div>
             </div>
-        </>)
+        </>
+    )
 }
 export default EmployeeProfile;

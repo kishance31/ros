@@ -37,11 +37,21 @@ const EmployeeAndLicenseAddressBox = (props) => {
 
                         validate={(values) => {
                             const errors = {};
-                            for (let key in values) {
-                                if (key !== "_id")
-                                    if (!values[key]) {
-                                        errors[key] = `${key} is required.`
-                                    }
+
+                            if (!values.delivery_address.trim()) {
+                                errors["delivery_address"] = `Delivery Address is required.`
+                            }
+                            if (!values.city.trim()) {
+                                errors["city"] = `City is required.`
+                            }
+                            if (!values.state.trim()) {
+                                errors["state"] = `City is required.`
+                            }
+                            if (!values.country.trim()) {
+                                errors["country"] = `Country is required.`
+                            }
+                            if (!values.pincode.trim()) {
+                                errors["pincode"] = `Pincode is required.`
                             }
                             return errors;
                         }}
@@ -82,6 +92,8 @@ const EmployeeAndLicenseAddressBox = (props) => {
                                                         leftError={errors.city}
                                                         leftTouched={touched.city}
                                                     />
+                                                </div>
+                                                <div className="input-group">
                                                     <Field
                                                         type="text"
                                                         placeholder="Enter State"
@@ -120,7 +132,7 @@ const EmployeeAndLicenseAddressBox = (props) => {
                                             </div>
                                         </div>
                                     </div>
-                                    <div className="text-center mt-5 pt-lg-5">
+                                    <div className="text-center mt-4">
                                         <button className="btn_blue" type="submit"><span>SAVE</span></button>
                                     </div>
                                 </form >
@@ -132,4 +144,4 @@ const EmployeeAndLicenseAddressBox = (props) => {
     )
 }
 
-export default EmployeeAndLicenseAddressBox;
+export default EmployeeAndLicenseAddressBox; 

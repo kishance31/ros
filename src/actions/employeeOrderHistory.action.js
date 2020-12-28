@@ -1,5 +1,6 @@
 import axios from 'axios';
 import getServerCore from '../utils/apiUtils';
+import notificationActions from './notifications.action';
 
 const { serverUrl } = getServerCore();
 
@@ -21,8 +22,8 @@ export const EmployeeOrderHistoryActions = {
     cancelOrderStart: () => ({ type: EmployeeOrderHistoryMap.CANCEL_ORDER_START }),
     cancelOrderSuccess: (id) => ({ type: EmployeeOrderHistoryMap.CANCEL_ORDER_SUCCESS, payload: id }),
     cancelOrderError: () => ({ type: EmployeeOrderHistoryMap.CANCEL_ORDER_ERROR }),
-    chanegOrderPage: (batchNumber) => ({type: EmployeeOrderHistoryMap.CHANGE_ORDER_PAGE, payload: batchNumber}),
-    refreshOrderHistory: () => ({type: EmployeeOrderHistoryMap.REFRESH_ORDER_HISTORY}),
+    chanegOrderPage: (batchNumber) => ({ type: EmployeeOrderHistoryMap.CHANGE_ORDER_PAGE, payload: batchNumber }),
+    refreshOrderHistory: () => ({ type: EmployeeOrderHistoryMap.REFRESH_ORDER_HISTORY }),
 }
 
 export const getEmployeeOrderHistoryAsync = (batch, limit) => async (dispatch, getState) => {
@@ -57,13 +58,31 @@ export const cancelOrderAsync = (id, cb) => async (dispatch, getState) => {
             }
         });
         if (data.response && data.response.responseCode === 200) {
-            if(cb) {
+            if (cb) {
                 dispatch(cb());
             }
-            return dispatch(EmployeeOrderHistoryActions.cancelOrderSuccess(id));
+            dispatch(EmployeeOrderHistoryActions.cancelOrderSuccess(id));
+            return dispatch(notificationActions.showNotification({
+                title: 'Cancel Order',
+                message: "Cancel Order successfull.",
+                color: 'success',
+                // duration: 5000,
+            }));
         }
         dispatch(EmployeeOrderHistoryActions.cancelOrderError());
+        return dispatch(notificationActions.showNotification({
+            title: 'Cancel Order',
+            message: "Error cancelling order.",
+            color: 'error',
+            // duration: 5000,
+        }));
     } catch (error) {
         dispatch(EmployeeOrderHistoryActions.cancelOrderError());
+        return dispatch(notificationActions.showNotification({
+            title: 'Cancel Order',
+            message: "Error cancelling order.",
+            color: 'error',
+            // duration: 5000,
+        }));
     }
 }

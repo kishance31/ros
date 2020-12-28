@@ -24,6 +24,8 @@ const ManageAllocateLicenseReducer = (state = initialState, action) => {
                 refreshEmployee: false
             }
         }
+        case ManageAllocateLicenseMap.ACTIVATE_EMPLOYEE_SUCCESS:
+        case ManageAllocateLicenseMap.DEACTIVATE_EMPLOYEE_SUCCESS:
         case ManageAllocateLicenseMap.REFRESH_AllocateLicense_LIST: {
             return {
                 ...state,

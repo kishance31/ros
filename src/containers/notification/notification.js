@@ -17,9 +17,9 @@ const NotificationToastContainer = () => {
         // >
         <div
             style={{
-                position: 'absolute',
-                top: 10,
-                right: 10,
+                position: 'fixed',
+                top: 30,
+                right: 20,
                 zIndex: 9999,
                 minWidth: 300,
             }}
@@ -30,6 +30,7 @@ const NotificationToastContainer = () => {
                         title={notification.title}
                         message={notification.message}
                         duration={notification.duration}
+                        color={notification.color}
                         key={key}
                     />
                 )

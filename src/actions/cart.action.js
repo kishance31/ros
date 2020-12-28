@@ -88,24 +88,33 @@ export const addToCartAsync = (products) => {
                 dispatch({
                     type: CartActionMap.ADD_TO_CART_SUCCESS,
                 })
+                return dispatch(notificationActions.showNotification({
+                    title: "Add to cart",
+                    message: "Product added to cart successfully",
+                    color: 'success',
+                    // duration: 7000,
+                }));
             }
             if (data.response && data.response.responseCode === 500) {
                 dispatch(notificationActions.showNotification({
                     title: 'Add to cart',
                     message: data.response.responseMessage,
+                    color: 'error',
                     // duration: 5000,
                 }));
             }
-            dispatch(notificationActions.showNotification({
-                title: "Add to cart",
-                message: "Product added to cart successfully",
-                // duration: 7000,
-            }));
+            
         }
         catch (error) {
             dispatch({
                 type: CartActionMap.ADD_TO_CART_ERROR
             })
+            dispatch(notificationActions.showNotification({
+                title: 'Add to cart',
+                message: "Error adding product to cart",
+                color: 'error',
+                // duration: 5000,
+            }));
         }
     }
 }
@@ -158,10 +167,17 @@ export const removeFromCartAsync = (productId) => {
                     type: CartActionMap.REMOVE_FROM_CART_BYID_SUCCESS,
                     payload: productId
                 })
+                return dispatch(notificationActions.showNotification({
+                    title: "Remove from cart",
+                    message: "Product removed from cart successfully",
+                    color: 'success'
+                    // duration: 7000,
+                }));
             }
             dispatch(notificationActions.showNotification({
                 title: "Remove from cart",
-                message: "Product removed from cart successfully",
+                message: "Error removing product from cart",
+                color: 'error'
                 // duration: 7000,
             }));
         }
@@ -171,7 +187,8 @@ export const removeFromCartAsync = (productId) => {
             })
             dispatch(notificationActions.showNotification({
                 title: "Remove from cart",
-                message: error.message,
+                message: "Error removing product from cart",
+                color: 'error'
                 // duration: 7000,
             }));
         }

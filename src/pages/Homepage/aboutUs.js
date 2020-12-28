@@ -1,29 +1,35 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import TextCardComponent from '../../components/card/textCard';
 import NewsLetterCard from '../../components/card/newsLetterCard';
 import { ContactUsDetails, ContactusLinks, NewsLetterDetails } from '../../utils/constants';
 const AboutUs = () => {
+    const data = useSelector(state => state.homepageContent.aboutUsDetais)
     return (
         <>
-            <section className="container-fluid">
-                <div className="section_about d-flex align-items-center">
-                    <div className="row">
-                        <div className="col-lg-6 col-md-12 d-flex align-items-center">
-                            <div className="about-caption text-left">
-                                <span>ABOUT US</span>
-                                <h1 className="title">Lorem ipsum dolor sit amet<br />consectetur adipiscing elit</h1>
-                                <p className="body_text">
-                                    It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy.
-                                    </p>
+            {
+                data ?
+                <section className="container-fluid">
+                    <div className="section_about d-flex align-items-center">
+                        <div className="row">
+                            <div className="col-lg-6 col-md-12 d-flex align-items-center">
+                                <div className="about-caption text-left">
+                                    <span>ABOUT US</span>
+                                    {/* <h1 className="title">Lorem ipsum dolor sit amet<br />consectetur adipiscing elit</h1> */}
+                                    <p className="body_text">
+                                        {data.description || 
+                                        "ROS will bring cost efficiency, flexibility and innovative solution to your talented workforce to reinforce belongingness, trust and comfort with the ‘Science of Space’ in mind to build a strong, productive, and sustainable virtual workforce."
+                                        }
+                                        </p>
+                                </div>
+                            </div>
+                            <div className="col-lg-6 col-md-12"> 
+                                <div><img src={data.aboutUsImage || require(`../../assets/images/about_img.png`)} alt="" className="about_img img-fluid" /></div>
                             </div>
                         </div>
-                        <div className="col-lg-6 col-md-12">
-                            <div className=""><img src={require(`../../assets/images/about_img.png`)} alt="" className="about_img" /></div>
-                        </div>
                     </div>
-                </div>
-            </section>
-
+                </section> : null
+            }
             <section className="section_four">
                 <div className="container-fluid pt-0">
                     <div className="row">

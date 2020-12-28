@@ -6,6 +6,7 @@ const initialState = {
         showSignUpModal: false,
         showForgotPasswordModal: false,
         showSetPasswordModal: false,
+        showResetPasswordModal: false,
         title: "",
         openModal: false,
     },
@@ -29,7 +30,7 @@ const initialState = {
         companyRegisterNo: "",
     },
     tempToken: '',
-    resetToken:''
+    resetToken: ''
 }
 
 const authReducer = (state = initialState, action) => {
@@ -42,6 +43,7 @@ const authReducer = (state = initialState, action) => {
                     showSignUpModal: false,
                     showForgotPasswordModal: false,
                     showSetPasswordModal: false,
+                    showResetPasswordModal: false,
                     title: action.payload.title,
                     openModal: true
                 }
@@ -55,13 +57,28 @@ const authReducer = (state = initialState, action) => {
                     showSignUpModal: !state.modals.showSignUpModal,
                     showForgotPasswordModal: false,
                     showSetPasswordModal: false,
+                    showResetPasswordModal: false,
+                    title: action.payload.title,
+                    openModal: true,
+                }
+            }
+        case AuthMap.TOGGLE_RESET_PASSWORD:
+            return {
+                ...state,
+                user: initialState.user,
+                modals: {
+                    showSignInModal: false,
+                    showSignUpModal: false,
+                    showForgotPasswordModal: false,
+                    showSetPasswordModal: false,
+                    showResetPasswordModal: true,
                     title: action.payload.title,
                     openModal: true,
                 }
             }
         case AuthMap.RESET_PASSWORD_START:
         case AuthMap.RESET_PASSWORD_SUCCESS:
-        case AuthMap.RESET_PASSWORD_ERROR:    
+        case AuthMap.RESET_PASSWORD_ERROR:
         case AuthMap.HIDE_ALL_AUTH_MODAL:
             return {
                 ...state,
@@ -70,6 +87,7 @@ const authReducer = (state = initialState, action) => {
                     showSignUpModal: false,
                     showForgotPasswordModal: false,
                     showSetPasswordModal: false,
+                    showResetPasswordModal: false,
                     title: "",
                     openModal: false,
                 }
@@ -82,25 +100,27 @@ const authReducer = (state = initialState, action) => {
                     showSignUpModal: false,
                     showForgotPasswordModal: !state.modals.showForgotPasswordModal,
                     showSetPasswordModal: false,
+                    showResetPasswordModal: false,
                     title: action.payload.title,
                     openModal: true,
                 }
             }
-            case AuthMap.FORGOT_PASSWORD_START:
-            case AuthMap.FORGOT_PASSWORD_SUCCESS:
-                    return {
-                        ...state,
-                        modals: {
-                            showSignInModal: false,
-                            showSignUpModal: false,
-                            showForgotPasswordModal: false,
-                            showSetPasswordModal: false,
-                            title: action.payload ? action.payload.title : "",
-                            openModal: false,
-                        },
-                        resetToken: action.payload && action.payload.data ? action.payload.data.resetToken : ""
-                    }
-            case AuthMap.FORGOT_PASSWORD_ERROR:        
+        case AuthMap.FORGOT_PASSWORD_START:
+        case AuthMap.FORGOT_PASSWORD_SUCCESS:
+            return {
+                ...state,
+                modals: {
+                    showSignInModal: false,
+                    showSignUpModal: false,
+                    showForgotPasswordModal: false,
+                    showResetPasswordModal: false,
+                    showSetPasswordModal: false,
+                    title: action.payload ? action.payload.title : "",
+                    openModal: false,
+                },
+                resetToken: action.payload && action.payload.data ? action.payload.data.resetToken : ""
+            }
+        case AuthMap.FORGOT_PASSWORD_ERROR:
 
         case AuthMap.TOGGLE_SET_PASSWORD_MODAL:
             return {
@@ -109,11 +129,13 @@ const authReducer = (state = initialState, action) => {
                     showSignInModal: false,
                     showSignUpModal: false,
                     showForgotPasswordModal: false,
+                    showResetPasswordModal: false,
                     showSetPasswordModal: !state.modals.showSetPasswordModal,
                     title: action.payload ? action.payload.title : "",
                     openModal: true,
                 },
                 resetToken: action.payload ? action.payload.data : "",
+                tempToken: action.payload ? action.payload.data : "",
             }
         case AuthMap.SIGN_UP_START:
             return {
@@ -136,6 +158,7 @@ const authReducer = (state = initialState, action) => {
                     showSignUpModal: false,
                     showForgotPasswordModal: false,
                     showSetPasswordModal: false,
+                    showResetPasswordModal: false,
                     title: "Sign In With",
                     openModal: true
                 }
@@ -169,6 +192,7 @@ const authReducer = (state = initialState, action) => {
                     showSignInModal: false,
                     showSignUpModal: false,
                     showForgotPasswordModal: false,
+                    showResetPasswordModal: false,
                     showSetPasswordModal: false,
                     title: "",
                     openModal: false,
@@ -201,6 +225,7 @@ const authReducer = (state = initialState, action) => {
             return {
                 ...state,
                 user: {
+                    ...state.user,
                     ...action.payload
                 }
             }

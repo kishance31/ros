@@ -88,44 +88,57 @@ const ProductView = () => {
                             <thead>
 
                                 <tr>
-                                    <th className="w_20">ITEM&nbsp;NAME</th>
-                                    <th className="w_20">ITEM&nbsp;CODE</th>
-                                    <th className="w_20">ITEM&nbsp;COST&nbsp;(USD)</th>
-                                    <th className="w_20">ITEM&nbsp;IMAGE</th>
-                                    <th className="w_20">ITEM&nbsp;DESCRIPTON</th>
+                                    <th className="w_20">PRODUCT&nbsp;NAME</th>
+                                    <th className="w_20">ROS&nbsp;CODE</th>
+                                    <th className="w_20">ROS&nbsp;COST&nbsp;(USD)</th>
+                                    <th className="w_20">PRODUCT&nbsp;IMAGE</th>
+                                    <th className="w_20">PRODUCT&nbsp;DESCRIPTON</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {
-                                    productList.map(product =>
-                                        <tr key={product._id}>
-                                            <td>{product.product_name}</td>
-                                            <td>{product.ros_code}</td>
-                                            <td>${product.ros_cost}</td>
-                                            <td className="text-center">
-                                                <div className="product_img">
-                                                    <img src={product.product_image} alt={product.product_name} />
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <div className="custom-tooltip" data-toggle="tooltip" data-placement="left" title={product.product_name}>{product.product_description}</div>
-                                            </td>
-                                        </tr>
-                                    )}
+                                    productList.length ? (
+                                        productList.map(product =>
+                                            <tr key={product._id}>
+                                                <td>{product.product_name}</td>
+                                                <td>{product.ros_code}</td>
+                                                <td>${product.ros_cost}</td>
+                                                <td className="text-center">
+                                                    <div className="product_img custom-tooltip" >
+                                                        <img src={product.product_image[0]} alt={product.product_name} />
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div className="custom-tooltip" data-toggle="tooltip" data-placement="left" title={product.product_description}>{product.product_description ? (
+                                                        product.product_description.length > 49 ? 
+                                                        product.product_description.substr(0, 30) + "..." :
+                                                        product.product_description
+                                                    ) : null}</div>
+                                                </td>
+                                            </tr>
+                                        )
+                                    ) : (
+                                            <tr className="text-center">
+                                                <td colSpan={12}>
+                                                    No order placed.
+												</td>
+                                            </tr>
+                                        )
+                                }
                             </tbody>
                         </table>
                         {
-							productList.length ? (
-								<div style={{ marginTop: 20, float: "right" }}>
-									<BasicPagination
-										totalRecords={productCount}
-										limit={limit}
-										batch={page}
-										onBatchChange={handleBatchChange}
-									/>
-								</div>
-							) : null
-						}
+                            productList.length ? (
+                                <div style={{ marginTop: 20, float: "right" }}>
+                                    <BasicPagination
+                                        totalRecords={productCount}
+                                        limit={limit}
+                                        batch={page}
+                                        onBatchChange={handleBatchChange}
+                                    />
+                                </div>
+                            ) : null
+                        }
                     </div>
                 </div>
             </div>

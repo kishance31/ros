@@ -17,7 +17,8 @@ const NavbarComponent = (props) => {
         isOpen,
         className,
         searchBar,
-        otherComponent
+        otherComponent,
+        homepage
     } = props;
 
     const [isOpenNav, setIsOpen] = useState(!!isOpen);
@@ -27,23 +28,25 @@ const NavbarComponent = (props) => {
     return (
         <Navbar color={color || "light"} dark={!!dark} light={!!light} expand={expand || "md"} className={className}>
             {
-                logo &&
-                <NavbarBrand href="/">
-                    <img src={logo} alt={alt} className="logo logo img-fluid" />
-                </NavbarBrand>
-            }
-            {
                 collapsable ?
                     <>
                         <NavbarToggler onClick={toggle} />
                         <Collapse isOpen={isOpenNav} navbar>
                             <NavbarLinksComponent navLinks={navLinks} />
-                            {props.children}
+                            {
+                                !homepage ? (
+                                    props.children
+                                ) : null
+                            }
                         </Collapse>
                     </>
                     :
                     <>
-                        <NavbarLinksComponent navLinks={navLinks} />
+                        {
+                            navLinks ? (
+                                <NavbarLinksComponent navLinks={navLinks} />
+                            ) : null
+                        }
                         {props.children}
                     </>
             }
@@ -63,7 +66,7 @@ NavbarComponent.propTypes = {
     logo: PropTypes.string,
     alt: PropTypes.string,
     collapsable: PropTypes.bool,
-    navLinks:PropTypes.arrayOf(PropTypes.shape({
+    navLinks: PropTypes.arrayOf(PropTypes.shape({
         name: PropTypes.string,
         url: PropTypes.string,
     })),

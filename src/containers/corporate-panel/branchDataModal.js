@@ -58,23 +58,45 @@ const BranchDataModal = (props) => {
                     initialValues={{
                         ...branchDetails
                     }}
+
                     validate={(values) => {
                         const errors = {};
                         for (let key in values) {
-                            if(key !== "_id") {
-                                if (!values[key]) {
-                                    errors[key] = `${key} is required.`
+                            if (!values[key].trim()) {
+
+                                if (key === "branch_name") {
+                                    errors[key] = `Branch Name is required.`
+                                }
+                                if (key === "location") {
+                                    errors[key] = `Location is required.`
+                                }
+                                if (key === "email_id") {
+                                    errors[key] = `Email Id is required.`
+                                }
+                                if (key === "mobile_no") {
+                                    errors[key] = `Mobile Number is required.`
+                                }
+                                if (key === "company_name") {
+                                    errors[key] = `Company Name is required.`
                                 }
                             }
                         }
                         if (values.email_id && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email_id)) {
                             errors.email_id = "Invalid email address";
                         }
+                        if (values.mobile_no && !/^\d{10}$/.test(values.mobile_no)) {
+                            errors.mobile_no = "Invalid mobile number";
+                        }
+                        if (values.location && !/^[ A-Za-z0-9_@./#&+-]{3,64}$/.test(values.location)) {
+                            errors.location = "Invalid Location name";
+                        }
+                        if (values.branch_name && !/^[ A-Za-z0-9_@./#&+-]{3,64}$/.test(values.branch_name)) {
+                            errors.branch_name = "Invalid Branch name";
+                        }
                         return errors;
                     }}
                     onSubmit={(values) => {
                         submitForm(values);
-                        // resetForm();
                     }}
                 >
                     {({

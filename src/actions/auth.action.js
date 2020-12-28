@@ -20,13 +20,13 @@ export const AuthMap = {
     UPDATE_EMPLOYEE_PROFILE_START: 'UPDATE_EMPLOYEE_PROFILE_START',
     UPDATE_EMPLOYEE_PROFILE_SUCCESS: 'UPDATE_EMPLOYEE_PROFILE_SUCCESS',
     UPDATE_EMPLOYEE_PROFILE_ERROR: 'UPDATE_EMPLOYEE_PROFILE_ERROR',
-    FORGOT_PASSWORD_START:'FORGOT_PASSWORD_START',
-    FORGOT_PASSWORD_SUCCESS:'FORGOT_PASSWORD_SUCCESS',
-    FORGOT_PASSWORD_ERROR:'FORGOT_PASSWORD_ERROR',
-    RESET_PASSWORD_START:"RESET_PASSWORD_START",
-    RESET_PASSWORD_SUCCESS:"RESET_PASSWORD_SUCCESS",
-    RESET_PASSWORD_ERROR:"RESET_PASSWORD_ERROR"
-
+    FORGOT_PASSWORD_START: 'FORGOT_PASSWORD_START',
+    FORGOT_PASSWORD_SUCCESS: 'FORGOT_PASSWORD_SUCCESS',
+    FORGOT_PASSWORD_ERROR: 'FORGOT_PASSWORD_ERROR',
+    RESET_PASSWORD_START: "RESET_PASSWORD_START",
+    RESET_PASSWORD_SUCCESS: "RESET_PASSWORD_SUCCESS",
+    RESET_PASSWORD_ERROR: "RESET_PASSWORD_ERROR",
+    TOGGLE_RESET_PASSWORD: 'TOGGLE_RESET_PASSWORD'
 }
 
 const AuthModelAction = {
@@ -44,13 +44,13 @@ const AuthModelAction = {
             type: AuthMap.SIGN_IN_SUCCESS,
             payload
         }
-    }
+    },
 }
 
 const { serverUrls, apiCall } = getServerCore();
 const corporateUrl = serverUrls.getCorporateUrl();
 const employeeUrl = serverUrls.getEmployeeUrl();
-
+const defaulUrl = serverUrls.getDefaulUrl();
 
 export const signUpUserAsync = (user, toggleOverlay) => {
 
@@ -75,23 +75,26 @@ export const signUpUserAsync = (user, toggleOverlay) => {
                 return dispatch(notificationActions.showNotification({
                     title: 'Sign Up',
                     message: "Sign up successfull.",
+                    color: 'success',
                     // duration: 5000,
                 }));
             }
             dispatch({
                 type: AuthMap.SIGN_UP_ERROR
             })
-            if(signuprespone.error) {
+            if (signuprespone.error) {
                 return dispatch(notificationActions.showNotification({
                     title: 'Sign Up',
                     message: signuprespone.error.errors[0].message,
+                    color: 'error',
                     // duration: 5000,
                 }));
             }
-            
+
             dispatch(notificationActions.showNotification({
                 title: 'Sign Up',
                 message: signuprespone.response.responseMessage,
+                color: 'error',
                 // duration: 5000,
             }));
         } catch (error) {
@@ -102,6 +105,7 @@ export const signUpUserAsync = (user, toggleOverlay) => {
             dispatch(notificationActions.showNotification({
                 title: 'Sign Up',
                 message: error.message,
+                color: 'error',
                 // duration: 5000,
             }));
         }
@@ -146,16 +150,18 @@ export const signInUserAsync = (userBody, type) => {
                 dispatch({
                     type: AuthMap.SIGN_IN_ERROR
                 });
-                if(signInResponce.error) {
+                if (signInResponce.error) {
                     return dispatch(notificationActions.showNotification({
                         title: 'Login In',
                         message: signInResponce.error.errors[0].message,
+                        color: 'error',
                         // duration: 5000,
                     }));
                 }
                 dispatch(notificationActions.showNotification({
                     title: 'Login In',
                     message: signInResponce.response.responseMessage,
+                    color: 'error',
                     // duration: 5000,
                 }));
             }
@@ -166,6 +172,7 @@ export const signInUserAsync = (userBody, type) => {
             dispatch(notificationActions.showNotification({
                 title: 'Login In',
                 message: error.message,
+                color: 'error',
                 // duration: 5000,
             }));
         }
@@ -177,23 +184,30 @@ export const signOutUserAsync = (tokens, role) => {
 
     return async (dispatch) => {
         try {
-            const signOutUser = await apiCall({
+            await apiCall({
                 url: corporateUrl + (role.indexOf('EMPLOYEE') !== -1 ? "/employee" : "") + "/logout",
                 method: 'GET',
                 headers: { tokens }
             })
 
-            if (signOutUser.response.responseCode === 200) {
-                return dispatch({
-                    type: AuthMap.SIGN_OUT
-                });
-            }
+            dispatch({
+                type: AuthMap.SIGN_OUT
+            });
+            return dispatch(notificationActions.showNotification({
+                title: 'Logout',
+                message: "Logout successfull",
+                color: 'success',
+                // duration: 5000,
+            }));
 
-            throw new Error('Error Logging Out.')
         } catch (error) {
-            dispatch(notificationActions.showNotification({
-                title: 'Login Out',
-                message: error.message,
+            dispatch({
+                type: AuthMap.SIGN_OUT
+            });
+            return dispatch(notificationActions.showNotification({
+                title: 'Logout',
+                message: "Logout successfull",
+                color: 'success',
                 // duration: 5000,
             }));
         }
@@ -216,24 +230,37 @@ export const updateUserProfileAsync = (data) => {
                     tokens: auth.user.tokens
                 }
             })
-            dispatch(notificationActions.showNotification({
-                title: "Update Corporate Profile",
-                message: "Update corporate profile successfully",
-                // duration: 7000,
-            }));
             if (updateUserResponse.response.responseCode === 201) {
-                return dispatch({
+                dispatch({
                     type: AuthMap.UPDATE_CORPORATE_PROFILE_SUCCESS,
                     payload: updateUserResponse.response.userProfile,
                 })
+                return dispatch(notificationActions.showNotification({
+                    title: "Update Corporate Profile",
+                    message: "Update corporate profile successfully",
+                    color: 'success',
+                    // duration: 7000,
+                }));
             }
             dispatch({
                 type: AuthMap.UPDATE_CORPORATE_PROFILE_ERROR,
             })
+            return dispatch(notificationActions.showNotification({
+                title: "Update Corporate Profile",
+                message: "Error Updating corporate profile",
+                color: 'error',
+                // duration: 7000,
+            }));
         } catch (error) {
             dispatch({
                 type: AuthMap.UPDATE_CORPORATE_PROFILE_ERROR
             });
+            return dispatch(notificationActions.showNotification({
+                title: "Update Corporate Profile",
+                message: "Error Updating corporate profile",
+                color: 'error',
+                // duration: 7000,
+            }));
         }
     }
 }
@@ -247,18 +274,18 @@ export const UpdateEmployeeProfile = (data) => {
             })
             let updateEmployeeResponse = await apiCall({
                 url: "",
-                headers:{
+                headers: {
                     tokens: ""
                 },
                 data
             })
 
             if (updateEmployeeResponse.response.responseCode === 201) {
-                return dispatch({
+                dispatch({
                     type: AuthMap.UPDATE_EMPLOYEE_PROFILE_SUCCESS,
                     payload: ""
                 })
-            }else {
+            } else {
                 dispatch({
                     type: AuthMap.UPDATE_EMPLOYEE_PROFILE_ERROR
                 });
@@ -272,39 +299,87 @@ export const UpdateEmployeeProfile = (data) => {
 }
 
 export const setPasswordAsync = (data) => {
+
     return async (dispatch, getState) => {
         try {
             const { auth } = getState();
             let setPasswordResponse = await apiCall({
-                url: `${corporateUrl}/reset`,
+                url: corporateUrl + "/employee/setPassword",
+                // + (role.indexOf('EMPLOYEE') != -1 ? "/employee" : "") + "/setPassword",
+                headers: {
+                    tokens: auth.tempToken || auth.user.tokens
+                },
                 data,
             })
-                if (setPasswordResponse.response && setPasswordResponse.response.responseCode === 200) {
+            if (setPasswordResponse.response.responseCode === 200) {
+                if (setPasswordResponse.response.userProfile) {
+                    if (setPasswordResponse.response.userProfile.user.isFirstLogin) {
+                        dispatch(AuthModelAction.toggleAuthModals(AuthMap.TOGGLE_SIGN_IN_MODAL, "Sign In With"));
+                    } else {
+                        dispatch(AuthModelAction.signInUser({
+                            ...setPasswordResponse.response.userProfile.user,
+                            tokens: setPasswordResponse.response.userProfile.tokens
+                        }))
+                    }
+                } else {
                     dispatch(notificationActions.showNotification({
-                        title: 'Reset Password',
-                        message: setPasswordResponse.response.responseMessage,
+                        title: 'Password change successfull',
+                        message: "Password change successfull. Login again with new password",
+                        color: 'success',
                         // duration: 5000,
                     }));
-                    return dispatch({
-                        type: AuthMap.RESET_PASSWORD_SUCCESS,
-                        payload:setPasswordResponse.response.responseMessage
+                    dispatch({
+                        type: AuthMap.SIGN_OUT
                     });
-                }  else {
-                    dispatch(notificationActions.showNotification({
-                        title: 'Reset Password',
-                        message: setPasswordResponse.response.responseMessage,
-                        duration: 5000,
-                    }))
+                    dispatch(AuthModelAction.toggleAuthModals(AuthMap.TOGGLE_SIGN_IN_MODAL, "Sign In With"));
                 }
+            }
         } catch (error) {
             dispatch(notificationActions.showNotification({
-                title: 'Reset Password',
-                message: error.message,
+                title: 'Password change successfull',
+                message: "Error setting new password.",
+                color: 'error',
                 // duration: 5000,
             }));
         }
     }
 }
+
+export const resetPasswordAsync = (pswdData) => async (dispatch) => {
+    try {
+        let setPasswordResponse = await apiCall({
+            url: `${corporateUrl}/reset`,
+            data: pswdData,
+        })
+        if (setPasswordResponse.response && setPasswordResponse.response.responseCode === 200) {
+            dispatch(notificationActions.showNotification({
+                title: 'Reset Password',
+                message: "Reset password successfull.",
+                color: 'success',
+                // duration: 5000,
+            }));
+            return dispatch({
+                type: AuthMap.TOGGLE_SIGN_IN_MODAL,
+                payload: "Sign In With"
+            });
+        } else {
+            dispatch(notificationActions.showNotification({
+                title: 'Reset Password',
+                message: "Reset Password Error. Please try again after sometime",
+                color: 'error',
+                // duration: 5000,
+            }))
+        }
+    } catch (error) {
+        dispatch(notificationActions.showNotification({
+            title: 'Reset Password',
+            message: "Reset Password Error. Please try again after sometime",
+            color: 'error',
+            // duration: 5000,
+        }));
+    }
+}
+
 export const forgotPasswordApi = (email) => {
     return async (dispatch) => {
         try {
@@ -323,27 +398,29 @@ export const forgotPasswordApi = (email) => {
                 dispatch(notificationActions.showNotification({
                     title: 'Reset Password',
                     message: forgotPasswordResponce.response.responseMessage,
+                    color: 'success',
                     // duration: 5000,
                 }));
                 return dispatch({
-                   type: AuthMap.FORGOT_PASSWORD_SUCCESS,
-                   payload:{
-                     data:  forgotPasswordResponce.response,
-                     title:"Set Your Password"
+                    type: AuthMap.FORGOT_PASSWORD_SUCCESS,
+                    payload: {
+                        data: forgotPasswordResponce.response,
+                        title: "Set Your Password"
                     }
                 })
             } else {
                 dispatch(notificationActions.showNotification({
                     title: 'Reset Password',
                     message: forgotPasswordResponce.response.responseMessage,
+                    color: 'error',
                     // duration: 5000,
                 }));
                 dispatch({
                     type: AuthMap.FORGOT_PASSWORD_ERROR
                 });
                 dispatch(
-                    AuthModelAction.toggleAuthModals(AuthMap.TOGGLE_FORGOT_PASSWORD_MODAL,'Forgot Password'))
-                   }
+                    AuthModelAction.toggleAuthModals(AuthMap.TOGGLE_FORGOT_PASSWORD_MODAL, 'Forgot Password'))
+            }
         } catch (error) {
             dispatch({
                 type: AuthMap.FORGOT_PASSWORD_ERROR,
@@ -352,8 +429,41 @@ export const forgotPasswordApi = (email) => {
                 title: 'Reset Password',
                 message: error.message,
                 duration: 5000,
+                color: 'error',
             }));
         }
     }
 }
+
+export const expireTokenLogout = () => (dispatch) => {
+    dispatch({
+        type: AuthMap.SIGN_OUT
+    });
+    dispatch(notificationActions.showNotification({
+        title: 'Sign Out',
+        message: 'Please login again',
+        duration: 5000,
+        color: 'error',
+    }));
+}
+
+export const verifyUserToken = async (tokens) => {
+    try {
+        console.log(defaulUrl)
+        let result = await apiCall({
+            url: `auth/verifyUserToken`,
+            method: "GET",
+            headers: {
+                tokens,
+            }
+        });
+
+        console.log(result);
+        return result;
+    } catch (error) {
+        return null;
+        // dispatch(expireTokenLogout());
+    }
+}
+
 export default AuthModelAction;

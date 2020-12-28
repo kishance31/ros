@@ -20,11 +20,6 @@ const CartModal = (props) => {
 
     const redirectToThankYou = () => {
         dispatch(cartActions.toggleAddressModal())
-        dispatch(notificationActions.showNotification({
-            title: "Confirm Order",
-            message: 'Order confirmed successfully'
-            // duration: 7000,
-        }));
     }
     const removeToCart = (id) => {
         dispatch(removeFromCartAsync(id))
@@ -69,16 +64,22 @@ const CartModal = (props) => {
                                                     <div className="row d-flex align-items-center">
                                                         <div className="col-md-3 col-sm-12 d-flex justify-content-center">
                                                             <div className="product_detail_image">
-                                                                <img src={product.product_image} className="img-fluid" alt="" />
+                                                                <img src={product.product_image[0]} className="img-fluid" alt="" />
                                                             </div>
                                                         </div>
-                                                        <div className="col-md-7 col-sm-12 d-flex justify-content-start">
-                                                            <div className="product_content ">
+                                                        <div className="col-md-9 col-sm-12 d-flex justify-content-start">
+                                                            <div className="product_content">
                                                                 <h3 className="product_content_title">
                                                                     {product.product_name}
                                                                 </h3>
-                                                                <p className="product_content_text">
-                                                                    {product.product_description}
+                                                                <p className="product_content_text" title={product.product_description}>
+                                                                    {
+                                                                        product.product_description.length > 50 ? (
+                                                                            product.product_description.substr(0, 50) + "..."
+                                                                        ) : (
+                                                                            product.product_description
+                                                                        )
+                                                                    }
                                                                 </p>
                                                                 <div className="expected_date">
                                                                     <table className="table table-sm w-auto">

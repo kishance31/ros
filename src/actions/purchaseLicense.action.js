@@ -51,16 +51,20 @@ const purchaseLicenseAction = {
 
 export const availableLicenseAsync = () => {
 
-    return async (dispatch) => {
+    return async (dispatch, getState) => {
         try {
             dispatch({
                 type: PurchaseLicenseMap.AVAILABLE_LICENSE_START
             });
+            const {
+                tokens
+            } = getState().auth.user;
             let availableLicenseResponse = await axios({
-                url: `${serverUrl}/license/licenseList`,
+                url: `${serverUrl}/license/corporateLicenseList`,
                 method: "GET",
                 headers: {
-                    'Content-type': 'application/json'
+                    'Content-type': 'application/json',
+                    tokens
                 }
             });
             if (availableLicenseResponse.data.response.responseCode === 200) {

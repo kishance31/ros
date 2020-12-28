@@ -1,6 +1,26 @@
 import React from 'react';
+import Carousel from 'react-multi-carousel';
 import ModalComponent from '../../components/modal/modal';
 import { MetroCancelIcon } from '../../components/icons/Icons';
+import 'react-multi-carousel/lib/styles.css';
+
+const responsive = {
+    desktop: {
+        breakpoint: { max: 3000, min: 1024 },
+        items: 1,
+        // slidesToSlide: 3 // optional, default to 1.
+    },
+    tablet: {
+        breakpoint: { max: 1024, min: 464 },
+        items: 1,
+        // slidesToSlide: 2 // optional, default to 1.
+    },
+    mobile: {
+        breakpoint: { max: 464, min: 0 },
+        items: 1,
+        // slidesToSlide: 1 // optional, default to 1.
+    }
+};
 
 const ProductModal = (props) => {
 
@@ -30,10 +50,27 @@ const ProductModal = (props) => {
                         <div className="col-lg-4 col-md-12">
                             <div className="product_shadow">
                                 <div className="product_detail_image">
-                                    {
-                                        productDetails.product_image ?
-                                            <img src={productDetails.product_image} className="img-fluid" alt="product_image" /> : null
-                                    }
+                                    <Carousel
+                                        swipeable={true}
+                                        draggable={false}
+                                        showDots={true}
+                                        responsive={responsive}
+                                        infinite={true}
+                                        autoPlay={false}
+                                        // customTransition="all .5"
+                                        // transitionDuration={500}
+                                        containerClass="carousel-container"
+                                        // removeArrowOnDeviceType={["tablet", "mobile"]}
+                                        // deviceType={this.props.deviceType}
+                                        // dotListClass="custom-dot-list-style"
+                                        // itemClass="product-image-carousel-item"
+                                    >
+                                        {
+                                            productDetails.product_image.map((img, i) => (
+                                                <img key={i} src={img} className="img-fluid" alt="product_image" />
+                                            ))
+                                        }
+                                    </Carousel>
                                 </div>
                             </div>
                         </div>
@@ -45,14 +82,14 @@ const ProductModal = (props) => {
                                     <table className="table">
                                         <thead>
                                             <tr>
-                                                <td>Expected Dispatch Date </td>
-                                                <td><b>13/06/2009</b> </td>
+                                                {/* <td>Expected Dispatch Date </td> */}
+                                                {/* <td><b>13/06/2009</b> </td> */}
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <tr>
-                                                <td>Expected Delivery Date </td>
-                                                <td><b>23/08/2010</b> </td>
+                                                {/* <td>Expected Delivery Date </td> */}
+                                                {/* <td><b>23/08/2010</b> </td> */}
                                             </tr>
                                         </tbody>
                                     </table>
@@ -66,8 +103,8 @@ const ProductModal = (props) => {
                         </div>
                     </div>
                 ) : (
-                    <div className="row">Select a Product.</div>
-                )
+                        <div className="row">Select a Product.</div>
+                    )
             }
         </ModalComponent>
     )

@@ -15,10 +15,6 @@ const PaymentBox = (props) => {
         </button>
     )
 
-    const totalAmt = invoice && parseFloat(parseFloat((
-        (invoice.productDetails.reduce((acc, prod) => acc + prod.ros_cost, 0)) / 12))
-        .toFixed(2));
-
     return (
         <ModalComponent
             {...props}
@@ -40,15 +36,15 @@ const PaymentBox = (props) => {
                                         </th>
                                     </tr>
                                     <tr>
-                                        <td>{invoice.invoiceDetails.invoiceNo}</td>
+                                        <td>{invoice.invoiceNo}</td>
                                         <td>
-                                            ${totalAmt}
+                                            ${invoice.recurringCost.toFixed(2)}
                                         </td>
                                     </tr>
                                     <tr>
                                         <th scope="row">Total</th>
                                         <td>
-                                        ${totalAmt}
+                                            ${invoice.recurringCost.toFixed(2)}
                                         </td>
                                     </tr>
                                 </tbody>
@@ -70,7 +66,7 @@ const PaymentBox = (props) => {
                             {/* <button className="btn_blue"><span>PAY</span></button> */}
                             <PayPalButton
                                 payPurchaseLicenses={onConfirmPayment}
-                                totalPrice={totalAmt}
+                                totalPrice={invoice.recurringCost}
                                 totalQuantity={1}
                                 toggleOverlay={toggleOverlay}
                             />

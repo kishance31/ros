@@ -4,7 +4,7 @@ import { MetroCancelIcon } from '../../icons/Icons';
 
 const EmployeeAndLicenseDeleteBox = (props) => {
 
-    const { isOpen, toggleModal } = props;
+    const { isOpen, toggleModal, onEmployeeDelete } = props;
 
     const ModalCloseIcon = () => (
         <button type="button" className="close close_icon ml-auto" data-dismiss="modal"
@@ -27,8 +27,12 @@ const EmployeeAndLicenseDeleteBox = (props) => {
                     <h6>Are you sure to delete this employee permanently?</h6>
                 </div>
                 <div className="modal-footer">
-                    <button type="button" className="btn_blue">Yes</button>
-                    <button type="button" className="btn_blue">No</button>
+                    <button type="button" className="btn_action light_blue" onClick={toggleModal}>Cancel</button>
+                    <button
+                    type="button"
+                    className="btn_action pink"
+                    onClick={onEmployeeDelete}
+                    >Delete</button>
                 </div>
             </ModalComponent>
 

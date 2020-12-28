@@ -9,6 +9,7 @@ import EmployeeOrderDetails from '../../containers/corporate-panel/employeeOrder
 import Invoice from '../../containers/corporate-panel/invoice';
 import MyAccount from '../../containers/corporate-panel/myAccount';
 import ProductView from '../../containers/corporate-panel/productView';
+import FAQS from '../Homepage/FAQs';
 
 const CorporateDashboard = () => {
     const routeMatch = useRouteMatch();
@@ -30,6 +31,7 @@ const CorporateDashboard = () => {
                 <PrivateRoute path={`${path}/invoice`} component={Invoice} user={user} />
                 <Route path={`${path}/myAccount`} component={MyAccount} user={user} />
                 <PrivateRoute path={`${path}/productView`} component={ProductView} user={user} />
+                <PrivateRoute path={`${path}/faqs`} component={FAQS} user={user} />
             </Switch>
         </div>
     )

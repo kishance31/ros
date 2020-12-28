@@ -1,6 +1,7 @@
 import axios from 'axios';
 import notificationActions from './notifications.action';
 import getServerCore from '../utils/apiUtils';
+import { AuthMap } from './auth.action';
 
 const { serverUrl } = getServerCore();
 
@@ -68,19 +69,32 @@ export const employeeAndLicenseAddAsync = (user) => {
             });
             if (data.response && data.response.responseCode === 200) {
                 dispatch(employeeAndLicenseCountAsync(auth.user._id, auth.user.tokens));
-                return dispatch({
+                dispatch({
                     type: EmployeeAndLicenseMap.Add_Employeement_SUCCESS
                 })
+                return dispatch(notificationActions.showNotification({
+                    title: "Added Employee",
+                    message: "employee added successfully",
+                    color: 'success'
+                    // duration: 7000,
+                }));
             }
             return dispatch(notificationActions.showNotification({
                 title: "Added Employee",
                 message: "Error adding new employee",
+                color: 'error'
                 // duration: 7000,
             }));
         } catch (error) {
             dispatch({
                 type: EmployeeAndLicenseMap.Add_Employeement_ERROR
             })
+            return dispatch(notificationActions.showNotification({
+                title: "Added Employee",
+                message: "Error adding new employee",
+                color: 'error'
+                // duration: 7000,
+            }));
         }
     }
 }
@@ -100,14 +114,9 @@ export const employeeAndLicenseCountAsync = (id, tokens) => {
                 }
             });
             if (data.response && data.response.responseCode === 200) {
-                const { availableLicenseList } = getState().purchaseLicense;
-                let licenseCount = {};
-                availableLicenseList.forEach(license => {
-                    licenseCount[license.type] = 0;
-                })
                 dispatch({
                     type: EmployeeAndLicenseMap.Available_LicenseCount_SUCCESS,
-                    payload: { ...licenseCount, ...data.response.availabelLicenseCount }
+                    payload: [...data.response.availabelLicenseCount]
                 })
             }
         } catch (error) {
@@ -151,7 +160,7 @@ export const getEmployeesAsync = (tokens, id, limit, batch) => {
     }
 }
 
-export const updateEmployeeAsync = (user, id) => {
+export const updateEmployeeAsync = (user, id, getCount) => {
 
     return async (dispatch, getState) => {
         try {
@@ -165,20 +174,36 @@ export const updateEmployeeAsync = (user, id) => {
                 }
             });
             if (data.response && data.response.responseCode === 200) {
-                dispatch(employeeAndLicenseCountAsync(auth.user._id, auth.user.tokens));
+                if (getCount) {
+                    dispatch(employeeAndLicenseCountAsync(auth.user._id, auth.user.tokens));
+                }
                 dispatch({
-                    type: EmployeeAndLicenseMap.Add_Employeement_SUCCESS
+                    type: EmployeeAndLicenseMap.Add_Employeement_SUCCESS,
                 })
-                dispatch(notificationActions.showNotification({
+                if (!getCount) {
+                    dispatch({
+                        type: AuthMap.UPDATE_EMPLOYEE_PROFILE_SUCCESS,
+                        payload: data.response.data,
+                    })
+                }
+                return dispatch(notificationActions.showNotification({
                     title: "Update Employee",
                     message: data.response.responseMessage,
+                    color: 'success'
                     // duration: 7000,
                 }));
             }
-        } catch (error) {
-            dispatch(notificationActions.showNotification({
+            return dispatch(notificationActions.showNotification({
                 title: "Update Employee",
-                message: error.message,
+                message: "Error updating employee",
+                color: 'error'
+                // duration: 7000,
+            }));
+        } catch (error) {
+            return dispatch(notificationActions.showNotification({
+                title: "Update Employee",
+                message: "Error updating employee",
+                color: 'error'
                 // duration: 7000,
             }));
         }
@@ -200,19 +225,32 @@ export const deleteDataAsync = (id, tokens) => {
                 }
             });
             if (deleteEmployeesResponse.data.response.responseCode === 200) {
-                return dispatch({
+                dispatch({
                     type: EmployeeAndLicenseMap.Delete_Employees_SUCCESS
                 });
+                return dispatch(notificationActions.showNotification({
+                    title: "Delete Employee",
+                    message: "Delete employee successfully",
+                    color: 'success'
+                    // duration: 7000,
+                }));
             }
             dispatch(notificationActions.showNotification({
                 title: "Delete Employee",
-                message: "Delete employee successfully",
+                message: "Error deleting employee",
+                color: 'error'
                 // duration: 7000,
             }));
         } catch (error) {
             dispatch({
                 type: EmployeeAndLicenseMap.Delete_Employees_ERROR
             })
+            dispatch(notificationActions.showNotification({
+                title: "Delete Employee",
+                message: "Error deleting employee",
+                color: 'error'
+                // duration: 7000,
+            }));
         }
     }
 }
@@ -245,25 +283,32 @@ export const sendInvitationAsync = (id, tokens) => {
             dispatch({
                 type: EmployeeAndLicenseMap.SEND_INVITATION_START
             });
-            let sendInvitationResponse = await axios({
+            let { data } = await axios({
                 url: `${serverUrl}/corporate-admin/sendEmailToEmployee/${id}`,
                 method: "POST",
                 headers: { tokens }
             });
-            if (sendInvitationResponse.data.response.responseCode === 200) {
-                return dispatch({
-                    type: EmployeeAndLicenseMap.SEND_INVITATION_SUCCESS
-                });
+            if (data.response.responseCode === 200) {
+                return dispatch(notificationActions.showNotification({
+                    title: "Send Invitation",
+                    message: "Send invitation successfully",
+                    color: 'success'
+                    // duration: 7000,
+                }));
             }
             dispatch(notificationActions.showNotification({
-                title: "Send Invitation",
-                message: "Send invitation successfully",
+                title: "Send Invitation Error",
+                message: "Send invitation error",
+                color: 'error'
                 // duration: 7000,
             }));
         } catch (error) {
-            dispatch({
-                type: EmployeeAndLicenseMap.SEND_INVITATION_ERROR
-            })
+            dispatch(notificationActions.showNotification({
+                title: "Send Invitation Error",
+                message: "Send invitation error",
+                color: 'error'
+                // duration: 7000,
+            }));
         }
     }
 }

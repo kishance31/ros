@@ -6,11 +6,18 @@ import AuthModalContainer from '../auth/authModal';
 import HeaderButtons from './headerButtons';
 import HeaderUserDetails from './headerUserDetails';
 import { headerLinks } from '../../utils/constants';
-import logo from './../../assets/images/logo.svg';
+import logo from './../../assets/images/logo.png';
+import { useActiveLinks } from '../../hooks/activeLinkHook';
 
 const HeaderContainer = () => {
     const user = useSelector(state => state.auth.user);
     const dispatch = useDispatch();
+
+    const headerLinksState = useActiveLinks(
+        user.tokens && user._id && user.role ?
+            headerLinks.filter(link => link.private) :
+            headerLinks.filter(link => !link.private)
+    );
 
     const toggleModal = (type, title) => {
         dispatch(AuthModelAction.toggleAuthModals(type, title));
@@ -19,20 +26,18 @@ const HeaderContainer = () => {
         <header className="header fixed" data-aos="fade-down">
             <div className="container-fluid">
                 <NavbarComponent
-                    color="dark"
+                    color="light"
                     dark
                     expand="lg"
                     logo={logo}
                     alt="ROS"
-                    collapsable={!user.tokens && !user.role && !user._id ? true : false}
-                    navLinks={!user.tokens && !user.role && !user._id ? headerLinks : []}
                     isOpen={false}
                     mrAuto
                     headerButtonVisiable
                 >
                     {
                         !user.tokens && !user.role && !user._id ?
-                            <HeaderButtons buttonClick={toggleModal} /> : 
+                            <HeaderButtons logo={logo} alt="ROS" buttonClick={toggleModal} /> :
                             <HeaderUserDetails name={`${user.firstName} ${user.lastName}`} />
                     }
                     <AuthModalContainer />

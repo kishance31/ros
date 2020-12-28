@@ -14,6 +14,8 @@ import employeeOrderDetailsReducer from './employeeOrderDetails.reducers';
 import ManageAllocateLicenseReducer from './manageAllocateLicense.reducer';
 import corporateProductViewReducer from './corporateProductView.reducer';
 import InvoiceReducer from './invoice.reducer';
+import homepageContentReducer from './homepageContent.reducer';
+import faqReducer from './faq.reducer';
 
 const createRootReducer = () => {
 
@@ -33,12 +35,14 @@ const createRootReducer = () => {
             myProfile: myProfileReducer,
             branchList: branchListReducer,
             employeeAndLicense: employeeAndLicenseReducer,
-            itemListing:itemListingReducer,
+            itemListing: itemListingReducer,
             employeeOrderHistory: EmployeeOrderHistoryReducer,
             employeeOrderDetails: employeeOrderDetailsReducer,
             ManageAllocateLicense: ManageAllocateLicenseReducer,
             corporateProductView: corporateProductViewReducer,
             invoice: InvoiceReducer,
+            homepageContent: homepageContentReducer,
+            faq: faqReducer
         }
     )
 };

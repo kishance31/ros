@@ -112,7 +112,7 @@ export const productListAsync = (type) => {
     }
 }
 
-export const placeOrderAsync = () => {
+export const placeOrderAsync = (selectedAddress) => {
     return async (dispatch, getState) => {
         try {
             dispatch({
@@ -142,6 +142,7 @@ export const placeOrderAsync = () => {
                     employeeId: _id,
                     corporateId: corporate_admin_id,
                     products,
+                    address: selectedAddress
                 }
             });
             if (data.response && data.response.responseCode === 200) {
@@ -150,11 +151,18 @@ export const placeOrderAsync = () => {
                 })
                 dispatch(cartActions.toggleFinalMsgModal());
                 dispatch(EmployeeOrderHistoryActions.refreshOrderHistory());
+                return dispatch(notificationActions.showNotification({
+                    title: 'Place Order',
+                    message: "Order place successfull",
+                    color: 'success',
+                    // duration: 5000,
+                }));
             }
             dispatch(notificationActions.showNotification({
-                title: "Place Order",
-                message: "Order placed successfully"
-                // duration: 7000,
+                title: 'Place Order',
+                message: "Failed to place order",
+                color: 'error',
+                // duration: 5000,
             }));
         }
         catch (error) {
@@ -164,6 +172,7 @@ export const placeOrderAsync = () => {
             dispatch(notificationActions.showNotification({
                 title: 'Place Order',
                 message: "Failed to place order",
+                color: 'error',
                 // duration: 5000,
             }));
         }

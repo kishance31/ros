@@ -23,8 +23,8 @@ const MyProfile = () => {
         data.set("lastName", values.lastName)
         data.set("position", values.position)
         data.set("department", values.department)
-        data.set("corporateEmailId", values.corporateEmailId)
-        data.set("email", values.personalEmail)
+        data.set("email", values.email)
+        data.set("personalEmailId", values.personalEmailId)
         data.set("officeContactNo", values.officeContactNo)
         data.set("mobileNo", values.mobileNo)
         data.set("username", values.username)
@@ -38,15 +38,17 @@ const MyProfile = () => {
     return (
         <div>
             <div className="tab-pane fade show active" id="my_profile" role="tabpanel" aria-labelledby="">
+
                 <Formik
+
                     initialValues={{
                         companyName: user.companyName,
                         firstName: user.firstName,
                         lastName: user.lastName,
                         position: user.position,
                         department: user.department,
-                        corporateEmailId: user.corporateEmailId,
-                        personalEmail: user.email,
+                        email: user.email,
+                        personalEmailId: user.personalEmailId,
                         officeContactNo: user.officeContactNo,
                         mobileNo: user.mobileNo,
                         username: user.username,
@@ -54,22 +56,39 @@ const MyProfile = () => {
                         companyRegisterNo: user.companyRegisterNo || "",
                         corpDoc: user.corpDoc || "",
                     }}
+
                     validate={(values) => {
                         const errors = {};
-                        for (let key in values) {
-                            if (!values[key]) {
-                                if (key === "corpDoc") {
-                                    errors[key] = `Upload a document(Format: .pdf)`
-                                } else {
-                                    errors[key] = `${key} is required.`
-                                }
-                            }
+                        if (!values.companyName.trim()) {
+                            errors["companyName"] = `Company Name is required.`
+                        } if (!values.firstName.trim()) {
+                            errors["firstName"] = `First Name is required.`
+                        } if (!values.lastName.trim()) {
+                            errors["lastName"] = `Last Name is required.`
+                        } if (!values.position.trim()) {
+                            errors["position"] = `Position is required.`
+                        } if (!values.department.trim()) {
+                            errors["department"] = `Department is required.`
+                        } if (!values.email.trim()) {
+                            errors["email"] = `Corporate Email ID is required.`
+                        } if (!values.personalEmailId.trim()) {
+                            errors["personalEmailId"] = `Personal Email is required.`
+                        } if (!values.officeContactNo) {
+                            errors["officeContactNo"] = `Office Contact No is required.`
+                        } if (!values.mobileNo) {
+                            errors["mobileNo"] = `Mobile No is required.`
                         }
-                        if (values.corporateEmailId && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.corporateEmailId)) {
-                            errors.corporateEmailId = "Invalid email address";
+                        if (typeof corpDoc === "string" && !values.corpDoc.trim()) {
+                            errors["corpDoc"] = `Upload a document(Format: .pdf)`
                         }
-                        if (values.personalEmail && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.personalEmail)) {
-                            errors.personalEmail = "Invalid email address";
+                        if (!values.username.trim()) {
+                            errors["username"] = `Username is required.`
+                        }
+                        if (values.email && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)) {
+                            errors.email = "Invalid email address";
+                        }
+                        if (values.personalEmailId && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.personalEmailId)) {
+                            errors.personalEmailId = "Invalid email address";
                         }
                         if (values.officeContactNo && !/^\d{10}$/.test(values.officeContactNo)) {
                             errors.officeContactNo = "Invalid mobile number";
@@ -79,9 +98,11 @@ const MyProfile = () => {
                         }
                         return errors;
                     }}
+
                     onSubmit={(values, { setSubmitting, setFieldValue }) => {
                         onSubmits(values);
-                        setFieldValue('corpDoc', "");
+                        if (typeof values.corpDoc === "object") {
+                        }
                         setSubmitting(false);
                     }}
                 >
@@ -171,24 +192,24 @@ const MyProfile = () => {
                                                         placeholder="CORPORATE EMAIL ID"
                                                         onChange={handleChange}
                                                         type="text"
-                                                        name="corporateEmailId"
-                                                        value={values.corporateEmailId}
+                                                        name="email"
+                                                        value={values.email}
                                                         className="input_box_1 form-control"
                                                     />
                                                     <input
                                                         placeholder="PERSONAL EMAIL ID"
                                                         type="email"
-                                                        name="personalEmail"
-                                                        defaultValue={values.personalEmail}
+                                                        name="personalEmailId"
+                                                        defaultValue={values.personalEmailId}
                                                         className="input_box_2 form-control"
                                                         disabled
                                                     />
                                                 </div>
                                                 <DoubleErrorMessage
-                                                    leftError={errors.corporateEmailId}
-                                                    leftTouched={touched.corporateEmailId}
-                                                    rightError={errors.personalEmail}
-                                                    rightTouched={touched.personalEmail}
+                                                    leftError={errors.email}
+                                                    leftTouched={touched.email}
+                                                    rightError={errors.personalEmailId}
+                                                    rightTouched={touched.personalEmailId}
                                                 />
 
                                                 <div className="input-group two_side">
@@ -240,11 +261,6 @@ const MyProfile = () => {
                                                 </div>
 
                                                 <div className="input-group two_side">
-                                                    {/* <input
-                                                    placeholder="EMPLOYEE ID"
-                                                    type="text"
-                                                    className="input_box_1 form-control"
-                                                /> */}
                                                     <input
                                                         placeholder="USERNAME"
                                                         type="text"
@@ -258,14 +274,14 @@ const MyProfile = () => {
                                                     {
                                                         typeof values.corpDoc === "string" && values.corpDoc ? (
                                                             <a href={values.corpDoc} target="_blank">
-                                                            <div className="modal-fill_btn_pdf_btn">
-                                                                <span className="sign_in">pdf-{Date.now()}.pdf</span>
-                                                                <span className="left_arrow">
-                                                                    <ArrowRightIcon />
-                                                                </span>
-                                                                <span>
-                                                                </span>
-                                                            </div>
+                                                                <div className="modal-fill_btn_pdf_btn">
+                                                                    <span className="sign_in">pdf-{user._id}.pdf</span>
+                                                                    <span className="left_arrow">
+                                                                        <ArrowRightIcon />
+                                                                    </span>
+                                                                    <span>
+                                                                    </span>
+                                                                </div>
                                                             </a>
                                                         ) : null
                                                     }
@@ -289,15 +305,12 @@ const MyProfile = () => {
                                                                 }
                                                             }}
                                                         />
-                                                        {/* <button type="button" className="btn_action pink">REMOVE
-                                                        </button> */}
                                                     </div>
                                                 </div>
                                                 <DoubleErrorMessage
                                                     leftError={errors.corpDoc}
                                                     leftTouched={touched.corpDoc}
                                                 />
-
                                             </div>
                                         </div>
                                     </div>
@@ -309,7 +322,6 @@ const MyProfile = () => {
                                 </form>
                             )
                     }
-
                 </Formik>
             </div>
         </div>

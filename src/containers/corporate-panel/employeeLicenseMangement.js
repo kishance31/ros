@@ -30,7 +30,7 @@ const EmployeeLicenseManagement = () => {
     const availableLicenseList = useSelector(state => state.purchaseLicense.availableLicenseList)
 
     const initFormState = {
-        companyName: "", firstName: "", lastName: "", position: "", department: "", employeeId: "",
+        companyName: user.companyName, firstName: "", lastName: "", position: "", department: "", employeeId: "",
         email: "", username: "", mobileNo: "", password: "", reEnterPassword: "",
         licenseId: availableLicenseList.length ? availableLicenseList[0]._id : "",
         branchId: branchNames.length ? branchNames[0]._id : "",
@@ -67,12 +67,15 @@ const EmployeeLicenseManagement = () => {
     }, [refreshBranchNames])
 
     const onUpdate = (employee) => {
+        if (employee.branchId === null) {
+            employee.branchId = ""
+        }
         setEmployeeDetails(employee)
         setVisibleAddDataModal(true);
         setPopupType('edit');
     }
     const onDelete = (id) => {
-        //dispatch(deleteDataAsync(id, user.tokens))
+        dispatch(deleteDataAsync(id, user.tokens))
     }
 
     const onSendInvitation = (id) => {
@@ -81,16 +84,16 @@ const EmployeeLicenseManagement = () => {
 
     return (
         <>
-            <div className="side_space">
+            <div className="">
                 <div className="page_title">Available License</div>
                 <div className="top_bar">
                     <div className="license_detail">
                         <ul>
                             {
-                                Object.keys(availabelLicenseCount).map((key) =>
-                                    <li key={key} className="bg_pink">
-                                        <span>{key}</span>
-                                        <span>{availabelLicenseCount[key]}</span>
+                                availabelLicenseCount.map((lic) =>
+                                    <li key={lic.licenseName} className="bg_pink">
+                                        <span>{lic.licenseName}</span>
+                                        <span>{lic.count}</span>
                                     </li>
                                 )
                             }
@@ -98,7 +101,9 @@ const EmployeeLicenseManagement = () => {
                     </div>
 
                     <div className="btn_wrp">
-                        <button className="btn_blue">Import File</button>
+                        {/* <button className="btn_blue">
+                            <img className="mr-2" src={require(`../../assets/images/excel.svg`)} alt="" />
+                            Import File</button> */}
                         <button
                             className="btn_blue"
                             onClick={() => {

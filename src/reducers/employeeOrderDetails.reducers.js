@@ -1,7 +1,7 @@
 import { EmployeeOrderDetailsMap } from '../actions/employeeOrderDetails.action';
 
 const initState = {
-    orderDetails: [],
+    orderDetails: {},
     totalRecords: 0,
     refreshList: true,
     isLoading: false,

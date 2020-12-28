@@ -31,60 +31,35 @@ const InvoiceViewDetailsBox = (props) => {
                                 <table>
                                     <tbody>
                                         <tr>
-                                            <td>Invoice No: <span className="font-weight-bold">{invoice.invoiceDetails.invoiceNo}</span></td>
+                                            <td>Invoice No: <span className="font-weight-bold">{invoice.invoiceNo}</span></td>
                                         </tr>
                                         <tr>
-                                            <td>Invoice Date: <span className="font-weight-bold">{new Date(invoice.invoiceDetails.invoiceDate).toLocaleString()}</span></td>
+                                            <td>Invoice Date: <span className="font-weight-bold">{new Date(invoice.invoiceDate).toLocaleString()}</span></td>
                                         </tr>
                                         {
-                                            invoice.invoiceDetails.paymentDate ? (
+                                            invoice.paymentDone ? (
                                                 <>
                                                     <tr>
                                                         <td><span className="font-weight-bold">PAID</span></td>
                                                     </tr>
                                                     <tr>
-                                                        <td>Payment Date: <span className="font-weight-bold">{new Date(invoice.invoiceDetails.paymentDate).toLocaleString()}</span></td>
+                                                        <td>Payment Date: <span className="font-weight-bold">{new Date(invoice.paymentDate).toLocaleString()}</span></td>
                                                     </tr>
                                                 </>
                                             ) : null
                                         }
                                         <tr>
-                                            <td>Product Details:</td>
-                                        </tr>
-                                        {
-                                            invoice.productDetails.map(product => (
-                                                <tr key={product._id}>
-                                                    <td>Product name: &nbsp; {product.product_name}</td>
-                                                    <td>Product total cost: &nbsp; <span className="font-weight-bold">${product.ros_cost}</span></td>
-                                                </tr>
-                                            ))
-                                        }
-                                        <tr>
                                             <td>Invoice Type:<br />
                                                 <span className="font-weight-bold">
-                                                    {invoice.invoiceDetails.isReccuring ? "Recurring" : "First time payment"}
+                                                    {invoice.isReccuring ? "Recurring" : "First time payment"}
                                                 </span>
                                             </td>
                                             <td>Amount: <span className="font-weight-bold f_20 ml_35">$
-                                        {
-                                                    invoice.invoiceDetails.isReccuring ? (
-                                                        <>
-                                                            {
-                                                                parseFloat((
-                                                                    (invoice.productDetails.reduce((acc, prod) => acc + prod.ros_cost, 0)) / 12))
-                                                                    .toFixed(2)
-                                                            }
-                                                        </>
-                                                    ) : (
-                                                            <>
-                                                                {
-                                                                    parseFloat((
-                                                                        ((invoice.productDetails.reduce((acc, prod) => acc + prod.ros_cost, 0)) / 12)
-                                                                        * invoice.firstPaymentTerm))
-                                                                        .toFixed(2)
-                                                                }
-                                                            </>
-                                                        )
+                                                {
+                                                    invoice.isReccuring ?
+                                                        invoice.recurringCost.toFixed(2)
+                                                        :
+                                                        invoice.firstTimeCost.toFixed(2)
                                                 }
                                             </span></td>
                                         </tr>
