@@ -1,23 +1,22 @@
-import React, {useState} from 'react';
+import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import AuthModelAction from '../../actions/auth.action';
 import NavbarComponent from '../../components/navbar/navbar';
 import AuthModalContainer from '../auth/authModal';
-import {HeaderButtons} from './headerButtons';
-import {headerLinks} from '../../utils/headerLinks';
-
+import HeaderButtons from './headerButtons';
+import HeaderUserDetails from './headerUserDetails';
+import { headerLinks } from '../../utils/constants';
 import logo from './../../assets/images/logo.svg';
 
 const HeaderContainer = () => {
+    const user = useSelector(state => state.auth.user);
+    const dispatch = useDispatch();
 
-    const [isModalOpen, toggleIsModalOpen] = useState(false);
-    const [authModalTitle, setAuthModalTitle] = useState("Sign In");
-
-    const toggleModal = (title) => {
-        typeof title === "string" && setAuthModalTitle(title);
-        toggleIsModalOpen(!isModalOpen);
+    const toggleModal = (type, title) => {
+        dispatch(AuthModelAction.toggleAuthModals(type, title));
     }
-
     return (
-        <header>
+        <header className="header fixed" data-aos="fade-down">
             <div className="container-fluid">
                 <NavbarComponent
                     color="dark"
@@ -25,16 +24,18 @@ const HeaderContainer = () => {
                     expand="lg"
                     logo={logo}
                     alt="ROS"
-                    collapsable
-                    navLinks={headerLinks}
+                    collapsable={!user.tokens && !user.role && !user._id ? true : false}
+                    navLinks={!user.tokens && !user.role && !user._id ? headerLinks : []}
                     isOpen={false}
+                    mrAuto
+                    headerButtonVisiable
                 >
-                    <HeaderButtons buttonClick={toggleModal}/>
-                    <AuthModalContainer
-                        isModalOpen={isModalOpen}
-                        toggleModal={toggleModal}
-                        title={authModalTitle}
-                    />
+                    {
+                        !user.tokens && !user.role && !user._id ?
+                            <HeaderButtons buttonClick={toggleModal} /> : 
+                            <HeaderUserDetails name={`${user.firstName} ${user.lastName}`} />
+                    }
+                    <AuthModalContainer />
                 </NavbarComponent>
             </div>
         </header>

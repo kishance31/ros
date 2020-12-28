@@ -1,37 +1,46 @@
 import React from "react";
-import {
-	Card,
-	CardImg,
-	CardText,
-	CardBody,
-	CardTitle
-} from "reactstrap";
 import BasicButtonComponent from "../buttons/basicbutton";
+
 
 
 const BasicCardComponent = (props) => {
 
-	return (
-		<>
-			<Card>
-				{
-					props.souc &&
-					<div className="card_images">
-						<CardImg
-							src={require(`./../../assets/images/${props.souc}`)}
-							alt={props.title}
-						/>
-					</div>
-				}
-				<CardBody>
-					<CardTitle><h2 className="title"> {props.title} </h2> </CardTitle>
-					<CardText>{props.description}  </CardText>
-					{props.children}
-					<BasicButtonComponent> {props.btnName} </BasicButtonComponent>
-				</CardBody>
+	const {
+		souc1,
+		altTitle1,
+		title,
+		description,
+		btnName,
+		souc2,
+		altTitle2
+	} = props;
 
-			</Card>
-		</>
+	return (
+		<div className="card">
+			{
+				(souc1) &&
+				<div className="card_images">
+					<img src={require(`../../assets/images/${souc1}`)} alt={altTitle1 || "card-image"} />
+				</div>
+			}
+			<div className="card-body">
+				<h2 className="title"> {title} </h2>
+				<p className="card-text"> {description} </p>
+				{props.children}
+				{
+					btnName &&
+					<BasicButtonComponent className="btn">
+						{btnName}
+					</BasicButtonComponent>
+				}
+			</div>
+			{
+				(souc2) &&
+				<div className="card_images">
+					<img src={require(`./../../assets/images/${souc2}`)} alt={altTitle2 || "card-image"} />
+				</div>
+			}
+		</div>
 	);
 };
 

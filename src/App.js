@@ -1,24 +1,34 @@
 import React from 'react';
 import { Provider } from 'react-redux';
-import HeaderContainer from './containers/header/header';
-import Homepage from './pages/Homepage/Homepage';
+import { persistStore } from 'redux-persist';
+import { PersistGate } from 'redux-persist/integration/react'
+import { BrowserRouter } from 'react-router-dom';
+import AppWrapper from './AppWrapper';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 
-
+import './Homepage.scss';
 import './App.scss';
 
-import configureStore, { history } from './redux/store';
+import configureStore from './redux/store';
 
 const store = configureStore();
+const persistor = persistStore(store);
 
 function App() {
+
+	console.log(process.env)
+
+	// AOS(Animate on scroll initialization for the slide animations
+	AOS.init();
+
 	return (
-		<Provider store={store} history={history} >
-
-			<HeaderContainer />
-
-			<Homepage />
-			
-			
+		<Provider store={store}>
+			<PersistGate loading={null} persistor={persistor}>
+				<BrowserRouter>
+						<AppWrapper />
+				</BrowserRouter>
+			</PersistGate>
 		</Provider>
 	);
 }

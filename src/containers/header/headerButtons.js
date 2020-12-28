@@ -1,9 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import BasicButtonComponent from '../../components/buttons/basicbutton';
-import {authModalConstants} from '../../utils/constants';
+import {AuthMap} from '../../actions/auth.action';
 
-export const HeaderButtons = props => {
+
+const HeaderButtons = props => {
 
     const {
         buttonClick,
@@ -12,16 +13,10 @@ export const HeaderButtons = props => {
     return (
         <div className="btn_wrap">
             <BasicButtonComponent 
-                className="fill_btn"
-                onButtonClick={() => buttonClick(authModalConstants.SIGN_IN_TITLE)}
+                className="custom_btn"
+                onButtonClick={() => buttonClick(AuthMap.TOGGLE_SIGN_IN_MODAL, "Sign In With")}
             >
                 SIGN IN
-            </BasicButtonComponent>
-            <BasicButtonComponent
-                className="fill_btn"
-                onButtonClick={() => buttonClick(authModalConstants.SIGN_UP_TITLE)}
-            >
-                SIGN UP
             </BasicButtonComponent>
         </div>
     )
@@ -30,3 +25,5 @@ export const HeaderButtons = props => {
 HeaderButtons.propTypes = {
     buttonClick: PropTypes.func.isRequired,
 }
+
+export default HeaderButtons;

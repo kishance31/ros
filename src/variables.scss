@@ -1,0 +1,31 @@
+$font_poppins: 'Poppins',
+'sans-serif';
+$font_futura_medium: 'Futura Md BT';
+$font_futura_bold: 'Futura';
+$font_proxima_nova: 'proxima-nova',
+'sans-serif';
+$light_blue: #D5E9ED;
+$blue: #8BC8D4;
+$pink: #F8AFAF;
+$light_gray: #F8F8F8;
+$gray: #4D4949;
+$dark: #292929;
+$ivory: #F9F7E8;
+$orange: #F9ED92;
+@mixin transform($property) {
+    -webkit-transform: $property;
+    -ms-transform: $property;
+    transform: $property;
+}
+
+@mixin border-radius($property) {
+    -webkit-border-radius: $property;
+    -ms-border-radius: $property;
+    border-radius: $property;
+}
+
+@mixin box-shadow($property) {
+    -webkit-box-shadow: $property;
+    -ms-box-shadow: $property;
+    box-shadow: $property;
+}

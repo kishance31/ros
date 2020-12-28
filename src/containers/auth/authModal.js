@@ -1,48 +1,48 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import ModalComponent from '../../components/modal/modal';
 import SignInForm from './signInForm';
-import { authModalConstants } from '../../utils/constants';
+import SignUpForm from './signUpForm';
+import ForgotPassword from './forgotPassword';
+import AuthModelAction, { AuthMap } from '../../actions/auth.action';
+import SetYourPassword from './setYourPassword';
+import { OverlayContext } from '../../context/loadingOverlay.context';
 
 const AuthModalContainer = props => {
 
-    const {
-        isModalOpen,
-        toggleModal,
-        title,
-    } = props;
+    const auth = useSelector(state => state.auth);
+    const dispatch = useDispatch();
 
-    const modalFooter = () => {
-        if (title === authModalConstants.SIGN_IN_TITLE) {
-            return (
-                <div>
-                    Don't have an account yet?
-                    SIGN UP
-                </div>
-            )
-        }
-        if (title === authModalConstants.SIGN_UP_TITLE) {
-            return (
-                <div>
-                    Already have an account!
-                    SIGN IN
-                </div>
-            )
-        }
-        return null;
+    const { toggleOverlay } = useContext(OverlayContext);
+
+    const toggleModal = () => {
+        dispatch(AuthModelAction.toggleAuthModals(AuthMap.HIDE_ALL_AUTH_MODAL));
     }
 
     return (
         <ModalComponent
-            isOpen={isModalOpen}
+            isOpen={auth.modals.openModal}
             toggleModal={toggleModal}
-            title={title}
-            footer={modalFooter()}
+            title={auth.modals.title}
             centered
+            className="homepage"
         >
             {
-                title === authModalConstants.SIGN_IN_TITLE && <SignInForm />
+                auth.modals.showSignInModal ? <SignInForm /> : null
             }
+            {
+                auth.modals.showSignUpModal ? <SignUpForm toggleOverlay={toggleOverlay} /> : null
+            }
+            {
+                auth.modals.showForgotPasswordModal ? <ForgotPassword /> : null
+            }
+            {
+                auth.modals.showSetPasswordModal ? <SetYourPassword /> : null
+            }
+
         </ModalComponent>
+
+            
     )
 }
 

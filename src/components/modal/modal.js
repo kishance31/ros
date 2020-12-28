@@ -1,21 +1,26 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+import { Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 
 const ModalComponent = (props) => {
 
     const {
+        id,
         isOpen,
         toggleModal,
         className,
         title,
         centered,
-        footer
+        footer,
+        closeIcon
     } = props;
 
     return (
-        <Modal isOpen={isOpen} toggle={toggleModal} centered={!!centered} className={className}>
-            <ModalHeader> {title} </ModalHeader>
+        <Modal isOpen={isOpen} toggle={toggleModal} centered={!!centered} className={className} id={id || ""}>
+            {
+                closeIcon ? closeIcon : null
+            }
+            {title && <ModalHeader> {title} </ModalHeader>}
             <ModalBody>
                 {props.children}
             </ModalBody>
