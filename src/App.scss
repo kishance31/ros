@@ -12,45 +12,29 @@ body {
 @font-face {
   font-family: "Futura Md BT";
   src: url("./assets/fonts/FuturaBT-Medium.eot");
-  src: url("./assets/fonts/FuturaBT-Medium.eot?#iefix") format("embedded-opentype"),
-    url("./assets/fonts/FuturaBT-Medium.woff2") format("woff2"),
-    url("./assets/fonts/FuturaBT-Medium.woff") format("woff"),
-    url("./assets/fonts/FuturaBT-Medium.ttf") format("truetype"),
-    url("./assets/fonts/FuturaBT-Medium.svg#FuturaBT-Medium") format("svg");
+  src: url("./assets/fonts/FuturaBT-Medium.eot?#iefix") format("embedded-opentype"), url("./assets/fonts/FuturaBT-Medium.woff2") format("woff2"), url("./assets/fonts/FuturaBT-Medium.woff") format("woff"), url("./assets/fonts/FuturaBT-Medium.ttf") format("truetype"), url("./assets/fonts/FuturaBT-Medium.svg#FuturaBT-Medium") format("svg");
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: "Futura";
   src: url("./assets/fonts/Futura-Bold.eot");
-  src: url("./assets/fonts/Futura-Bold.eot?#iefix") format("embedded-opentype"),
-    url("./assets/fonts/Futura-Bold.woff2") format("woff2"), url("./assets/fonts/Futura-Bold.woff") format("woff"),
-    url("./assets/fonts/Futura-Bold.ttf") format("truetype"),
-    url("./assets/fonts/Futura-Bold.svg#Futura-Bold") format("svg");
+  src: url("./assets/fonts/Futura-Bold.eot?#iefix") format("embedded-opentype"), url("./assets/fonts/Futura-Bold.woff2") format("woff2"), url("./assets/fonts/Futura-Bold.woff") format("woff"), url("./assets/fonts/Futura-Bold.ttf") format("truetype"), url("./assets/fonts/Futura-Bold.svg#Futura-Bold") format("svg");
   font-style: normal;
   font-display: swap;
 }
-
 @font-face {
   font-family: "SF Pro Display";
   src: url("./assets/fonts/SFProDisplay-Regular.eot");
-  src: url("./assets/fonts/SFProDisplay-Regular.eot?#iefix") format("embedded-opentype"),
-    url("./assets/fonts/SFProDisplay-Regular.woff2") format("woff2"),
-    url("./assets/fonts/SFProDisplay-Regular.woff") format("woff"),
-    url("./assets/fonts/SFProDisplay-Regular.ttf") format("truetype"),
-    url("./assets/fonts/SFProDisplay-Regular.svg#SFProDisplay-Regular") format("svg");
+  src: url("./assets/fonts/SFProDisplay-Regular.eot?#iefix") format("embedded-opentype"), url("./assets/fonts/SFProDisplay-Regular.woff2") format("woff2"), url("./assets/fonts/SFProDisplay-Regular.woff") format("woff"), url("./assets/fonts/SFProDisplay-Regular.ttf") format("truetype"), url("./assets/fonts/SFProDisplay-Regular.svg#SFProDisplay-Regular") format("svg");
   font-weight: normal;
   font-style: normal;
   font-display: swap;
 }
-
 @font-face {
   font-family: "Comic Sans MS";
   src: url("./assets/fonts/ComicSansMS.eot");
-  src: url("./assets/fonts/ComicSansMS.eot?#iefix") format("embedded-opentype"),
-    url("./assets/fonts/ComicSansMS.woff2") format("woff2"), url("./assets/fonts/ComicSansMS.woff") format("woff"),
-    url("./assets/fonts/ComicSansMS.ttf") format("truetype"),
-    url("./assets/fonts/ComicSansMS.svg#ComicSansMS") format("svg");
+  src: url("./assets/fonts/ComicSansMS.eot?#iefix") format("embedded-opentype"), url("./assets/fonts/ComicSansMS.woff2") format("woff2"), url("./assets/fonts/ComicSansMS.woff") format("woff"), url("./assets/fonts/ComicSansMS.ttf") format("truetype"), url("./assets/fonts/ComicSansMS.svg#ComicSansMS") format("svg");
   font-weight: normal;
   font-style: normal;
   font-display: swap;
@@ -182,6 +166,12 @@ a.pink:hover {
   color: $gray;
 }
 
+.v_center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 .card {
   background: none;
   border: none;
@@ -208,7 +198,7 @@ nav.navbar {
       font-family: "Poppins";
       font-weight: normal;
       font-size: 14px;
-      letter-spacing: 0.11em;
+      letter-spacing: .11em;
       text-align: left;
       color: #fff;
       padding: 24px;
@@ -248,7 +238,7 @@ ul.navbar-nav.mr-auto {
   padding: 20px 0;
   align-items: center;
 
-  img{
+  img {
     height: 40px;
   }
 }
@@ -302,7 +292,7 @@ ul.navbar-nav.mr-auto {
 
         .dropdown-item {
           text-transform: uppercase;
-          padding: 0.35rem 1.5rem;
+          padding: .35rem 1.5rem;
         }
       }
     }
@@ -320,7 +310,7 @@ h3.title {
   font-family: "Proxima Nova";
   font-weight: bold;
   font-size: 45px;
-  letter-spacing: 0.05em;
+  letter-spacing: .05em;
   line-height: 56px;
   color: #4d4949;
 }
@@ -426,7 +416,7 @@ h3.title {
     border: 1px solid #bfbfbf !important;
     font-weight: 400;
     font-size: 14px;
-    letter-spacing: 0.05em;
+    letter-spacing: .05em;
     color: $dark;
     padding: 0 18px;
     height: 56px !important;
@@ -461,9 +451,9 @@ h3.title {
 
       &:after {
         border-bottom: 0;
-        border-right: 0.5em solid transparent;
-        border-top: 0.5em solid;
-        border-left: 0.5em solid transparent;
+        border-right: .5em solid transparent;
+        border-top: .5em solid;
+        border-left: .5em solid transparent;
         color: #666;
       }
 
@@ -703,7 +693,7 @@ nav.tab {
       a {
         font-weight: 500;
         font-size: 14px;
-        letter-spacing: 0.03em;
+        letter-spacing: .03em;
         color: #131313;
       }
       @media screen and (max-width: 575px) {
@@ -1267,7 +1257,7 @@ nav.tab {
       font-weight: 500;
       text-transform: uppercase;
       font-size: 18px;
-      letter-spacing: 0.05em;
+      letter-spacing: .05em;
       text-align: left;
       color: #fff;
       margin: 35px 0 40px 24px;
@@ -1280,7 +1270,7 @@ nav.tab {
         font-weight: 300;
         font-size: 14px;
         line-height: 26px;
-        letter-spacing: 0.1em;
+        letter-spacing: .1em;
         text-align: left;
         text-transform: uppercase;
         color: #fff;
@@ -1299,7 +1289,7 @@ nav.tab {
       font-family: "Futura Lt BT";
       font-weight: 300;
       font-size: 14px;
-      letter-spacing: 0.05em;
+      letter-spacing: .05em;
       text-align: left;
       color: #fff;
       text-transform: uppercase;
@@ -1318,7 +1308,7 @@ nav.tab {
       font-family: "Futura Lt BT";
       font-weight: 300;
       font-size: 14px;
-      letter-spacing: 0.05em;
+      letter-spacing: .05em;
       text-align: left;
       color: #fff;
       text-transform: uppercase;
@@ -1416,7 +1406,7 @@ nav.tab {
         /* font-family: "Futura Md BT"; */
         font-weight: bold;
         font-size: 16px;
-        letter-spacing: 0.05em;
+        letter-spacing: .05em;
         text-align: center;
         text-transform: uppercase;
         color: #1c1c1c;
@@ -1429,7 +1419,7 @@ nav.tab {
         font-weight: 500;
         font-size: 14px;
         text-transform: uppercase;
-        letter-spacing: 0.05em;
+        letter-spacing: .05em;
         text-align: center;
         color: #fff;
         border-radius: 2px;
@@ -1468,7 +1458,7 @@ nav.tab {
       background: #eaebef;
       font-weight: 500;
       font-size: 16px;
-      letter-spacing: 0.05em;
+      letter-spacing: .05em;
       text-align: left;
       color: #292929;
       margin: 110px 0 30px;
@@ -1521,7 +1511,7 @@ nav.tab {
           font-family: "Futura Md BT";
           font-weight: 500;
           font-size: 24px;
-          letter-spacing: 0.05em;
+          letter-spacing: .05em;
           color: #fff;
           width: 100%;
           padding: 20px;
@@ -1541,7 +1531,7 @@ nav.tab {
             font-family: "Futura Md BT";
             font-weight: bold;
             font-size: 22px;
-            letter-spacing: 0.05em;
+            letter-spacing: .05em;
             color: #f8afaf;
             text-transform: uppercase;
             padding: 42px 0 24px;
@@ -1560,7 +1550,7 @@ nav.tab {
             font-family: "Futura Md BT";
             font-weight: 500;
             font-size: 22px;
-            letter-spacing: 0.05em;
+            letter-spacing: .05em;
             color: #1c1c1c;
             text-transform: uppercase;
             padding: 0 0 60px;
@@ -1576,7 +1566,7 @@ nav.tab {
         font-weight: 500;
         text-decoration: underline;
         font-size: 18px;
-        letter-spacing: 0.05em;
+        letter-spacing: .05em;
         text-align: left;
         color: #8bc8d4;
         text-transform: uppercase;
@@ -1674,8 +1664,7 @@ nav.tab {
         @media screen and (max-width: 1279px) {
           padding: 14px 10px;
         }
-        @media screen and (max-width: 991px) {
-        }
+        @media screen and (max-width: 991px) {}
       }
     }
 
@@ -1694,12 +1683,11 @@ nav.tab {
       .product_content_title {
         font-weight: bold;
         font-size: 30px;
-        letter-spacing: 0.05em;
+        letter-spacing: .05em;
         text-align: left;
         color: #1c1c1c;
         text-transform: uppercase;
-        @media screen and (max-width: 991px) {
-        }
+        @media screen and (max-width: 991px) {}
       }
 
       .product_content_text {
@@ -1708,7 +1696,7 @@ nav.tab {
         overflow-y: auto;
         font-weight: 400;
         font-size: 18px;
-        letter-spacing: 0.06em;
+        letter-spacing: .06em;
         text-align: left;
         color: #4d4949;
         margin-top: 34px;
@@ -1717,8 +1705,7 @@ nav.tab {
           margin-top: 14px;
           margin-bottom: 40px;
         }
-        @media screen and (max-width: 991px) {
-        }
+        @media screen and (max-width: 991px) {}
         @media screen and (max-width: 575px) {
           padding: 10px;
         }
@@ -1747,7 +1734,7 @@ nav.tab {
         margin-bottom: 40px;
         font-weight: bold;
         font-size: 14px;
-        letter-spacing: 0.06em;
+        letter-spacing: .06em;
         border: transparent;
         color: #292929;
         border-radius: 5px;
@@ -1782,18 +1769,19 @@ nav.tab {
     font-weight: 500;
     font-size: 14px;
     margin: 15px;
-    letter-spacing: 0.05em;
+    letter-spacing: .05em;
     text-align: center;
     color: #f95b3d;
   }
 
   .product_content {
     width: inherit;
+
     h3.product_content_title {
       font-family: "Futura Md BT";
       font-weight: 800;
       font-size: 24px;
-      letter-spacing: 0.05em;
+      letter-spacing: .05em;
       text-align: left;
       color: #1c1c1c;
       text-transform: uppercase;
@@ -1811,7 +1799,7 @@ nav.tab {
       font-family: "Poppins", "sans-serif";
       font-weight: 500;
       font-size: 18px;
-      letter-spacing: 0.06em;
+      letter-spacing: .06em;
       text-align: left;
       color: #4d4949;
       @media screen and (max-width: 991px) {
@@ -1839,14 +1827,14 @@ nav.tab {
     font-family: "Futura Md BT";
     font-weight: 500;
     font-size: 12px;
-    letter-spacing: 0.05em;
+    letter-spacing: .05em;
     text-align: center;
     color: #292929;
     border-radius: 5px;
     background: transparent;
     border: 1px solid #292929;
     box-shadow: 0 0 50px rgba(0, 0, 0, 0.09);
-    letter-spacing: 0.05em;
+    letter-spacing: .05em;
 
     &:hover {
       background: #8bc8d4;
@@ -1861,7 +1849,7 @@ nav.tab {
     font-family: "Proxima Nova";
     font-weight: bold;
     font-size: 40px;
-    letter-spacing: 0.05em;
+    letter-spacing: .05em;
     text-align: center;
     color: #4d4949;
     @media screen and (max-width: 575px) {
@@ -1889,7 +1877,7 @@ nav.tab {
       font-family: "Proxima Nova";
       font-weight: bold;
       font-size: 49px;
-      letter-spacing: 0.05em;
+      letter-spacing: .05em;
       text-align: center;
       color: #4d4949;
       margin-top: 120px;
@@ -1913,7 +1901,7 @@ nav.tab {
         font-family: "Proxima Nova";
         font-weight: bold;
         font-size: 30px;
-        letter-spacing: 0.05em;
+        letter-spacing: .05em;
         text-align: left;
         color: #4d4949;
         margin-bottom: 30px;
@@ -1926,7 +1914,7 @@ nav.tab {
         font-family: "Proxima Nova";
         font-weight: normal;
         font-size: 24px;
-        letter-spacing: 0.05em;
+        letter-spacing: .05em;
         text-align: left;
         color: #4d4949;
         margin-bottom: 52px;
@@ -1943,7 +1931,7 @@ nav.tab {
           font-family: "Futura Md BT";
           font-weight: bold;
           font-size: 22px;
-          letter-spacing: 0.05em;
+          letter-spacing: .05em;
           color: #f8afaf;
           text-transform: uppercase;
           padding: 42px 0 24px;
@@ -1959,7 +1947,7 @@ nav.tab {
           font-family: "Futura Md BT";
           font-weight: 500;
           font-size: 22px;
-          letter-spacing: 0.05em;
+          letter-spacing: .05em;
           color: #1c1c1c;
           text-transform: uppercase;
           padding: 0 0 60px;
@@ -1975,7 +1963,7 @@ nav.tab {
         font-family: "Proxima Nova";
         font-weight: 400;
         font-size: 24px;
-        letter-spacing: 0.05em;
+        letter-spacing: .05em;
         line-height: 50px;
         text-align: left;
         color: #4d4949;
@@ -1985,7 +1973,7 @@ nav.tab {
         width: 40%;
         @media screen and (max-width: 575px) {
           font-size: 20px;
-          letter-spacing: 0.05em;
+          letter-spacing: .05em;
           line-height: 34px;
         }
       }
@@ -2017,7 +2005,7 @@ nav.tab {
     font-family: $font_poppins;
     font-weight: 500;
     font-size: 24px;
-    letter-spacing: 0.05em;
+    letter-spacing: .05em;
     text-align: center;
     color: #8bc8d4;
     margin: 100px;
@@ -2077,7 +2065,7 @@ nav.tab {
   font-family: "Futura Md BT";
   font-weight: 500;
   font-size: 19px;
-  letter-spacing: 0.05em;
+  letter-spacing: .05em;
   color: #fff;
   padding: 20px 30px;
   border-radius: 4px;
@@ -2106,7 +2094,7 @@ nav.tab {
   font-family: "Futura Md BT";
   font-weight: 500;
   font-size: 14px;
-  letter-spacing: 0.05em;
+  letter-spacing: .05em;
   color: #fff;
   padding: 20px 30px;
   border-radius: 4px;
@@ -2337,15 +2325,22 @@ footer {
 
 .ROS-splash-screen-Wrapper {
   display: flex;
-  position: fixed; /* Stay in place */
-  z-index: 1000; /* Sit on top */
+  position: fixed;
+  /* Stay in place */
+  z-index: 1000;
+  /* Sit on top */
   left: 0;
   top: 0;
-  width: 100%; /* Full width */
-  height: 100%; /* Full height */
-  overflow: auto; /* Enable scroll if needed */
-  background-color: rgb(0, 0, 0); /* Fallback color */
-  background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+  width: 100%;
+  /* Full width */
+  height: 100%;
+  /* Full height */
+  overflow: auto;
+  /* Enable scroll if needed */
+  background-color: rgb(0, 0, 0);
+  /* Fallback color */
+  background-color: rgba(0, 0, 0, 0.4);
+  /* Black w/ opacity */
 
   .splash-screen-container {
     margin: auto;
@@ -2357,6 +2352,11 @@ footer {
       letter-spacing: 1px;
     }
   }
+}
+
+.my_account.onlyProfile {
+  width: 80%;
+  margin: 50px auto;
 }
 
 .product-image-carousel-item {
