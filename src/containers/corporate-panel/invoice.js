@@ -7,6 +7,7 @@ import { OverlayContext } from '../../context/loadingOverlay.context';
 import BasicPagination from '../../components/pagination/basicPagination';
 import { usePaginationHook } from '../../hooks/paginationHook';
 import { generateInvoicePDF } from '../../hooks/generateInvoicePDF';
+import InvoicePDF from '../../components/portal/InvoicePDF'
 
 const Invoice = () => {
 
@@ -16,9 +17,10 @@ const Invoice = () => {
 
     const [visibleViewModal, setVisibleViewModal] = useState(false);
     const [visiblePayModal, setVisiblePayModal] = useState(false);
-
     // const [isReccuring, setIsReccuring] = useState(false)
     const [selectedInvoice, setSelectedInvoice] = useState(null);
+
+    const [selectedPDFInvoice, setSelectedPDFInvoice] = useState(null);
 
     const { invoiceList, totalRecords, refreshList, isLoading, batchNumber, limit, isReccuring } = useSelector(state => state.invoice, shallowEqual);
     const user = useSelector(state => state.auth.user, shallowEqual);
@@ -114,10 +116,23 @@ const Invoice = () => {
                                             <th>EMPLOYEE&nbsp;NAME</th>
                                         ) : null
                                     }
-                                    <th>ORDER&nbsp;DATE</th>
-                                    <th>ORDER&nbsp;NO</th>
+                                    {
+                                        !isReccuring ?
+                                            <th>
+                                                "INVOICE DATE"
+                                            </th> : null
+                                    }
+                                    <th>
+                                        {
+                                            isReccuring ?
+                                                "INVOICE No"
+                                                :
+                                                "PRODUCT ORDER NO"
+                                        }
+                                    </th>
                                     <th>INVOICE&nbsp;DATE</th>
                                     <th>AMOUNT</th>
+                                    <th>PAYMENT STATUS</th>
                                     <th className="text-center">ACTION</th>
                                 </tr>
                             </thead>
@@ -135,8 +150,18 @@ const Invoice = () => {
                                                         </td>
                                                     ) : null
                                                 }
-                                                <td>{new Date(invoice.orderDate).toLocaleString()}</td>
-                                                <td>{invoice.orderId}</td>
+                                                {
+                                                    !isReccuring ?
+                                                        <td>
+                                                            {new Date(invoice.orderDate).toLocaleString()}
+                                                        </td> : null
+                                                }
+                                                <td>{
+                                                    isReccuring ?
+                                                    invoice.invoiceNo
+                                                    :
+                                                    invoice.orderId
+                                                }</td>
                                                 <td>{new Date(invoice.invoiceDate).toLocaleString()}</td>
                                                 <td>$
                                                     {
@@ -146,6 +171,7 @@ const Invoice = () => {
                                                             invoice.firstTimeCost.toFixed(2)
                                                     }
                                                 </td>
+                                                <td className="pink">{invoice.paymentDone ? "Done" : "Pending"}</td>
                                                 <td className="text-center">
                                                     <div className="action_btn_wrap">
 
@@ -156,9 +182,11 @@ const Invoice = () => {
                                                             }}>View</button>
 
 
-                                                        <button className="btn_action pink"
-                                                            onClick={() => generateInvoicePDF({ data: invoice, isReccuring, corporate: user })}
-                                                        >Download</button>
+                                                        <button
+                                                            className="btn_action pink"
+                                                            onClick={() => { setSelectedPDFInvoice(invoice) }}>
+                                                            Download
+                                                        </button>
                                                         {
                                                             isReccuring && !invoice.paymentDone ? (
                                                                 <button className="btn_action blue"
@@ -212,6 +240,11 @@ const Invoice = () => {
                 invoice={selectedInvoice}
                 toggleOverlay={toggleOverlay}
                 onConfirmPayment={onConfirmPayment}
+            />
+            <InvoicePDF
+                isReccuring={isReccuring}
+                user={user}
+                selectedPDFInvoice={selectedPDFInvoice}
             />
         </>
     );

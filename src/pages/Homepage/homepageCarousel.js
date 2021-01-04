@@ -20,19 +20,22 @@ const HomepageCarousel = () => {
             {/* MAIN BANNER */}
             <div className="container-fluid">
                 <div className="homebanner">
-                    <h1>Remote Office Solution</h1>
+                    {/* <h1>Remote Office Solution</h1> */}
                     <div className="row">
-                        <div className="col-lg-12">
+                        <div className="col-lg-6 hv_center">
+                            <div className="visual_content">
+                                <p>
+                                    <span className="main_title"><span style={{ color: "blue" }}>Remote</span>&nbsp; Office&nbsp; <span style={{ color: "red" }}>Solution</span></span>
+                                <span className="subtitle">Remote Office Solutions an innovation  platform for forward leaning company to manage its remote workforce.</span></p>
+                                <button type="button" className="btn mt-4 mt-lg-3" onClick={showSignUpModal}>CORPORATE SIGNUP</button>
+                            </div>
+                        </div>
+                        <div className="col-lg-6">
                             <div className="visual">
                                 <img src={require(`../../assets/images/main-banner.png`)} alt="" className="about_img img-fluid" />
                             </div>
                         </div>
-                        <div className="col-lg-12 hv_center">
-                            <div className="visual_content">
-                                <p>Our solution (ROS – Remote Office Solution) focus is to provide corporates a<br /> platform to be a forward leaning company on remote work at their scale.</p>
-                                <button type="button" className="btn mt-4 mt-lg-3" onClick={showSignUpModal}>CORPORATE SIGNUP</button>
-                            </div>
-                        </div>
+
                     </div>
                 </div>
             </div>
@@ -55,8 +58,8 @@ const HomepageCarousel = () => {
             <section className="container-fluid services">
                 <div className="section_about mt-5">
                     <div className="row">
-                        <div className="col-lg-6 col-md-12">
-                            <div className="about-caption text-left">
+                        <div className="col-lg-6 col-md-12 v_center">
+                            <div className="about-caption text-center">
                                 <h1 className="title">
                                     <span className="t1">User&nbsp;</span>
                                     <span className="t2">Friendly&nbsp;</span>
@@ -81,8 +84,8 @@ const HomepageCarousel = () => {
                                 <source src={`${finalUrl}/static/videos/ROS - User Friendly Platform.mp4`} type="video/mp4"></source>
                             </video>
                         </div>
-                        <div className="col-lg-6 col-md-12">
-                            <div className="about-caption text-left pl-lg-5 pl-0">
+                        <div className="col-lg-6 col-md-12 v_center">
+                            <div className="about-caption text-center pl-lg-5 pl-0">
                                 <h1 className="title">
                                     <span className="t1">Employee&nbsp;</span>
                                     <span className="t2">Well&nbsp;</span>
@@ -96,8 +99,8 @@ const HomepageCarousel = () => {
                 <div className="section_about">
 
                     <div className="row">
-                        <div className="col-lg-6 col-md-12">
-                            <div className="about-caption text-left">
+                        <div className="col-lg-6 col-md-12 v_center">
+                            <div className="about-caption text-center">
                                 <h1 className="title">
                                     <span className="t1">Unique&nbsp;</span>
                                     <span className="t2">Workforce&nbsp;</span>

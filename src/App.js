@@ -7,6 +7,7 @@ import AOS from 'aos';
 import SplashScreenProvider from './context/splashScreenContext';
 import AppWrapper from './AppWrapper';
 import OverlayProvider from './context/loadingOverlay.context';
+import InvoicePDF from './components/portal/InvoicePDF'
 
 import 'aos/dist/aos.css';
 
@@ -30,6 +31,7 @@ function App() {
 					<SplashScreenProvider>
 						<OverlayProvider>
 							<AppWrapper />
+							<InvoicePDF />
 						</OverlayProvider>
 					</SplashScreenProvider>
 				</BrowserRouter>
