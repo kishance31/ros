@@ -7,6 +7,7 @@ import { OverlayContext } from '../../context/loadingOverlay.context';
 import BasicPagination from '../../components/pagination/basicPagination';
 import { usePaginationHook } from '../../hooks/paginationHook';
 import { generateInvoicePDF } from '../../hooks/generateInvoicePDF';
+import InvoicePDF from '../../components/portal/InvoicePDF'
 
 const Invoice = () => {
 
@@ -16,9 +17,10 @@ const Invoice = () => {
 
     const [visibleViewModal, setVisibleViewModal] = useState(false);
     const [visiblePayModal, setVisiblePayModal] = useState(false);
-
     // const [isReccuring, setIsReccuring] = useState(false)
     const [selectedInvoice, setSelectedInvoice] = useState(null);
+
+    const [selectedPDFInvoice, setSelectedPDFInvoice] = useState(null);
 
     const { invoiceList, totalRecords, refreshList, isLoading, batchNumber, limit, isReccuring } = useSelector(state => state.invoice, shallowEqual);
     const user = useSelector(state => state.auth.user, shallowEqual);
@@ -180,9 +182,11 @@ const Invoice = () => {
                                                             }}>View</button>
 
 
-                                                        <button className="btn_action pink"
-                                                            onClick={() => generateInvoicePDF({ data: invoice, isReccuring, corporate: user })}
-                                                        >Download</button>
+                                                        <button
+                                                            className="btn_action pink"
+                                                            onClick={() => { setSelectedPDFInvoice(invoice) }}>
+                                                            Download
+                                                        </button>
                                                         {
                                                             isReccuring && !invoice.paymentDone ? (
                                                                 <button className="btn_action blue"
@@ -236,6 +240,11 @@ const Invoice = () => {
                 invoice={selectedInvoice}
                 toggleOverlay={toggleOverlay}
                 onConfirmPayment={onConfirmPayment}
+            />
+            <InvoicePDF
+                isReccuring={isReccuring}
+                user={user}
+                selectedPDFInvoice={selectedPDFInvoice}
             />
         </>
     );
