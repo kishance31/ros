@@ -1,6 +1,6 @@
 import React from 'react';
 import TextCardComponent from '../../components/card/textCard';
-import NewsLetterCard from '../../components/card/newsLetterCard';
+import FAQCard from '../../components/card/faqCard';
 import {  ContactusLinks, NewsLetterDetails } from '../../utils/constants';
 
 const HomepageCards = () => {
@@ -65,7 +65,7 @@ const HomepageCards = () => {
                             </TextCardComponent>
                         </div>
                         <div className="col-lg-4 col-sm-12">
-                            <NewsLetterCard {...NewsLetterDetails} />
+                            <FAQCard {...NewsLetterDetails} />
                         </div>
                     </div>
                 </div>

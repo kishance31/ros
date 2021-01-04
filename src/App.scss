@@ -1055,8 +1055,8 @@ nav.tab {
 }
 
 .product_img {
-  width: 40px;
-  height: 40px;
+  width: 100px;
+  height: 100px;
   padding: 5px;
   @include box-shadow(0 0 10px #ccc);
 
@@ -1256,7 +1256,6 @@ nav.tab {
       color: #fff;
       margin: 35px 0 40px 24px;
     }
-
     .categories-header {
       padding: 14px 10px;
 
@@ -1299,7 +1298,6 @@ nav.tab {
     a.list-group-item {
       background: #292929;
       padding: 0 50px;
-      font-family: "Futura Lt BT";
       font-weight: 300;
       font-size: 14px;
       letter-spacing: .05em;

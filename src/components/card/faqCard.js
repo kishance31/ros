@@ -1,12 +1,13 @@
 import React from 'react';
 import axios from 'axios';
 import { Formik, Field, } from 'formik';
-import DoubleErrorMessage from '../../components/inputFields/inputErrorMessage';
+import DoubleErrorMessage from '../inputFields/inputErrorMessage';
 import notificationActions from '../../actions/notifications.action';
 import { useDispatch } from 'react-redux';
 import getServerCore from '../../utils/apiUtils';
+import AuthModalAction, { AuthMap } from '../../actions/auth.action';
 
-const NewsLetterCard = (props) => {
+const FAQCard = (props) => {
 
     const dispatch = useDispatch();
 
@@ -32,8 +33,13 @@ const NewsLetterCard = (props) => {
         }
     }
 
+    const navigateToSignUp = () => {
+        dispatch(AuthModalAction.toggleAuthModals(AuthMap.TOGGLE_SIGN_UP_MODAL, "Sign Up"))
+    }
+
     return (
         <>
+
             <Formik
                 initialValues={{
                     email: ""
@@ -62,11 +68,12 @@ const NewsLetterCard = (props) => {
                     isSubmitting,
                     handleSubmit,
                 }) => (
-                        <div className="news_letter text-center d-flex align-items-center justify-content-center">
+                        // <div className="news_letter text-center d-flex align-items-center justify-content-center">
+                        <div className="row contact_us">
                             <div data-aos="fade-up">
                                 <h2 className="title">{props.title}</h2>
-                                <p>{props.description}</p>
-                                <form className="form-group">
+                                <h4>{props.description}</h4>
+                                {/* <form className="form-group">
                                     <Field
                                         placeholder="YOUR EMAIL ADDRESS"
                                         type='email'
@@ -86,8 +93,13 @@ const NewsLetterCard = (props) => {
                                             SEND
                                         </button>
                                     </p>
-                                </form>
+                                </form> */}
+                                <div className="modal-footer">
+                                    <h5 className="footer_title"> Don't have an account yet? </h5>
+                                    <a onClick={navigateToSignUp}><span className="navbar-text" >SIGN UP</span></a>
+                                </div>
                             </div>
+
                         </div>
                     )}
             </Formik>
@@ -95,6 +107,4 @@ const NewsLetterCard = (props) => {
     )
 }
 
-export default NewsLetterCard;
-
-
+export default FAQCard;

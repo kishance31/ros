@@ -34,9 +34,9 @@ export const ContactusLinks = [
 export const NewsLetterDetails = {
   id: 1,
   btnName: 'SIGN UP',
-  title: 'NEWS LETTER',
+  title: 'FAQ',
   description:
-    'Sign up to receive updates from our studio promotions, and sneak peaks of upcoming products.',
+    'Signup to know more about the Remote Offices Solutions and  services.',
 };
 
 export const AboutUsDetails = {
