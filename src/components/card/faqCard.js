@@ -73,13 +73,14 @@ const FAQCard = (props) => {
                                 <div data-aos="fade-up">
                                     <h2 className="title">{props.title}</h2>
                                     <p style={{ fontSize: "18px", marginTop: "2rem" }}>{props.description}</p>
-                                    <form className="form-group">
+                                    <form className="form-group" onSubmit={(e) => {
+                                        e.preventDefault();
+                                        navigateToSignUp();
+                                    }}>
                                         <p>
-                                            <button type="submit" className="btn news_letter_btn btn-lg"
-                                                onClick={navigateToSignUp}
-                                            >
+                                            <button type="submit" className="btn news_letter_btn btn-lg">
                                                 SIGN UP
-                                        </button>
+                                            </button>
                                         </p>
                                     </form>
                                     {/* <form className="form-group">

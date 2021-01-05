@@ -121,6 +121,8 @@ const EmployeeAndLicenseAddBox = (props) => {
                 onSubmit={(values) => {
                     onSubmit(values);
                 }}
+
+                enableReinitialize
             >
                 {({ values,
                     errors,
@@ -282,10 +284,11 @@ const EmployeeAndLicenseAddBox = (props) => {
                                                 className="selectpicker form-control input_box_2"
                                                 name="branchId"
                                             >
+                                                <option value="">Select Branch</option>
                                                 {
                                                     branchNames.length ?
                                                         branchNames.map(branch => <option key={branch._id} value={branch._id}>{branch.branch_name}</option>) :
-                                                        <option>Select Branch</option>
+                                                        null
                                                 }
                                             </Field>
                                         </div>

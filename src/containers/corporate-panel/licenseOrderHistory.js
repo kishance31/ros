@@ -4,8 +4,6 @@ import purchaseLicenseAction, { licenseOrderHistoryAsync } from "../../actions/p
 import BasicPagination from '../../components/pagination/basicPagination';
 import { usePaginationHook } from '../../hooks/paginationHook';
 import { generateLicensePDF } from '../../hooks/generateLicensePDF';
-import LicenseInvoicePdf from '../../components/pdf/licenseInvoicePdf';
-import { PDFDownloadLink } from '@react-pdf/renderer'
 
 const LicenseOrderHistory = () => {
 
@@ -67,9 +65,15 @@ const LicenseOrderHistory = () => {
                                                         <td>{new Date(item.createdAt).toLocaleDateString()}</td>
                                                         <td>
                                                             {
-                                                                item.licenseDetails.map((licenseType, key) =>
-                                                                    <div key={key}>{licenseType.type}</div>
-                                                                )
+                                                                item.purchasedLicenses.map((lic, key) => {
+                                                                    let licTyp = item.licenseDetails.find(lc => lc._id === lic.licenseId);
+                                                                    if (licTyp) {
+                                                                        return (
+                                                                            <div key={licTyp.type}>{licTyp.type}</div>
+                                                                        )
+                                                                    }
+                                                                    return null;
+                                                                })
                                                             }
                                                         </td>
                                                         <td>

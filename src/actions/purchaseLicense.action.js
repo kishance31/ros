@@ -174,6 +174,7 @@ export const licenseOrderHistoryAsync = (corporateId, token, limit, batch) => {
                 })
             }
         } catch (error) {
+            console.log(error)
             dispatch({
                 type: PurchaseLicenseMap.LICENSE_ORDER_HISTORY_ERROR
             })
