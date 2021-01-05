@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import TextCardComponent from '../../components/card/textCard';
-import NewsLetterCard from '../../components/card/newsLetterCard';
+import FAQCard from '../../components/card/faqCard';
 import { ContactUsDetails, ContactusLinks, NewsLetterDetails } from '../../utils/constants';
 const AboutUs = () => {
     const data = useSelector(state => state.homepageContent.aboutUsDetais)
@@ -45,7 +45,7 @@ const AboutUs = () => {
                             </TextCardComponent>
                         </div>
                         <div className="col-lg-4 col-sm-12">
-                            <NewsLetterCard {...NewsLetterDetails} />
+                            <FAQCard {...NewsLetterDetails} />
                         </div>
                     </div>
                 </div>

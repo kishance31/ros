@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { Input, Label, FormGroup } from 'reactstrap';
 import EmployeeOrderSubTable from './employeeOrderSubTable';
 import BasicPagination from '../../../components/pagination/basicPagination';
@@ -14,8 +14,12 @@ const EmployeeOrderTable = (props) => {
         setSelectedEmployee,
         limit,
         handleBatchChange,
-        orderDetails
+        orderDetails,
+        onSelectAll,
+        selectedOrder,
     } = props;
+
+    const [selectAllChecked, setSelectAllChecked] = useState(false);
 
     const { totalRecords, batchNumber } = useSelector(state => state.employeeOrderDetails, shallowEqual);
 
@@ -25,9 +29,22 @@ const EmployeeOrderTable = (props) => {
                 <table className="">
                     <thead>
                         <tr>
+                            <th>
+                                <input
+                                    type="checkbox"
+                                    onChange={(e) => {
+                                        console.log(e.target.checked);
+                                        // setSelectedEmployee(orderDetails.map(check => {
+                                        //     check.select = checked;
+                                        //     return check;
+                                        // }))
+                                        onSelectAll(e, orderDetails);
+                                        setSelectAllChecked(e.target.checked);
+                                    }}
+                                    checked={selectAllChecked}
+                                />
+                            </th>
                             <th></th>
-                            <th></th>
-                            {/* <th>Sr&nbsp;No</th> */}
                             <th>TOTAL&nbsp;ORDER&nbsp;COST</th>
                             <th>FIRST&nbsp;TIME&nbsp;COST&nbsp;(USD)</th>
                             <th>PRODUCT&nbsp;ORDER&nbsp;NO</th>
@@ -47,11 +64,26 @@ const EmployeeOrderTable = (props) => {
                                             <td>
                                                 {
                                                     !orderList.isFirstTimePayment ? (
-                                                        <FormGroup check onChange={(e) => onSelectChange(e, orderList)}>
-                                                            <Label check>
-                                                                <Input type="checkbox" data-id={orderList._id} />
-                                                            </Label>
-                                                        </FormGroup>
+                                                        <input
+                                                            onChange={(event) => {
+                                                                // console.log(event.target.checked);
+                                                                // let checked = event.target.checked;
+                                                                // setSelectedEmployee(
+                                                                //     orderList.map(data => {
+                                                                //         if (orderList._id === data._id) {
+                                                                //             data.select = checked;
+                                                                //         }
+                                                                //         return data;
+                                                                //     })
+                                                                // );
+                                                                onSelectChange(event, orderList)
+                                                                if(!event.target.checked) {
+                                                                    setSelectAllChecked(false);
+                                                                }
+                                                            }}
+                                                            type="checkbox"
+                                                            checked={selectedOrder.find(odr => odr._id === orderList._id)}
+                                                        />
                                                     ) : null
                                                 }
                                             </td>

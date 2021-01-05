@@ -1,12 +1,13 @@
 import React from 'react';
 import axios from 'axios';
 import { Formik, Field, } from 'formik';
-import DoubleErrorMessage from '../../components/inputFields/inputErrorMessage';
+import DoubleErrorMessage from '../inputFields/inputErrorMessage';
 import notificationActions from '../../actions/notifications.action';
 import { useDispatch } from 'react-redux';
 import getServerCore from '../../utils/apiUtils';
+import AuthModalAction, { AuthMap } from '../../actions/auth.action';
 
-const NewsLetterCard = (props) => {
+const FAQCard = (props) => {
 
     const dispatch = useDispatch();
 
@@ -32,8 +33,13 @@ const NewsLetterCard = (props) => {
         }
     }
 
+    const navigateToSignUp = () => {
+        dispatch(AuthModalAction.toggleAuthModals(AuthMap.TOGGLE_SIGN_UP_MODAL, "Sign Up"))
+    }
+
     return (
         <>
+
             <Formik
                 initialValues={{
                     email: ""
@@ -63,10 +69,20 @@ const NewsLetterCard = (props) => {
                     handleSubmit,
                 }) => (
                         <div className="news_letter text-center d-flex align-items-center justify-content-center">
-                            <div data-aos="fade-up">
-                                <h2 className="title">{props.title}</h2>
-                                <p>{props.description}</p>
-                                <form className="form-group">
+                            <div className="row contact_us">
+                                <div data-aos="fade-up">
+                                    <h2 className="title">{props.title}</h2>
+                                    <p style={{ fontSize: "18px", marginTop: "2rem" }}>{props.description}</p>
+                                    <form className="form-group">
+                                        <p>
+                                            <button type="submit" className="btn news_letter_btn btn-lg"
+                                                onClick={navigateToSignUp}
+                                            >
+                                                SIGN UP
+                                        </button>
+                                        </p>
+                                    </form>
+                                    {/* <form className="form-group">
                                     <Field
                                         placeholder="YOUR EMAIL ADDRESS"
                                         type='email'
@@ -86,7 +102,9 @@ const NewsLetterCard = (props) => {
                                             SEND
                                         </button>
                                     </p>
-                                </form>
+                                </form> */}
+
+                                </div>
                             </div>
                         </div>
                     )}
@@ -95,6 +113,4 @@ const NewsLetterCard = (props) => {
     )
 }
 
-export default NewsLetterCard;
-
-
+export default FAQCard;

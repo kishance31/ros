@@ -8,7 +8,7 @@ import DoubleInputField from '../../components/inputFields/doubleInputField';
 import DoubleErrorMessage from '../../components/inputFields/inputErrorMessage';
 
 const BranchDataModal = (props) => {
-    const { isOpen, toggleModal } = props;
+    const { isOpen, toggleModal, companyName } = props;
     const dispatch = useDispatch();
     const user = useSelector(state => state.auth.user);
     const branchDetails = useSelector(state => state.branchList.selectedBranch);
@@ -56,7 +56,8 @@ const BranchDataModal = (props) => {
             >
                 <Formik
                     initialValues={{
-                        ...branchDetails
+                        ...branchDetails,
+                        company_name: branchDetails.company_name || companyName
                     }}
 
                     validate={(values) => {
@@ -114,7 +115,7 @@ const BranchDataModal = (props) => {
                                     <div className="col-lg-12">
 
                                         <div className="input-group">
-                                            <input placeholder="COMPANY NAME" name="company_name" value={values.company_name} type="text" onChange={handleChange} onBlur={handleBlur} className="form-control" />
+                                            <input placeholder="COMPANY NAME" name="company_name" value={values.company_name} type="text" className="form-control" disabled />
                                         </div>
                                         <DoubleErrorMessage leftError={errors.company_name} leftTouched={touched.company_name} />
 

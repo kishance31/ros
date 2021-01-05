@@ -76,11 +76,11 @@ const SignUpForm = ({ toggleOverlay }) => {
                         errors["mobileNo"] = `Mobile No is required.`
                     } if (!values.employeeId.trim()) {
                         errors["employeeId"] = `Employee ID is required.`
-                    } 
+                    }
                     // if (!values.userName.trim()) {
                     //     errors["userName"] = `Username is required.`
                     // }
-                     if (!values.password.trim()) {
+                    if (!values.password.trim()) {
                         errors["password"] = `Password is required.`
                     } else if (values.password.length < 8) {
                         errors["password"] = `Password length must be 8 characters`
@@ -190,8 +190,8 @@ const SignUpForm = ({ toggleOverlay }) => {
                             <DoubleErrorMessage
                                 leftError={errors.employeeId}
                                 leftTouched={touched.employeeId}
-                                // rightError={errors.userName}
-                                // rightTouched={touched.userName}
+                            // rightError={errors.userName}
+                            // rightTouched={touched.userName}
                             />
 
                             <DoubleInputField>
@@ -217,7 +217,7 @@ const SignUpForm = ({ toggleOverlay }) => {
                                 <input type="file"
                                     className="custom-file-input"
                                     id="inputGroupFile03"
-                                    accept="application/pdf, image/*"
+                                    accept="application/pdf, image/*,.doc,.docx"
                                     onChange={event => setFieldValue('corpDoc', event.target.files[0])}
                                 />
                             </div>

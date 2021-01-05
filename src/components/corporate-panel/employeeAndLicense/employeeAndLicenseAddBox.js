@@ -66,7 +66,7 @@ const EmployeeAndLicenseAddBox = (props) => {
     return (
         <ModalComponent
             {...props}
-            title="Add Employeement"
+            title="Add Employee"
             closeIcon={< ModalCloseIcon />}
             centered
             id="add_employeement"

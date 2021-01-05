@@ -6,6 +6,7 @@ import LicenseOrderHistory from './licenseOrderHistory';
 import BranchManagement from './branchManagement';
 import { BranchListAction } from '../../actions/branchList.action';
 import BranchDataModal from '../corporate-panel/branchDataModal';
+
 const MyAccountTabs = (props) => {
 
     const dispatch = useDispatch();
@@ -36,7 +37,7 @@ const MyAccountTabs = (props) => {
                     <button className="btn_blue w_150" data-aos="fade" onClick={onAddData} >Add</button> : null
             }
             {
-                <BranchDataModal isOpen={isOpen} toggleModal={() => dispatch(BranchListAction.closeModal())} />
+                <BranchDataModal isOpen={isOpen} toggleModal={() => dispatch(BranchListAction.closeModal())} companyName={props.companyName} />
             }
         </nav>
     )
@@ -46,6 +47,7 @@ const MyAccount = () => {
 
     const [tabList, setTabList] = useState(CoporateMyAccountTabs);
     const userStatus = useSelector(state => state.auth.user.status);
+    const companyName = useSelector(state => state.auth.user.companyName);
 
     const onTabChange = (event) => {
         let dataId = event.target.getAttribute("data-id");
@@ -71,7 +73,7 @@ const MyAccount = () => {
                 <div className="shadow_box">
                     {
                         userStatus === "APPROVED" ?
-                            < MyAccountTabs tabs={tabList} onTabChange={onTabChange} /> :
+                            < MyAccountTabs tabs={tabList} onTabChange={onTabChange} companyName={companyName} /> :
                             (
                                 <div>
                                     {

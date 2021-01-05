@@ -82,8 +82,18 @@ const EmployeeOrderDetails = () => {
          ]);
       } else {
          setselectedOrders([
-            ...selectedOrder.filter(order => order._id !== e.target.getAttribute('data-id')),
+            ...selectedOrder.filter(order => order._id !== orderDetails._id),
          ])
+      }
+   }
+
+   const onSelectAll = (e, orderDetails) => {
+      if (e.target.checked) {
+         setselectedOrders([
+            ...orderDetails.filter(order => !order.isFirstTimePayment),
+         ]);
+      } else {
+         setselectedOrders([])
       }
    }
 
@@ -200,6 +210,8 @@ const EmployeeOrderDetails = () => {
                                              setSelectedEmployee={setSelectedEmployee}
                                              handleBatchChang e={handleBatchChange}
                                              orderDetails={orderDetails[key]}
+                                             onSelectAll={onSelectAll}
+                                             selectedOrder={selectedOrder}
                                           /> : null
                                     }
                                  </React.Fragment>
