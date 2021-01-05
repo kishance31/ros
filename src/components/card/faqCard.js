@@ -68,12 +68,21 @@ const FAQCard = (props) => {
                     isSubmitting,
                     handleSubmit,
                 }) => (
-                        // <div className="news_letter text-center d-flex align-items-center justify-content-center">
-                        <div className="row contact_us">
-                            <div data-aos="fade-up">
-                                <h2 className="title">{props.title}</h2>
-                                <h4>{props.description}</h4>
-                                {/* <form className="form-group">
+                        <div className="news_letter text-center d-flex align-items-center justify-content-center">
+                            <div className="row contact_us">
+                                <div data-aos="fade-up">
+                                    <h2 className="title">{props.title}</h2>
+                                    <p style={{ fontSize: "18px", marginTop: "2rem" }}>{props.description}</p>
+                                    <form className="form-group">
+                                        <p>
+                                            <button type="submit" className="btn news_letter_btn btn-lg"
+                                                onClick={navigateToSignUp}
+                                            >
+                                                SIGN UP
+                                        </button>
+                                        </p>
+                                    </form>
+                                    {/* <form className="form-group">
                                     <Field
                                         placeholder="YOUR EMAIL ADDRESS"
                                         type='email'
@@ -94,12 +103,9 @@ const FAQCard = (props) => {
                                         </button>
                                     </p>
                                 </form> */}
-                                <div className="modal-footer">
-                                    <h5 className="footer_title"> Don't have an account yet? </h5>
-                                    <a onClick={navigateToSignUp}><span className="navbar-text" >SIGN UP</span></a>
+
                                 </div>
                             </div>
-
                         </div>
                     )}
             </Formik>

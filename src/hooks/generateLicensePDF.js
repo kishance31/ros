@@ -8,9 +8,6 @@ export const generateLicensePDF = ({ data, corporate }) => {
         purchasedLicenses,
     } = data;
 
-    doc.setLineWidth(0.15);
-    doc.line(15, 25, 198, 500);
-
     doc.text("License Order Invoice", 70, 15)
 
     doc.text("To: ", 15, 50);

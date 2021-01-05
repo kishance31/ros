@@ -94,7 +94,8 @@ const BranchManagement = () => {
                     }
                     <BranchManagementDeleteBox
                         isOpen={visibleDeleteModal}
-                        toggleModal={() => { setVisibleDeleteModal(!visibleDeleteModal) }} />
+                        toggleModal={() => { setVisibleDeleteModal(!visibleDeleteModal) }}
+                    />
                 </div>
             </div>
         </div>
