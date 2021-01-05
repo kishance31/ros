@@ -58,74 +58,78 @@ const CartModal = (props) => {
                             ) : (
                                 <div className="row">
                                     <div className="col-xl-8 col-lg-12">
-                                        {
-                                            shoppingCartList.map((product, key) =>
-                                                <div className="order_history shadow_box" key={product._id}>
-                                                    <div className="row d-flex align-items-center">
-                                                        <div className="col-md-3 col-sm-12 d-flex justify-content-center">
-                                                            <div className="product_detail_image">
-                                                                <img src={product.product_image[0]} className="img-fluid" alt="" />
+                                        <div className="product_details_wrapper" style={{ height: "600px", overflowY: 'scroll' }}>
+                                            {
+                                                shoppingCartList.map((product, key) =>
+                                                    <div className="order_history shadow_box" key={product._id}>
+                                                        <div className="row d-flex align-items-center">
+                                                            <div className="col-md-3 col-sm-12 d-flex justify-content-center">
+                                                                <div className="product_detail_image">
+                                                                    <img src={product.product_image[0]} className="img-fluid" alt="" />
+                                                                </div>
                                                             </div>
-                                                        </div>
-                                                        <div className="col-md-9 col-sm-12 d-flex justify-content-start">
-                                                            <div className="product_content">
-                                                                <h3 className="product_content_title">
-                                                                    {product.product_name}
-                                                                </h3>
-                                                                <p className="product_content_text" title={product.product_description}>
-                                                                    {
-                                                                        product.product_description.length > 50 ? (
-                                                                            product.product_description.substr(0, 50) + "..."
-                                                                        ) : (
-                                                                            product.product_description
-                                                                        )
-                                                                    }
-                                                                </p>
-                                                                <div className="expected_date">
-                                                                    <table className="table table-sm w-auto">
-                                                                        <thead>
-                                                                            <tr>
-                                                                                <td>Quantity </td>
-                                                                                <td><b>1</b> </td>
-                                                                            </tr>
-                                                                        </thead>
-                                                                    </table>
+                                                            <div className="col-md-9 col-sm-12 d-flex justify-content-start">
+                                                                <div className="product_content">
+                                                                    <h3 className="product_content_title">
+                                                                        {product.product_name}
+                                                                    </h3>
+                                                                    <p className="product_content_text" title={product.product_description}>
+                                                                        {
+                                                                            product.product_description.length > 50 ? (
+                                                                                product.product_description.substr(0, 50) + "..."
+                                                                            ) : (
+                                                                                    product.product_description
+                                                                                )
+                                                                        }
+                                                                    </p>
+                                                                    <div className="expected_date">
+                                                                        <table className="table table-sm w-auto">
+                                                                            <thead>
+                                                                                <tr>
+                                                                                    <td>Quantity </td>
+                                                                                    <td><b>1</b> </td>
+                                                                                </tr>
+                                                                            </thead>
+                                                                        </table>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div className="col-md-2 col-sm-12 d-flex justify-content-center">
+                                                                <div className="text-center">
+                                                                    <p className="remove_order" style={{ cursor: 'pointer' }}
+                                                                        onClick={() => { removeToCart(product._id) }}>remove</p>
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div className="col-md-2 col-sm-12 d-flex justify-content-center">
-                                                            <div className="text-center">
-                                                                <p className="remove_order" style={{ cursor: 'pointer' }}
-                                                                    onClick={() => { removeToCart(product._id) }}>remove</p>
-                                                            </div>
-                                                        </div>
                                                     </div>
-                                                </div>
-                                            )
-                                        }
+                                                )
+                                            }
+                                        </div>
                                     </div>
                                     <div className="col-xl-4 col-lg-12 d-flex justify-content-center">
                                         <div className="shopping_summary_shadow_box p-0">
                                             <h3 className="shopping_summary">SHOPPING SUMMARY</h3>
                                             <div className="expected_date">
-                                                <table className="table table-sm">
-                                                    <thead>
-                                                        <tr>
-                                                            <td className="text-center">item </td>
-                                                            <td className="text-center"><b>qty</b> </td>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        {
-                                                            shoppingCartList.map(product =>
-                                                                <tr key={product._id}>
-                                                                    <td className="text-center">{product.product_name}</td>
-                                                                    <td className="text-center"><b>1</b> </td>
-                                                                </tr>
-                                                            )
-                                                        }
-                                                    </tbody>
-                                                </table>
+                                                <div style={{ height: "400px", overflowY: 'scroll' }}>
+                                                    <table className="table table-sm">
+                                                        <thead>
+                                                            <tr>
+                                                                <td className="text-center">item </td>
+                                                                <td className="text-center"><b>qty</b> </td>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            {
+                                                                shoppingCartList.map(product =>
+                                                                    <tr key={product._id}>
+                                                                        <td className="text-center">{product.product_name}</td>
+                                                                        <td className="text-center"><b>1</b> </td>
+                                                                    </tr>
+                                                                )
+                                                            }
+                                                        </tbody>
+                                                    </table>
+                                                </div>
                                                 <button className="btn btn-sm modal-fill_btn_confirm_order"
                                                     onClick={() => { redirectToThankYou() }}>
                                                     <span className="">confirm Order</span>

@@ -99,18 +99,18 @@ const EmployeeProfile = ({ setFirstProfile }) => {
                                 if (!values.email.trim()) {
                                     errors["email"] = `Personal Email is required.`
                                 }
-                                if (!values.officeContactNo) {
-                                    errors["officeContactNo"] = `Office Contact No is required.`
-                                }
+                                // if (!values.officeContactNo) {
+                                //     errors["officeContactNo"] = `Office Contact No is required.`
+                                // }
                                 if (!values.mobileNo) {
                                     errors["mobileNo"] = `Mobile No is required.`
                                 }
                                 if (values.email && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)) {
                                     errors.email = "Invalid email address";
                                 }
-                                if (values.officeContactNo && !/^\d{10}$/.test(values.officeContactNo)) {
-                                    errors.officeContactNo = "Invalid mobile number";
-                                }
+                                // if (values.officeContactNo && !/^\d{10}$/.test(values.officeContactNo)) {
+                                //     errors.officeContactNo = "Invalid mobile number";
+                                // }
                                 if (values.mobileNo && !/^\d{10}$/.test(values.mobileNo)) {
                                     errors.mobileNo = "Invalid mobile number";
                                 }

@@ -30,13 +30,13 @@ export const generateLicensePDF = ({ data, corporate }) => {
 
     let tableRows = [];
 
-    licenseDetails.forEach((license, idx) => {
+    purchasedLicenses.forEach((license, idx) => {
         const tblData = [
             { content: idx + 1, },
-            { content: license.type, },
-            { content: purchasedLicenses[idx].quantity },
-            { content: license.price,},
-            { content: purchasedLicenses[idx].totalPrice,},
+            { content: licenseDetails.find(lic => lic._id === license.licenseId).type, },
+            { content: license.quantity },
+            { content: licenseDetails.find(lic => lic._id === license.licenseId).price,},
+            { content: license.totalPrice,},
         ];
         tableRows.push(tblData);
     })

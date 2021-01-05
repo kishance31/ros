@@ -27,7 +27,7 @@ const MyProfile = () => {
         data.set("personalEmailId", values.personalEmailId)
         data.set("officeContactNo", values.officeContactNo)
         data.set("mobileNo", values.mobileNo)
-        data.set("username", values.username)
+        // data.set("username", values.username)
         data.set('taxNo', values.taxNo)
         data.set('companyRegisterNo', values.companyRegisterNo)
         data.set("_id", user._id);
@@ -81,9 +81,9 @@ const MyProfile = () => {
                         if (typeof corpDoc === "string" && !values.corpDoc.trim()) {
                             errors["corpDoc"] = `Upload a document(Format: .pdf)`
                         }
-                        if (!values.username.trim()) {
-                            errors["username"] = `Username is required.`
-                        }
+                        // if (!values.username.trim()) {
+                        //     errors["username"] = `Username is required.`
+                        // }
                         if (values.email && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)) {
                             errors.email = "Invalid email address";
                         }
@@ -260,7 +260,7 @@ const MyProfile = () => {
                                                     />
                                                 </div>
 
-                                                <div className="input-group two_side">
+                                                {/* <div className="input-group two_side">
                                                     <input
                                                         placeholder="USERNAME"
                                                         type="text"
@@ -269,7 +269,7 @@ const MyProfile = () => {
                                                         value={values.username}
                                                         className="input_box_2 form-control"
                                                     />
-                                                </div>
+                                                </div> */}
                                                 <div className="input-group two_side">
                                                     {
                                                         typeof values.corpDoc === "string" && values.corpDoc ? (

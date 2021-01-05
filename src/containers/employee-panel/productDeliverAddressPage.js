@@ -79,11 +79,7 @@ const ProductDeliverAddressPage = (props) => {
                                             <select title="SELECT DELIVERY ADDRESS" className="selectpicker form-control input_box_2"
                                                 onChange={(e) => setSelectAddress(address[e.target.value])}
                                             >
-                                                {
-                                                    !address.length ? (
-                                                        <option value="">Add Address</option>
-                                                    ) : null
-                                                }
+                                                <option value="">Select Address</option>
                                                 {
                                                     address.length && address.map((add, idx) => (
                                                         add &&

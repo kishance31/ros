@@ -7,7 +7,7 @@ const InvoicePDF = ({ selectedPDFInvoice, user }) => {
 
     useEffect(() => {
         if (selectedPDFInvoice) {
-            const element = document.getElementById("portal-root");
+            const element = document.querySelector("#portal-root .main-body");
             html2pdf()
                 .from(element)
                 .save(`Order_Invoice_${Date.now()}.pdf`)
@@ -15,7 +15,7 @@ const InvoicePDF = ({ selectedPDFInvoice, user }) => {
     }, [selectedPDFInvoice])
 
     return ReactDOM, createPortal(
-        <>
+        <div style={{display: "none"}}>
             {
                 user && selectedPDFInvoice ? (
                     <div className="main-body">
@@ -71,7 +71,7 @@ const InvoicePDF = ({ selectedPDFInvoice, user }) => {
                                                                 <table>
                                                                     <tbody>
                                                                         <tr className="no-border">
-                                                                            <td>{selectedPDFInvoice.orderDetails.employeeDetails.firstName}&nbsp;{selectedPDFInvoice.orderDetails.employeeDetails.lastName}</td>
+                                                                            <td>{selectedPDFInvoice.employeeDetails[0].firstName}&nbsp;{selectedPDFInvoice.employeeDetails[0].lastName}</td>
                                                                         </tr>
                                                                         <tr className="no-border">
                                                                             <td>
@@ -247,7 +247,7 @@ const InvoicePDF = ({ selectedPDFInvoice, user }) => {
                     </div >
                 ) : null
             }
-        </>,
+        </div>,
         document.getElementById('portal-root')
     )
 }
