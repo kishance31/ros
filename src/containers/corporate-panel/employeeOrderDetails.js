@@ -21,8 +21,8 @@ const EmployeeOrderDetails = () => {
    const [visibleConfirmModal, setVisibleConfirmModal] = useState(false);
    const [showPaymentModal, setShowPaymentModal] = useState(false);
 
-   const [rowIndex, setRowIndex] = useState(0)
-   const [mainIndex, setMainIndex] = useState(0)
+   const [rowIndex, setRowIndex] = useState([])
+   const [mainIndex, setMainIndex] = useState([])
    const [selectedOrder, setselectedOrders] = useState([]);
 
    const { toggleOverlay } = useContext(OverlayContext);
@@ -51,18 +51,24 @@ const EmployeeOrderDetails = () => {
    }, [employeeNames])
 
    const onTable = (index) => {
-      if (index === rowIndex) {
-         setRowIndex(0)
+      if (rowIndex.indexOf(index) !== -1) {
+         setRowIndex(rowIndex.filter(i => i !== index));
       } else {
-         setRowIndex(index)
+         setRowIndex([
+            ...rowIndex,
+            index
+         ])
       }
    }
 
    const onMainTable = (index) => {
-      if (index === mainIndex) {
-         setMainIndex(0)
+      if (mainIndex.indexOf(index) !== -1) {
+         setMainIndex(mainIndex.filter(i => i !== index));
       } else {
-         setMainIndex(index)
+         setMainIndex([
+            ...mainIndex,
+            index
+         ])
       }
    }
 
@@ -183,7 +189,7 @@ const EmployeeOrderDetails = () => {
                                        <tr>
                                           <td>
                                              <div
-                                                className={`toggle_icon ${mainIndex && (mainIndex === (index + 1)) ? "expanded" : ""}`}
+                                                className={`toggle_icon ${mainIndex && (mainIndex.indexOf(index + 1) !== -1) ? "expanded" : ""}`}
                                                 onClick={() => onMainTable(index + 1)}>
                                              </div>
                                           </td>
@@ -201,7 +207,7 @@ const EmployeeOrderDetails = () => {
                                           </td>
                                        </tr>
                                        {
-                                          mainIndex && (mainIndex === (index + 1)) ?
+                                          mainIndex && (mainIndex.indexOf(index + 1) !== -1) ?
                                              <EmployeeOrderTable
                                                 onSelectChange={onSelectChange}
                                                 rowIndex={rowIndex}
@@ -212,6 +218,7 @@ const EmployeeOrderDetails = () => {
                                                 orderDetails={orderDetails[key]}
                                                 onSelectAll={onSelectAll}
                                                 selectedOrder={selectedOrder}
+                                                mainidx={index + 1}
                                              /> : null
                                        }
                                     </React.Fragment>

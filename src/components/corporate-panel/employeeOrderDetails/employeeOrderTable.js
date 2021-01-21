@@ -17,6 +17,7 @@ const EmployeeOrderTable = (props) => {
         orderDetails,
         onSelectAll,
         selectedOrder,
+        mainidx
     } = props;
 
     const [selectAllChecked, setSelectAllChecked] = useState(false);
@@ -90,8 +91,8 @@ const EmployeeOrderTable = (props) => {
                                             <td>
                                                 <div
                                                     toggle-table-data={orderList.srNo}
-                                                    className={`toggle_icon ${rowIndex && (rowIndex === (index + 1)) ? "expanded" : ""}`}
-                                                    onClick={() => onTable(index + 1)}>
+                                                    className={`toggle_icon ${rowIndex && (rowIndex.indexOf(mainidx + "_" + (index + 1)) !== -1) ? "expanded" : ""}`}
+                                                    onClick={() => onTable(mainidx + "_" + (index + 1))}>
                                                 </div>
                                             </td>
                                             {/* <td>{index + 1}</td> */}
@@ -120,7 +121,7 @@ const EmployeeOrderTable = (props) => {
                                             </td>
                                         </tr>
                                         {
-                                            rowIndex && (rowIndex === (index + 1)) ?
+                                            rowIndex && (rowIndex.indexOf(mainidx + "_" + (index + 1)) !== -1) ?
                                                 <EmployeeOrderSubTable
                                                     tableDetails={orderList.products}
                                                     firstPaymentTerm={orderList.firstPaymentTerm}

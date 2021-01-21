@@ -5,6 +5,7 @@ import ModalComponent from '../../modal/modal';
 const EmployeeOrderPaymentBox = (props) => {
 
     const { toggleModal, selectedOrder, showPaymentBox } = props;
+    console.log(selectedOrder)
 
     const ModalCloseIcon = () => (
         <button type="button" className="close close_icon ml-auto" data-dismiss="modal" aria-label="Close"
@@ -23,7 +24,10 @@ const EmployeeOrderPaymentBox = (props) => {
         >
             <div className="modal-header mb-0">
                 <h5 className="modal-title">Order Payment Details</h5>
-                <p className="pink mt-3 f_20">(Note: You have to pay first time cost only)</p>
+                {
+                    selectedOrder && selectedOrder.length &&
+                <p className="pink mt-3 f_20">(Note: You have to pay first time cost only ({selectedOrder[0].firstPaymentTerm} months cost))</p>
+                }
             </div>
             <div className="modal-body">
                 <div className="general_table table-responsive">
