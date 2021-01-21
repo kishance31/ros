@@ -26,13 +26,13 @@ const HomepageCarousel = () => {
                             <div className="visual_content">
                                 <p>
                                     <span className="main_title"><span style={{ color: "blue" }}>Remote</span>&nbsp; Office&nbsp; <span style={{ color: "red" }}>Solution</span></span>
-                                <span className="subtitle">Remote Office Solutions an innovation  platform for forward leaning company to manage its remote workforce.</span></p>
+                                    <span className="subtitle">Remote Office Solutions an innovation  platform for forward leaning company to manage its remote workforce.</span></p>
                                 <button type="button" className="btn mt-4 mt-lg-3" onClick={showSignUpModal}>CORPORATE SIGNUP</button>
                             </div>
                         </div>
                         <div className="col-lg-6">
                             <div className="visual">
-                                <img src={require(`../../assets/images/main-banner.png`)} alt="" className="about_img img-fluid" />
+                                <img style={{ width: "500px" }} src={require(`../../assets/images/main-banner.png`)} alt="" className="about_img img-fluid" />
                             </div>
                         </div>
 
@@ -70,8 +70,8 @@ const HomepageCarousel = () => {
                             </div>
                         </div>
                         <div className="col-lg-6 col-md-12">
-                            <video controls poster={require(`../../assets/images/service1.png`)}>
-                                <source src={`${finalUrl}/static/videos/ROS%20-%20Unique%20Workforce%20System.mp4`} type="video/mp4"></source>
+                            <video controls poster={require(`../../assets/images/ros-user friendly platform.png`)}>
+                                <source src={`${finalUrl}/static/videos/ROS - User Friendly Platform.mp4`} type="video/mp4"></source>
                             </video>
                             {/* <div className=""><img src={require(`../../assets/images/service1.png`)} alt="" className="about_img img-fluid" /></div> */}
                         </div>
@@ -80,8 +80,8 @@ const HomepageCarousel = () => {
                 <div className="section_about">
                     <div className="row flex-column-reverse flex-lg-row">
                         <div className="col-lg-6 col-md-12">
-                            <video controls poster={require(`../../assets/images/service2.png`)}>
-                                <source src={`${finalUrl}/static/videos/ROS - User Friendly Platform.mp4`} type="video/mp4"></source>
+                            <video controls poster={require(`../../assets/images/ros-employee well being.png`)}>
+                                <source src={`${finalUrl}/static/videos/ROS- Employees Well Being.mp4`} type="video/mp4"></source>
                             </video>
                         </div>
                         <div className="col-lg-6 col-md-12 v_center">
@@ -110,8 +110,8 @@ const HomepageCarousel = () => {
                             </div>
                         </div>
                         <div className="col-lg-6 col-md-12">
-                            <video controls poster={require(`../../assets/images/service3.png`)}>
-                                <source src={`${finalUrl}/static/videos/ROS- Employees Well Being.mp4`} type="video/mp4"></source>
+                            <video controls poster={require(`../../assets/images/ros-unique work force system.png`)}>
+                                <source src={`${finalUrl}/static/videos/ROS%20-%20Unique%20Workforce%20System.mp4`} type="video/mp4"></source>
                             </video>
                         </div>
                     </div>
