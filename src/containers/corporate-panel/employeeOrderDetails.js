@@ -27,7 +27,7 @@ const EmployeeOrderDetails = () => {
 
    const { toggleOverlay } = useContext(OverlayContext);
 
-   const { orderDetails, totalRecords, refreshList, batchNumber, employeeNames } =
+   const { orderDetails, refreshList, batchNumber, employeeNames } =
       useSelector(state => state.employeeOrderDetails, shallowEqual);
 
    const onPageChange = (currentBatch) => {
@@ -179,42 +179,42 @@ const EmployeeOrderDetails = () => {
                            Object.keys(orderDetails).length ? (
                               Object.keys(orderDetails).map((key, index) => {
                                  return (
-                                 <React.Fragment key={orderDetails[key][0]._id}>
-                                    <tr>
-                                       <td>
-                                          <div
-                                             className={`toggle_icon ${mainIndex && (mainIndex === (index + 1)) ? "expanded" : ""}`}
-                                             onClick={() => onMainTable(index + 1)}>
-                                          </div>
-                                       </td>
-                                       <td></td>
-                                       <td>{index + 1}</td>
-                                       <td>
-                                          {
-                                             orderDetails[key][0].employeeDetails.firstName ? orderDetails[key][0].employeeDetails.firstName + " " + orderDetails[key][0].employeeDetails.lastName : ""
-                                          }
-                                       </td>
-                                       <td>
-                                          {
-                                             orderDetails[key][0].employeeDetails.email
-                                          }
-                                       </td>
-                                    </tr>
-                                    {
-                                       mainIndex && (mainIndex === (index + 1)) ?
-                                          <EmployeeOrderTable
-                                             onSelectChange={onSelectChange}
-                                             rowIndex={rowIndex}
-                                             onTable={onTable}
-                                             setVisibleDeleteModal={setVisibleDeleteModal}
-                                             setSelectedEmployee={setSelectedEmployee}
-                                             handleBatchChang e={handleBatchChange}
-                                             orderDetails={orderDetails[key]}
-                                             onSelectAll={onSelectAll}
-                                             selectedOrder={selectedOrder}
-                                          /> : null
-                                    }
-                                 </React.Fragment>
+                                    <React.Fragment key={orderDetails[key][0]._id}>
+                                       <tr>
+                                          <td>
+                                             <div
+                                                className={`toggle_icon ${mainIndex && (mainIndex === (index + 1)) ? "expanded" : ""}`}
+                                                onClick={() => onMainTable(index + 1)}>
+                                             </div>
+                                          </td>
+                                          <td></td>
+                                          <td>{index + 1}</td>
+                                          <td>
+                                             {
+                                                orderDetails[key][0].employeeDetails.firstName ? orderDetails[key][0].employeeDetails.firstName + " " + orderDetails[key][0].employeeDetails.lastName : ""
+                                             }
+                                          </td>
+                                          <td>
+                                             {
+                                                orderDetails[key][0].employeeDetails.email
+                                             }
+                                          </td>
+                                       </tr>
+                                       {
+                                          mainIndex && (mainIndex === (index + 1)) ?
+                                             <EmployeeOrderTable
+                                                onSelectChange={onSelectChange}
+                                                rowIndex={rowIndex}
+                                                onTable={onTable}
+                                                setVisibleDeleteModal={setVisibleDeleteModal}
+                                                setSelectedEmployee={setSelectedEmployee}
+                                                handleBatchChang e={handleBatchChange}
+                                                orderDetails={orderDetails[key]}
+                                                onSelectAll={onSelectAll}
+                                                selectedOrder={selectedOrder}
+                                             /> : null
+                                       }
+                                    </React.Fragment>
                                  )
                               })
                            ) : (

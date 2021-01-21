@@ -43,7 +43,7 @@ const EmployeeOrderPaymentBox = (props) => {
                                         <tr key={index}>
                                             <td>
                                                 {
-                                                    item.employeeDetails.length ? item.employeeDetails[0].firstName + " " + item.employeeDetails[0].lastName : ""
+                                                    item.employeeDetails.firstName + " " + item.employeeDetails.lastName
                                                 }
                                             </td>
                                             <td>{item.orderId}</td>

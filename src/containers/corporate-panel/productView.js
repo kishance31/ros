@@ -3,15 +3,19 @@ import { useSelector, useDispatch, shallowEqual } from 'react-redux';
 import { productListAsync, DisplayCategoryListAsync, ProductViewAction } from '../../actions/corporateProductView.action';
 import BasicPagination from '../../components/pagination/basicPagination';
 import { usePaginationHook } from '../../hooks/paginationHook';
+import ProductModal from '../../containers/employee-panel/productModal';
 
 const ProductView = () => {
 
     const dispatch = useDispatch();
     const [selectedLicense, setSelectedLicense] = useState("");
     const [selectedCategory, setSelectedCategory] = useState("");
+    const [viewProduct, setViewProduct] = useState(null);
+    const [openProductModal, setOpenProductModal] = useState(false);
 
     const { productList, productCount, page, limit, categoryList, refreshList } =
         useSelector(state => state.corporateProductView, shallowEqual);
+
     const availableLicenseList =
         useSelector(state => state.purchaseLicense.availableLicenseList, shallowEqual);
 
@@ -41,7 +45,10 @@ const ProductView = () => {
         setSelectedCategory(e.target.value)
         dispatch(ProductViewAction.refreshList(1));
     }
-
+    const onView = (product) => {
+        setOpenProductModal(true);
+        setViewProduct(product)
+    }
     return (
         <>
             <div className="top_bar mb-0">
@@ -93,6 +100,7 @@ const ProductView = () => {
                                     <th className="w_20">ROS&nbsp;COST&nbsp;(USD)</th>
                                     <th className="w_20">PRODUCT&nbsp;IMAGE</th>
                                     <th className="w_20">PRODUCT&nbsp;DESCRIPTON</th>
+                                    <th className="w_20">VIEW&nbsp;PRODUCT</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -110,10 +118,14 @@ const ProductView = () => {
                                                 </td>
                                                 <td>
                                                     <div className="custom-tooltip" data-toggle="tooltip" data-placement="left" title={product.product_description}>{product.product_description ? (
-                                                        product.product_description.length > 49 ? 
-                                                        product.product_description.substr(0, 30) + "..." :
-                                                        product.product_description
+                                                        product.product_description.length > 49 ?
+                                                            product.product_description.substr(0, 30) + "..." :
+                                                            product.product_description
                                                     ) : null}</div>
+                                                </td>
+                                                <td className="text-center">
+                                                    <button className="btn_action pink"
+                                                        onClick={() => { onView(product) }}>View</button>
                                                 </td>
                                             </tr>
                                         )
@@ -140,6 +152,12 @@ const ProductView = () => {
                             ) : null
                         }
                     </div>
+                    <ProductModal
+                        isOpen={openProductModal}
+                        toggleModal={() => setOpenProductModal(false)}
+                        productDetails={viewProduct}
+                        hideAddToCart
+                    />
                 </div>
             </div>
         </>

@@ -24,7 +24,7 @@ const responsive = {
 
 const ProductModal = (props) => {
 
-    const { toggleModal, isOpen, productDetails, addToCart } = props;
+    const { toggleModal, isOpen, productDetails, addToCart, hideAddToCart } = props;
 
     const ModalCloseIcon = () => (
         <button type="button" className="close close_icon ml-auto" aria-label="Close" onClick={toggleModal}>
@@ -60,10 +60,10 @@ const ProductModal = (props) => {
                                         // customTransition="all .5"
                                         // transitionDuration={500}
                                         containerClass="carousel-container"
-                                        // removeArrowOnDeviceType={["tablet", "mobile"]}
-                                        // deviceType={this.props.deviceType}
-                                        // dotListClass="custom-dot-list-style"
-                                        // itemClass="product-image-carousel-item"
+                                    // removeArrowOnDeviceType={["tablet", "mobile"]}
+                                    // deviceType={this.props.deviceType}
+                                    // dotListClass="custom-dot-list-style"
+                                    // itemClass="product-image-carousel-item"
                                     >
                                         {
                                             productDetails.product_image.map((img, i) => (
@@ -94,11 +94,15 @@ const ProductModal = (props) => {
                                         </tbody>
                                     </table>
                                 </div>
-                                <button className="modal-fill_btn_pay btn btn-sm"
-                                    onClick={() => addToCart(productDetails)}
-                                >
-                                    <span>ADD</span>
-                                </button>
+                                {
+                                    !hideAddToCart ? (
+                                        <button className="modal-fill_btn_pay btn btn-sm"
+                                            onClick={() => addToCart(productDetails)}
+                                        >
+                                            <span>ADD</span>
+                                        </button>
+                                    ) : null
+                                }
                             </div>
                         </div>
                     </div>

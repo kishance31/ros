@@ -1024,7 +1024,7 @@ nav.tab {
 }
 
 #payment_details_list.modal-dialog {
-  max-width: 850px;
+  max-width: 1000px;
 
   .general_table {
     th {
@@ -1032,7 +1032,7 @@ nav.tab {
     }
 
     td {
-      padding: 10px 5px;
+      padding: 10px 10px;
     }
 
     .total {
@@ -2359,4 +2359,9 @@ footer {
 
 .product-image-carousel-item {
   width: 300px;
+}
+
+
+#delete_user.modal-dialog {
+  max-width: 650px
 }
