@@ -96,8 +96,8 @@ const ProductView = () => {
 
                                 <tr>
                                     <th className="w_20">PRODUCT&nbsp;NAME</th>
-                                    <th className="w_20">ROS&nbsp;CODE</th>
-                                    <th className="w_20">ROS&nbsp;COST&nbsp;(USD)</th>
+                                    <th className="w_20">PRODUCT&nbsp;CODE</th>
+                                    <th className="w_20">PRODUCT&nbsp;COST&nbsp;(USD)</th>
                                     <th className="w_20">PRODUCT&nbsp;IMAGE</th>
                                     <th className="w_20">PRODUCT&nbsp;DESCRIPTON</th>
                                     <th className="w_20">VIEW&nbsp;PRODUCT</th>

@@ -57,17 +57,11 @@ const ProductModal = (props) => {
                                         responsive={responsive}
                                         infinite={true}
                                         autoPlay={false}
-                                        // customTransition="all .5"
-                                        // transitionDuration={500}
                                         containerClass="carousel-container"
-                                    // removeArrowOnDeviceType={["tablet", "mobile"]}
-                                    // deviceType={this.props.deviceType}
-                                    // dotListClass="custom-dot-list-style"
-                                    // itemClass="product-image-carousel-item"
                                     >
                                         {
                                             productDetails.product_image.map((img, i) => (
-                                                <img key={i} src={img} className="img-fluid" alt="product_image" />
+                                                <img key={i} src={img} className="img-fluid" alt="product_image" height="260" />
                                             ))
                                         }
                                     </Carousel>
