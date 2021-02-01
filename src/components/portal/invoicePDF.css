@@ -1,55 +1,82 @@
-.heading th {
-    font-size: 15px;
-    padding: 10px;
-    border-bottom: 1px solid #000;
-    border-right: 1px solid #000;
+.tableStyle {
+    width: 80%;
+    margin: 0 auto;
+    font-family: Arial,
+        Helvetica, sans-serif;
 }
 
-tr.details td {
-    text-align: right;
-    font-size: 15px;
-    padding: 5px 10px 5px;
-    border-right: 1px solid #000;
+.table2Style {
+    width: 80%;
+    margin: 0 auto;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
-tr.no-border td {
-    border: none !important;
+a,
+a:hover {
+    text-decoration: none;
 }
 
-.main-body {
-    position: relative;
-    width: 800px;
-    height: auto;
-    margin: 20px auto;
-    color: #111111;
-    font-size: 10px;
-    font-family: 'Roboto', sans-serif;
-    font-weight: 400
-}
-
-.main-body-style {
-    display: inline-block;
-    margin-top: 20px;
-    font-size: 18px;
-    font-weight: bold;
-    border-bottom: 1px solid #000;
-    padding-bottom: 2px;
-
-}
-
-.corporate-table {
+.general_table table {
     width: 100%;
-    border-collapse: collapse;
-    border-spacing: 0;
-    margin-top: 30px;
 }
 
-.corporate-table-column {
-    width: 100%;
-    border-collapse: collapse;
-    border-spacing: 0;
-    border: 1px solid #000;
-    margin-top: 10px;
-    font-size: 18px;
+.general_table table th {
+    color: #8BC8D4;
+    text-transform: uppercase;
+    font-weight: normal;
+    border-bottom: 1px solid #ddd;
+    padding: 0 5px 5px;
+    text-align: left;
+}
 
+.general_table table .top_border {
+    border-top: 1px solid #ddd;
+}
+
+.general_table table .action_col {
+    text-align: center;
+    width: 480px;
+}
+
+.general_table table .action_btn_wrap {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+}
+
+.general_table table td,
+.general_table table th {
+    font-size: 16px;
+}
+
+.general_table table td {
+    border-top: none;
+    color: #292929;
+    padding: 20px 5px 0;
+}
+
+.general_table table td.pink {
+    color: #F8AFAF;
+}
+
+.general_table .table_detail table {
+    width: 85%;
+    margin: 0 auto;
+    border-radius: 5px;
+    background: #f8f8f8;
+    border: 1px solid #ededeb;
+}
+
+.general_table .table_detail table td,
+.general_table .table_detail table th {
+    padding: 10px 25px;
+}
+
+.paid_btn {
+    color: #fff;
+    background: #92d050;
+    padding: 5px 40px;
 }
