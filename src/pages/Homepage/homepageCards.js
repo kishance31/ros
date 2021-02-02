@@ -2,6 +2,8 @@ import React from 'react';
 import TextCardComponent from '../../components/card/textCard';
 import FAQCard from '../../components/card/faqCard';
 import {  ContactusLinks, NewsLetterDetails } from '../../utils/constants';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faFacebook, faInstagram, faGoogle, faPinterest, faTwitter } from '@fortawesome/free-brands-svg-icons'
 
 const HomepageCards = () => {
 
@@ -57,9 +59,14 @@ const HomepageCards = () => {
                             <TextCardComponent name="Contact Us" sName="Get In Touch">
                                 <div className="col-4 d-flex justify-content-end align-items-center" data-aos="fade-up">
                                     <ul className="list-unstyled text-small">
-                                        {
+                                        {/* {
                                             ContactusLinks.map((links, i) => <li key={i}><a href={links.url}>{links.name}</a></li>)
-                                        }
+                                        } */}
+                                        <li><a href="#"><FontAwesomeIcon icon={faFacebook} /></a></li>
+                                        <li><a href="#"><FontAwesomeIcon icon={faTwitter} /></a></li>
+                                        <li><a href="#"><FontAwesomeIcon icon={faInstagram} /></a></li>
+                                        <li><a href="#"><FontAwesomeIcon icon={faGoogle} /></a></li>
+                                        <li><a href="#"><FontAwesomeIcon icon={faPinterest} /></a></li>
                                     </ul>
                                 </div>
                             </TextCardComponent>
