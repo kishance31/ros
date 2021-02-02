@@ -95,11 +95,28 @@ const EmployeeOrderDetails = () => {
 
    const onSelectAll = (e, orderDetails) => {
       if (e.target.checked) {
+         let tempOrders = orderDetails.filter(order => {
+            let newOrder = selectedOrder.find(or => or._id === order._id);
+            if(!newOrder) {
+               return !order.isFirstTimePayment;
+            }
+            return false;
+         })
          setselectedOrders([
-            ...orderDetails.filter(order => !order.isFirstTimePayment),
+            ...selectedOrder,
+            ...tempOrders,
          ]);
       } else {
-         setselectedOrders([])
+         let tempOrders = selectedOrder.filter(order => {
+            let newOrder = orderDetails.find(or => or._id === order._id);
+            if(newOrder) {
+               return false;
+            }
+            return true;
+         })
+         setselectedOrders([
+            ...tempOrders
+         ])
       }
    }
 
@@ -185,7 +202,7 @@ const EmployeeOrderDetails = () => {
                            Object.keys(orderDetails).length ? (
                               Object.keys(orderDetails).map((key, index) => {
                                  return (
-                                    <React.Fragment key={orderDetails[key][0]._id}>
+                                    <React.Fragment key={index}>
                                        <tr>
                                           <td>
                                              <div

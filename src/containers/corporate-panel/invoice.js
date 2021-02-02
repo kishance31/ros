@@ -6,7 +6,6 @@ import PaymentBox from '../../components/corporate-panel/invoice/paymentBox';
 import { OverlayContext } from '../../context/loadingOverlay.context';
 import BasicPagination from '../../components/pagination/basicPagination';
 import { usePaginationHook } from '../../hooks/paginationHook';
-import { generateInvoicePDF } from '../../hooks/generateInvoicePDF';
 import InvoicePDF from '../../components/portal/InvoicePDF'
 
 const Invoice = () => {
@@ -111,24 +110,8 @@ const Invoice = () => {
                             <thead>
                                 <tr>
                                     <th>Sr&nbsp;No</th>
-                                    {
-                                        !isReccuring ? (
-                                            <th>EMPLOYEE&nbsp;NAME</th>
-                                        ) : null
-                                    }
-                                    {
-                                        !isReccuring ?
-                                            <th>
-                                                "INVOICE DATE"
-                                            </th> : null
-                                    }
                                     <th>
-                                        {
-                                            isReccuring ?
-                                                "INVOICE No"
-                                                :
-                                                "PRODUCT ORDER NO"
-                                        }
+                                        INVOICE No
                                     </th>
                                     <th>INVOICE&nbsp;DATE</th>
                                     <th>AMOUNT</th>
@@ -143,24 +126,8 @@ const Invoice = () => {
                                         invoiceList.map((invoice, index) => (
                                             <tr key={invoice.invoiceNo}>
                                                 <td>{index + 1}</td>
-                                                {
-                                                    !isReccuring ? (
-                                                        <td>
-                                                            {invoice.employeeDetails[0].firstName + " " + invoice.employeeDetails[0].lastName}
-                                                        </td>
-                                                    ) : null
-                                                }
-                                                {
-                                                    !isReccuring ?
-                                                        <td>
-                                                            {new Date(invoice.orderDate).toLocaleString()}
-                                                        </td> : null
-                                                }
                                                 <td>{
-                                                    isReccuring ?
                                                     invoice.invoiceNo
-                                                    :
-                                                    invoice.orderId
                                                 }</td>
                                                 <td>{new Date(invoice.invoiceDate).toLocaleString()}</td>
                                                 <td>$

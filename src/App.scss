@@ -1493,7 +1493,7 @@ nav.tab {
 
       .shopping_summary_shadow_box {
         width: 96%;
-        height: 534px;
+        height: 480px;
         border-radius: 5px;
         background: #fff;
         box-shadow: 0 0 50px rgba(0, 0, 0, 0.09);
@@ -1631,7 +1631,7 @@ nav.tab {
       margin-bottom: 30px;
       border-radius: 2px;
       background: #fff;
-      box-shadow: 0 0 50px rgba(0, 0, 0, 0.09);
+      // box-shadow: 0 0 50px rgba(0, 0, 0, 0.09);
       display: flex;
       justify-content: center;
       align-items: center;
@@ -2071,8 +2071,9 @@ nav.tab {
   box-shadow: 0 0 50px rgba(0, 0, 0, 0.09);
   text-transform: uppercase;
   margin: 0 auto;
+  margin-top: 45px;
   display: table;
-  margin-top: 20px;
+  // margin-top: 20px;
 
   &:hover {
     background: #96d8e5;
@@ -2364,4 +2365,10 @@ footer {
 
 #delete_user.modal-dialog {
   max-width: 650px
+}
+
+.carousel-container {
+  .img-ele {
+    max-width: 100%;
+  }
 }

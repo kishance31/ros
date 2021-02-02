@@ -29,7 +29,7 @@ const HeaderButtons = props => {
                 </NavbarBrand>
             }
 
-            <div className="title">Remote Office Solutions</div>
+            <div className="title">Remote Office Solution</div>
             <div className="btn_wrap">
                 <div className="right_side_buttons">
                     <NavLink to="/home"><img src={require(`../../assets/images/home.svg`)} alt="" /></NavLink>

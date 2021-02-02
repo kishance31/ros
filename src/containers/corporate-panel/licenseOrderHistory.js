@@ -1,14 +1,16 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch, shallowEqual } from 'react-redux';
 import purchaseLicenseAction, { licenseOrderHistoryAsync } from "../../actions/purchaseLicense.action";
 import BasicPagination from '../../components/pagination/basicPagination';
 import { usePaginationHook } from '../../hooks/paginationHook';
-import { generateLicensePDF } from '../../hooks/generateLicensePDF';
+import LicensePDF from '../../components/portal/licensePDF'
 
 const LicenseOrderHistory = () => {
 
 
     const dispatch = useDispatch();
+
+    const [selectedPDFInvoice, setSelectedPDFInvoice] = useState(null);
 
     const user = useSelector(state => state.auth.user, shallowEqual);
 
@@ -101,7 +103,7 @@ const LicenseOrderHistory = () => {
                                                         </td>
                                                         <td>
                                                             <a href="#" className="download"
-                                                                onClick={() => generateLicensePDF({ data: item, corporate: user })}
+                                                                onClick={() => setSelectedPDFInvoice(item)}
                                                             >
                                                                 <img src={require(`../../assets/images/download.svg`)} alt="" />
                                                             DOWNLOAD
@@ -125,6 +127,10 @@ const LicenseOrderHistory = () => {
                     }
                 </div>
             </div>
+            <LicensePDF
+                user={user}
+                selectedPDFInvoice={selectedPDFInvoice}
+            />
         </div>
     )
 }
