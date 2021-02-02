@@ -31,7 +31,7 @@ function App() {
 					<SplashScreenProvider>
 						<OverlayProvider>
 							<AppWrapper />
-							<InvoicePDF />
+							{/* <InvoicePDF /> */}
 						</OverlayProvider>
 					</SplashScreenProvider>
 				</BrowserRouter>
