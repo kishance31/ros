@@ -61,7 +61,7 @@ const ProductModal = (props) => {
                                     >
                                         {
                                             productDetails.product_image.map((img, i) => (
-                                                <img key={i} src={img} className="img-fluid" alt="product_image" height="260" />
+                                                <img key={i} src={img} className="img-ele" alt="product_image" height="260" />
                                             ))
                                         }
                                     </Carousel>

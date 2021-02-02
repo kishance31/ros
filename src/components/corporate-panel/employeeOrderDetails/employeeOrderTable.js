@@ -35,10 +35,6 @@ const EmployeeOrderTable = (props) => {
                                     type="checkbox"
                                     onChange={(e) => {
                                         console.log(e.target.checked);
-                                        // setSelectedEmployee(orderDetails.map(check => {
-                                        //     check.select = checked;
-                                        //     return check;
-                                        // }))
                                         onSelectAll(e, orderDetails);
                                         setSelectAllChecked(e.target.checked);
                                     }}
@@ -56,7 +52,7 @@ const EmployeeOrderTable = (props) => {
                             <th className="text-center">ACTION</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody> 
                         {
                             orderDetails.length ? (
                                 orderDetails.map((orderList, index) => (
@@ -67,16 +63,6 @@ const EmployeeOrderTable = (props) => {
                                                     !orderList.isFirstTimePayment ? (
                                                         <input
                                                             onChange={(event) => {
-                                                                // console.log(event.target.checked);
-                                                                // let checked = event.target.checked;
-                                                                // setSelectedEmployee(
-                                                                //     orderList.map(data => {
-                                                                //         if (orderList._id === data._id) {
-                                                                //             data.select = checked;
-                                                                //         }
-                                                                //         return data;
-                                                                //     })
-                                                                // );
                                                                 onSelectChange(event, orderList)
                                                                 if(!event.target.checked) {
                                                                     setSelectAllChecked(false);
@@ -139,7 +125,7 @@ const EmployeeOrderTable = (props) => {
                         }
                     </tbody>
                 </table>
-                {
+                {/* {
                     orderDetails.length ? (
                         <div style={{ marginTop: 20, float: "right" }}>
                             <BasicPagination
@@ -150,7 +136,7 @@ const EmployeeOrderTable = (props) => {
                             />
                         </div>
                     ) : null
-                }
+                } */}
             </td>
         </tr>
     )

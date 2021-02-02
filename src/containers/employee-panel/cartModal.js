@@ -37,7 +37,7 @@ const CartModal = (props) => {
                 isOpen={isOpen}
                 toggleModal={toggleModal}
                 closeIcon={<ModalCloseIcon />}
-                title="Shopping Bag"
+                title="SHOPPING BAG"
                 centered
                 id="ShoppingBagModal"
                 className="item-listing"
@@ -110,7 +110,7 @@ const CartModal = (props) => {
                                         <div className="shopping_summary_shadow_box p-0">
                                             <h3 className="shopping_summary">SHOPPING SUMMARY</h3>
                                             <div className="expected_date">
-                                                <div style={{ height: "400px", overflowY: 'scroll' }}>
+                                                <div style={{ height: "415px", overflowY: 'scroll' }}>
                                                     <table className="table table-sm">
                                                         <thead>
                                                             <tr>
@@ -130,11 +130,11 @@ const CartModal = (props) => {
                                                         </tbody>
                                                     </table>
                                                 </div>
+                                            </div>
                                                 <button className="btn btn-sm modal-fill_btn_confirm_order"
                                                     onClick={() => { redirectToThankYou() }}>
                                                     <span className="">confirm Order</span>
                                                 </button>
-                                            </div>
                                         </div>
                                     </div>
                                 </div>

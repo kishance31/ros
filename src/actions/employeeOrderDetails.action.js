@@ -46,7 +46,7 @@ export const getEmployeeOrderDetailsAsync = (employeeId) => async (dispatch, get
             }
         } = getState();
         let options = {
-            url: `${serverUrl}/corporate-admin/getEmployeeOrderDetails/${batchNumber - 1}/5`,
+            url: `${serverUrl}/corporate-admin/getEmployeeOrderDetails/${batchNumber - 1}/100`,
             method: "POST",
             headers: {
                 'Content-Type': "application/json",
