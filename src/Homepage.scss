@@ -1785,12 +1785,12 @@ li.nav-item.active .nav-link {
 
 .section_about {
   // height: 100vh;
-  padding: 40px 0 50px;
-  background: #f8f8f8;
+  padding: 40px 40px 50px;
+  // background: #f8f8f8;
   margin-bottom: 40px;
   padding-left: 140px;
   @media screen and (max-width: 1639px) {
-    padding-left: 100px;
+    padding-left: 75px;
   }
   @media screen and (max-width: 1279px) {
     padding-left: 55px;
