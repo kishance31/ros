@@ -1,11 +1,23 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import TextCardComponent from '../../components/card/textCard';
 import FAQCard from '../../components/card/faqCard';
-import {  ContactusLinks, NewsLetterDetails } from '../../utils/constants';
+import { ContactusLinks, NewsLetterDetails } from '../../utils/constants';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faFacebook, faInstagram, faGoogle, faPinterest, faTwitter } from '@fortawesome/free-brands-svg-icons'
+import { faFacebook, faInstagram, faGoogle, faPinterest, faTwitter } from '@fortawesome/free-brands-svg-icons';
+import { useSelector, useDispatch } from 'react-redux';
+import { getSocialLinksAsync } from '../../actions/faq.action';
 
 const HomepageCards = () => {
+
+    const dispatch = useDispatch();
+
+    const { socialLinksList, refreshLinkData } = useSelector(state => state.faq);
+
+    useEffect(() => {
+        if (refreshLinkData) {
+            dispatch(getSocialLinksAsync())
+        }
+    }, [refreshLinkData])
 
     return (
         <>
@@ -34,8 +46,6 @@ const HomepageCards = () => {
                     </div>
                 </div>
             </section> */}
-
-
             {/* <section className="section_two">
                 <div className="container-fluid">
                     <div className="row homepage_product_card">
@@ -49,9 +59,8 @@ const HomepageCards = () => {
                             )
                         }
                     </div>
-                </div>
+                </div> 
             </section>*/}
-
             <section className="section_four">
                 <div className="container-fluid pt-0">
                     <div className="row">
@@ -62,11 +71,11 @@ const HomepageCards = () => {
                                         {/* {
                                             ContactusLinks.map((links, i) => <li key={i}><a href={links.url}>{links.name}</a></li>)
                                         } */}
-                                        <li><a href="#"><FontAwesomeIcon icon={faFacebook} /></a></li>
-                                        <li><a href="#"><FontAwesomeIcon icon={faTwitter} /></a></li>
-                                        <li><a href="#"><FontAwesomeIcon icon={faInstagram} /></a></li>
-                                        <li><a href="#"><FontAwesomeIcon icon={faGoogle} /></a></li>
-                                        <li><a href="#"><FontAwesomeIcon icon={faPinterest} /></a></li>
+                                        <li><a href={socialLinksList.facebook}><FontAwesomeIcon icon={faFacebook} /></a></li>
+                                        <li><a href={socialLinksList.twitter}><FontAwesomeIcon icon={faTwitter} /></a></li>
+                                        <li><a href={socialLinksList.instagram}><FontAwesomeIcon icon={faInstagram} /></a></li>
+                                        <li><a href={socialLinksList.google}><FontAwesomeIcon icon={faGoogle} /></a></li>
+                                        <li><a href={socialLinksList.pinterest}><FontAwesomeIcon icon={faPinterest} /></a></li>
                                     </ul>
                                 </div>
                             </TextCardComponent>
@@ -77,7 +86,6 @@ const HomepageCards = () => {
                     </div>
                 </div>
             </section>
-
         </>
     )
 }
