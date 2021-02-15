@@ -89,7 +89,7 @@ body .homepage {
       .title {
         font-size: 40px;
         // font-weight: 600;
-        font-family: $font_play;
+        font-family: $font_poppins;
         margin: 0 auto;
         text-align: center;
         @media screen and (max-width: 1280px) {
@@ -1821,7 +1821,7 @@ li.nav-item.active .nav-link {
       font-size: 38px;
       word-break: break-word;
       margin: 40px 0 20px;
-      font-family: $font_play;
+      font-family: $font_poppins;
       @media screen and (max-width: 1289px) {
         margin: 20px 0 15px;
       }
@@ -2003,7 +2003,7 @@ section.container-fluid .contact_page.contact_us {
       color: #000;
 
       .main_title {
-        font-family: $font_play;
+        font-family: $font_poppins;
         display: flex;
         margin-bottom: 20px;
         font-size: 40px;
@@ -2018,7 +2018,7 @@ section.container-fluid .contact_page.contact_us {
       .subtitle {
         display: block;
         max-width: 450px;
-        font-family: $font_play;
+        font-family: $font_poppins;
         @media screen and (max-width: 991px) {
           margin: 0 auto;
         }

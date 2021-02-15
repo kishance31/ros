@@ -27,7 +27,7 @@ const HomepageCarousel = () => {
                                 <p>
                                     <span className="main_title"><span style={{ color: "blue" }}>Remote</span>&nbsp; <span>Office</span>&nbsp; <span style={{ color: "red" }}>Solution</span></span>
                                     <span className="subtitle">Remote Office Solutions an innovation  platform for forward leaning company to manage its remote workforce.</span></p>
-                                <button type="button" className="btn mt-4 mt-lg-3" onClick={showSignUpModal}>CORPORATE SIGNUP</button>
+                                <button type="button" className="btn mt-4 mt-lg-3" onClick={showSignUpModal}>Corporate Signup</button>
                             </div>
                         </div>
                         <div className="col-lg-6">
