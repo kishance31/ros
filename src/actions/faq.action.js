@@ -64,7 +64,7 @@ export const getSocialLinksAsync = () => {
             dispatch({
                 type: FAQMap.GET_SOCIAL_LINKS_ERROR
             })
-            dispatch(notificationActions('error', "Error while updating", 3000))
+            // dispatch(notificationActions('error', "Error while updating", 3000))
         }
     }
 }
