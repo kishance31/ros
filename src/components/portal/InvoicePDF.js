@@ -12,7 +12,15 @@ const InvoicePDF = ({ selectedPDFInvoice, user }) => {
     useEffect(() => {
         if (selectedPDFInvoice) {
             const element = document.querySelector("#portal-root .main-body");
+            var opt = {
+                margin: 0,
+                filename: 'myfile.pdf',
+                image: { type: 'jpeg', quality: 0.98 },
+                html2canvas: { scale: 2 },
+                jsPDF: { unit: 'in', format: 'letter', orientation: 'landscape' }
+            };
             html2pdf()
+                .set(opt)
                 .from(element)
                 .save(`${selectedPDFInvoice.isReccuring ? "Recurring" : "Order"}_Invoice_${Date.now()}.pdf`)
         }
