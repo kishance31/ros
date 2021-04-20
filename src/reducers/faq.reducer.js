@@ -40,7 +40,7 @@ const faqReducer = (state = initialState, action) => {
             return {
                 ...state,
                 isLoading: false,
-                socialLinksList: action.payload,
+                socialLinksList: action.payload || {},
                 refreshLinkData: false,
             }
         }

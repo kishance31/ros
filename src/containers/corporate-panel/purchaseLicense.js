@@ -79,7 +79,7 @@ const PurchaseLicense = () => {
     }
 
     const payPurchaseLicenses = (data) => {
-        dispatch(purchaseLicenseAsync(orderId, purchaseLicenseList, user.tokens, {a: 1}));
+        dispatch(purchaseLicenseAsync(orderId, purchaseLicenseList, user.tokens, data));
         setShowPaymentModal(!showPaymentModal);
         dispatch(notificationActions.showNotification({
             title: "License purchased successfully",
