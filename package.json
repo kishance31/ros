@@ -36,12 +36,12 @@
     "redux-thunk": "^2.3.0"
   },
   "scripts": {
-    "start": "REACT_APP_SERVER_URL=https://api.remoteofficessolution.com/api REACT_APP_HOST=https://api.remoteofficessolution.com react-scripts start",
+    "start": "REACT_APP_SERVER_URL=http://3.20.110.72:5010/api REACT_APP_HOST=http://3.20.110.72:5010 react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "stag": "REACT_APP_SERVER_URL=https://api.remoteofficessolution.com/api REACT_APP_HOST=https://api.remoteofficessolution.com react-scripts build",
-    "prod": "REACT_APP_SERVER_URL=https://api.remoteofficessolution.com/api REACT_APP_HOST=https://api.remoteofficessolution.com react-scripts build"
+    "stag": "REACT_APP_SERVER_URL=http://3.20.110.72:5010/api REACT_APP_HOST=http://3.20.110.72:5010 react-scripts build",
+    "prod": "REACT_APP_SERVER_URL=http://3.20.110.72:5010/api REACT_APP_HOST=http://3.20.110.72:5010 react-scripts build"
   },
   "eslintConfig": {
     "extends": "react-app"
