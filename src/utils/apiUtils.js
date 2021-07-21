@@ -24,7 +24,7 @@ const defaultMethod = "POST"
 const serverUrls = {
     getHost: () => host,
     getPort: () => port,
-    getDefaulUrl: () => `${host}:${port}/${defaultRoute}`,
+    getDefaulUrl: () => `${host}/${defaultRoute}`,
     getCorporateUrl() {
         return `${userRoute}`;
     },
